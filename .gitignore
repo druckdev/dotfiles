@@ -1,0 +1,13 @@
+archive
+.gitignore
+!/.gitignore
+.zcompdump
+*.zwc
+_msg
+*.bkp
+.netrwhist
+github.config
+gitlab.config
+example.config
+.config/tmux/plugins
+!.config/tmux/plugins/tpm

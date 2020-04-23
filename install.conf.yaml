@@ -1,0 +1,11 @@
+- shell:
+    - /bin/sh -c 'tmpd="$(mktemp -d)"; for file in .config/*; do [ ! -e "$HOME/$file" ] || mv "$HOME/$file" "$tmpd"; done; rmdir "$tmpd" 2>/dev/null || { tar czvf "existing-$(date +"%s").tar.gz" "$tmpd" && rm -rf "$tmpd"; }'
+- link:
+    ~/.Xresources:
+        .Xresources
+    ~/.zshenv:
+        .zshenv
+    ~/.config/:
+        create: true
+        glob: true
+        path: .config/*

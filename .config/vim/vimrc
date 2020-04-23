@@ -1,0 +1,71 @@
+" Keybinds ##########################################################################
+" Disable arrow keys
+noremap  <Up> ""
+noremap! <Up> <Esc>
+noremap  <Down> ""
+noremap! <Down> <Esc>
+noremap  <Left> ""
+noremap! <Left> <Esc>
+noremap  <Right> ""
+noremap! <Right> <Esc>
+" Stop highlighting search result when pressing Return
+nnoremap <silent> <CR> :nohlsearch<CR><CR>
+
+" Settings ##########################################################################
+" hybrid linenumbers
+set number relativenumber
+" no timeout when exiting insert-mode (see https://www.johnhawthorn.com/2012/09/vi-escape-delays/)
+set timeoutlen=1000 ttimeoutlen=0
+" smart case insensitive search (insens: /copy /Copy\c; sens: /Copy /copy\C)
+set ignorecase smartcase
+" Tab size
+set tabstop=4
+" Shift the same amount as tabstop
+set shiftwidth=0
+" Highlight current line
+set cursorline
+" Automatically add leading comment (when pressing o/O or enter in Insert)
+set formatoptions+=cro
+" see :help persistent-undo
+set undofile
+
+" Aesthetics #######################################################################
+" use onedark as theme for syntax highlighting
+syntax on
+colorscheme onedark
+" Use 24-bit (true-color) mode 
+if (has("termguicolors"))
+	set termguicolors
+endif
+
+" get transparent background of the terminal back
+" (at least in nvim, i can't get it to work in vanilla)
+if (has('nvim'))
+	highlight Normal guibg=NONE
+	highlight NonText guibg=NONE
+endif
+
+" zshOption is a huge regex that leads to massive lags when scrolling
+" Be sure to disable it after activating syntax highlighting
+autocmd filetype zsh syntax clear zshOption
+
+" change cursor shape depending on mode
+if (has('nvim'))
+	" reset when exiting
+	autocmd VimLeave * set guicursor=a:ver25
+else
+	" https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
+	" start insert mode - vertical bar
+	let &t_SI = "\<Esc>[5 q"
+	" start replace mode - horizontal/underline bar
+	let &t_SR = "\<Esc>[3 q"
+	" end insert or replace mode - block cursor
+	let &t_EI = "\<Esc>[1 q"
+
+	" Set when entering
+	autocmd VimEnter * silent !echo -ne "\e[2 q" 
+	" Reset when exiting
+	" Finally found out how to do that by looking at:
+	" https://github.com/jszakmeister/vim-togglecursor/blob/master/plugin/togglecursor.vim
+	autocmd VimLeave * let &t_te = "\<Esc>[5 q" . &t_te
+endif

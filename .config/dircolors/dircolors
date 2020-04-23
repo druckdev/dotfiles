@@ -1,0 +1,146 @@
+# This file is based on the standard dircolors but with bright colors when using bold font
+
+TERM xterm*
+
+# NORMAL 	00
+# FILE	00
+RESET	0
+DIR		01;94
+LINK	01;96
+MULTIHARDLINK	01;96
+FIFO	40;33
+SOCK	01;95
+DOOR	01;95
+BLK		40;33;01 # block device driver
+CHR		40;33;01 # character device driver
+ORPHAN	40;31;01 # symlink to nonexistent file, or non-stat'able file ...
+MISSING	00 		 # ... and the files they point to
+SETUID	37;41
+SETGID	30;43
+CAPABILITY	30;41
+STICKY_OTHER_WRITABLE	30;42
+OTHER_WRITABLE 	34;42
+STICKY	37;44
+EXEC	01;92
+
+## Archives
+*.tar	01;91
+*.tgz	01;91
+*.arc	01;91
+*.arj	01;91
+*.taz	01;91
+*.lha	01;91
+*.lz4	01;91
+*.lzh	01;91
+*.lzma	01;91
+*.tlz	01;91
+*.txz	01;91
+*.tzo	01;91
+*.t7z	01;91
+*.zip	01;91
+*.z		01;91
+*.Z		01;91
+*.dz	01;91
+*.gz	01;91
+*.lrz	01;91
+*.lz	01;91
+*.lzo	01;91
+*.xz	01;91
+*.zst	01;91
+*.tzst	01;91
+*.bz2	01;91
+*.bz	01;91
+*.tbz	01;91
+*.tbz2	01;91
+*.tz	01;91
+*.deb	01;91
+*.rpm	01;91
+*.jar	01;91
+*.war	01;91
+*.ear	01;91
+*.sar	01;91
+*.rar	01;91
+*.alz	01;91
+*.ace	01;91
+*.zoo	01;91
+*.cpio	01;91
+*.7z	01;91
+*.rz	01;91
+*.cab	01;91
+*.wim	01;91
+*.swm	01;91
+*.dwm	01;91
+*.esd	01;91
+
+## Images
+*.jpg 	01;95
+*.jpeg 	01;95
+*.mjpg 	01;95
+*.mjpeg 01;95
+*.gif 	01;95
+*.bmp 	01;95
+*.pbm 	01;95
+*.pgm 	01;95
+*.ppm 	01;95
+*.tga 	01;95
+*.xbm 	01;95
+*.xpm 	01;95
+*.tif 	01;95
+*.tiff 	01;95
+*.png 	01;95
+*.svg 	01;95
+*.svgz 	01;95
+*.mng 	01;95
+*.pcx 	01;95
+
+ ## Videos
+*.mov 	01;95
+*.mpg 	01;95
+*.mpeg 	01;95
+*.m2v 	01;95
+*.mkv 	01;95
+*.webm 	01;95
+*.ogm 	01;95
+*.mp4 	01;95
+*.m4v 	01;95
+*.mp4v 	01;95
+*.vob 	01;95
+*.qt 	01;95
+*.nuv 	01;95
+*.wmv 	01;95
+*.asf 	01;95
+*.rm 	01;95
+*.rmvb	01;95
+*.flc 	01;95
+*.avi 	01;95
+*.fli 	01;95
+*.flv 	01;95
+*.gl 	01;95
+*.dl 	01;95
+*.xcf 	01;95
+*.xwd 	01;95
+*.yuv 	01;95
+*.cgm 	01;95
+*.emf 	01;95
+
+## Audio
+*.aac	00;36
+*.au	00;36
+*.flac	00;36
+*.m4a	00;36
+*.mid	00;36
+*.midi	00;36
+*.mka	00;36
+*.mp3	00;36
+*.mpc	00;36
+*.ogg	00;36
+*.ra	00;36
+*.wav	00;36
+
+## https://wiki.xiph.org/MIME_Types_and_File_Extensions
+*.ogv	01;95
+*.ogx	01;95
+*.oga	00;36
+*.opus	00;36
+*.spx	00;36
+*.xspf	00;36
