@@ -10,7 +10,7 @@ secondary = #fff
 alert = #f00
 
 [bar/main]
-monitor = eDP1
+monitor = ${env:MONITOR}
 bottom = false
 fixed-center = true
 width = 100%

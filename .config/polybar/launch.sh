@@ -1,12 +1,12 @@
 #!/bin/sh
 
-# Terminate already running bar instances
-killall -q polybar
+# if there is no running instance
+if ! pgrep -ax polybar >/dev/null 2>&1; then
+	# launch Polybar on every monitor
+	# https://github.com/polybar/polybar/issues/763#issuecomment-392960721
+	for m in $(polybar --list-monitors | cut -d':' -f1); do
+		MONITOR=$m polybar --reload -c "$HOME/.config/polybar/config" main &
+	done
 
-# Wait until the processes have been shut down
-while pgrep -x polybar >/dev/null; do sleep 1; done
-
-# Launch Polybar
-polybar -c "$HOME/.config/polybar/config" main &
-
-echo "Polybar launched..."
+	echo "Polybar launched..."
+fi
