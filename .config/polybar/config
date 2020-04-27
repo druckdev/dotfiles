@@ -20,21 +20,17 @@ padding-right = 1
 module-margin-left = 1
 module-margin-right = 2
 
-modules-left = i3 pulseaudio xbacklight
+modules-left = i3 pulseaudio xbacklight battery-custom
 modules-center = datetime
-modules-right = battery-custom vpn wlan powermenu
+modules-right = vpn wlan bluetooth powermenu
 
 tray-position = right
 tray-detached = false
 tray-scale = 1.0
 
 font-0 = MesloLGS NF:style=Regular:size=18;4
-; used for the colume ramp
-font-1 = MesloLGS NF:style=Regular:size=10;2
 ; used for the dots in module/powermenu
-font-2 = MesloLGS NF:size=18;-2
-; used for small space in scripts/battery.sh
-font-3 = MesloLGS NF:size=8
+font-1 = MesloLGS NF:size=18;-2
 background = ${colors.background}
 foreground = ${colors.foreground}
 line-size = 3
@@ -73,40 +69,42 @@ label-urgent-padding = ${self.label-focused-padding}
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume = <label-volume> <bar-volume>
-label-volume = VOL: %percentage%%
-label-muted = VOL: muted
-bar-volume-width = 10
-bar-volume-empty = -
-bar-volume-fill = -
-bar-volume-indicator = |
+format-volume = <ramp-volume> <label-volume>
+label-volume = %percentage%%
+label-muted = 婢
 
-;format-volume = <ramp-volume> <label-volume>
-;format-volume-font = 2
-;label-muted = muted
-;
-;ramp-volume-0 =           
-;ramp-volume-1 = █         
-;ramp-volume-2 = ██        
-;ramp-volume-3 = ███       
-;ramp-volume-4 = ████      
-;ramp-volume-5 = █████     
-;ramp-volume-6 = ██████    
-;ramp-volume-7 = ███████   
-;ramp-volume-8 = ████████  
-;ramp-volume-9 = █████████ 
-;ramp-volume-10 = ██████████
+ramp-volume-0 = 奔
+ramp-volume-1 = 墳
+ramp-volume-2 = 
 
 ;#################################################
 
 [module/xbacklight]
 type = internal/xbacklight
-format = <label> <bar>
-label = BL: %percentage%%
-bar-width = 10
-bar-empty = -
-bar-fill = -
-bar-indicator = |
+format = <ramp> <label>
+label = %percentage%%
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+ramp-5 = 
+ramp-6 = 
+ramp-7 = 
+ramp-8 = 
+ramp-9 = 
+ramp-10 = 
+ramp-11 = 
+ramp-12 = 
+ramp-13 = 
+
+;#################################################
+
+[module/battery-custom]
+type = custom/script
+exec = ~/.config/polybar/scripts/battery.sh
+interval = 5
 
 ;#################################################
 ;#################################################
@@ -125,17 +123,10 @@ label = "%date% - %time%"
 ;#################################################
 ;#################################################
 
-[module/battery-custom]
-type = custom/script
-exec = ~/.config/polybar/scripts/battery.sh
-interval = 5
-
-;#################################################
-
 [module/vpn]
 type = custom/script
 exec = ~/.config/polybar/scripts/running-vpn.sh
-click-left = ~/.config/polybar/scripts/pub-ipv4.sh & 
+click-left = ~/.config/polybar/scripts/pub-ipv4.sh &
 interval = 5
 
 ;#################################################
@@ -153,7 +144,15 @@ label-disconnected = %{A1:gnome-terminal -x nmtui connect:} %ifname% disconnecte
 
 ;#################################################
 
+[module/bluetooth]
+type = custom/script
+exec = ~/.config/polybar/scripts/bluetooth.sh
+tail = true
+click-left = ~/.config/polybar/scripts/bluetooth.sh --toggle &
+
+;#################################################
+
 [module/powermenu]
 type = custom/text
-content = %{A1:~/.config/rofi/powermenu.sh &:}%{T3}...%{T-}%{A}
+content = %{A1:~/.config/rofi/powermenu.sh &:}%{T2}...%{T-}%{A}
 
