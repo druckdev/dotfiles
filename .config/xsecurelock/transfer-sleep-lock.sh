@@ -7,13 +7,11 @@
 
 ## CONFIGURATION ##############################################################
 
-# hack: remove space from IFS so that the config can have spaces in the keys
-# TODO: find a better way to do this (I'm desperate)
-IFS=$'\n\t'
+# Source configuration
+source "$(dirname "$0")/config"
 
 # Command to start the locker (should not fork)
-# Beware the tabs instead of spaces!
-locker="env	$(grep -v '^#\|^$' ~/.config/xsecurelock/config)	xsecurelock"
+locker=xsecurelock
 
 # Delay in seconds. Note that by default systemd-logind allows a maximum sleep
 # delay of 5 seconds.
