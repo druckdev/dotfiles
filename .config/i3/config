@@ -177,8 +177,8 @@ exec xinput set-prop "$touchpad" "libinput Natural Scrolling Enabled" 1
 exec xinput set-prop "$touchpad" "libinput Accel Speed" 0.45
 
 # Brightness controls (/etc/X11/xorg.conf necessary)
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5
 
 # Volume controls (see https://faq.i3wm.org/question/125/how-to-change-the-systems-volume.1.html)
 # Note: just add unmute add the end of the amixer command if the volume keys should unmute
