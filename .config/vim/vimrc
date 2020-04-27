@@ -33,7 +33,7 @@ set undofile
 " use onedark as theme for syntax highlighting
 syntax on
 colorscheme onedark
-" Use 24-bit (true-color) mode 
+" Use 24-bit (true-color) mode
 if (has("termguicolors"))
 	set termguicolors
 endif
@@ -63,9 +63,24 @@ else
 	let &t_EI = "\<Esc>[1 q"
 
 	" Set when entering
-	autocmd VimEnter * silent !echo -ne "\e[2 q" 
+	autocmd VimEnter * silent !echo -ne "\e[2 q"
 	" Reset when exiting
 	" Finally found out how to do that by looking at:
 	" https://github.com/jszakmeister/vim-togglecursor/blob/master/plugin/togglecursor.vim
 	autocmd VimLeave * let &t_te = "\<Esc>[5 q" . &t_te
 endif
+
+" Highlight trailing whitespaces
+" (https://vim.fandom.com/wiki/Highlight_unwanted_spaces)
+" Create highlight group
+highlight ExtraWhitespace ctermbg=red guibg=red
+" Associate with patter (trailing whitespaces)
+match ExtraWhitespace /\s\+$/
+" apply not only to the first window
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+" Do not match when typing at the end of a line
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+" Reset when leaving insert mode
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+" Clear all matches
+autocmd BufWinLeave * call clearmatches()
