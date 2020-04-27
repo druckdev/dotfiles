@@ -21,7 +21,7 @@ sleep_delay=1
 
 # Run before starting the locker
 pre_lock() {
-    # mpc pause
+    playerctl pause
     killall -q compton
     amixer -q -D pulse sset Master mute
     return
