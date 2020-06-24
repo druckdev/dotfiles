@@ -33,7 +33,9 @@ floating_modifier $mod
 # set $TERMINAL kitty
 # bindsym $mod+Return exec i3-sensible-terminal
 # bindsym $mod+Return exec kitty
-bindsym $mod+Return exec gnome-terminal --hide-menubar
+# bindsym $mod+Return exec gnome-terminal --hide-menubar
+bindsym $mod+Return exec st -d "$(xcwd)"
+bindsym $mod+Shift+Return exec st
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -206,19 +208,22 @@ bindsym XF86RFKill exec --no-startup-id ~/.config/i3/airplane-mode-notify.sh
 exec --no-startup-id compton -b
 
 # scratchpad-terminal
-for_window [class="Gnome-terminal" title="^scratchpad-terminal$"] \
+for_window [class="st-256color" title="^scratchpad-terminal$"] \
 	move scratchpad,       \
 	sticky enable,         \
 	scratchpad show,       \
 	resize set 1600 900,   \
 	border none,           \
 	move position center
+# hide scratchpad-terminal again when restarting i3
+exec_always i3-msg '[class="St" title="^scratchpad-terminal$"] scratchpad show'
 # show scratchpad-terminal or create one if none exists
-bindsym $mod+comma exec ~/.config/i3/scratchpad-terminal.sh -s
+bindsym $mod+comma exec ~/.config/i3/scratchpad-terminal.sh -s -c st-256color -n scratchpad-terminal -e st
 # hide scratchpad-terminal indepedent of where the focus sits
-bindsym $mod+Shift+comma exec ~/.config/i3/scratchpad-terminal.sh -h
+bindsym $mod+Shift+comma exec ~/.config/i3/scratchpad-terminal.sh -h -c st-256color -n scratchpad-terminal
 
 bindsym $mod+Shift+m move scratchpad
+bindsym $mod+Shift+o scratchpad show
 bindsym $mod+Shift+s [class="^Spotify$"] scratchpad show
 bindsym $mod+Shift+t [class="^TelegramDesktop$"] scratchpad show
 

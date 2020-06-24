@@ -1,7 +1,8 @@
 ## Author:  druckdev
 ## Created  2018-11-23
 
-# echo ${(pl.$LINES..\n.)}
+# Set terminals title if this is a scratchpad-terminal
+[ -z "$SCRATCHPAD_TERMINAL" ] || printf "\x1b\x5d\x30\x3bscratchpad-terminal\x07"
 
 # Enable Powerlevel10k instant prompt. Should stay at the top of ~/.config/zsh/.zshrc.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
