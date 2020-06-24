@@ -1,7 +1,9 @@
 [include]
 	path = gitlab.config
-[includeIf "gitdir:~/Projects/dotfiles-github/"]
+[includeIf "gitdir:~/Projects/github/"]
 	path = github.config
+[include]
+	path = user.config
 [commit]
 	gpgsign = true
 [difftool "meld"]
@@ -12,4 +14,4 @@
     added = 076
     untracked = 014
 [core]
-	pager = diff-so-fancy | less --tabs=4 -RFX
+	pager = diff-so-fancy | less --tabs=8 -RFX
