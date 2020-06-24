@@ -17,7 +17,7 @@ command -v xclip >/dev/null 2>&1 || return 1
 # If no argument is given, set the clipboard as argument
 set "$(xclip -selection c -o)"
 # Check for right format
-echo "$1" | grep -Eq "^https://tu-berlin.Zoom.us/(j|wc/join)/[0-9]*\?pwd=.+" || return 1
+echo "$1" | grep -Eq "^https://tu-berlin.zoom.us/(j|wc/join)/[0-9]*\?pwd=.+" || return 1
 
 # Delete password part and convert /j/ to /wc/join/
 link="$(echo "${1%pwd=*}" | sed 's_/j/_/wc/join/_')"
