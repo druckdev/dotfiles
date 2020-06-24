@@ -1,0 +1,37 @@
+#!/bin/bash
+
+[ $# -eq 1 ] || { echo "Specify history file" >&2; exit 1; }
+[ "$(stat -c '%a' "$1")" = "600" ] || { echo "File does not look like a history file" >&2; exit 1; }
+
+declare -a COMMANDS
+COMMANDS=('ls' \
+          'll' \
+          'l' \
+		  ':q' \
+          ':Q' \
+          'exit' \
+          'cd' \
+          'cd ~' \
+          'cd .' \
+          'cd ..' \
+          'gs' \
+          'git status' \
+          'gd' \
+          'gpush' \
+          'git pull' \
+          'cmake .. && make' \
+          'exec zsh' \
+          'python3' \
+          'clear' \
+)
+
+printf '%s\n' "${COMMANDS[@]}" | column
+echo "Are you a 100% sure you want to delete these commands from $1? (Type out yes)"
+read yn
+[ "$yn" = "yes" ] || exit 1
+
+for c in "${COMMANDS[@]}"; do
+	c="$(echo "$c" | sed 's/\./\\./g; s/\//\\\//g')"
+	sed -Ei '/^: [0-9]+:[0-9]+;'"$c"'$/d' "$1"
+	echo "$c deleted"
+done

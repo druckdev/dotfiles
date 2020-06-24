@@ -1,0 +1,27 @@
+#!/bin/sh
+
+## Author:	druckdev
+## Created	2020-06-05
+##
+## A script that modifies Zoom links for the use in browsers, opens it then in a private chromium
+##   window and puts the password into the clipboard. If no argument is given the link is taken out
+##   of the clipboard.
+## The reason behind the choice of Chromium is that my Firefox does weird things when used in
+##   scripts and that I wanted to run Zoom separately from my normal Firefox instances.
+##   (although this should be solvable by separate Firefox profiles.)
+
+# Check if necessary commands exist
+command -v chromium-browser >/dev/null 2>&1 || return 1
+command -v xclip >/dev/null 2>&1 || return 1
+
+# If no argument is given, set the clipboard as argument
+set "$(xclip -selection c -o)"
+# Check for right format
+echo "$1" | grep -Eq "^https://tu-berlin.Zoom.us/(j|wc/join)/[0-9]*\?pwd=.+" || return 1
+
+# Delete password part and convert /j/ to /wc/join/
+link="$(echo "${1%pwd=*}" | sed 's_/j/_/wc/join/_')"
+# Open link in private browser
+chromium-browser --incognito --new-window "$link" >/dev/null 2>&1 &
+# Put password in clipboard
+echo -n "${1##*pwd=}" | xclip -selection c

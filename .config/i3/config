@@ -231,6 +231,9 @@ bindsym $mod+Shift+t [class="^TelegramDesktop$"] scratchpad show
 bindsym --release Print exec gnome-screenshot -i
 bindsym --release $mod+Print exec gnome-screenshot -a
 
+# Zoom links in private browser
+bindsym $mod+z exec ~/.local/bin/zoom-links
+
 # keyboard layout (de layout without dead keys and switched ESC and CAPS_LOCK)
 exec setxkbmap own
 

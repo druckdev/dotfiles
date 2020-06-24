@@ -1,0 +1,9 @@
+#!/bin/bash
+
+## This runs as a crontab every 5minutes ('*/5 *   * * * /usr/local/bin/wifi-mute')
+
+if [[ "$(nmcli -t -f name con show --active)" =~ eduroam* ]]; then # iwgetid -r
+    # TODO: mute only speaker, not headphones
+    amixer set Master mute
+fi
+
