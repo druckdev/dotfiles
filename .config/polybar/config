@@ -22,7 +22,7 @@ module-margin-right = 2
 
 modules-left = i3 pulseaudio xbacklight battery-custom
 modules-center = datetime
-modules-right = vpn wlan bluetooth powermenu
+modules-right = media vpn wlan bluetooth powermenu
 
 tray-position = ${env:TRAY_POS:right}
 tray-detached = false
@@ -124,6 +124,13 @@ label = "%date% - %time%"
 
 ;#################################################
 ;#################################################
+;#################################################
+
+[module/media]
+type=custom/script
+exec = ~/.config/polybar/scripts/media.sh
+interval = 1
+
 ;#################################################
 
 [module/vpn]
