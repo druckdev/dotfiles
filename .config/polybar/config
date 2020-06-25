@@ -24,7 +24,7 @@ modules-left = i3 pulseaudio xbacklight battery-custom
 modules-center = datetime
 modules-right = vpn wlan bluetooth powermenu
 
-tray-position = right
+tray-position = ${env:TRAY_POS:right}
 tray-detached = false
 tray-scale = 1.0
 
@@ -36,10 +36,13 @@ foreground = ${colors.foreground}
 line-size = 3
 line-color = ${colors.primary}
 
+enable-ipc = true
+
 ;#################################################
 
 [module/i3]
 type = internal/i3
+pin-workspaces = true
 format = <label-state> <label-mode>
 index-sort = true
 wrapping-scroll = false
