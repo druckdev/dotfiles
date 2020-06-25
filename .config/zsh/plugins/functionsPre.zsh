@@ -23,7 +23,7 @@ function _nemo_wd_default() {
 ## or if we are in a directory that matches the regex in LS_SHOW_ALL_DIRS
 function _ls_show_hidden() {
     # Can be overwritten by settings it before calling
-    LS_SHOW_ALL_DIRS=${LS_SHOW_ALL_DIRS:-"dotfiles|\.config"}
+    local LS_SHOW_ALL_DIRS=${LS_SHOW_ALL_DIRS:-"dotfiles|\.config"}
 
 	# if a path is given, target will contain the given directory or the directory in which the
 	# given file is located
