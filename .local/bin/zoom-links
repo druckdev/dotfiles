@@ -15,7 +15,7 @@ command -v chromium-browser >/dev/null 2>&1 || return 1
 command -v xclip >/dev/null 2>&1 || return 1
 
 # If no argument is given, set the clipboard as argument
-set "$(xclip -selection c -o)"
+[ $# -gt 0 ] || set "$(xclip -selection c -o)"
 # Check for right format
 echo "$1" | grep -Eq "^https://tu-berlin.zoom.us/(j|wc/join)/[0-9]*\?pwd=.+" || return 1
 
