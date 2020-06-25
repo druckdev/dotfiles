@@ -132,6 +132,7 @@ function conf() {
         "conf"
         "$1.yml"
         "$1.yaml"
+        "config.ini"
         "$1"
     )
 
