@@ -8,23 +8,29 @@
 
 ## History
     ## Alternatives to check out: {up,down}-line-or-search
-    bindkey '^[[A'  history-substring-search-up      # up
-    bindkey '^[[B'  history-substring-search-down    # down
+    bindkey '^[[A'  history-substring-search-up
+    bindkey "$terminfo[kcuu1]" history-substring-search-up
+    bindkey '^[[B'  history-substring-search-down
+    bindkey "$terminfo[kcud1]" history-substring-search-down
     bindkey '^R'    history-incremental-search-backward
 
 ## Navigation
-    bindkey '^[[Z' reverse-menu-complete    # shift-tab
-    bindkey '^K' kill-whole-line            # ctrl-K
-    bindkey '^Q' push-input                 # ctrl-Q
-    bindkey '\e[H' beginning-of-line        # home
-    bindkey '\e[F' end-of-line              # end
-    bindkey -v '^?' backward-delete-char    # normal delete not vim-bac...
-    bindkey '^[[3~' delete-char             # map delete key
-    bindkey '^[[1;5D' backward-word         # ctrl-left
-    bindkey '^[[1;5C' forward-word          # ctrl-right
-    bindkey '^H' backward-kill-word         # ctrl-backspace
-    bindkey '^[[3;5~' kill-word             # ctrl-delete
-    
+    bindkey '^[[Z' reverse-menu-complete         # shift-tab
+    bindkey '^K' kill-whole-line                 # ctrl-K
+    bindkey '^Q' push-input                      # ctrl-Q
+    bindkey '\e[H' beginning-of-line             # home
+	bindkey "$terminfo[khome]" beginning-of-line # home
+    bindkey '\e[F' end-of-line                   # end
+    bindkey "$terminfo[kend]" end-of-line        # end
+    bindkey -v '^?' backward-delete-char         # normal delete not vim-bac...
+    bindkey '^[[P' delete-char                   # delete
+    bindkey '^[[3~' delete-char                  # delete
+    bindkey '^[[1;5D' backward-word              # ctrl-left
+    bindkey '^[[1;5C' forward-word               # ctrl-right
+    bindkey '^H' backward-kill-word              # ctrl-backspace
+    bindkey '^[[3;5~' kill-word                  # ctrl-delete
+    bindkey "$terminfo[kmous]" kill-word         # ctrl-delete
+
     ## From https://github.com/nicoulaj/dotfiles/blob/1c7dd1b621bc8bae895bafc438562482ea245d7e/.config/zsh/functions/widgets/rationalize-dots
     function _expandDots {
         #[[ $LBUFFER = *.. ]] && LBUFFER+=/.. || LBUFFER+=.
