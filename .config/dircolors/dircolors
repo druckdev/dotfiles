@@ -1,6 +1,7 @@
 # This file is based on the standard dircolors but with bright colors when using bold font
 
 TERM xterm*
+TERM st-256color
 
 # NORMAL 	00
 # FILE	00
