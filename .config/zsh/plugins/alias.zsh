@@ -27,7 +27,7 @@
     alias p='pwd'
     alias :q='exit'
     alias :Q=:q
-    alias update='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y'
+    alias update='sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y; [ ! -e /var/run/reboot-required ] || printf "\n\nSystem restart required.\n"'
     alias pdf2text='pdftotext'
     alias pdf2txt='pdftotext'
     alias rm='printf "\033[1;031mUse trash!\n\033[0m"; false'
@@ -47,6 +47,10 @@
     alias resetCursor='echo -ne "\e[5 q"'
     alias makeThisScratchpad='echo -ne "\033]0;scratchpad-terminal\007"'
     alias tmsu='tmsu -D "${XDG_DATA_HOME:-$HOME/.local/share}/tmsu/db"'
+    alias grepdate='grep -E "(={8})|([0-9]{4}([: -_][0-9]{2}){5})|([0-9]{8}[ -_][0-9]{6})"'
+    alias feh='feh -.'
+    # 'Temporary' shell in alternate mode that does not mess with the scrollback history
+    alias tmpshell='tput smcup && zsh && tput rmcup'
 
 ## functions
     alias trash=_trash_list_default
