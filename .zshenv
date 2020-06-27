@@ -3,9 +3,8 @@
 
 setopt NO_GLOBAL_RCS
 
-if [ -n "$DESKTOP_SESSION" ]; then
-    eval $(/usr/bin/gnome-keyring-daemon --start)
-    export SSH_AUTH_SOCK
+if [ -n "$DESKTOP_SESSION" ] && [ -e /run/user/1000/keyring/ssh ]; then
+    export SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
 fi
 
 export XDG_CONFIG_HOME="$HOME/.config"

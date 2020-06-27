@@ -244,7 +244,7 @@ exec --no-startup-id /usr/libexec/gnome-settings-daemon-localeexec
 exec --no-startup-id dconf write /org/gnome/settings-daemon/plugins/cursor/active false
 
 # Launch gnome-keyring
-exec --no-startup-id gnome-keyring-daemon
+exec --no-startup-id gnome-keyring-daemon --start
 
 # Focus should not follow mouse
 # This is sometimes usefull when picking colors on the screen in combination with deactivated dim
