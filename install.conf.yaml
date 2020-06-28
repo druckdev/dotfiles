@@ -9,3 +9,7 @@
         create: true
         glob: true
         path: .config/*
+    ~/.local/bin/:
+        create: true
+        glob: true
+        path: .local/bin/*
