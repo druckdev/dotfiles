@@ -13,6 +13,25 @@ fi
 
 export ZSH_CONF="$ZDOTDIR/plugins"
 
+# https://github.com/romkatv/dotfiles-public/blob/7e49fc4fb71d/.zshrc#L35
+comp-conf() {
+    emulate -L zsh
+    [ ! "$1.zwc" -nt "$1" ] && [ -w "${1:h}" ] || return 0
+    zmodload -F zsh/files b:zf_mv b:zf_rm
+    local tmp="$1.tmp.$$.zwc"
+    {
+        zcompile -R -- "$tmp" "$1" && zf_mv -f -- "$tmp" "$1.zwc" || return 1
+    } always {
+        (( ! $? )) || zf_rm -f -- "$tmp"
+    }
+}
+
+# https://github.com/romkatv/dotfiles-public/blob/7e49fc4fb71d/.zshrc#L47
+comp-source() {
+    emulate -L zsh
+    [ -e "$1" ] && comp-conf "$1" && source -- "$1"
+}
+
 ## set zshoptions
     # setopt AUTO_CD                # cd is not necessary
     setopt AUTO_CONTINUE            # Stopped jobs with 'disown' are automatically sent a CONT signal to make them running.
@@ -45,16 +64,16 @@ export ZSH_CONF="$ZDOTDIR/plugins"
 
 ## Setup the prompt
     # use bright version of colors when printing bold
-    if [ -r "${XDG_CONFIG_HOME:-$HOME/.config}/dircolors/dircolors" ]; then
+    if [ -e "${XDG_CONFIG_HOME:-$HOME/.config}/dircolors/dircolors" ]; then
         eval "$(dircolors -b "${XDG_CONFIG_HOME:-$HOME/.config}/dircolors/dircolors")"
     else
         eval "$(dircolors -b)"
     fi
 
-    if [ -r "$ZSH_CONF/powerlevel10k/powerlevel10k.zsh-theme" ]; then
-        source "$ZSH_CONF/powerlevel10k/powerlevel10k.zsh-theme"
-        # run `p10k configure` or edit $ZSH_CONF/p10k.zsh-theme to customize
-        [ ! -r "$ZSH_CONF/p10k.zsh-theme" ] || source "$ZSH_CONF/p10k.zsh-theme"
+    if [ -e "$ZSH_CONF/powerlevel10k/powerlevel10k.zsh-theme" ]; then
+        comp-source "$ZSH_CONF/powerlevel10k/powerlevel10k.zsh-theme"
+        # To customize prompt, run `p10k configure` or edit $ZSH_CONF/p10k.zsh-theme.
+        comp-source "$ZSH_CONF/p10k.zsh-theme"
     fi
 
 ## Setup zsh completion system
@@ -90,32 +109,32 @@ export ZSH_CONF="$ZDOTDIR/plugins"
     autoload edit-command-line; zle -N edit-command-line
     autoload zmv
     # stderred
-    if [ -r "$ZSH_CONF/stderred/build/libstderred.so" ]; then
+    if [ -e "$ZSH_CONF/stderred/build/libstderred.so" ]; then
         export LD_PRELOAD="$ZSH_CONF/stderred/build/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD}"
         export STDERRED_ESC_CODE="$(tput bold && tput setaf 1)"
         export STDERRED_BLACKLIST="^(git|curl|wget|swipl)$"
     fi
-    [ ! -r "$ZSH_CONF/functionsPre.zsh" ] || source "$ZSH_CONF/functionsPre.zsh"
-    [ ! -r "$ZSH_CONF/alias.zsh" ] || source "$ZSH_CONF/alias.zsh"
-    [ ! -r "$ZSH_CONF/functionsPost.zsh" ] || source "$ZSH_CONF/functionsPost.zsh"
-    [ ! -r  "$ZSH_CONF/transfer.zsh" ] || source "$ZSH_CONF/transfer.zsh"
-    [ ! -r "$ZSH_CONF/zsh-autosuggestions/zsh-autosuggestions.zsh" ] || source "$ZSH_CONF/zsh-autosuggestions/zsh-autosuggestions.zsh"
-    [ ! -r "$ZSH_CONF/completion.zsh" ] || source "$ZSH_CONF/completion.zsh"
-    # [ ! -r "$ZSH_CONF/zsh-async/async.zsh" ] || source "$ZSH_CONF/zsh-async/async.zsh"
+    comp-source "$ZSH_CONF/functionsPre.zsh"
+    comp-source "$ZSH_CONF/alias.zsh"
+    comp-source "$ZSH_CONF/functionsPost.zsh"
+    comp-source "$ZSH_CONF/transfer.zsh"
+    comp-source "$ZSH_CONF/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    comp-source "$ZSH_CONF/completion.zsh"
+    # comp-source "$ZSH_CONF/zsh-async/async.zsh"
     #     async_init
     ### syntax-highlight > history-substring > keys
     # syntax highlighting
-    if [ -r "$ZSH_CONF/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
-        source $ZSH_CONF/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-        source $ZSH_CONF/zsh-syntax-highlighting.zsh-theme
+    if [ -e "$ZSH_CONF/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
+        comp-source "$ZSH_CONF/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+        comp-source "$ZSH_CONF/zsh-syntax-highlighting.zsh-theme"
     fi
     # history substr search
-    if [ -r "$ZSH_CONF/zsh-history-substring-search/zsh-history-substring-search.zsh" ]; then
-        source $ZSH_CONF/zsh-history-substring-search/zsh-history-substring-search.zsh
+    if [ -e "$ZSH_CONF/zsh-history-substring-search/zsh-history-substring-search.zsh" ]; then
+        comp-source "$ZSH_CONF/zsh-history-substring-search/zsh-history-substring-search.zsh"
         HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=true
         HISTORY_SUBSTRING_SEARCH_FUZZY=true
     fi
-    [ ! -r "$ZSH_CONF/keys.zsh" ] || source "$ZSH_CONF/keys.zsh"
+    comp-source "$ZSH_CONF/keys.zsh"
 
 ## Env variables that have nothing to do with zsh
     export EDITOR=nvim
