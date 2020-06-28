@@ -51,23 +51,36 @@ autocmd filetype zsh syntax clear zshOption
 
 " change cursor shape depending on mode
 if (has('nvim'))
-	" reset when exiting
-	autocmd VimLeave * set guicursor=a:ver25
+	" Beam when exiting
+	autocmd VimLeave * silent !echo -ne "\e[5 q"
 else
 	" https://vim.fandom.com/wiki/Change_cursor_shape_in_different_modes
-	" start insert mode - vertical bar
-	let &t_SI = "\<Esc>[5 q"
-	" start replace mode - horizontal/underline bar
-	let &t_SR = "\<Esc>[3 q"
-	" end insert or replace mode - block cursor
-	let &t_EI = "\<Esc>[1 q"
+	" https://github.com/tmux/tmux/issues/1593
+	if exists('$TMUX')
+		" Start insert mode - vertical bar/beam
+		let &t_SI = "\ePtmux;\e\e[5 q\e\\"
+		" Start replace mode - horizontal bar/underline
+		let &t_SR = "\ePtmux;\e\e[3 q\e\\"
+		" End insert or replace mode - block
+		let &t_EI = "\ePtmux;\e\e[1 q\e\\"
 
-	" Set when entering
-	autocmd VimEnter * silent !echo -ne "\e[2 q"
-	" Reset when exiting
-	" Finally found out how to do that by looking at:
-	" https://github.com/jszakmeister/vim-togglecursor/blob/master/plugin/togglecursor.vim
-	autocmd VimLeave * let &t_te = "\<Esc>[5 q" . &t_te
+		" Block when entering
+		autocmd VimEnter * silent !echo -ne "\ePtmux;\e\e[1 q\e\\"
+		" Beam when exiting
+		autocmd VimLeave * silent !echo -ne "\ePtmux;\e\e[5 q\e\\"
+	else
+		" Start insert mode - vertical bar/beam
+		let &t_SI = "\e[5 q"
+		" Start replace mode - horizontal bar/underline
+		let &t_SR = "\e[3 q"
+		" End insert or replace mode - block
+		let &t_EI = "\e[1 q"
+
+		" Block when entering
+		autocmd VimEnter * silent !echo -ne "\e[1 q"
+		" Beam when exiting
+		autocmd VimLeave * silent !echo -ne "\e[5 q"
+	endif
 endif
 
 " Highlight trailing whitespaces
