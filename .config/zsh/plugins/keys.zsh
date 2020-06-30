@@ -6,6 +6,7 @@
 	# no delay when switching into NORMAL
     export KEYTIMEOUT=1
 
+	bindkey '^[h' run-help
 ## History
     ## Alternatives to check out: {up,down}-line-or-search
     bindkey '^[[A'  history-substring-search-up
