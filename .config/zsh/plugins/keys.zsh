@@ -6,6 +6,16 @@
 	# no delay when switching into NORMAL
     export KEYTIMEOUT=1
 
+    # Switch cursor style depending on mode
+    function zle-line-init zle-keymap-select {
+        case $KEYMAP in
+            vicmd) echo -ne "\e[1 q";; # block
+            viins|main) echo -ne "\e[5 q";; # beam
+        esac
+    }
+    zle -N zle-line-init
+    zle -N zle-keymap-select
+
 	bindkey '^[h' run-help
 ## History
     ## Alternatives to check out: {up,down}-line-or-search
