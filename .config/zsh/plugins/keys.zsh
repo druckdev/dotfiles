@@ -6,15 +6,23 @@
 	# no delay when switching into NORMAL
     export KEYTIMEOUT=1
 
-    # Switch cursor style depending on mode
     function zle-line-init zle-keymap-select {
+        # Switch cursor style depending on mode
         case $KEYMAP in
             vicmd) echo -ne "\e[1 q";; # block
             viins|main) echo -ne "\e[5 q";; # beam
         esac
+
+        # Make sure that the terminal is in application mode when zle is active, since
+        # only then values from $terminfo are valid
+		echoti smkx
     }
     zle -N zle-line-init
     zle -N zle-keymap-select
+
+	# See above (echoti smkx)
+	function zle-line-finish { echoti rmkx; }
+	zle -N zle-line-finish
 
 	bindkey '^[h' run-help
 ## History
