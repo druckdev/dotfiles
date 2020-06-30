@@ -55,28 +55,3 @@
     zle -N _expandDots
     bindkey . _expandDots
 
-## Support selecting with shift and the keyboard
-## Does not quite work yet
-    shift-arrow() {
-      ((REGION_ACTIVE)) || zle set-mark-command
-      zle $1
-    }
-    shift-left() shift-arrow backward-char
-    shift-right() shift-arrow forward-char
-    shift-left-word() shift-arrow backward-word
-    shift-right-word() shift-arrow forward-word
-    toggle-select() zle set-mark-command
-    #select-all()
-    zle -N shift-left
-    zle -N shift-right
-    zle -N shift-left-word
-    zle -N shift-right-word
-    zle -N toggle-select 
-
-    bindkey '^[[1;2D' shift-left
-    bindkey '^[[1;2C' shift-right
-    bindkey '^[[1;6D' shift-left-word
-    bindkey '^[[1;6C' shift-right-word
-
-    # bindkey '^S' toggle-select
-    # bindkey '^A' select-all
