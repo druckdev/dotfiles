@@ -97,3 +97,10 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 " Clear all matches
 autocmd BufWinLeave * call clearmatches()
+
+" Show ruler at 80 and 100 columns
+set colorcolumn=80,100
+" Shorter lines in git commits
+autocmd filetype gitcommit set colorcolumn=50,72
+" Spell checking in git commits
+autocmd filetype gitcommit set spell spelllang=en_us
