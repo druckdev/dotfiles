@@ -173,6 +173,8 @@ bindsym $mod+r mode "resize"
 exec_always --no-startup-id ~/.config/i3/monitor-setup.sh &
 
 # Touchpad configuration
+# Find touchpad: `xinput list`
+# Find options:  `xinput list-props $touchpad`
 set $touchpad DLL082A:01 06CB:76AF Touchpad
 exec xinput set-prop "$touchpad" "libinput Tapping Enabled" 1
 exec xinput set-prop "$touchpad" "libinput Natural Scrolling Enabled" 1
@@ -234,8 +236,15 @@ bindsym --release $mod+Print exec gnome-screenshot -a
 # Zoom links in private browser
 bindsym $mod+z exec ~/.local/bin/zoom-links
 
-# keyboard layout (de layout without dead keys and switched ESC and CAPS_LOCK)
-exec setxkbmap own
+# Keyboard layout
+# German layout without dead keys and escape and capslock switched.
+# exec setxkbmap de nodeadkeys -option 'caps:swapescape'
+# German layout without dead keys
+exec setxkbmap de nodeadkeys -option
+# Load custom keymap
+exec xmodmap ~/.Xmodmap
+# Control is escape when pressed alone and shortly
+exec xcape -t 250 -e 'Control_R=Escape'
 
 # Restore GNOME's settings
 exec --no-startup-id /usr/libexec/gnome-settings-daemon-localeexec
