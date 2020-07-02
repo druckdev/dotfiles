@@ -62,10 +62,10 @@ function _expandDots {
 		LBUFFER+=/
 		zle self-insert
 		zle self-insert
-		[[ -e $dir ]] && zle -M ${dir:a:h}
+		[[ -e $dir ]] && zle -M "${dir:a:h}"
 	elif [[ $LBUFFER[-1] == '.' ]]; then
 		zle self-insert
-		[[ -e $dir ]] && zle -M ${dir:a:h}
+		[[ -e $dir ]] && zle -M "${dir:a:h}"
 	else
 		zle self-insert
 	fi
