@@ -116,6 +116,7 @@ autoload edit-command-line; zle -N edit-command-line
 autoload zmv
 ! alias run-help >/dev/null 2>&1 || unalias run-help
 autoload run-help
+! command -v direnv >/dev/null 2>&1 || eval "$(direnv hook zsh)"
 # stderred
 if [ -e "$ZSH_CONF/stderred/build/libstderred.so" ]; then
 	export LD_PRELOAD="$ZSH_CONF/stderred/build/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD}"
