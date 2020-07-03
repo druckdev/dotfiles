@@ -42,9 +42,13 @@ fi
 if [ $SHOW ]; then
     if [ $EXIST_NOT ]; then
         # terminal does not exist yet
-        # WORKSPACE="$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).name' | tr -d '"')"
-        # i3-msg "workspace $W_NAME, exec env SCRATCHPAD_TERMINAL=1 $COMMAND, workspace $WORKSPACE"
-        env SCRATCHPAD_TERMINAL=1 $COMMAND
+        WORKSPACE="$(i3-msg -t get_workspaces | jq '.[] | select(.focused==true).name' | tr -d '"')"
+        i3-msg "workspace $W_NAME"
+        eval env SCRATCHPAD_TERMINAL=1 $COMMAND &
+        # Sleep for a very short time until the window is ready (floating, etc.)
+        # TODO: Dirty hack! Find something better.
+        sleep 0.1
+        i3-msg "workspace $WORKSPACE"
     elif [ $HIDDEN ]; then
         # terminal is "hidden" in scratchpad
         i3-msg "[class=\"$W_CLASS\" title=\"^${W_NAME}$\"] scratchpad show"

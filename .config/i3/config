@@ -220,7 +220,7 @@ for_window [class="st-256color" title="^scratchpad-terminal$"] \
 # hide scratchpad-terminal again when restarting i3
 exec_always i3-msg '[class="St" title="^scratchpad-terminal$"] scratchpad show'
 # show scratchpad-terminal or create one if none exists
-bindsym $mod+comma exec ~/.config/i3/scratchpad-terminal.sh -s -c st-256color -n scratchpad-terminal -e st
+bindsym $mod+comma exec ~/.config/i3/scratchpad-terminal.sh -s -c st-256color -n scratchpad-terminal -e 'st -d "$(xcwd)"'
 # hide scratchpad-terminal indepedent of where the focus sits
 bindsym $mod+Shift+comma exec ~/.config/i3/scratchpad-terminal.sh -h -c st-256color -n scratchpad-terminal
 
