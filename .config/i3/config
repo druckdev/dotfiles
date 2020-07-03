@@ -239,12 +239,8 @@ bindsym $mod+z exec ~/.local/bin/zoom-links
 # Keyboard layout
 # German layout without dead keys and escape and capslock switched.
 # exec setxkbmap de nodeadkeys -option 'caps:swapescape'
-# German layout without dead keys
-exec setxkbmap de nodeadkeys -option
-# Load custom keymap
-exec xmodmap ~/.Xmodmap
-# Control is escape when pressed alone and shortly
-exec xcape -t 250 -e 'Control_R=Escape'
+# German layout without dead keys + custom keymap changes + Control_R is escape when pressed alone and shortly
+exec /bin/sh -c "setxkbmap de nodeadkeys -option && xmodmap ~/.Xmodmap && xcape -t 250 -e 'Control_R=Escape'"
 
 # Restore GNOME's settings
 exec --no-startup-id /usr/libexec/gnome-settings-daemon-localeexec
