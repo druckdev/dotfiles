@@ -7,7 +7,7 @@ declare -a COMMANDS
 COMMANDS=('ls' \
           'll' \
           'l' \
-		  ':q' \
+          ':q' \
           ':Q' \
           'exit' \
           'cd' \
