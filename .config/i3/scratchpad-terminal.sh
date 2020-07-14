@@ -12,7 +12,11 @@ while getopts "c:e:hn:s" FLAGS; do
         *)  exit 1;;
     esac
 done
-shift $(($OPTIND - 1 ))
+shift $(($OPTIND - 1))
+
+if [ "$COMMAND" = "--" ]; then
+	COMMAND="$@"
+fi
 
 [ -n "$W_CLASS" ] || return 1
 [ -n "$W_NAME" ] || return 1
