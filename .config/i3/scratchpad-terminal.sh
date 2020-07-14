@@ -14,10 +14,6 @@ while getopts "c:e:hn:s" FLAGS; do
 done
 shift $(($OPTIND - 1))
 
-if [ "$COMMAND" = "--" ]; then
-	COMMAND="$@"
-fi
-
 [ -n "$W_CLASS" ] || return 1
 [ -n "$W_NAME" ] || return 1
 [ -z "$SHOW" ] || [ -n "$COMMAND" ] || return 1
