@@ -74,3 +74,17 @@ function _expandDots {
 zle -N _expandDots
 bindkey . _expandDots
 
+function ls-on-enter {
+	if [ -z "$BUFFER" ]; then
+		echo "ls"
+		ls
+		echo "\n"
+		zle redisplay
+	else
+		zle accept-line
+	fi
+}
+zle -N ls-on-enter
+bindkey "^M" ls-on-enter
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(ls-on-enter)
+
