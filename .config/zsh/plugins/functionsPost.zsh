@@ -321,3 +321,12 @@ function urlenc() {
 function urldec() {
 	python3 -c "from urllib import parse; print(parse.unquote('$@'), end='')"
 }
+
+safe-remove() {
+	[ $# -gt 0 ] || return 1
+	[ -e "$1" ] || return 1
+
+	sync
+	udiskctl unmount -b "$1" || return 1
+	udiskctl power-off -b "/dev/$(lsblk -no pkname "$1")"
+}
