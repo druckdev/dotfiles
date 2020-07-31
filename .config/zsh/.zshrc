@@ -43,6 +43,7 @@ setopt NO_BEEP                  # Do not beep on error in ZLE.
 setopt C_BASES                  # Output hexadecimal numbers in the standard C format ('16#FF' -> '0xFF').
 setopt CHASE_LINKS              # Resolve symbolic links to their true values when changing directory.
 setopt NO_CLOBBER               # '>!' or '>|' must be used to truncate a file, and '>>!' or '>>|' to create a file.
+setopt NO_COMPLETE_ALIASES      # Substitute internally before completion.
 setopt COMPLETE_IN_WORD         # Complete from the cursor rather than from the end of the word
 setopt CORRECT                  # Try to correct the spelling of a command
 setopt CORRECT_ALL              # Try to correct the spelling of all arguments
