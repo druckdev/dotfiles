@@ -70,6 +70,7 @@ alias gpll='git pull'
 alias gpull='git pull'
 alias gdiff='git diff'
 alias gd='git diff'
+alias glog="git log --pretty=format:'%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s' --graph --date=format:'%F %T' --color=always | less -Rn"
 
 ## Navigation
 alias ls='_ls_show_hidden --color=auto --group-directories-first -p -v'
