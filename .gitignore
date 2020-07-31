@@ -3,7 +3,6 @@
 !/.gitignore
 *.zwc
 
-/archive
 /.config/git/github.config
 /.config/git/gitlab.config
 /.config/git/user.config
