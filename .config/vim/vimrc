@@ -1,4 +1,10 @@
-" Keybinds ##########################################################################
+" Plugins ######################################################################
+call plug#begin('~/.config/vim/plugged')
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+source $XDG_CONFIG_HOME/vim/coc.nvim.vim
+Plug 'airblade/vim-gitgutter'
+call plug#end()
+" Keybinds #####################################################################
 " Set leader key
 let mapleader = "\<Space>"
 " Disable arrow keys
@@ -24,10 +30,11 @@ nnoremap <leader>j <C-w><C-j>
 nnoremap <leader>k <C-w><C-k>
 nnoremap <leader>l <C-w><C-l>
 
-" Settings ##########################################################################
+" Settings #####################################################################
 " hybrid linenumbers
 set number relativenumber
-" no timeout when exiting insert-mode (see https://www.johnhawthorn.com/2012/09/vi-escape-delays/)
+" no timeout when exiting insert-mode
+" (see https://www.johnhawthorn.com/2012/09/vi-escape-delays/)
 set timeoutlen=1000 ttimeoutlen=0
 " smart case insensitive search (insens: /copy /Copy\c; sens: /Copy /copy\C)
 set ignorecase smartcase
@@ -41,8 +48,10 @@ set cursorline
 set formatoptions+=cro
 " see :help persistent-undo
 set undofile
+" Update every 300ms for better experience with plugins like gitgutter and coc
+set updatetime=300
 
-" Aesthetics #######################################################################
+" Aesthetics ###################################################################
 " use onedark as theme for syntax highlighting
 syntax on
 colorscheme onedark
