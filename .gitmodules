@@ -22,3 +22,9 @@
 [submodule ".config/zsh/plugins/zsh-async"]
 	path = .config/zsh/plugins/zsh-async
 	url = https://github.com/mafredri/zsh-async
+[submodule ".config/vim/plugged/coc.nvim"]
+	path = .config/vim/plugged/coc.nvim
+	url = https://github.com/neoclide/coc.nvim.git
+[submodule ".config/vim/plugged/vim-gitgutter"]
+	path = .config/vim/plugged/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter
