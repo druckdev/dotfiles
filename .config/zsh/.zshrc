@@ -171,7 +171,7 @@ export LESSHISTFILE=-
 export SQLITE_HISTORY="${XDG_DATA_HOME:-$HOME/.local/share}/sqlite3/sqlite_history"
 
 export ANDROID_SDK_HOME="${XDG_CONFIG_HOME:-$HOME/.config}/android"
-export VIMINIT='let $MYVIMRC="/home/user/.config/vim/xdg.vim" | source $MYVIMRC'
+export VIMINIT="let \$MYVIMRC=\"${XDG_CONFIG_HOME:-$HOME/.config}/vim/xdg.vim\" | source \$MYVIMRC"
 
 ## Setup asynchronous jobs
 # async_start_worker msg_completion
