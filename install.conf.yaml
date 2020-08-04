@@ -4,7 +4,7 @@
       description: Pulling all submodules
       stdout: true
     -
-      command: /bin/sh -c 'tmpd="$(mktemp -d)"; for file in .config/*; do [ ! -e "$HOME/$file" ] || mv "$HOME/$file" "$tmpd"; done; rmdir "$tmpd" 2>/dev/null || { name="existing-$(date +"%s").tar.gz"; tar czvf "$name" "$tmpd" && rm -rf "$tmpd" && echo "$name created"; }'
+      command: /bin/sh -c 'tmpd="$(mktemp -d)"; for file in .config/*; do [ ! -e "$HOME/$file" ] || mv "$HOME/$file" "$tmpd"; done; rmdir "$tmpd" 2>/dev/null && echo "Nothing to archive" || { name="existing-$(date +"%s").tar.gz"; tar czvf "$name" "$tmpd" && rm -rf "$tmpd" && echo "$name created"; }'
       description: Archiving all files in ~/.config before overwriting them
       stdout: true
       stderr: true
