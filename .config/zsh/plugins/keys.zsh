@@ -88,3 +88,8 @@ zle -N ls-on-enter
 bindkey "^M" ls-on-enter
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(ls-on-enter)
 
+# Fuzzy finder bindings:
+# ^T fzf-file-widget
+# \ec (Alt-C) fzf-cd-widget
+# ^R fzf-history-widget
+comp-source "$ZSH_CONF/fzf/shell/key-bindings.zsh"

@@ -131,6 +131,7 @@ comp-source "$ZSH_CONF/transfer.zsh"
 comp-source "$ZSH_CONF/zsh-autosuggestions/zsh-autosuggestions.zsh"
 comp-source "$ZSH_CONF/completion.zsh"
 # comp-source "$ZSH_CONF/zsh-async/async.zsh"
+comp-source "$ZSH_CONF/fzf/shell/completion.zsh"
 #     async_init
 ### syntax-highlight > history-substring > keys
 # syntax highlighting
