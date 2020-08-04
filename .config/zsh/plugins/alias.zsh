@@ -40,8 +40,10 @@ alias -g G='| grep '
 alias -g no2='2>/dev/null'
 alias hex=xxd
 alias bin='xxd -b -c4 | cut -d" " -f2-5'
-alias vim=nvim
-alias vi=nvim
+if command -v nvim >/dev/null 2>&1; then
+	alias vim=nvim
+	alias vi=nvim
+fi
 alias tmux='tmux -f "$HOME/.config/tmux/tmux.conf"'
 alias resetCursor='echo -ne "\e[5 q"'
 alias makeThisScratchpad='echo -ne "\033]0;scratchpad-terminal\007"'

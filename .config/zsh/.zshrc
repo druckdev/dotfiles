@@ -69,10 +69,12 @@ autoload -U select-word-style && select-word-style bash
 
 ## Setup the prompt
 # use bright version of colors when printing bold
-if [ -e "${XDG_CONFIG_HOME:-$HOME/.config}/dircolors/dircolors" ]; then
-	eval "$(dircolors -b "${XDG_CONFIG_HOME:-$HOME/.config}/dircolors/dircolors")"
-else
-	eval "$(dircolors -b)"
+if command -v dircolors >/dev/null 2>&1; then
+	if [ -e "${XDG_CONFIG_HOME:-$HOME/.config}/dircolors/dircolors" ]; then
+		eval "$(dircolors -b "${XDG_CONFIG_HOME:-$HOME/.config}/dircolors/dircolors")"
+	else
+		eval "$(dircolors -b)"
+	fi
 fi
 
 if [ -e "$ZSH_CONF/powerlevel10k/powerlevel10k.zsh-theme" ]; then
@@ -151,7 +153,13 @@ comp-source "$ZSH_CONF/keys.zsh"
 [[ "$PATH" =~ "$HOME/\.local/bin" ]] || export PATH="$HOME/.local/bin${PATH:+:${PATH}}"
 
 ## Env variables that have nothing to do with zsh
-export EDITOR=nvim
+if command -v nvim >/dev/null 2>&1; then
+	export EDITOR=nvim
+elif command -v vim >/dev/null 2>&1; then
+	export EDITOR=vim
+elif command -v nano >/dev/null 2>&1; then
+	export EDITOR=nano
+fi
 
 # `sudo nano` won't work without this (?)
 if [ "$TERM" = "xterm-kitty" ]; then
@@ -171,8 +179,9 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 ## Less clutter in $HOME by enforcing the XDG base directory standard
 export ATOM_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/atom"
 export GOPATH="${XDG_DATA_HOME:-$HOME/.local/share}/go"
-export LESSHISTFILE=-
 export SQLITE_HISTORY="${XDG_DATA_HOME:-$HOME/.local/share}/sqlite3/sqlite_history"
+# No less history file
+export LESSHISTFILE=-
 
 export ANDROID_SDK_HOME="${XDG_CONFIG_HOME:-$HOME/.config}/android"
 export VIMINIT="let \$MYVIMRC=\"${XDG_CONFIG_HOME:-$HOME/.config}/vim/xdg.vim\" | source \$MYVIMRC"
