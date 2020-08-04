@@ -1,5 +1,5 @@
 - shell:
-    - git submodule update --init --recursive --jobs 8
+    - git submodule update --init --recursive --jobs 8 --depth 1
     - /bin/sh -c 'tmpd="$(mktemp -d)"; for file in .config/*; do [ ! -e "$HOME/$file" ] || mv "$HOME/$file" "$tmpd"; done; rmdir "$tmpd" 2>/dev/null || { tar czvf "existing-$(date +"%s").tar.gz" "$tmpd" && rm -rf "$tmpd"; }'
     - .config/zsh/plugins/fzf/install --bin
 - link:
