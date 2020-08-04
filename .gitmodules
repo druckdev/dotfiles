@@ -42,4 +42,4 @@
 	url = https://github.com/tmux-plugins/tmux-sensible
 [submodule ".config/zsh/plugins/fzf"]
 	path = .config/zsh/plugins/fzf
-	url = git@github.com:junegunn/fzf
+	url = https://github.com/junegunn/fzf
