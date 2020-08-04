@@ -1,3 +1,6 @@
+" Primarly taken from:
+" https://github.com/neoclide/coc.nvim/tree/c3d31ad09d#example-vim-configuration
+
 " TextEdit might fail if hidden is not set.
 set hidden
 
