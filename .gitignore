@@ -1,7 +1,6 @@
 *.bkp
 .gitignore
 !/.gitignore
-*.zwc
 
 /.config/git/github.config
 /.config/git/gitlab.config
