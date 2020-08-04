@@ -1,7 +1,17 @@
 - shell:
-    - git submodule update --init --recursive --jobs 8 --depth 1
-    - /bin/sh -c 'tmpd="$(mktemp -d)"; for file in .config/*; do [ ! -e "$HOME/$file" ] || mv "$HOME/$file" "$tmpd"; done; rmdir "$tmpd" 2>/dev/null || { tar czvf "existing-$(date +"%s").tar.gz" "$tmpd" && rm -rf "$tmpd"; }'
-    - .config/zsh/plugins/fzf/install --bin
+    -
+      command: git submodule update --init --recursive --jobs 8 --depth 1 2>&1 | grep "Cloning into"
+      description: Pulling all submodules
+      stdout: true
+    -
+      command: /bin/sh -c 'tmpd="$(mktemp -d)"; for file in .config/*; do [ ! -e "$HOME/$file" ] || mv "$HOME/$file" "$tmpd"; done; rmdir "$tmpd" 2>/dev/null || { tar czvf "existing-$(date +"%s").tar.gz" "$tmpd" && rm -rf "$tmpd"; }'
+      description: Archiving all files in ~/.config before overwriting them
+      stdout: true
+      stderr: true
+      quiet: true
+    -
+      command: .config/zsh/plugins/fzf/install --bin
+      description: Pulling fzf binary
 - link:
     ~/.Xresources:
         .Xresources
