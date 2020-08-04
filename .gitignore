@@ -6,8 +6,6 @@
 /.config/git/github.config
 /.config/git/gitlab.config
 /.config/git/user.config
-/.config/tmux/plugins
-!/.config/tmux/plugins/tpm
 /.config/vim/.netrwhist
 /.config/zsh/.zcompdump
 /.config/zsh/plugins/completion/_msg
