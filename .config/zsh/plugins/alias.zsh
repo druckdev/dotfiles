@@ -2,8 +2,7 @@
 ## Created: 2019-01-16
 
 ## Add fslint-directory to PATH
-PATH=$PATH:/usr/share/fslint/fslint
-
+PATH="${PATH:+${PATH}:}/usr/share/fslint/fslint"
 
 ## Add flags or shorten commands that I cannot remember
 alias getclip="xclip -selection c -o"
