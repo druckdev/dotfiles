@@ -8,8 +8,6 @@
 	gpgsign = true
 [difftool "meld"]
 	path = /usr/bin/meld
-[submodule]
-    recurse = true
 [color "status"]
     added = 076
     untracked = 014
