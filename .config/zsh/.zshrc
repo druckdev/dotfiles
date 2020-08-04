@@ -187,4 +187,5 @@ zle_highlight=('paste:none')
 ## History
 HISTSIZE=1000000
 SAVEHIST=1000000
+[ -d "${XDG_DATA_HOME:-$HOME/.local/share}/zsh" ] || mkdir -p "${XDG_DATA_HOME:-$HOME/.local/share}/zsh"
 HISTFILE="${XDG_DATA_HOME:-$HOME/.local/share}/zsh/.zsh_history"
