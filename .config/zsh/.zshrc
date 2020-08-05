@@ -150,7 +150,7 @@ fi
 comp-source "$ZSH_CONF/keys.zsh"
 
 ## Setup PATH
-[[ "$PATH" =~ "$HOME/\.local/bin" ]] || export PATH="$HOME/.local/bin${PATH:+:${PATH}}"
+[[ "$PATH" =~ "$HOME/\.local/bin" ]] || export PATH="$HOME/.local/bin${PATH:+:$PATH}"
 
 ## Env variables that have nothing to do with zsh
 if command -v nvim >/dev/null 2>&1; then
