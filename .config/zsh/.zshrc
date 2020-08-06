@@ -113,6 +113,7 @@ _comp_options+=(globdots) # Include hidden files
 # Don't complete the same twice for diff/meld (http://leahneukirchen.org/dotfiles/.zshrc)
 zstyle ':completion:*:(diff|meld):*' ignore-line yes
 
+comp-source "$ZSH_CONF/fzf-tab/fzf-tab.plugin.zsh"
 
 ## Load external config files and modules
 autoload edit-command-line; zle -N edit-command-line
@@ -133,7 +134,6 @@ comp-source "$ZSH_CONF/transfer.zsh"
 comp-source "$ZSH_CONF/zsh-autosuggestions/zsh-autosuggestions.zsh"
 comp-source "$ZSH_CONF/completion.zsh"
 # comp-source "$ZSH_CONF/zsh-async/async.zsh"
-comp-source "$ZSH_CONF/fzf/shell/completion.zsh"
 #     async_init
 ### syntax-highlight > history-substring > keys
 # syntax highlighting
@@ -148,6 +148,8 @@ if [ -e "$ZSH_CONF/zsh-history-substring-search/zsh-history-substring-search.zsh
 	HISTORY_SUBSTRING_SEARCH_FUZZY=true
 fi
 comp-source "$ZSH_CONF/keys.zsh"
+# Reenable fzf-tab since `bindkey -v` seems to deactivate it
+enable-fzf-tab
 
 ## Setup PATH
 [[ "$PATH" =~ "$HOME/\.local/bin" ]] || export PATH="$HOME/.local/bin${PATH:+:$PATH}"

@@ -25,6 +25,9 @@
 [submodule ".config/zsh/plugins/fzf"]
 	path = .config/zsh/plugins/fzf
 	url = https://github.com/junegunn/fzf
+[submodule ".config/zsh/plugins/fzf-tab"]
+	path = .config/zsh/plugins/fzf-tab
+	url = https://github.com/Aloxaf/fzf-tab
 [submodule ".config/zsh/plugins/powerlevel10k"]
 	path = .config/zsh/plugins/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
