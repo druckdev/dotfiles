@@ -104,6 +104,8 @@ zle -N fzf-hist-down
 # Up
 bindkey '^[[A' fzf-hist-up
 bindkey "$terminfo[kcuu1]" fzf-hist-up
+# Ctrl-Up
+bindkey '^[[1;5A' fzf-history-widget
 # Down
 bindkey '^[[B' fzf-hist-down
 bindkey "$terminfo[kcud1]" fzf-hist-down
