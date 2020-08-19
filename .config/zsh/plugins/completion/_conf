@@ -12,12 +12,16 @@ local w3="${words[$#words - 3]}"
 if [ -z $w2 ]; then # first word to complete
     # move into config directory
     pushd -q "${XDG_CONFIG_HOME:-$HOME/.config}/"
-
     # list all directories
     local paths="$(find -L *(-/) -maxdepth $_MAX_DEPTH -type d 2>/dev/null | xargs)"
-    # TODO: find in $HOME
+    # move back from config directory
+    popd -q
 
-    # move back
+    # move into HOME
+    pushd -q "$HOME"
+	# list all directories starting with a dot (but remove that dot)
+    paths+="$(find -L .*~.cache(-/) -maxdepth $_MAX_DEPTH -type d 2>/dev/null | sed 's/^\.//' | xargs)"
+	# move back from HOME
     popd -q
 
     # use list for completion
