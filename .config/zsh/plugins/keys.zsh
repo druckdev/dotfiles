@@ -13,15 +13,17 @@ function zle-line-init zle-keymap-select {
 		viins|main) echo -ne "\e[5 q";; # beam
 	esac
 
-	# Make sure that the terminal is in application mode when zle is active, since
-	# only then values from $terminfo are valid
-	echoti smkx
+	# Make sure that the terminal is in application mode when zle is active,
+	# since only then values from $terminfo are valid
+	! (( $+terminfo[smkx] )) || echoti smkx
 }
 zle -N zle-line-init
 zle -N zle-keymap-select
 
-# See above (echoti smkx)
-function zle-line-finish { echoti rmkx; }
+function zle-line-finish {
+	# See above (echoti smkx)
+	! (( $+terminfo[rmkx] )) || echoti rmkx
+}
 zle -N zle-line-finish
 
 bindkey '^[h' run-help
