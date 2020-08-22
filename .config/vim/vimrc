@@ -58,13 +58,13 @@ set undofile
 set updatetime=300
 
 " Aesthetics ###################################################################
-" use onedark as theme for syntax highlighting
-syntax on
-colorscheme onedark
 " Use 24-bit (true-color) mode
 if (has("termguicolors"))
 	set termguicolors
 endif
+" use onedark as theme for syntax highlighting
+syntax on
+colorscheme onedark
 
 " get transparent background of the terminal back
 " (at least in nvim, i can't get it to work in vanilla)
