@@ -70,10 +70,8 @@ bindkey . _expandDots
 
 function ls-on-enter {
 	if [ -z "$BUFFER" ]; then
-		echo "ls"
-		ls
-		echo "\n"
-		zle redisplay
+		BUFFER=ls
+		zle accept-line
 	else
 		zle accept-line
 	fi
