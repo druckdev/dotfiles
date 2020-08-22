@@ -327,6 +327,9 @@ safe-remove() {
 	[ -e "$1" ] || return 1
 
 	sync
-	udisksctl unmount -b "$1" || return 1
+	if ! udisksctl unmount -b "$1"; then
+		lsof "$1"
+		return 1
+	fi
 	udisksctl power-off -b "/dev/$(lsblk -no pkname "$1")"
 }
