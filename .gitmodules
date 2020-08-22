@@ -19,6 +19,9 @@
 [submodule ".config/vim/plugged/coc.nvim"]
 	path = .config/vim/plugged/coc.nvim
 	url = https://github.com/neoclide/coc.nvim.git
+[submodule ".config/vim/plugged/onedark.vim"]
+	path = .config/vim/plugged/onedark.vim
+	url = https://github.com/joshdick/onedark.vim
 [submodule ".config/vim/plugged/vim-gitgutter"]
 	path = .config/vim/plugged/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter

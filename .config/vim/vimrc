@@ -1,8 +1,14 @@
 " Plugins ######################################################################
 call plug#begin('~/.config/vim/plugged')
+
+" Auto completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 source $XDG_CONFIG_HOME/vim/coc.nvim.vim
+" Theme
+Plug 'joshdick/onedark.vim'
+" Git information
 Plug 'airblade/vim-gitgutter'
+
 call plug#end()
 " Keybinds #####################################################################
 " Set leader key
