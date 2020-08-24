@@ -25,3 +25,6 @@
         create: true
         glob: true
         path: .local/bin/*
+    ~/.local/share/nvim/site/pack:
+        create: true
+        path: .config/vim/pack

@@ -17,13 +17,13 @@
 	path = .config/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
 [submodule ".config/vim/plugged/coc.nvim"]
-	path = .config/vim/plugged/coc.nvim
+	path = .config/vim/pack/plugins/opt/coc.nvim
 	url = https://github.com/neoclide/coc.nvim.git
 [submodule ".config/vim/plugged/onedark.vim"]
-	path = .config/vim/plugged/onedark.vim
+	path = .config/vim/pack/plugins/opt/onedark.vim
 	url = https://github.com/joshdick/onedark.vim
 [submodule ".config/vim/plugged/vim-gitgutter"]
-	path = .config/vim/plugged/vim-gitgutter
+	path = .config/vim/pack/plugins/opt/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter
 [submodule ".config/zsh/plugins/fzf"]
 	path = .config/zsh/plugins/fzf
