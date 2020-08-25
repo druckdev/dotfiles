@@ -9,10 +9,9 @@ case "$1" in
 esac
 
 if (( $INIT )); then
-	out="$(git submodule update --init --recursive --jobs 8 --depth 1 2>&1)"
-	if ! (( $? )) && [ -n "$out" ] ; then
-		echo "$out" | grep "Cloning into"
-	fi
+	git submodule update --init --recursive --jobs 8 --depth 1 2>&1 \
+		| grep "Cloning into" \
+		|| ! (( ${PIPESTATUS[0]} ))
 else
 	git submodule update --remote
 fi
