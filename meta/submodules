@@ -1,0 +1,18 @@
+#!/bin/bash
+
+[ $# -eq 1 ] || { echo "Specify what to do" >&2; exit 1; }
+
+case "$1" in
+	"--init") INIT=1;;
+	"--update") INIT=0;;
+	*) echo "Unknown option"; exit 1;;
+esac
+
+if (( $INIT )); then
+	out="$(git submodule update --init --recursive --jobs 8 --depth 1 2>&1)"
+	if ! (( $? )) && [ -n "$out" ] ; then
+		echo "$out" | grep "Cloning into"
+	fi
+else
+	git submodule update --remote
+fi

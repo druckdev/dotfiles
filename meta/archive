@@ -1,0 +1,20 @@
+#!/bin/sh
+
+tmpd="$(mktemp -d)"
+
+for file in .config/*; do
+	[ ! -e "$HOME/$file" ] || mv "$HOME/$file" "$tmpd"
+done
+
+if rmdir "$tmpd" 2>/dev/null; then
+	echo "Nothing to archive"
+else
+	name="existing-$(date +"%s").tar.gz"
+	if tar czvf "$name" "$tmpd"; then
+		rm -rf "$tmpd"
+		echo "$name created"
+	else
+		echo "Archive could not be created. See $tmpd."
+		exit 1
+	fi
+fi

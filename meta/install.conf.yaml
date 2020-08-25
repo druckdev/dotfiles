@@ -1,15 +1,14 @@
 - shell:
     -
-      command: git submodule update --init --recursive --jobs 8 --depth 1 2>&1 | grep "Cloning into"
+      command: meta/submodules --init
       description: Pulling all submodules
       stdout: true
       stderr: true
     -
-      command: /bin/sh -c 'tmpd="$(mktemp -d)"; for file in .config/*; do [ ! -e "$HOME/$file" ] || mv "$HOME/$file" "$tmpd"; done; rmdir "$tmpd" 2>/dev/null && echo "Nothing to archive" || { name="existing-$(date +"%s").tar.gz"; tar czvf "$name" "$tmpd" && rm -rf "$tmpd" && echo "$name created"; }'
+      command: meta/archive
       description: Archiving all files in ~/.config before overwriting them
       stdout: true
       stderr: true
-      quiet: true
     -
       command: .config/zsh/plugins/fzf/install --bin
       description: Pulling fzf binary
