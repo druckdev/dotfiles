@@ -1,6 +1,7 @@
 #!/bin/bash
 
 [ $# -eq 1 ] || { echo "Specify history file" >&2; exit 1; }
+[ -e "$1" ] || { echo "File does not exist" >&2; exit 1; }
 [ "$(stat -c '%a' "$1")" = "600" ] || { echo "File does not look like a history file" >&2; exit 1; }
 
 declare -a COMMANDS
@@ -30,8 +31,17 @@ echo "Are you a 100% sure you want to delete these commands from $1? (Type out y
 read yn
 [ "$yn" = "yes" ] || exit 1
 
+tempd="$(mktemp -d)"
+cp "$1" "$tempd/$(basename "$1")"
+echo "Backup created at $tempd/$(basename "$1")"
+echo
+
 for c in "${COMMANDS[@]}"; do
 	c="$(echo "$c" | sed 's/\./\\./g; s/\//\\\//g')"
-	sed -Ei '/^: [0-9]+:[0-9]+;'"$c"'$/d' "$1"
+	sed -Ei "/^: [0-9]+:[0-9]+;${c}\$/d" "$1"
 	echo "$c deleted"
 done
+
+echo
+echo "Following commands were deleted:"
+diff "$1" "$tempd/$(basename "$1")" | grep "^>" | cut -d\; -f 2 | sort | uniq -c | sort -nr
