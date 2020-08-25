@@ -1,5 +1,5 @@
 [submodule "dotbot"]
-	path = dotbot
+	path = meta/dotbot
 	url = https://github.com/anishathalye/dotbot
 [submodule ".config/tmux/plugins/tmux-continuum"]
 	path = .config/tmux/plugins/tmux-continuum
