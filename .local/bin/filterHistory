@@ -1,5 +1,13 @@
 #!/bin/bash
 
+## Author:  druckdev
+## Created: 2020-06-14
+##
+## A script that deletes often used commands in a shell history.
+## The script will expect a file as argument and that the history file is in the
+##   format of zshs extended history.
+## An automatic backup is created before deleting that can be used for recovery.
+
 [ $# -eq 1 ] || { echo "Specify history file" >&2; exit 1; }
 [ -e "$1" ] || { echo "File does not exist" >&2; exit 1; }
 [ "$(stat -c '%a' "$1")" = "600" ] || { echo "File does not look like a history file" >&2; exit 1; }

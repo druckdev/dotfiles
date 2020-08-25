@@ -1,5 +1,5 @@
 ## Author:  druckdev
-## Created  2018-11-23
+## Created: 2018-11-23
 
 # Set terminals title if this is a scratchpad-terminal
 [ -z "$SCRATCHPAD_TERMINAL" ] || printf "\x1b\x5d\x30\x3bscratchpad-terminal\x07"
