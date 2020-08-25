@@ -13,10 +13,12 @@
       command: .config/zsh/plugins/fzf/install --bin
       description: Pulling fzf binary
 - link:
+    ~/.Xmodmap:
+        path: .Xmodmap
     ~/.Xresources:
-        .Xresources
+        path: .Xresources
     ~/.zshenv:
-        .zshenv
+        path: .zshenv
     ~/.config/:
         create: true
         glob: true
