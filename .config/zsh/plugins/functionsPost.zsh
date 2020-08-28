@@ -322,6 +322,48 @@ function urldec() {
 	python3 -c "from urllib import parse; print(parse.unquote('$@'), end='')"
 }
 
+glog() {
+	# Display yellow abbreviated commit hash, red author date, blue author name,
+	# green ref names, and the subject in no color.
+	local format='format:%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s'
+	# Before being able to operate on the string itself we need to remove all
+	# ansi color escape sequences to not confuse sed.
+	local ansi_escape='s/\[[0-9]{0,2}m//g'
+	# Ignore the graph part at the beginning, then capture the commit hash and
+	# throw away the rest of the line.
+	local commit_hash='s/^[ */\\|]*([a-z0-9]*).*$/\1/'
+
+	local date="--date=format:%F %T"
+	local colors="--color=always"
+
+	# Display a colorful ascii graph of the commits in the above format and pipe
+	# that into fzf.
+	# Display ansi colors, reverse the layout so that the newest commit is at
+	# the top, and add a preview command, that:
+	# Takes the commit line, extracts the commit hash by using both patterns
+	# from above and saves that in a variable. When the variable is not empty
+	# (we are not on a line that contains only graph elements), execute git-show
+	# on the commit hash.
+	commit="$(\
+		git log --pretty="$format" --graph "$date" $colors\
+		| fzf --ansi --reverse --preview="
+			out=\"\$(echo {} | sed -Ee \"$ansi_escape\" -e \"$commit_hash\")\"
+			if [ \"\$out\" ]; then
+				git show --pretty=fuller \"${date} %z\" $colors \"\$out\"
+			fi
+		"
+	)"
+	# If fzf exits successfully, put the abbreviated commit hash into the
+	# clipboard and write it into stdout.
+	if ! (( $? )); then
+		commit="$(sed -Ee "$ansi_escape" -e "$commit_hash" <<<"$commit")"
+		if command -v xclip &>/dev/null; then
+			echo -n "$commit" | xclip -selection clip
+		fi
+		echo "$commit"
+	fi
+}
+
 safe-remove() {
 	[ $# -gt 0 ] || return 1
 	[ -e "$1" ] || return 1
