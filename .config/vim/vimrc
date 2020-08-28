@@ -53,6 +53,8 @@ set formatoptions+=cro
 set undofile
 " Update every 300ms for better experience with plugins like gitgutter and coc
 set updatetime=300
+" Check for spelling in comments and strings
+set spell spelllang=en_us
 
 " Aesthetics ###################################################################
 " Use 24-bit (true-color) mode
