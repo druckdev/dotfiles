@@ -58,7 +58,7 @@ setopt HIST_VERIFY              # perform history expansion and reload line in e
 setopt NO_INC_APPEND_HISTORY    # Do not write lines as soon as they are entered (breaks exec time otherwise)
 setopt INC_APPEND_HISTORY_TIME  # Write lines after they are finished
 setopt INTERACTIVE_COMMENTS     # Allow comments even in interactive shells.
-setopt LIST_AMBIGUOUS           # Insert unabmbiguous prefix without completion list (auto_list set)
+setopt LIST_AMBIGUOUS           # Insert unambiguous prefix without completion list (auto_list set)
 setopt LIST_PACKED              # Make completion list smaller by printing matches in columns with different widths.
 setopt NO_MENU_COMPLETE         # Do not autoselect the first entry when completing
 setopt PUSHD_IGNORE_DUPS        # Don't push multiple copies of the same directory onto the directory stack.
