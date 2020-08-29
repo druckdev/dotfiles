@@ -335,6 +335,11 @@ glog() {
 
 	local date="--date=format:%F %T"
 	local colors="--color=always"
+	local binds=(
+		"ctrl-space:toggle-preview"
+		"ctrl-j:preview-down"
+		"ctrl-k:preview-up"
+	)
 
 	# Display a colorful ascii graph of the commits in the above format and pipe
 	# that into fzf.
@@ -346,7 +351,7 @@ glog() {
 	# on the commit hash.
 	commit="$(\
 		git log --pretty="$format" --graph "$date" $colors\
-		| fzf --ansi --reverse --preview="
+		| fzf --ansi --reverse --bind "${(j:,:)binds}" --preview="
 			out=\"\$(echo {} | sed -Ee \"$ansi_escape\" -e \"$commit_hash\")\"
 			if [ \"\$out\" ]; then
 				git show --pretty=fuller \"${date} %z\" $colors \"\$out\"
