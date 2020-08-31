@@ -325,8 +325,9 @@ function urldec() {
 glog() {
 	# One line format for fzf list view
 	# abbreviated commit hash (yellow), title and ref names
-	local onelineformat='--pretty=format:%C(yellow)%h %Creset%s%C(auto)%d'
+	local formatshort='--pretty=format:%C(yellow)%h %Creset%s%C(auto)%d'
 	# Verbose format for the preview window on the right
+	# This array is stitched together with newlines later
 	local format=(
 		'--pretty=format:%C(yellow)'     # newline created by this eaten by %-
 		'%-commit: %H%C(auto)'           # yellow commit hash
@@ -368,7 +369,7 @@ glog() {
 	# (we are not on a line that contains only graph elements), execute git-show
 	# on the commit hash.
 	commit="$(\
-		git log "$onelineformat" --graph "$dateshort" "$colors" \
+		git log "$formatshort" --graph "$dateshort" "$colors" \
 		| fzf --ansi --reverse --bind "${(j:,:)binds}" --preview="
 			out=\"\$(echo {} | sed -Ee \"$del_ansi\" -e \"$commit_hash\")\"
 			if [ \"\$out\" ]; then
