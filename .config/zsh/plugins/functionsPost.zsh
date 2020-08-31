@@ -323,22 +323,40 @@ function urldec() {
 }
 
 glog() {
-	# Display yellow abbreviated commit hash, red author date, blue author name,
-	# green ref names, and the subject in no color.
-	local format='format:%C(yellow)%h %Cred%ad %Cblue%an%Cgreen%d %Creset%s'
+	# One line format for fzf list view
+	# abbreviated commit hash (yellow), title and ref names
+	local onelineformat='--pretty=format:%C(yellow)%h %Creset%s%C(auto)%d'
+	# Verbose format for the preview window on the right
+	local format=(
+		'--pretty=format:%C(yellow)'     # newline created by this eaten by %-
+		'%-commit: %H%C(auto)'           # yellow commit hash
+		'%-D%Cblue'                      # auto colored ref names (if any)
+		'Author:     %aN %aE%Cred'       # blue author mail
+		'AuthorDate: %ad%Cblue'          # red author date
+		'Commit:     %cN %cE%Cred'       # blue commiter mail
+		'CommitDate: %cd%Creset%C(bold)' # red commit date
+		''
+		'    %s%Creset'                  # bold white subject
+		' ' # space is here so that the empty line is not eaten when no body
+		'%-b'                            # body
+		'--------------------------------------------------'
+		''
+	)
+
 	# Before being able to operate on the string itself we need to remove all
 	# ansi color escape sequences to not confuse sed.
-	local ansi_escape='s/\[[0-9]{0,2}m//g'
+	local del_ansi='s/\[[0-9]{0,2}m//g'
 	# Ignore the graph part at the beginning, then capture the commit hash and
 	# throw away the rest of the line.
 	local commit_hash='s/^[ */\\|]*([a-z0-9]*).*$/\1/'
 
-	local date="--date=format:%F %T"
-	local colors="--color=always"
+	local dateshort='--date=format:%F' # year
+	local date='--date=format:%F %T %z' # year time timezone
+	local colors='--color=always'
 	local binds=(
-		"ctrl-space:toggle-preview"
-		"ctrl-j:preview-down"
-		"ctrl-k:preview-up"
+		'ctrl-space:toggle-preview'
+		'ctrl-j:preview-down'
+		'ctrl-k:preview-up'
 	)
 
 	# Display a colorful ascii graph of the commits in the above format and pipe
@@ -350,18 +368,18 @@ glog() {
 	# (we are not on a line that contains only graph elements), execute git-show
 	# on the commit hash.
 	commit="$(\
-		git log --pretty="$format" --graph "$date" $colors\
+		git log "$onelineformat" --graph "$dateshort" "$colors" \
 		| fzf --ansi --reverse --bind "${(j:,:)binds}" --preview="
-			out=\"\$(echo {} | sed -Ee \"$ansi_escape\" -e \"$commit_hash\")\"
+			out=\"\$(echo {} | sed -Ee \"$del_ansi\" -e \"$commit_hash\")\"
 			if [ \"\$out\" ]; then
-				git show --pretty=fuller \"${date} %z\" $colors \"\$out\"
+				git show \"${(j:%n:)format}\" \"$date\" $colors \"\$out\"
 			fi
 		"
 	)"
 	# If fzf exits successfully, put the abbreviated commit hash into the
 	# clipboard and write it into stdout.
 	if ! (( $? )); then
-		commit="$(sed -Ee "$ansi_escape" -e "$commit_hash" <<<"$commit")"
+		commit="$(sed -Ee "$del_ansi" -e "$commit_hash" <<<"$commit")"
 		if command -v xclip &>/dev/null; then
 			echo -n "$commit" | xclip -selection clip
 		fi
