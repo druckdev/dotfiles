@@ -323,6 +323,9 @@ function urldec() {
 }
 
 glog() {
+	# Return if not in git repo
+	git rev-parse || return
+
 	# One line format for fzf list view
 	# abbreviated commit hash (yellow), title and ref names
 	local formatshort='--pretty=format:%C(yellow)%h %Creset%s%C(auto)%d'
