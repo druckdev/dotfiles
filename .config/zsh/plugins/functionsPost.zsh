@@ -325,6 +325,8 @@ function urldec() {
 glog() {
 	# Return if not in git repo
 	git rev-parse || return
+	# extendedglob is necessary for the expansion of the binds array
+	emulate -L zsh -o extendedglob
 
 	# One line format for fzf list view
 	# abbreviated commit hash (yellow), title and ref names
@@ -341,14 +343,14 @@ glog() {
 		'CommitDate: %cd%Creset%C(bold)' # red commit date
 		''
 		'    %s%Creset'                  # bold white subject
-		' ' # space is here so that the empty line is not eaten when no body
+		' ' # space is here so that the empty line is not eaten when empty body
 		'%-b'                            # body
 		'--------------------------------------------------'
 		''
 	)
 
 	# Before being able to operate on the string itself we need to remove all
-	# ansi color escape sequences to not confuse sed.
+	# ansi color escape sequences to not confuse sed. (see git show below)
 	local del_ansi='s/\[[0-9]{0,2}m//g'
 	# Ignore the graph part at the beginning, then capture the commit hash and
 	# throw away the rest of the line.
@@ -357,28 +359,32 @@ glog() {
 	local dateshort='--date=format:%F' # year
 	local date='--date=format:%F %T %z' # year time timezone
 	local colors='--color=always'
-	local binds=(
-		'ctrl-space:toggle-preview'
-		'ctrl-j:preview-down'
-		'ctrl-k:preview-up'
+	local -A binds=(
+		'ctrl-space' 'toggle-preview'
+		'ctrl-alt-j' 'preview-down'
+		'ctrl-alt-k' 'preview-up'
 	)
-
-	# Display a colorful ascii graph of the commits in the above format and pipe
-	# that into fzf.
-	# Display ansi colors, reverse the layout so that the newest commit is at
-	# the top, and add a preview command, that:
-	# Takes the commit line, extracts the commit hash by using both patterns
-	# from above and saves that in a variable. When the variable is not empty
-	# (we are not on a line that contains only graph elements), execute git-show
-	# on the commit hash.
-	commit="$(\
-		git log "$formatshort" --graph "$dateshort" "$colors" \
-		| fzf --ansi --reverse --bind "${(j:,:)binds}" --preview="
+	local -a fzf_args=(
+		# Understand ansi color escape sequences
+		"--ansi"
+		# Expand the binds array in the format key1:value1,key2:value2
+		"--bind" "${(@kj:,:)binds/(#m)*/$MATCH:$binds[$MATCH]}"
+		# Execute git show on the commit as preview
+		"--preview" "
 			out=\"\$(echo {} | sed -Ee \"$del_ansi\" -e \"$commit_hash\")\"
 			if [ \"\$out\" ]; then
 				git show \"${(j:%n:)format}\" \"$date\" $colors \"\$out\"
 			fi
 		"
+		# Reverse the layout so that the newest commit is at the top
+		"--reverse"
+	)
+
+	# Display an ascii graph of the commits in the above format and pipe that
+	# into fzf.
+	commit="$(\
+		git log "$formatshort" --graph "$dateshort" "$colors" \
+		| fzf "${fzf_args[@]}"
 	)"
 	# If fzf exits successfully, put the abbreviated commit hash into the
 	# clipboard and write it into stdout.
