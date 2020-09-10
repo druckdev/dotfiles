@@ -221,7 +221,7 @@ for_window [class="st-256color" title="^scratchpad-terminal$"] \
 exec_always i3-msg '[class="St" title="^scratchpad-terminal$"] scratchpad show'
 # Show scratchpad-terminal or create one if none exists.
 # Pass current working directory of the focused window but escape spaces.
-bindsym $mod+comma exec ~/.config/i3/scratchpad-terminal.sh -s -c st-256color -n scratchpad-terminal -e "st -d $(xcwd | sed 's/ /\\\\ /')"
+bindsym $mod+comma exec ~/.config/i3/scratchpad-terminal.sh -s -c st-256color -n scratchpad-terminal -e "st -d $(xcwd | sed 's/ /\\\\ /g')"
 # hide scratchpad-terminal indepedent of where the focus sits
 bindsym $mod+Shift+comma exec ~/.config/i3/scratchpad-terminal.sh -h -c st-256color -n scratchpad-terminal
 
