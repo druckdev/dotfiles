@@ -1,0 +1,23 @@
+{
+    "editor.fontLigatures": true,
+    "editor.lineNumbers": "relative",
+    "editor.minimap.enabled": false,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.rulers": [
+        80,
+        100
+    ],
+    "editor.suggestSelection": "first",
+    "git.autofetch": true,
+    "keyboard.dispatch": "keyCode",
+    "trailing-spaces.backgroundColor": "#E06C75",
+    "trailing-spaces.highlightCurrentLine": false,
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["C-w"],
+            "commands": [":q"]
+        }
+    ],
+    "workbench.activityBar.visible": false,
+    "workbench.colorTheme": "One Dark Pro",
+}
