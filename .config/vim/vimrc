@@ -50,6 +50,8 @@ set spell spelllang=en_us
 if (has('nvim'))
 	set inccommand=nosplit
 endif
+" Put new window below/right of current
+set splitbelow splitright
 
 " Aesthetics ###################################################################
 " Use 24-bit (true-color) mode
