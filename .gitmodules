@@ -46,6 +46,3 @@
 [submodule ".config/zsh/plugins/zsh-syntax-highlighting"]
 	path = .config/zsh/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule ".config/vim/pack/plugins/opt/vim-polyglot"]
-	path = .config/vim/pack/plugins/opt/vim-polyglot
-	url = https://github.com/sheerun/vim-polyglot
