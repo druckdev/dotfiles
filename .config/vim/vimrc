@@ -50,10 +50,6 @@ set spell spelllang=en_us
 if (has('nvim'))
 	set inccommand=nosplit
 endif
-" By default substitute with g flag (useful for inccommand and since I never
-" substitute without the g flag.
-" Specify g again to toggle it back
-set gdefault
 
 " Aesthetics ###################################################################
 " Use 24-bit (true-color) mode
