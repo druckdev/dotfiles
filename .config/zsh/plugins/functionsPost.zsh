@@ -397,6 +397,35 @@ glog() {
 	fi
 }
 
+git-submodule-rm() {
+	# Exit if not in git repo
+	local toplevel="$(git rev-parse --show-toplevel)" || return
+
+	# Exit if no arguements were given
+	[ $# -gt 0 ] || return
+
+	local separator=""
+	for arg in "$@"; do
+		printf "$separator"
+
+		# argument relative from git toplevel
+		local arg_from_git="${${arg:A}##$toplevel/}"
+		# argument has to exist
+		[ -e "$arg" ] || continue
+		# argument has to exist in repo
+		[ -e "$toplevel/$arg_from_git" ] || continue
+		# has to be a submodule
+		[ -e "$toplevel/.git/modules/$arg_from_git" ] || continue
+
+		git submodule deinit -f  "$arg"
+		echo "command rm -rf \"$toplevel/.git/modules/$arg_from_git\""
+		command rm -rf "$toplevel/.git/modules/$arg_from_git"
+		git rm -f "$arg"
+
+		separator="\n"
+	done
+}
+
 safe-remove() {
 	[ $# -gt 0 ] || return 1
 	[ -e "$1" ] || return 1
