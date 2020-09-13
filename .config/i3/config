@@ -201,13 +201,13 @@ bindsym $mod+p exec ~/.config/rofi/powermenu.sh &
 exec --no-startup-id xss-lock -l ~/.config/xsecurelock/transfer-sleep-lock.sh &
 
 # Wallpaper
-exec feh --bg-scale --no-fehbg ~/Pictures/Wallpapers/tractor-blur.png
+exec_always feh --bg-scale --no-fehbg ~/Pictures/Wallpapers/wallpaper
 
 # Notify when toggling airplane mode
 bindsym XF86RFKill exec --no-startup-id ~/.config/i3/airplane-mode-notify.sh
 
-# compositor for transparency
-exec --no-startup-id compton -b
+# compositor for transparency and blur
+exec --no-startup-id ~/.config/compositor/launch.sh
 
 # scratchpad-terminal
 for_window [class="st-256color" title="^scratchpad-terminal$"] \

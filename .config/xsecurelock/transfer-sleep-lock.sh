@@ -20,14 +20,14 @@ sleep_delay=1
 # Run before starting the locker
 pre_lock() {
     playerctl pause
-    killall -q compton
+    "${XDG_CONFIG_HOME:-$HOME/.config}/compositor/launch.sh" -k
     amixer -q -D pulse sset Master mute
     return
 }
 
 # Run after the locker exits
 post_lock() {
-    compton -b
+    "${XDG_CONFIG_HOME:-$HOME/.config}/compositor/launch.sh"
     return
 }
 
