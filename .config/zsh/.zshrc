@@ -11,7 +11,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 	source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-export ZSH_CONF="$ZDOTDIR/plugins"
+ZSH_CONF="$ZDOTDIR/plugins"
 
 # https://github.com/romkatv/dotfiles-public/blob/7e49fc4fb71d/.zshrc#L35
 comp-conf() {
@@ -47,7 +47,7 @@ setopt NO_COMPLETE_ALIASES      # Substitute internally before completion.
 setopt COMPLETE_IN_WORD         # Complete from the cursor rather than from the end of the word
 setopt CORRECT                  # Try to correct the spelling of a command
 setopt CORRECT_ALL              # Try to correct the spelling of all arguments
-export CORRECT_IGNORE_FILE=".*" # Do not offer hidden files as correction
+CORRECT_IGNORE_FILE=".*"        # Do not offer hidden files as correction
 setopt EXTENDED_HISTORY         # Save in format : <beginning time>:<elapsed seconds>;<command>
 setopt EXTENDED_GLOB            # Treat the `#', `~' and `^' characters as part of patterns for filename generation, etc.
 setopt NO_FLOW_CONTROL          # Disables output flow control in the shell's editor via start/stop characters (usually ^S/^Q).
