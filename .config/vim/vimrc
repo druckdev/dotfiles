@@ -10,15 +10,6 @@ packadd! vim-gitgutter
 " Keybinds #####################################################################
 " Set leader key
 let mapleader = "\<Space>"
-" Disable arrow keys
-noremap  <Up> ""
-noremap! <Up> <Esc>
-noremap  <Down> ""
-noremap! <Down> <Esc>
-noremap  <Left> ""
-noremap! <Left> <Esc>
-noremap  <Right> ""
-noremap! <Right> <Esc>
 " Stop highlighting search result when pressing Return
 nnoremap <silent> <CR> :nohlsearch<CR><CR>
 
