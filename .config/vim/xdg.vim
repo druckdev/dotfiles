@@ -7,7 +7,7 @@
 " - http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html#variables
 " - http://tlvince.com/vim-respect-xdg
 " - https://wiki.archlinux.org/index.php/XDG_Base_Directory
-" - https://raw.githubusercontent.com/kaleb/vim-files/master/xdg.vim
+" - https://github.com/kaleb/vim-files/blob/23ee9d4a97d21f040c63e5c6dfdb72382fada840/xdg.vim
 
 if empty($XDG_CACHE_HOME)
 	let $XDG_CACHE_HOME = '~/.cache'
@@ -38,10 +38,8 @@ if (!has('nvim'))
 	set viminfo+=n$XDG_DATA_HOME/vim/viminfo
 endif
 
-set runtimepath-=~/.vim
-set runtimepath^=$XDG_CONFIG_HOME/vim
-set runtimepath-=~/.vim/after
-set runtimepath+=$XDG_CONFIG_HOME/vim/after
-set packpath-=~/.vim
-set packpath^=$XDG_CONFIG_HOME/vim
+set runtimepath-=~/.vim       runtimepath^=$XDG_CONFIG_HOME/vim
+set runtimepath-=~/.vim/after runtimepath+=$XDG_CONFIG_HOME/vim/after
+set packpath-=~/.vim          packpath^=$XDG_CONFIG_HOME/vim
+
 source $XDG_CONFIG_HOME/vim/vimrc
