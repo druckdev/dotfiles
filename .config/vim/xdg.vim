@@ -42,4 +42,6 @@ set runtimepath-=~/.vim
 set runtimepath^=$XDG_CONFIG_HOME/vim
 set runtimepath-=~/.vim/after
 set runtimepath+=$XDG_CONFIG_HOME/vim/after
+set packpath-=~/.vim
+set packpath^=$XDG_CONFIG_HOME/vim
 source $XDG_CONFIG_HOME/vim/vimrc

@@ -58,8 +58,14 @@ set spell spelllang=en_us
 
 " Aesthetics ###################################################################
 " Use 24-bit (true-color) mode
-if (has("termguicolors"))
+if (has('termguicolors'))
 	set termguicolors
+	" https://github.com/vim/vim/issues/993
+	if (&term != 'xterm-256color')
+		" set Vim-specific sequences for RGB colors
+		let &t_8f = "\e[38;2;%lu;%lu;%lum"
+		let &t_8b = "\e[48;2;%lu;%lu;%lum"
+	endif
 endif
 " use onedark as theme for syntax highlighting
 syntax on
