@@ -35,6 +35,13 @@ if (has('nvim'))
 endif
 " Put new window below/right of current
 set splitbelow splitright
+" What is ce there for? cw should include whitespace like dw.
+if (has('nvim'))
+	set cpoptions-=_
+else
+	nmap cw dwi
+	nmap cW dWi
+endif
 
 " Keybinds #####################################################################
 " Set leader key
