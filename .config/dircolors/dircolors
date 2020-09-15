@@ -1,7 +1,30 @@
 # This file is based on the standard dircolors but with bright colors when using bold font
 
+TERM Eterm
+TERM ansi
+TERM color-xterm
+TERM con*
+TERM console
+TERM cygwin
+TERM dtterm
+TERM dvtm
+TERM dvtm-256color
+TERM eterm-color
+TERM fbterm
+TERM gnome*
+TERM jfbterm
+TERM konsole*
+TERM kterm
+TERM linux*
+TERM mach-color
+TERM mlterm
+TERM putty*
+TERM rxvt*
+TERM screen*
+TERM st*
+TERM tmux*
+TERM vt100
 TERM xterm*
-TERM st-256color
 
 # NORMAL 	00
 # FILE	00
