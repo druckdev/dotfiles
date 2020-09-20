@@ -138,6 +138,11 @@ handle_image() {
         #           - "${IMAGE_CACHE_PATH}" < "${FILE_PATH}" \
         #           && exit 6 || exit 1;;
 
+        ## Canon RAW
+        image/x-canon-cr2)
+            exiftool -b -PreviewImage "${FILE_PATH}" > "${IMAGE_CACHE_PATH}" && exit 6
+            exit 1;;
+
         ## Image
         image/*)
             local orientation
