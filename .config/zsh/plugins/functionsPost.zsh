@@ -378,6 +378,8 @@ glog() {
 		"
 		# Reverse the layout so that the newest commit is at the top
 		"--reverse"
+		# Do not sort when typing to maintain the sorting by date
+		"--no-sort"
 	)
 
 	# Display an ascii graph of the commits in the above format and pipe that
