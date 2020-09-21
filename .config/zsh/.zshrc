@@ -117,9 +117,12 @@ comp-source "$ZSH_CONF/fzf-tab/fzf-tab.plugin.zsh"
 
 ## Load external config files and modules
 autoload edit-command-line; zle -N edit-command-line
-autoload zmv
 ! alias run-help >/dev/null 2>&1 || unalias run-help
-autoload run-help
+autoload run-help run-help-git zmv
+if [ -d "$ZDOTDIR/autoload" ]; then
+	fpath=("$ZDOTDIR/autoload" $fpath)
+	autoload -Uz -- "" "${fpath[1]}"/*(.xN:t)
+fi
 ! command -v direnv >/dev/null 2>&1 || eval "$(direnv hook zsh)"
 # stderred
 if [ -e "$ZSH_CONF/stderred/build/libstderred.so" ]; then

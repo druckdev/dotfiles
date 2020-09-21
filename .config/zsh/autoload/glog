@@ -1,0 +1,81 @@
+## Author:  druckdev
+## Created: 2020-08-28
+##
+## A TUI for git-log using fzf.
+## Displays git-log in fzf and git-show as preview command for each commit.
+
+# extendedglob is necessary for the expansion of the binds array
+emulate -L zsh -o extendedglob
+
+# Return if not in git repo
+git rev-parse || return
+
+# One line format for fzf list view
+# abbreviated commit hash (yellow), title and ref names
+local formatshort='--pretty=format:%C(yellow)%h %Creset%s%C(auto)%d'
+# Verbose format for the preview window on the right
+# This array is stitched together with newlines later
+local format=(
+	'--pretty=format:%C(yellow)'     # newline created by this eaten by %-
+	'%-commit: %H%C(auto)'           # yellow commit hash
+	'%-D%Cblue'                      # auto colored ref names (if any)
+	'Author:     %aN %aE%Cred'       # blue author mail
+	'AuthorDate: %ad%Cblue'          # red author date
+	'Commit:     %cN %cE%Cred'       # blue commiter mail
+	'CommitDate: %cd%Creset%C(bold)' # red commit date
+	''
+	'    %s%Creset'                  # bold white subject
+	' ' # space is here so that the empty line is not eaten when empty body
+	'%-b'                            # body
+	'--------------------------------------------------'
+	''
+)
+
+# Before being able to operate on the string itself we need to remove all ansi
+# color escape sequences to not confuse sed. (see git show below)
+local del_ansi='s/\[[0-9]{0,2}m//g'
+# Ignore the graph part at the beginning, then capture the commit hash and throw
+# away the rest of the line.
+local commit_hash='s/^[ */\\|]*([a-z0-9]*).*$/\1/'
+
+local dateshort='--date=format:%F' # year
+local date='--date=format:%F %T %z' # year time timezone
+local colors='--color=always'
+local -A binds=(
+	'ctrl-space' 'toggle-preview'
+	'ctrl-alt-j' 'preview-down'
+	'ctrl-alt-k' 'preview-up'
+)
+local -a fzf_args=(
+	# Understand ansi color escape sequences.
+	"--ansi"
+	# Expand the binds array in the format "key1:value1,key2:value2".
+	"--bind" "${(@kj:,:)binds/(#m)*/$MATCH:$binds[$MATCH]}"
+	# Execute git show on the commit as preview.
+	"--preview" "
+		out=\"\$(echo {} | sed -Ee \"$del_ansi\" -e \"$commit_hash\")\"
+		if [ \"\$out\" ]; then
+			git show \"${(j:%n:)format}\" \"$date\" $colors \"\$out\"
+		fi
+	"
+	# Reverse the layout so that the newest commit is at the top.
+	"--reverse"
+	# Do not sort when typing to maintain the sorting by date.
+	"--no-sort"
+)
+
+# Display an ascii graph of the commits in the above format and pipe that into
+# fzf.
+commit="$(\
+	git log "$formatshort" --graph "$dateshort" "$colors" \
+	| fzf "${fzf_args[@]}"
+)"
+# If fzf exits successfully, put the abbreviated commit hash into the clipboard
+# and write it onto stdout.
+if ! (( $? )); then
+	commit="$(sed -Ee "$del_ansi" -e "$commit_hash" <<<"$commit")"
+	if command -v xclip &>/dev/null; then
+		echo -n "$commit" | xclip -selection clip
+	fi
+	echo "$commit"
+fi

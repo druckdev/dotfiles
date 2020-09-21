@@ -1,0 +1,38 @@
+## Author:  druckdev
+## Created: 2019-11-28
+##
+## A clang-format wrapper that can take a path to a format file (everywhere on
+## the system) with the -style flag
+
+local idx=${@[(I)-style*]}
+if (( ! idx )); then
+	# No style flag given
+	command clang-format "$@"
+	return
+fi
+
+local style="${@[$idx]#-style}" prefix=""
+if [ -n "$style" ]; then
+	# Flag was given in form -style=<style>
+	style="${style#=}"
+	prefix="-style="
+else
+	# Flag was given in form -style <style>
+	(( idx++ ))
+	style="${@[$idx]}"
+fi
+if [ ! -e "$style" ]; then
+	# Argument is not a file and thus probably a valid style string that can
+	# be passes to clang-format
+	command clang-format "$@"
+	return
+fi
+
+# Delete all empty lines (not counting whitespace) and comments and join all
+# lines with commas.
+style="$(sed -E '/^\s*($|#)/d' "$style" | tr '\n' ',')"
+style="{${style%,}}"
+
+# Overwrite the argument of the style flag with the parsed format file.
+set -- "${@[1, $idx - 1]}" "${prefix}${style}" "${@[$idx + 1, -1]}"
+command clang-format "$@"
