@@ -42,6 +42,8 @@ else
 	nmap cw dwi
 	nmap cW dWi
 endif
+" Copy structure of the existing lines indent when autoindenting a new line
+set copyindent
 
 " Keybindings ##################################################################
 " Set leader key
