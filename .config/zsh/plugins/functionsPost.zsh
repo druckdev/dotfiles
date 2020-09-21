@@ -308,23 +308,39 @@ function histgrep() {
 	grep "$@" "${HISTFILE:-$HOME/.zsh_history}"
 }
 
-function cformat() {
-	# TODO: respect manual changes made in meld
-	CLANG_FORMAT_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/clang/config"
-	FORMAT="$(
-		sed -E '/^\s*($|#)/d' "$CLANG_FORMAT_FILE" \
-		| tr '\n' ',' \
-		| sed 's/,$//'
-	)"
-	FORMAT="{${FORMAT}}"
-	if [ $# -eq 1 ]; then
-		meld <(clang-format -style="$FORMAT" $1) $1
+function clang-format() {
+	local idx=${@[(I)-style*]}
+	if (( ! idx )); then
+		# No style flag given
+		command clang-format "$@"
+		return
 	fi
-	echo -n "Are you happy? [yn] "
-	read yn
-	if [ $yn = "y" ]; then
-		clang-format -i -style="$FORMAT" $1
+
+	local style="${@[$idx]#-style}" prefix=""
+	if [ -n "$style" ]; then
+		# Flag was given in form -style=<style>
+		style="${style#=}"
+		prefix="-style="
+	else
+		# Flag was given in form -style <style>
+		(( idx++ ))
+		style="${@[$idx]}"
 	fi
+	if [ ! -e "$style" ]; then
+		# Argument is not a file and thus probably a valid style string that can
+		# be passes to clang-format
+		command clang-format "$@"
+		return
+	fi
+
+	# Delete all empty lines (not counting whitespace) and comments and join all
+	# lines with commas.
+	style="$(sed -E '/^\s*($|#)/d' "$style" | tr '\n' ',')"
+	style="{${style%,}}"
+
+	# Overwrite the argument of the style flag with the parsed format file.
+	set -- "${@[1, $idx - 1]}" "${prefix}${style}" "${@[$idx + 1, -1]}"
+	command clang-format "$@"
 }
 
 function urlenc() {
