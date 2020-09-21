@@ -138,17 +138,11 @@ comp-source "$ZSH_CONF/zsh-autosuggestions/zsh-autosuggestions.zsh"
 comp-source "$ZSH_CONF/completion.zsh"
 # comp-source "$ZSH_CONF/zsh-async/async.zsh"
 #     async_init
-### syntax-highlight > history-substring > keys
+### syntax-highlight > keys
 # syntax highlighting
 if [ -e "$ZSH_CONF/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
 	comp-source "$ZSH_CONF/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 	comp-source "$ZSH_CONF/zsh-syntax-highlighting.zsh-theme"
-fi
-# history substr search
-if [ -e "$ZSH_CONF/zsh-history-substring-search/zsh-history-substring-search.zsh" ]; then
-	comp-source "$ZSH_CONF/zsh-history-substring-search/zsh-history-substring-search.zsh"
-	HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=true
-	HISTORY_SUBSTRING_SEARCH_FUZZY=true
 fi
 comp-source "$ZSH_CONF/keys.zsh"
 # Reenable fzf-tab since `bindkey -v` seems to deactivate it
