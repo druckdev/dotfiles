@@ -9,7 +9,13 @@ function cl() {
 ## Copy file and append .bkp extension
 function bkp() {
 	for file in "$@"; do
-		cp -i "$file" "$file.bkp"
+		command cp -i "$file" "$file.bkp"
+	done
+}
+
+unbkp() {
+	for file in "$@"; do
+		command cp -i "$file" "${file%.bkp}"
 	done
 }
 
@@ -18,7 +24,7 @@ function launch() {
 	# eval "$@" ## does not work with special characters?
 	launch_command="$1"
 	shift
-	$launch_command "$@" &>/dev/null & disown
+	$launch_command "$@" &>/dev/null &|
 }
 
 ## Compares two pdfs based on the result of pdftotext
@@ -287,12 +293,14 @@ function resolve() {
 
 ## Grep a keyword at the beginning of a line (ignoring whitespace) in a man page
 function mangrep() {
-	mangrep_file="$1"
-	mangrep_pattern="$2"
-	shift
-	shift
-	man -P 'less -p "^ *'"${mangrep_pattern}\"" "$@" "${mangrep_file}"
-	unset mangrep_{file,pattern}
+	if [ $# -lt 2 ]; then
+		printf "usage:   mangrep <man page> <pattern> [<man flags>]\n" >&2
+		printf "example: mangrep bash \"(declare|typeset)\"\n" >&2
+		return 1
+	fi
+	local page="$1" pattern="$2"
+	shift 2
+	man -P "less -p \"^ *${pattern}\"" "$@" "${file}"
 }
 
 ## Grep in zsh history file
@@ -300,10 +308,15 @@ function histgrep() {
 	grep "$@" "${HISTFILE:-$HOME/.zsh_history}"
 }
 
-function format() {
+function cformat() {
 	# TODO: respect manual changes made in meld
-	CLANG_FORMAT_FILE="$HOME/Projects/C/.clang.format"
-	FORMAT="{$(sed -E '/^\s*$/d' "$CLANG_FORMAT_FILE" | tr '\n' ',' | sed 's/,$//')}"
+	CLANG_FORMAT_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/clang/config"
+	FORMAT="$(
+		sed -E '/^\s*($|#)/d' "$CLANG_FORMAT_FILE" \
+		| tr '\n' ',' \
+		| sed 's/,$//'
+	)"
+	FORMAT="{${FORMAT}}"
 	if [ $# -eq 1 ]; then
 		meld <(clang-format -style="$FORMAT" $1) $1
 	fi
