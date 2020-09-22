@@ -108,15 +108,6 @@ if (has('nvim'))
 endif
 
 " Autocommands #################################################################
-" Shorter lines in git commits
-autocmd filetype gitcommit set colorcolumn=50,72
-" Spell checking in git commits
-autocmd filetype gitcommit set spell spelllang=en_us
-
-" zshOption is a huge regex that leads to massive lags when scrolling
-" Be sure to disable it after activating syntax highlighting
-autocmd filetype zsh syntax clear zshOption
-
 " Highlight trailing whitespaces
 " (https://vim.fandom.com/wiki/Highlight_unwanted_spaces)
 " Create highlight group
