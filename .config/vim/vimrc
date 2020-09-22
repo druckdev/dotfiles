@@ -44,6 +44,8 @@ else
 endif
 " Copy structure of the existing lines indent when autoindenting a new line
 set copyindent
+" Show ruler at 80 and 100 columns
+set colorcolumn=80,100
 
 " Keybindings ##################################################################
 " Set leader key
@@ -105,9 +107,30 @@ if (has('nvim'))
 	highlight NonText guibg=NONE
 endif
 
+" Autocommands #################################################################
+" Shorter lines in git commits
+autocmd filetype gitcommit set colorcolumn=50,72
+" Spell checking in git commits
+autocmd filetype gitcommit set spell spelllang=en_us
+
 " zshOption is a huge regex that leads to massive lags when scrolling
 " Be sure to disable it after activating syntax highlighting
 autocmd filetype zsh syntax clear zshOption
+
+" Highlight trailing whitespaces
+" (https://vim.fandom.com/wiki/Highlight_unwanted_spaces)
+" Create highlight group
+highlight ExtraWhitespace ctermbg=red guibg=red
+" Associate with patter (trailing whitespaces)
+match ExtraWhitespace /\s\+$/
+" apply not only to the first window
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+" Do not match when typing at the end of a line
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+" Reset when leaving insert mode
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+" Clear all matches
+autocmd BufWinLeave * call clearmatches()
 
 " change cursor shape depending on mode
 if (has('nvim'))
@@ -142,25 +165,3 @@ else
 		autocmd VimLeave * silent !echo -ne "\e[5 q"
 	endif
 endif
-
-" Highlight trailing whitespaces
-" (https://vim.fandom.com/wiki/Highlight_unwanted_spaces)
-" Create highlight group
-highlight ExtraWhitespace ctermbg=red guibg=red
-" Associate with patter (trailing whitespaces)
-match ExtraWhitespace /\s\+$/
-" apply not only to the first window
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-" Do not match when typing at the end of a line
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-" Reset when leaving insert mode
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-" Clear all matches
-autocmd BufWinLeave * call clearmatches()
-
-" Show ruler at 80 and 100 columns
-set colorcolumn=80,100
-" Shorter lines in git commits
-autocmd filetype gitcommit set colorcolumn=50,72
-" Spell checking in git commits
-autocmd filetype gitcommit set spell spelllang=en_us
