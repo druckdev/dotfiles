@@ -156,3 +156,6 @@ else
 		autocmd VimLeave * silent !echo -ne "\e[5 q"
 	endif
 endif
+
+" Load filetype plugins
+filetype plugin indent on
