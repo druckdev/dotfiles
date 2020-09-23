@@ -92,10 +92,18 @@ function qr() {
 
 ## Edit config file
 function conf() {
-	# default to vim if no editor is set
-	local CONF_EDITOR=${EDITOR:-vim}
+	local CONF_EDITOR
+	if [ -n "$EDITOR" ]; then
+		CONF_EDITOR="$EDITOR"
+	elif command -v vim &>/dev/null; then
+		CONF_EDITOR=vim
+	elif command -v nano &>/dev/null; then
+		CONF_EDITOR=nano
+	else
+		CONF_EDITOR=cat
+	fi
 
-	# parse otions
+	# Parse otions
 	while getopts "e:" opt 2>/dev/null; do
 		case $opt in
 			e) CONF_EDITOR="$OPTARG";;
@@ -103,9 +111,7 @@ function conf() {
 			   return 1 ;;
 		esac
 	done
-	shift $(($OPTIND - 1 ))
-
-	# CONF_EDITOR=( $(resolve -s $CONF_EDITOR) )
+	shift $(( $OPTIND - 1 ))
 
 	# conf needs an argument
 	if [ $# -eq 0 ]; then
@@ -114,23 +120,18 @@ function conf() {
 	fi
 	# search for program name in XDG_CONFIG_HOME and $HOME
 	local CONF_DIR="$(_get_config_dir "$1")"
-	if [ $? -ne 0 ]; then
+	if (( $? )); then
 		printf "\033[1;31mFalling back to $HOME.\n\033[0m" >&2
 		CONF_DIR="$HOME"
 	fi
 
-	# open file with specified name if
+	# If specific name is given, open file.
 	if [ $# -gt 1 ]; then
-		if [ -r "$CONF_DIR/$2" ]; then
-			$CONF_EDITOR "$CONF_DIR/$2"
-			return 0
-		else
-			printf "\033[1;31mCould not find config file with that name.\n\033[0m" >&2
-			return 1
-		fi
+		"$CONF_EDITOR" "$CONF_DIR/$2"
+		return
 	fi
 
-	# possible config-file names + same in hidden
+	# possible config-file names + same but hidden
 	local -a CONF_PATTERNS
 	CONF_PATTERNS=(
 		"$1.conf"
@@ -146,10 +147,10 @@ function conf() {
 
 	# check if config file exists
 	for config in $CONF_PATTERNS; do
-		if [ -r "$CONF_DIR/$config" ]; then
+		if [ -e "$CONF_DIR/$config" ]; then
 			$CONF_EDITOR "$CONF_DIR/$config"
 			return 0
-		elif [ -r "$CONF_DIR/.$config" ]; then
+		elif [ -e "$CONF_DIR/.$config" ]; then
 			$CONF_EDITOR "$CONF_DIR/.$config"
 			return 0
 		fi
@@ -159,11 +160,11 @@ function conf() {
 	# (For cases like default vim with ~/.vim/ and ~/.vimrc)
 	if [ "$CONF_DIR" != "$HOME" ];then
 		for config in $CONF_PATTERNS; do
-		# Only look for hidden files
-		if [ -r "$HOME/.$config" ]; then
-			$CONF_EDITOR "$HOME/.$config"
-			return 0
-		fi
+			# Only look for hidden files
+			if [ -e "$HOME/.$config" ]; then
+				$CONF_EDITOR "$HOME/.$config"
+				return 0
+			fi
 		done
 	fi
 
