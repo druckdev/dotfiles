@@ -4,7 +4,7 @@
    # last prompt line gets hidden if it would overlap with left prompt.
    typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
      # =========================[ Line #1 ]=========================
-+    time                    # current time
++    # time                  # current time
 +    # =========================[ Line #2 ]=========================
 +    newline
      status                  # exit code of the last command
