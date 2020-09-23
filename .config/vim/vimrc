@@ -159,10 +159,5 @@ else
 	endif
 endif
 
-" Source edited vim config upon saving.
-augroup vimrc
-	autocmd! BufWritePost $MYVIMRC,vimrc source % | echom "Reloaded" | redraw
-augroup END
-
 " Load filetype plugins
 filetype plugin indent on
