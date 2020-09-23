@@ -21,3 +21,5 @@
 	submodulesummary = true
 [diff]
 	submodule = log
+[rebase]
+	autostash = true
