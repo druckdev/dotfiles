@@ -72,7 +72,7 @@ alias gdiff='git diff'
 alias gd='git diff'
 
 ## Navigation
-alias ls='_ls_show_hidden --color=auto --group-directories-first -p -v'
+alias ls='ls --color=auto --group-directories-first -p -v'
 alias sl='ls'
 alias la='ls -A'
 alias l='ls -lh --time-style=long-iso'

@@ -1,0 +1,62 @@
+## Author:  druckdev
+## Created: 2019-10-21
+##
+## An ls wrapper that adds the -A flag (show hidden files except . and ..) when
+## there are no visible files or the directory matches the pattern (POSIX ERE)
+## defined in $LS_SHOW_ALL_DIRS.
+
+# Do not include hidden files and expand to an empty string instead of giving an
+# error when globbing.
+builtin emulate -L zsh -o no_glob_dots -o null_glob
+
+# Overwrite here or before calling to change the directories in which hidden
+# files should always be listed.
+builtin local LS_SHOW_ALL_DIRS=${LS_SHOW_ALL_DIRS:-"dotfiles|\.config"}
+
+builtin local -a dirs files
+# Pop files and folders from arguments and put them in the corresponding array.
+# All other arguments are kept.
+for arg in "$@"; do
+	shift
+	if [ -d "$arg" ]; then
+		dirs+="$arg"
+	elif [ -e "$arg" ]; then
+		files+="$arg"
+	else
+		set -- "$@" "$arg"
+	fi
+done
+
+# Print working directory when only flags were given as arguments.
+if ! (( ${#dirs} + ${#files} )); then
+	dirs+="$PWD"
+fi
+
+builtin local separator=""
+
+# Print files.
+if (( ${#files} )); then
+	command ls "$@" -- "${files[@]}"
+	# Print a newline between files and folder segment.
+	separator="\n"
+fi
+
+# Print directories.
+builtin local all_flag
+builtin local -a content
+for dir in ${(@f)dirs}; do
+	content=( "$dir"/* )
+	# If the directory contains no visible files or it matches a pattern, then
+	# show hidden files when listing
+	if (( ! ${#content} )) || [[ "${dir:A}" =~ "${LS_SHOW_ALL_DIRS:-^$}" ]]; then
+		all_flag="-A"
+	else
+		all_flag=
+	fi
+	# If there are multiple items to list, print a newline (if ls was already
+	# executed) followed by the dir-name.
+	! (( ${#dirs} + ${#files} - 1 )) || echo "$separator$dir:"
+	# Print directory. $all_flag has to be unquoted else ls will fail.
+	command ls "$@" $all_flag -- "$dir"
+	separator="\n"
+done
