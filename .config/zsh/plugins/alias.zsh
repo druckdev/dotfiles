@@ -86,7 +86,7 @@ hash -d Documents=$HOME/Documents/
 hash -d Pictures=$HOME/Pictures/
 hash -d Downloads=$HOME/Downloads/
 hash -d Projects=$HOME/Projects/
-hash -d dot=~Projects/dotfiles/
+hash -d dot=~Projects/github/dotfiles-github/
 hash -d dots=~dot
 
 local UNI="$HOME/Documents/uni"
