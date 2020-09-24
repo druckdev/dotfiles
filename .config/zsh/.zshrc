@@ -109,9 +109,13 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 zstyle ':completion:*' menu select
 
 zstyle -e ':completion:*:users' users 'local user; getent passwd | while IFS=: read -rA user; do (( user[3] >= 1000 || user[3] == 0 )) && reply+=($user[1]); done'
-_comp_options+=(globdots) # Include hidden files
-# Don't complete the same twice for diff/meld (http://leahneukirchen.org/dotfiles/.zshrc)
-zstyle ':completion:*:(diff|meld):*' ignore-line yes
+
+# Include hidden files in completion.
+_comp_options+=(globdots)
+
+# Don't complete the same argument twice for these programs.
+# Taken from http://leahneukirchen.org/dotfiles/.zshrc
+zstyle ':completion:*:(diff|meld|trash):*' ignore-line yes
 
 comp-source "$ZSH_CONF/fzf-tab/fzf-tab.plugin.zsh"
 
