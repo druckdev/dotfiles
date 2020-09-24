@@ -1,5 +1,5 @@
 ## Author:  druckdev
-## Created: 2019-10-27 (originally 2019-08-28 as functions.zsh)
+## Created: 2019-08-28
 
 ## change into dir and print accordingly
 function cl() {
@@ -327,4 +327,22 @@ safe-remove() {
 		return 1
 	fi
 	udisksctl power-off -b "/dev/$(lsblk -no pkname "$1")"
+}
+
+## List items in trash if no argument is specified
+function trash() {
+	if (( ! $# )); then
+		command trash-list
+	else
+		command trash "$@"
+	fi
+}
+
+## Open nemo in current directory if no argument is specified
+function nemo() {
+	if (( ! $# )); then
+		command nemo .
+	else
+		command nemo "$@"
+	fi
 }

@@ -52,10 +52,6 @@ alias feh='feh -.'
 # 'Temporary' shell in alternate mode that does not mess with the scrollback history
 alias tmpshell='tput smcup && zsh && tput rmcup'
 
-## functions
-alias trash=_trash_list_default
-alias nemo=_nemo_wd_default
-
 ## git
 alias gs='git status --short' # overrides ghostscript
 alias gits='gs'

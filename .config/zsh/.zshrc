@@ -130,9 +130,8 @@ if [ -e "$ZSH_CONF/stderred/build/libstderred.so" ]; then
 	export STDERRED_ESC_CODE="$(tput bold && tput setaf 1)"
 	export STDERRED_BLACKLIST="^(git|curl|wget|swipl)$"
 fi
-comp-source "$ZSH_CONF/functionsPre.zsh"
 comp-source "$ZSH_CONF/alias.zsh"
-comp-source "$ZSH_CONF/functionsPost.zsh"
+comp-source "$ZSH_CONF/functions.zsh"
 comp-source "$ZSH_CONF/transfer.zsh"
 comp-source "$ZSH_CONF/zsh-autosuggestions/zsh-autosuggestions.zsh"
 comp-source "$ZSH_CONF/completion.zsh"
