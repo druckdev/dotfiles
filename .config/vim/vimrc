@@ -59,10 +59,10 @@ noremap <silent> <C-k> :call search('^'. matchstr(getline('.'), '\(^\s*\)') .'\%
 noremap <silent> <C-j> :call search('^'. matchstr(getline('.'), '\(^\s*\)') .'\%>' . line('.') . 'l\S', 'e')<CR>
 
 " Split view navigation
-nnoremap <leader>h <C-w><C-h>
-nnoremap <leader>j <C-w><C-j>
-nnoremap <leader>k <C-w><C-k>
-nnoremap <leader>l <C-w><C-l>
+nnoremap <C-h> <C-w><C-h>
+nnoremap <C-j> <C-w><C-j>
+nnoremap <C-k> <C-w><C-k>
+nnoremap <C-l> <C-w><C-l>
 
 " Substitute command
 if (exists('+inccommand') && &inccommand != '')
