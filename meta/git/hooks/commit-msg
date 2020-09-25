@@ -1,0 +1,38 @@
+#!/bin/sh
+#
+# A hook script to check the commit log message.
+# Called by "git commit" with one argument, the name of the file that has the
+# commit message.
+# The hook should exit with non-zero status after issuing an appropriate message
+# if it wants to stop the commit.
+# The hook is allowed to edit the commit message file.
+#
+# To enable this hook, save this file in ".git/hooks/commit-msg".
+
+die() {
+	printf "$1" >&2
+	exit ${2:-1}
+}
+
+subject="$(head -1 "$1")"
+body="$(tail +2 "$1" | grep -v "^#")"
+
+[ ${#subject} -le 50 ] || die "Subject too long. (<= 50)\n"
+
+if ! echo "$subject" | grep -qE "^([a-z]+:)+ "; then
+	die "Specify which program was modified. (e.g. \"zsh:p10k: <subject>\")\n"
+fi
+if ! echo "$subject" | grep -qE "^([a-z]+:)+ [A-Z]"; then
+	die "Start subject with a capital letter.\n"
+fi
+if ! echo "$subject" | grep -qE "^([a-z]+:)+ [A-Z].*[^.]$"; then
+	die "Remove punctuation mark from end.\n"
+fi
+
+BKP_IFS="$IFS"
+IFS='
+'
+for line in $body; do
+	[ ${#line} -le 72 ] || die "Body lines too long. (<= 72)\n"
+done
+IFS="$BKP_IFS"

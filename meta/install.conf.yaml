@@ -40,3 +40,7 @@
     ~/.local/share/nvim/site/pack:
         create: true
         path: .config/vim/pack
+    .git/hooks/:
+        create: true
+        glob: true
+        path: meta/git/hooks/*
