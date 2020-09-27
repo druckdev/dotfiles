@@ -66,6 +66,14 @@ alias gpll='git pull'
 alias gpull='git pull'
 alias gdiff='git diff'
 alias gd='git diff'
+# git-commit, but put the last written commit message into the editor buffer
+# for editing.
+# Useful for example when the commit-msg hook fails but only slight
+# modifications are needed.
+alias git-commit-last-msg='() {
+	local gitdir="$(git rev-parse --git-dir)" || return
+	git commit -eF <(grep -v "^#" "$gitdir/COMMIT_EDITMSG")
+}'
 
 ## Navigation
 alias ls='ls --color=auto --group-directories-first -p -v'
