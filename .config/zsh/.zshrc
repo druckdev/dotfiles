@@ -125,7 +125,7 @@ autoload edit-command-line; zle -N edit-command-line
 autoload run-help run-help-git zmv
 if [ -d "$ZDOTDIR/autoload" ]; then
 	fpath=("$ZDOTDIR/autoload" $fpath)
-	autoload -Uz -- "" "${fpath[1]}"/*(.xN:t)
+	autoload -Uz -- "" "${fpath[1]}"/[^_.]*(.xN:t)
 fi
 ! command -v direnv >/dev/null 2>&1 || eval "$(direnv hook zsh)"
 # stderred
