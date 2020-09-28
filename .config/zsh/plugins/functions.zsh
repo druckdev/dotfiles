@@ -1,32 +1,6 @@
 ## Author:  druckdev
 ## Created: 2019-08-28
 
-## change into dir and print accordingly
-function cl() {
-	cd "$@" && ls
-}
-
-## Copy file and append .bkp extension
-function bkp() {
-	for file in "$@"; do
-		command cp -i "$file" "$file.bkp"
-	done
-}
-
-unbkp() {
-	for file in "$@"; do
-		command cp -i "$file" "${file%.bkp}"
-	done
-}
-
-## Launches program and detaches it from the shell
-function launch() {
-	# eval "$@" ## does not work with special characters?
-	launch_command="$1"
-	shift
-	$launch_command "$@" &>/dev/null &|
-}
-
 ## Compares two pdfs based on the result of pdftotext
 function pdfdiff() {
 	if [[ $# -eq 2 && -r "$1" && -r "$2" ]]; then
@@ -302,19 +276,6 @@ function mangrep() {
 	local page="$1" pattern="$2"
 	shift 2
 	man -P "less -p \"^ *${pattern}\"" "$@" "${file}"
-}
-
-## Grep in zsh history file
-function histgrep() {
-	grep "$@" "${HISTFILE:-$HOME/.zsh_history}"
-}
-
-function urlenc() {
-	python3 -c "from urllib import parse; print(parse.quote('$@'), end='')"
-}
-
-function urldec() {
-	python3 -c "from urllib import parse; print(parse.unquote('$@'), end='')"
 }
 
 safe-remove() {

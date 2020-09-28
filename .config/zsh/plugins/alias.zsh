@@ -43,6 +43,7 @@
 	alias l="${aliases[ls]:-ls} -lh --time-style=long-iso"
 	alias ll="${aliases[l]} -A"
 	alias cd..='cd ..'
+	alias cl='() { cd "$@" && ${aliases[ls]:-[ls]}'
 	alias getclip="xclip -selection c -o"
 	alias setclip="perl -pe 'chomp if eof' | xclip -selection c"
 	alias pdf='launch evince'
@@ -84,6 +85,22 @@
 	# List options and their value (on|off) line by line. This makes it a lot
 	# easier to grep for activated options than using `setopt` and `unsetopt`.
 	alias listopts='printf "%s %s\n" "${(kv)options[@]}"'
+	# Launch program independent and detached from shell.
+	alias launch='() { ${aliases[$1]:-$1} "${@[2,-1]}" &>/dev/null &| }'
+	# Create copy with .bkp extension
+	alias bkp='() { for f; do command cp -i "$f"{,.bkp}; done }'
+	# Reverse bkp()
+	alias unbkp='() { for f; do command cp -i "$f" "${f%.bkp}; done }'
+	# Grep in history file
+	alias histgrep='() { grep "$@" "${HISTFILE:-$HOME/.zsh_history}" }'
+	# URL-encode
+	alias urlenc='() {
+		python3 -c "from urllib import parse; print(parse.quote('$@'), end='')
+	}'
+	# URL-decode
+	alias urldec='() {
+		python3 -c "from urllib import parse; print(parse.unquote('$@'), end='')
+	}'
 
 # Named directories
 	hash -d docs="$HOME"/Documents/
