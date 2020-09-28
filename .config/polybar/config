@@ -106,7 +106,7 @@ ramp-13 = 
 
 [module/battery-custom]
 type = custom/script
-exec = ~/.config/polybar/scripts/battery.sh
+exec = ${env:POLYBAR_BATTERY}
 interval = 5
 
 ;#################################################
@@ -128,15 +128,15 @@ label = "%date% - %time%"
 
 [module/media]
 type=custom/script
-exec = ~/.config/polybar/scripts/media.sh
+exec = ${env:POLYBAR_MEDIA}
 interval = 1
 
 ;#################################################
 
 [module/vpn]
 type = custom/script
-exec = ~/.config/polybar/scripts/running-vpn.sh
-click-left = ~/.config/polybar/scripts/pub-ipv4.sh &
+exec = ${env:POLYBAR_VPN}
+click-left = ${env:POLYBAR_VPN_CLICK_LEFT}
 interval = 5
 
 ;#################################################
@@ -156,13 +156,13 @@ label-disconnected = %{A1:gnome-terminal -x nmtui connect:} %ifname% disconnecte
 
 [module/bluetooth]
 type = custom/script
-exec = ~/.config/polybar/scripts/bluetooth.sh
+exec = ${env:POLYBAR_BLUETOOTH}
 tail = true
-click-left = ~/.config/polybar/scripts/bluetooth.sh --toggle &
+click-left = ${env:POLYBAR_BLUETOOTH_CLICK_LEFT}
 
 ;#################################################
 
 [module/powermenu]
 type = custom/text
-content = %{A1:~/.config/rofi/powermenu.sh &:}%{T2}...%{T-}%{A}
+content = ${env:POLYBAR_POWERMENU}
 
