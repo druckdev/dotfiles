@@ -34,6 +34,14 @@ if ! (( ${#dirs} + ${#files} )); then
 	dirs+="$PWD"
 fi
 
+# Do not separate files and directories if -d flag was specified.
+while getopts d flag 2>/dev/null; do
+	if [ "$flag" = "d" ]; then
+		command ls "$@" -- "${files[@]}" "${dirs[@]}"
+		return
+	fi
+done
+
 builtin local separator=""
 
 # Print files.
