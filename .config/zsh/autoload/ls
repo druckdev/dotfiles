@@ -7,8 +7,8 @@
 ## there are no visible files or the directory matches the pattern (POSIX ERE)
 ## defined in $LS_SHOW_ALL_DIRS.
 
-# Do not include hidden files and expand to an empty string instead of giving an
-# error when globbing.
+# Do not include hidden files when globbing and expand to an empty string
+# instead of giving an error when no files match.
 builtin emulate -L zsh -o no_glob_dots -o null_glob
 
 # Overwrite here or before calling to change the directories in which hidden
