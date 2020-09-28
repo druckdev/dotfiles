@@ -81,6 +81,9 @@
 	alias grepdate='grep -E "(={8})|([:0-9]{10} [:0-9]{8})"'
 	# 'Temporary' shell in alternate mode for hiding commands in scrollback.
 	alias tmpshell='tput smcup && zsh && tput rmcup'
+	# List options and their value (on|off) line by line. This makes it a lot
+	# easier to grep for activated options than using `setopt` and `unsetopt`.
+	alias listopts='printf "%s %s\n" "${(kv)options[@]}"'
 
 # Named directories
 	hash -d docs="$HOME"/Documents/
