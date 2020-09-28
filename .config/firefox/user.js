@@ -1,0 +1,17 @@
+user_pref("accessibility.force_disabled", 1);
+user_pref("app.shield.optoutstudies.enabled", false);
+user_pref("browser.contentblocking.category", "strict");
+user_pref("browser.download.useDownloadDir", false);
+user_pref("browser.newtabpage.activity-stream.feeds.section.highlights", false);
+user_pref("browser.newtabpage.activity-stream.feeds.snippets", false);
+user_pref("browser.newtabpage.activity-stream.section.highlights.includeVisited", false);
+user_pref("browser.newtabpage.pinned", "[]");
+user_pref("browser.shell.checkDefaultBrowser", true);
+user_pref("browser.startup.page", 3);
+user_pref("browser.urlbar.placeholderName", "DuckDuckGo");
+user_pref("datareporting.healthreport.uploadEnabled", false);
+user_pref("network.cookie.lifetimePolicy", 2);
+user_pref("privacy.donottrackheader.enabled", true);
+user_pref("privacy.trackingprotection.enabled", true);
+user_pref("privacy.trackingprotection.socialtracking.enabled", true);
+user_pref("signon.rememberSignons", false);
