@@ -24,7 +24,7 @@ if ! pgrep -ax polybar >/dev/null 2>&1; then
 	primary="$(xrandr -q | grep primary | cut -d' ' -f1)"
 	for m in $(polybar --list-monitors | cut -d':' -f1); do
 		export TRAY_POS=none
-		[ "$m" != "$primary" ] || export TRAY_POS=right
+		[[ "$m" != "$primary" ]] || export TRAY_POS=right
 		export MONITOR="$m"
 		polybar --reload -c "$BASE_DIR/config" main &
 	done

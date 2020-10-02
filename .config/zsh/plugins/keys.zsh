@@ -69,7 +69,7 @@ zle -N _expandDots
 bindkey . _expandDots
 
 function ls-on-enter {
-	if [ -z "$BUFFER" ]; then
+	if [[ -z "$BUFFER" ]]; then
 		BUFFER=ls
 		zle accept-line
 	else
@@ -85,7 +85,7 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(ls-on-enter)
 # "Scroll" through history if buffer was empty but use it as query for fzf over
 # command line history if not (similar to substring-search but with fzf)
 function fzf-hist-up {
-	if [ -z "$BUFFER" ] || [ "$FZF_HIST_WENT_UP" -eq 1 ]; then
+	if [[ -z "$BUFFER" || "$FZF_HIST_WENT_UP" -eq 1 ]]; then
 		zle up-line-or-history
 		FZF_HIST_WENT_UP=1
 	else
@@ -95,7 +95,7 @@ function fzf-hist-up {
 }
 function fzf-hist-down {
 	zle down-line-or-history
-	[ -n "$BUFFER" ] || FZF_HIST_WENT_UP=
+	[[ -n "$BUFFER" ]] || FZF_HIST_WENT_UP=
 }
 zle -N fzf-hist-up
 zle -N fzf-hist-down

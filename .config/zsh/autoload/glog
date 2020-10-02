@@ -52,7 +52,7 @@ local -a fzf_args=(
 	# Execute git show on the commit as preview.
 	"--preview" "
 		out=\"\$(echo {} | sed -Ee \"$del_ansi\" -e \"$commit_hash\")\"
-		if [ \"\$out\" ]; then
+		if [[ \"\$out\" ]]; then
 			git show \"${(j:%n:)format}\" \"$date\" $colors \"\$out\" \
 			| diff-so-fancy
 		fi

@@ -2,7 +2,7 @@
 ## Created: 2018-11-23
 
 # Set terminals title if this is a scratchpad-terminal
-[ -z "$SCRATCHPAD_TERMINAL" ] || printf "\x1b\x5d\x30\x3bscratchpad-terminal\x07"
+[[ -z "$SCRATCHPAD_TERMINAL" ]] || printf "\x1b\x5d\x30\x3bscratchpad-terminal\x07"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -16,7 +16,7 @@ ZSH_CONF="$ZDOTDIR/plugins"
 # https://github.com/romkatv/dotfiles-public/blob/7e49fc4fb71d/.zshrc#L35
 comp-conf() {
 	emulate -L zsh
-	[ ! "$1.zwc" -nt "$1" ] && [ -w "${1:h}" ] || return 0
+	[[ ! "$1.zwc" -nt "$1" && -w "${1:h}" ]] || return 0
 	zmodload -F zsh/files b:zf_mv b:zf_rm
 	local tmp="$1.tmp.$$.zwc"
 	{
@@ -29,7 +29,7 @@ comp-conf() {
 # https://github.com/romkatv/dotfiles-public/blob/7e49fc4fb71d/.zshrc#L47
 comp-source() {
 	emulate -L zsh
-	[ -e "$1" ] && comp-conf "$1" && source -- "$1"
+	[[ -e "$1" ]] && comp-conf "$1" && source -- "$1"
 }
 
 ## set zshoptions
@@ -70,21 +70,21 @@ autoload -U select-word-style && select-word-style bash
 ## Setup the prompt
 # use bright version of colors when printing bold
 if command -v dircolors >/dev/null 2>&1; then
-	if [ -e "${XDG_CONFIG_HOME:-$HOME/.config}/dircolors/dircolors" ]; then
+	if [[ -e "${XDG_CONFIG_HOME:-$HOME/.config}/dircolors/dircolors" ]]; then
 		eval "$(dircolors -b "${XDG_CONFIG_HOME:-$HOME/.config}/dircolors/dircolors")"
 	else
 		eval "$(dircolors -b)"
 	fi
 fi
 
-if [ -e "$ZSH_CONF/powerlevel10k/powerlevel10k.zsh-theme" ]; then
+if [[ -e "$ZSH_CONF/powerlevel10k/powerlevel10k.zsh-theme" ]]; then
 	comp-source "$ZSH_CONF/powerlevel10k/powerlevel10k.zsh-theme"
 	# To customize prompt, run `p10k configure` or edit $ZSH_CONF/p10k.zsh-theme.
 	comp-source "$ZSH_CONF/p10k.zsh-theme"
 fi
 
 ## Setup zsh completion system
-[ ! -d "$ZSH_CONF/completion" ] || fpath=("$ZSH_CONF/completion" $fpath)
+[[ ! -d "$ZSH_CONF/completion" ]] || fpath=("$ZSH_CONF/completion" $fpath)
 
 autoload -Uz compinit
 compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump-$ZSH_VERSION"
@@ -123,13 +123,13 @@ comp-source "$ZSH_CONF/fzf-tab/fzf-tab.plugin.zsh"
 autoload edit-command-line; zle -N edit-command-line
 ! alias run-help >/dev/null 2>&1 || unalias run-help
 autoload run-help run-help-git zmv
-if [ -d "$ZDOTDIR/autoload" ]; then
+if [[ -d "$ZDOTDIR/autoload" ]]; then
 	fpath=("$ZDOTDIR/autoload" $fpath)
 	autoload -Uz -- "" "${fpath[1]}"/[^_.]*(.xN:t)
 fi
 ! command -v direnv >/dev/null 2>&1 || eval "$(direnv hook zsh)"
 # stderred
-if [ -e "$ZSH_CONF/stderred/build/libstderred.so" ]; then
+if [[ -e "$ZSH_CONF/stderred/build/libstderred.so" ]]; then
 	export LD_PRELOAD="$ZSH_CONF/stderred/build/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD}"
 	export STDERRED_ESC_CODE="$(tput bold && tput setaf 1)"
 	export STDERRED_BLACKLIST="^(git|curl|wget|swipl)$"
@@ -143,7 +143,7 @@ comp-source "$ZSH_CONF/completion.zsh"
 #     async_init
 ### syntax-highlight > keys
 # syntax highlighting
-if [ -e "$ZSH_CONF/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
+if [[ -e "$ZSH_CONF/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
 	comp-source "$ZSH_CONF/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 	comp-source "$ZSH_CONF/zsh-syntax-highlighting.zsh-theme"
 fi
@@ -164,7 +164,7 @@ elif command -v nano >/dev/null 2>&1; then
 fi
 
 # `sudo nano` won't work without this (?)
-if [ "$TERM" = "xterm-kitty" ]; then
+if [[ "$TERM" = "xterm-kitty" ]]; then
 	export TERM=xterm-256color
 fi
 
@@ -198,5 +198,5 @@ zle_highlight=('paste:none')
 ## History
 HISTSIZE=1000000
 SAVEHIST=1000000
-[ -d "${XDG_DATA_HOME:-$HOME/.local/share}/zsh" ] || mkdir -p "${XDG_DATA_HOME:-$HOME/.local/share}/zsh"
+[[ -d "${XDG_DATA_HOME:-$HOME/.local/share}/zsh" ]] || mkdir -p "${XDG_DATA_HOME:-$HOME/.local/share}/zsh"
 HISTFILE="${XDG_DATA_HOME:-$HOME/.local/share}/zsh/.zsh_history"

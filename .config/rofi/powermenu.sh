@@ -27,7 +27,7 @@ function scheduled_suspend {
 
     # make sure the input was a valid number
     # side effect: 0 minutes is not possible
-    [ "$min" -ne 0 ] || exit 1
+    [[ "$min" -ne 0 ]] || exit 1
 
     notify-send "suspend in" "$min minutes"
     sleep $((min*60)) && systemctl suspend
@@ -37,15 +37,15 @@ function scheduled_suspend {
 # Note: bash does not keep the order of the keys thus they get sorted
 chosen="$(printf '%s\n' "${!entries[@]}" | sort | rofi "${rofi_args[@]}" "power: ")"
 # exit if nothing was selected
-[ -n "$chosen" ] || exit 1
+[[ -n "$chosen" ]] || exit 1
 # handle scheduled suspend different
-[ "$chosen" != "suspend (scheduled)" ] || { ${entries[$chosen]}; exit $?; }
+[[ "$chosen" != "suspend (scheduled)" ]] || { ${entries[$chosen]}; exit $?; }
 
 # Confirm choice
 yesNo="$(echo -e "yes\nno" | rofi  "${rofi_args[@]}" "Are you sure you want to ${chosen}? ")"
 
 # Exit if "No"
-[ "$yesNo" == "yes" ] || exit 1
+[[ "$yesNo" == "yes" ]] || exit 1
 
 # Execute
 ${entries[$chosen]}

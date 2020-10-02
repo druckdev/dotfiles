@@ -59,7 +59,7 @@
 		&& sudo apt upgrade -y \
 		&& sudo apt autoremove -y
 
-		[ ! -e /var/run/reboot-required ] \
+		[[ ! -e /var/run/reboot-required ]] \
 		|| printf "\n\nSystem restart required.\n"
 	'
 	alias pdf2t{e,}xt='pdftotext'

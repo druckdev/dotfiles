@@ -25,10 +25,10 @@ function mkcd () {
 	# Create directory
 	mkdir "$@"
 	# shift arguments if mkdir options were used
-	while [ $# -gt 1 ]; do
+	while [[ $# -gt 1 ]]; do
 		shift
 	done
-	if [ -d "$1" ]; then
+	if [[ -d "$1" ]]; then
 		cd "$1"
 		pwd
 	fi
@@ -36,7 +36,7 @@ function mkcd () {
 
 ## Send a message over telegram by using the -e flag
 function msg() {
-	if [ $# -ge 2 ]; then
+	if [[ $# -ge 2 ]]; then
 		telegram-cli -W -e "msg $*" | grep -E "${${*/ /.*}//_/ }"
 		                          # | grep -E "$(echo "$*" | sed 's/ /.*/; s/_/ /g')"
 	else
@@ -47,7 +47,7 @@ function msg() {
 ## Execute tg -e command but cuts of the uninteresting parts
 function tg() {
 	tg="telegram-cli"
-	if [ "$1" = "-e" ]; then
+	if [[ "$1" = "-e" ]]; then
 		shift
 		$tg -N -W -e "$@" | tail -n +9 | head -n -2
 	else
@@ -67,7 +67,7 @@ function qr() {
 ## Edit config file
 function conf() {
 	local CONF_EDITOR
-	if [ -n "$EDITOR" ]; then
+	if [[ -n "$EDITOR" ]]; then
 		CONF_EDITOR="$EDITOR"
 	elif command -v vim &>/dev/null; then
 		CONF_EDITOR=vim
@@ -88,7 +88,7 @@ function conf() {
 	shift $(( $OPTIND - 1 ))
 
 	# conf needs an argument
-	if [ $# -eq 0 ]; then
+	if [[ $# -eq 0 ]]; then
 		printf "\033[1;31mPlease specify a config.\n\033[0m" >&2
 		return 1
 	fi
@@ -100,7 +100,7 @@ function conf() {
 	fi
 
 	# If specific name is given, open file.
-	if [ $# -gt 1 ]; then
+	if [[ $# -gt 1 ]]; then
 		"$CONF_EDITOR" "$CONF_DIR/$2"
 		return
 	fi
@@ -121,10 +121,10 @@ function conf() {
 
 	# check if config file exists
 	for config in $CONF_PATTERNS; do
-		if [ -e "$CONF_DIR/$config" ]; then
+		if [[ -e "$CONF_DIR/$config" ]]; then
 			$CONF_EDITOR "$CONF_DIR/$config"
 			return 0
-		elif [ -e "$CONF_DIR/.$config" ]; then
+		elif [[ -e "$CONF_DIR/.$config" ]]; then
 			$CONF_EDITOR "$CONF_DIR/.$config"
 			return 0
 		fi
@@ -132,10 +132,10 @@ function conf() {
 
 	# if no config was found in a location other than HOME, look again in HOME.
 	# (For cases like default vim with ~/.vim/ and ~/.vimrc)
-	if [ "$CONF_DIR" != "$HOME" ];then
+	if [[ "$CONF_DIR" != "$HOME" ]];then
 		for config in $CONF_PATTERNS; do
 			# Only look for hidden files
-			if [ -e "$HOME/.$config" ]; then
+			if [[ -e "$HOME/.$config" ]]; then
 				$CONF_EDITOR "$HOME/.$config"
 				return 0
 			fi
@@ -149,7 +149,7 @@ function conf() {
 ## Change into config dir
 function c() {
 	CONF_DIR="$(_get_config_dir $*)"
-	if [ $? -eq 0 ]; then
+	if [[ $? -eq 0 ]]; then
 		cd "$CONF_DIR"
 	else
 		printf "$CONF_DIR" >&2
@@ -158,14 +158,14 @@ function c() {
 }
 ## Get config directory
 function _get_config_dir() {
-	if [ $# -gt 1 ]; then
+	if [[ $# -gt 1 ]]; then
 		printf "\033[1;31mPlease specify one config.\n\033[0m" >&2
 		return 1
-	elif [ $# -eq 0 ]; then
+	elif [[ $# -eq 0 ]]; then
 		echo "${XDG_CONFIG_HOME:-$HOME/.config}"
-	elif [ -d "${XDG_CONFIG_HOME:-$HOME/.config}/$1" ]; then
+	elif [[ -d "${XDG_CONFIG_HOME:-$HOME/.config}/$1" ]]; then
 		echo "${XDG_CONFIG_HOME:-$HOME/.config}/$1"
-	elif [ -d "$HOME/.$1" ]; then
+	elif [[ -d "$HOME/.$1" ]]; then
 		echo "$HOME/.$1"
 	else
 		printf "\033[1;31mCould not find config home.\n\033[0m" >&2
@@ -235,20 +235,20 @@ function resolve() {
 			echo "$THIS_COMMAND$THIS_ARGUMENTS"
 		fi
 		THIS_COMMAND="$(which $THIS_COMMAND)"
-		if [ $? -ne 0 ]; then
+		if [[ $? -ne 0 ]]; then
 			echo "${THIS_COMMAND%% *} not found." >&2
 			return 1
 		fi
 		if (( $VERBOSE_MODE )); then
 			echo -n "$THIS_COMMAND"
 			NEXT_STEP="$(file -bh $THIS_COMMAND | cut -d' ' -f4-)"
-			if [ "${NEXT_STEP:0:1}" != '/' ]; then
+			if [[ "${NEXT_STEP:0:1}" != '/' ]]; then
 				NEXT_STEP="${THIS_COMMAND%/*}/$NEXT_STEP"
 			fi
 			while [[ "$(file -bh $THIS_COMMAND)" =~ "^symbolic link to" && "$NEXT_STEP" != "$THIS_COMMAND" ]]; do
 				THIS_COMMAND=$NEXT_STEP
 				NEXT_STEP="$(file -bh $THIS_COMMAND | cut -d' ' -f4-)"
-				if [ "${NEXT_STEP:0:1}" != '/' ]; then
+				if [[ "${NEXT_STEP:0:1}" != '/' ]]; then
 					NEXT_STEP="${THIS_COMMAND%/*}/$NEXT_STEP"
 				fi
 
@@ -268,7 +268,7 @@ function resolve() {
 
 ## Grep a keyword at the beginning of a line (ignoring whitespace) in a man page
 function mangrep() {
-	if [ $# -lt 2 ]; then
+	if [[ $# -lt 2 ]]; then
 		printf "usage:   mangrep <man page> <pattern> [<man flags>]\n" >&2
 		printf "example: mangrep bash \"(declare|typeset)\"\n" >&2
 		return 1
@@ -279,8 +279,8 @@ function mangrep() {
 }
 
 safe-remove() {
-	[ $# -gt 0 ] || return 1
-	[ -e "$1" ] || return 1
+	[[ $# -gt 0 ]] || return 1
+	[[ -e "$1" ]] || return 1
 
 	sync
 	if ! udisksctl unmount -b "$1"; then

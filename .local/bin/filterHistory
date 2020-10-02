@@ -8,9 +8,9 @@
 ##   format of zshs extended history.
 ## An automatic backup is created before deleting that can be used for recovery.
 
-[ $# -eq 1 ] || { echo "Specify history file" >&2; exit 1; }
-[ -e "$1" ] || { echo "File does not exist" >&2; exit 1; }
-[ "$(stat -c '%a' "$1")" = "600" ] || { echo "File does not look like a history file" >&2; exit 1; }
+[[ $# -eq 1 ]] || { echo "Specify history file" >&2; exit 1; }
+[[ -e "$1" ]] || { echo "File does not exist" >&2; exit 1; }
+[[ "$(stat -c '%a' "$1")" = "600" ]] || { echo "File does not look like a history file" >&2; exit 1; }
 
 # Sort the commands per number of occurrences
 most_used="$(\
@@ -42,11 +42,11 @@ else
 	echo
 fi
 
-[ "${#commands}" -gt 0 ] || exit 0
+[[ "${#commands}" -gt 0 ]] || exit 0
 printf '%s\n' "${commands[@]}" | column -x
 echo "Please confirm the deletion of these commands in $1 ('yes')"
 read yn
-[ "$yn" = "yes" ] || exit 1
+[[ "$yn" = "yes" ]] || exit 1
 
 tempd="$(mktemp -d)"
 cp "$1" "$tempd/$(basename "$1")"

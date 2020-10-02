@@ -12,7 +12,7 @@ if (( ! idx )); then
 fi
 
 local style="${@[$idx]#-style}" prefix=""
-if [ -n "$style" ]; then
+if [[ -n "$style" ]]; then
 	# Flag was given in form -style=<style>
 	style="${style#=}"
 	prefix="-style="
@@ -21,7 +21,7 @@ else
 	(( idx++ ))
 	style="${@[$idx]}"
 fi
-if [ ! -e "$style" ]; then
+if [[ ! -e "$style" ]]; then
 	# Argument is not a file and thus probably a valid style string that can
 	# be passes to clang-format
 	command clang-format "$@"

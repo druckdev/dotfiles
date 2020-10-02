@@ -17,13 +17,13 @@ declare -a ramp
 ramp=(          )
 
 # display in red when under $low and no charger is connected
-[ "$bat" -gt "$low" ] || [ "$ac" -eq 1 ] || color="$red"
+[[ "$bat" -gt "$low" || "$ac" -eq 1 ]] || color="$red"
 # display in green when over $full and a charger is connected
-[ "$bat" -lt "$full" ] || [ "$ac" -eq 0 ] || color="$green"
+[[ "$bat" -lt "$full" || "$ac" -eq 0 ]] || color="$green"
 
 let "icon_index = $bat / (${#ramp[@]} - 1)"
-[ $icon_index -lt ${#ramp[@]} ] || icond_index=10
+[[ $icon_index -lt ${#ramp[@]} ]] || icond_index=10
 icon="${ramp[$icon_index]}"
-[ "$ac" -eq 0 ] || charge=""
+[[ "$ac" -eq 0 ]] || charge=""
 
 echo "${color}${icon}${charge} ${bat}%"
