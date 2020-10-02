@@ -21,13 +21,12 @@ done
 if ! pgrep -ax polybar >/dev/null 2>&1; then
 	# launch Polybar on every monitor
 	# https://github.com/polybar/polybar/issues/763
-	primary="$(xrandr -q | grep primary | cut -d' ' -f1)"
-	for m in $(polybar --list-monitors | cut -d':' -f1); do
+	while read m; do
 		export TRAY_POS=none
-		[[ "$m" != "$primary" ]] || export TRAY_POS=right
-		export MONITOR="$m"
+		[[ "${m%(primary)}" == "$m" ]] || export TRAY_POS=right
+		export MONITOR="${m%%:*}"
 		polybar --reload -c "$BASE_DIR/config" main &
-	done
+	done <<<$(polybar --list-monitors)
 
 	echo "Polybar launched..."
 else
