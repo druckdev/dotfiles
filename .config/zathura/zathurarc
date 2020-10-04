@@ -1,4 +1,9 @@
+# Use system clipboard for selection.
+set selection-clipboard "clipboard"
+
+# Invert colors per default. Toggle with `i`
+map i recolor
 set recolor true
-set recolor-lightcolor "#333333"
+set recolor-lightcolor "#252525"
 set recolor-darkcolor "#FFFFFF"
 set default-bg "#252525"
