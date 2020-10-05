@@ -1,34 +1,39 @@
-#!/bin/sh
+#!/bin/bash
 
-errorAndExit () {
-    printf "\033[1;31m$1\033[0m" >&2
-    exit $2
-}
+TAGS_TO_TRANSFER=(
+	-Orientation
+	-CreateDate
+	-ExposureTime
+	-FNumber
+	-ISO
+	-FocalLength
+)
 
-extractRAW () {
-	if [ -r "$1" ]; then
-		if [ "$1" != "${1%CR2}" ] && [ ! -f "${1%CR2}JPG" ]; then
-			exiftool "$1" -PreviewImage -b > "${1%CR2}JPG"
-			echo "${1%CR2}JPG"
-		else
-			printf "\033[1;31mPreview for $1 exists already.\n\033[0m" >&2
-		fi
+extractRAW() {
+	[[ -n "$1" ]] || return
+	prev="./JPGs/${1%.*}.JPG"
+	if [[ ! -e "$prev" ]]; then
+		mkdir -p JPGs
+		exiftool -progress \
+		         -b \
+		         -PreviewImage \
+		         "$1" \
+		         > "$prev"
+		exiftool -overwrite_original \
+		         -tagsFromFile="$1" \
+		         "${TAGS_TO_TRANSFER[@]}" \
+		         "$prev"
 	fi
 }
 
-if [ $# -ne 1 ] || [ ! -r "$1" ]; then
-	errorAndExit "Please specify one readable file.\n" 1
-fi
-
-if [ "$(file -b --mime-type "$1")" = "image/x-canon-cr2" ]; then
-	extractRAW "$1"
-elif [ "$(head -n 1 "$1")" = "#Geeqie collection" ]; then
-	while read line; do
-		if echo "$line" | grep -qv "^#"; then
-			line="${line#\"}"
-			extractRAW "${line%\"}"
-		fi
-	done < "$1" # <"$(sed -r '/#/d;s/(^"|"$)//g' "$1")"
-else
-	errorAndExit "Please specify either a CR2 or a geeqie collection\n" 1
-fi
+for file; do
+	if [[ "$(file -b --mime-type "$file")" = "image/x-canon-cr2" ]]; then
+		extractRAW "$file"
+	elif [[ "$(head -1 "$file")" = "#Geeqie collection" ]]; then
+		while read line; do
+			extractRAW "$file"
+		done <"$(sed -E '/^#/d;s/(^"|"$)//g' "$file")"
+	else
+		>&2 printf "Unrecognized format: $file\n"
+	fi
+done
