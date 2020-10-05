@@ -19,13 +19,13 @@ body="$(tail +2 "$1" | grep -v "^#")"
 
 [ ${#subject} -le 50 ] || die "Subject too long. (<= 50)\n"
 
-if ! echo "$subject" | grep -qE "^([-_,a-z]+:)+ "; then
+if ! echo "$subject" | grep -qE "^([-_,a-zA-Z0-9]+:)+ "; then
 	die "Specify which program was modified. (e.g. \"zsh:p10k: <subject>\")\n"
 fi
-if ! echo "$subject" | grep -qE "^([-_,a-z]+:)+ [A-Z]"; then
+if ! echo "$subject" | grep -qE "^([-_,a-zA-Z0-9]+:)+ [A-Z]"; then
 	die "Start subject with a capital letter.\n"
 fi
-if ! echo "$subject" | grep -qE "^([-_,a-z]+:)+ [A-Z].*[^.]$"; then
+if ! echo "$subject" | grep -qE "^([-_,a-zA-Z0-9]+:)+ [A-Z].*[^.]$"; then
 	die "Remove punctuation mark from end.\n"
 fi
 
