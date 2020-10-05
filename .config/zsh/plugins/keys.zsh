@@ -1,8 +1,24 @@
 ## Author:  druckdev
 ## Created: 2019-04-17
 
-## Setup keybindings
+# Vim bindings
 bindkey -v
+
+# Text object selection
+# Copied and slightly modified from:
+# https://github.com/softmoth/zsh-vim-mode/blob/abef0c0c03506009b56bb94260f846163c4f287a/zsh-vim-mode.plugin.zsh#L214-#L228
+autoload -U select-bracketed select-quoted
+zle -N select-bracketed
+zle -N select-quoted
+for m in visual viopp; do
+	for c in {a,i}{\(,\),\[,\],\{,\},\<,\>,b,B}; do
+		bindkey -M "$m" "$c" select-bracketed
+	done
+	for c in {a,i}{\',\",\`}; do
+		bindkey -M "$m" "$c" select-quoted
+	done
+done
+
 # no delay when switching into NORMAL
 export KEYTIMEOUT=1
 
