@@ -1,0 +1,18 @@
+#!/bin/sh
+
+## Author:  druckdev
+## Created: 2019
+##
+## A small script that toggles the dock in GNOME.
+
+SCHEMA="org.gnome.shell.extensions.dash-to-dock"
+
+if [ "$(gsettings get "$SCHEMA" autohide)" = "true" ]; then
+	value=false
+else
+	value=true
+fi
+
+for key in autohide dock-fixed intellihide; do
+	gsettings set "$SCHEMA" "$key" "$value"
+done
