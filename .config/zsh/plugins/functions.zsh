@@ -34,27 +34,6 @@ function mkcd () {
 	fi
 }
 
-## Send a message over telegram by using the -e flag
-function msg() {
-	if [[ $# -ge 2 ]]; then
-		telegram-cli -W -e "msg $*" | grep -E "${${*/ /.*}//_/ }"
-		                          # | grep -E "$(echo "$*" | sed 's/ /.*/; s/_/ /g')"
-	else
-		printf "\033[1;31mPlease specify a contact and a message.\n\033[0m" >&2
-	fi
-}
-
-## Execute tg -e command but cuts of the uninteresting parts
-function tg() {
-	tg="telegram-cli"
-	if [[ "$1" = "-e" ]]; then
-		shift
-		$tg -N -W -e "$@" | tail -n +9 | head -n -2
-	else
-		$tg -N -W "$@"
-	fi
-}
-
 ## Encode and decode qr-codes
 function qr() {
 	if [[ $# -eq 1 && -r "$1" ]]; then

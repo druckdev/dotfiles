@@ -40,9 +40,6 @@
 [submodule ".config/zsh/plugins/stderred"]
 	path = .config/zsh/plugins/stderred
 	url = https://github.com/sickill/stderred
-[submodule ".config/zsh/plugins/zsh-async"]
-	path = .config/zsh/plugins/zsh-async
-	url = https://github.com/mafredri/zsh-async
 [submodule ".config/zsh/plugins/zsh-autosuggestions"]
 	path = .config/zsh/plugins/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions

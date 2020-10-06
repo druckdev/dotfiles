@@ -17,7 +17,6 @@
 /.config/vim/.netrwhist
 
 /.config/zsh/.zcompdump
-/.config/zsh/plugins/completion/_msg
 
 /.config/ranger/bookmarks
 /.config/ranger/history

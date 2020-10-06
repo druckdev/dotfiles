@@ -136,11 +136,7 @@ if [[ -e "$ZSH_CONF/stderred/build/libstderred.so" ]]; then
 fi
 comp-source "$ZSH_CONF/alias.zsh"
 comp-source "$ZSH_CONF/functions.zsh"
-comp-source "$ZSH_CONF/transfer.zsh"
 comp-source "$ZSH_CONF/zsh-autosuggestions/zsh-autosuggestions.zsh"
-comp-source "$ZSH_CONF/completion.zsh"
-# comp-source "$ZSH_CONF/zsh-async/async.zsh"
-#     async_init
 ### syntax-highlight > keys
 # syntax highlighting
 if [[ -e "$ZSH_CONF/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
@@ -163,11 +159,6 @@ elif command -v nano >/dev/null 2>&1; then
 	export EDITOR=nano
 fi
 
-# `sudo nano` won't work without this (?)
-if [[ "$TERM" = "xterm-kitty" ]]; then
-	export TERM=xterm-256color
-fi
-
 ## https://www.tecmint.com/view-colored-man-pages-in-linux/
 ## First seen in Fox Kiesters dotfiles
 export LESS_TERMCAP_mb=$'\e[1;32m'
@@ -187,10 +178,6 @@ export LESSHISTFILE=-
 
 export ANDROID_SDK_HOME="${XDG_CONFIG_HOME:-$HOME/.config}/android"
 export VIMINIT="let \$MYVIMRC=\"${XDG_CONFIG_HOME:-$HOME/.config}/vim/xdg.vim\" | source \$MYVIMRC"
-
-## Setup asynchronous jobs
-# async_start_worker msg_completion
-# async_job msg_completion tg-completion
 
 ## Setup zle
 zle_highlight=('paste:none')
