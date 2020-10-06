@@ -85,12 +85,10 @@ zle -N _expandDots
 bindkey . _expandDots
 
 function ls-on-enter {
-	if [[ -z "$BUFFER" ]]; then
-		BUFFER=ls
-		zle accept-line
-	else
-		zle accept-line
-	fi
+	# Execute `ls` when enter is pressed without a command entered.
+	[[ -n "$BUFFER" ]] || BUFFER=ls
+	zle accept-line
+
 	# See fzf-hist below
 	FZF_HIST_WENT_UP=
 }
