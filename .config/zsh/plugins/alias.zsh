@@ -2,7 +2,7 @@
 ## Created: 2019-01-16
 
 # Default flags
-	alias ls='ls --color=auto --group-directories-first -p -v'
+	alias ls='ls-show-hidden --color=auto --group-directories-first -p -v'
 	alias grep='grep --color'
 	alias cp='cp -i'
 	alias mv='mv -i'
