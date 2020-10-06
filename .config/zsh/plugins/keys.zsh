@@ -61,28 +61,25 @@ bindkey '^H' backward-kill-word              # ctrl-backspace
 bindkey '^[[3;5~' kill-word                  # ctrl-delete
 bindkey "$terminfo[kmous]" kill-word         # ctrl-delete
 
-## From https://github.com/nicoulaj/dotfiles/blob/1c7dd1b621bc8bae895bafc438562482ea245d7e/.config/zsh/functions/widgets/rationalize-dots
-function _expandDots {
-	#[[ $LBUFFER = *.. ]] && LBUFFER+=/.. || LBUFFER+=.
-	setopt localoptions nonomatch
-	local MATCH dir split
-	split=(${(z)LBUFFER})
-	(( $#split > 1 )) && dir=$split[-1] || dir=$split
-	if [[ $LBUFFER =~ '(^|/| | |'$'\n''|\||;|&)\.\.$' ]]; then
-		LBUFFER+=/
-		zle self-insert
-		zle self-insert
-		[[ -e $dir ]] && zle -M "${dir:a:h}"
-	elif [[ $LBUFFER[-1] == '.' ]]; then
-		zle self-insert
-		[[ -e $dir ]] && zle -M "${dir:a:h}"
+# Modified version (end with a trailing slash) of:
+# https://github.com/majutsushi/etc/blob/1d8a5aa28/zsh/zsh/func/rationalize-dots
+function rationalize_dots {
+	# Rationalize dots at BOL or after a space or slash.
+	if [[ "$LBUFFER" =~ "(^|[ /])\.\./$" ]]; then
+		LBUFFER+=../
+	elif [[ "$LBUFFER" =~ "(^|[ /])\.$" ]]; then
+		LBUFFER+=./
 	else
-		zle self-insert
+		LBUFFER+=.
+		return
 	fi
+
+	# Print currently typed path as absolute path with "collapsed"/reversed
+	# filename expansion.
+	zle -M "${(D)${(z)LBUFFER}[-1]:a}"
 }
-#autoload _expandDots
-zle -N _expandDots
-bindkey . _expandDots
+zle -N rationalize_dots
+bindkey . rationalize_dots
 
 function ls-on-enter {
 	# Execute `ls` when enter is pressed without a command entered.
