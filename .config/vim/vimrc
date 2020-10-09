@@ -96,8 +96,9 @@ if (has('clipboard') || has('nvim'))
 	vnoremap <leader>P "+P
 endif
 
-" Ctrl-Backspace should delete words in insert mode.
+" Ctrl-Backspace should delete words in insert mode and on command-line.
 inoremap <C-H> <C-W>
+cnoremap <C-H> <C-W>
 
 " Aesthetics ###################################################################
 " Use 24-bit (true-color) mode
