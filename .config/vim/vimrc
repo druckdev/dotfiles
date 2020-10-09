@@ -112,6 +112,9 @@ endif
 inoremap <C-H> <C-W>
 cnoremap <C-H> <C-W>
 
+" Correct word with best/first suggestion.
+noremap <leader>c 1z=
+
 " Aesthetics ###################################################################
 " Use 24-bit (true-color) mode
 if (has('termguicolors'))
