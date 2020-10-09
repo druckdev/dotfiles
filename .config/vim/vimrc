@@ -57,6 +57,10 @@ endif
 " First:  Complete longest common string and show wildmenu
 " Second: Complete each full match (Cycle through the menu)
 set wildmode=longest:full,full
+" Show typed (partial) command on screen.
+if (has('cmdline_info'))
+	set showcmd
+endif
 
 " Keybindings ##################################################################
 " Set leader key
