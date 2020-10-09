@@ -12,6 +12,7 @@ user_pref("browser.urlbar.placeholderName", "DuckDuckGo");
 user_pref("datareporting.healthreport.uploadEnabled", false);
 user_pref("full-screen-api.ignore-widgets", true);
 user_pref("network.cookie.lifetimePolicy", 2);
+user_pref("network.IDN_show_punycode", true);
 user_pref("privacy.donottrackheader.enabled", true);
 user_pref("privacy.trackingprotection.enabled", true);
 user_pref("privacy.trackingprotection.socialtracking.enabled", true);
