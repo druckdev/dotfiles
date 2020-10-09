@@ -24,8 +24,12 @@ set tabstop=4
 set shiftwidth=0
 " Highlight current line
 set cursorline
-" Automatically add leading comment (when pressing o/O or enter in Insert)
-set formatoptions+=cro
+" Auto-wrap text and comments; automatically add comment leader when creating
+" new lines and delete it when joining; do not break already too long lines;
+" allow formatting with gq.
+set formatoptions=tcroqlj
+" Keep lines under 80 characters.
+set textwidth=80
 " see :help persistent-undo
 set undofile
 " Update every 300ms for better experience with plugins like gitgutter and coc
