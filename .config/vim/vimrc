@@ -49,6 +49,14 @@ endif
 set copyindent
 " Show ruler at 80 and 100 columns
 set colorcolumn=80,100
+" Show menu for possible matches when using command-line completing.
+if (has('wildmenu'))
+	set wildmenu
+endif
+" Command-line completion tab behavior:
+" First:  Complete longest common string and show wildmenu
+" Second: Complete each full match (Cycle through the menu)
+set wildmode=longest:full,full
 
 " Keybindings ##################################################################
 " Set leader key
