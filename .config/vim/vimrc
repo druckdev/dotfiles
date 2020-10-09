@@ -28,7 +28,7 @@ set undofile
 " Update every 300ms for better experience with plugins like gitgutter and coc
 set updatetime=300
 " Check for spelling in comments and strings
-set spell spelllang=en_us
+set spell spelllang=en
 " Show the effect of a command while typing (substitute)
 if (has('nvim'))
 	set inccommand=nosplit
