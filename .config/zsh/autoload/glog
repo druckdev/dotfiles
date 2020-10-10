@@ -15,7 +15,7 @@ git rev-parse || return
 local formatshort='--pretty=format:%C(yellow)%h %Creset%s%C(auto)%d'
 # Verbose format for the preview window on the right
 # This array is stitched together with newlines later
-local format=(
+local -a format=(
 	'--pretty=format:%C(yellow)'     # newline created by this eaten by %-
 	'%-commit: %H%C(auto)'           # yellow commit hash
 	'%-D%Cblue'                      # auto colored ref names (if any)
@@ -34,11 +34,20 @@ local format=(
 local del_ansi='s/\[[0-9]{0,2}m//g'
 # Ignore the graph part at the beginning, then capture the commit hash and throw
 # away the rest of the line.
-local commit_hash='s/^[ */\\|]*([a-z0-9]*).*$/\1/'
+local commit_hash='s/^[ */\\|]*([a-f0-9]+).*$/\1/'
 
 local dateshort='--date=format:%F' # year
 local date='--date=format:%F %T %z' # year time timezone
 local colors='--color=always'
+
+local fzf_preview_command
+read -r -d '' fzf_preview_command <<EOT
+	out="\$(echo {} | sed -Ee "$del_ansi" -e "$commit_hash")"
+	if [[ "\$out" ]]; then
+		git show "${(j:%n:)format}" "$date" $colors "\$out" \
+		| diff-so-fancy
+	fi
+EOT
 local -A binds=(
 	'ctrl-space' 'toggle-preview'
 	'ctrl-alt-j' 'preview-down'
@@ -50,13 +59,7 @@ local -a fzf_args=(
 	# Expand the binds array in the format "key1:value1,key2:value2".
 	"--bind" "${(@kj:,:)binds/(#m)*/$MATCH:$binds[$MATCH]}"
 	# Execute git show on the commit as preview.
-	"--preview" "
-		out=\"\$(echo {} | sed -Ee \"$del_ansi\" -e \"$commit_hash\")\"
-		if [[ \"\$out\" ]]; then
-			git show \"${(j:%n:)format}\" \"$date\" $colors \"\$out\" \
-			| diff-so-fancy
-		fi
-	"
+	"--preview" "$fzf_preview_command"
 	# Reverse the layout so that the newest commit is at the top.
 	"--reverse"
 	# Do not sort when typing to maintain the sorting by date.
