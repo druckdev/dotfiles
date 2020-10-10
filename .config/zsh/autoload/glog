@@ -72,12 +72,10 @@ commit="$(\
 	git log "$formatshort" --graph "$dateshort" "$colors" \
 	| fzf "${fzf_args[@]}"
 )"
-# If fzf exits successfully, put the abbreviated commit hash into the clipboard
-# and write it onto stdout.
+# If fzf exits successfully, push the abbreviated commit hash onto the editing
+# buffer stack and write it to stdout.
 if ! (( $? )); then
 	commit="$(sed -Ee "$del_ansi" -e "$commit_hash" <<<"$commit")"
-	if command -v xclip &>/dev/null; then
-		echo -n "$commit" | xclip -selection clip
-	fi
+	pushln "$commit"
 	echo "$commit"
 fi
