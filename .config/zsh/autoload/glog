@@ -79,3 +79,5 @@ if ! (( $? )); then
 	pushln "$commit"
 	echo "$commit"
 fi
+
+# vim: ft=zsh
