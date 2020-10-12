@@ -51,22 +51,20 @@ bindsym $mod+d exec rofi -show drun
 
 # change focus
 focus_wrapping no
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # move focused window
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
-# split in horizontal orientation
-bindsym $mod+h split h
-
-# split in vertical orientation
-bindsym $mod+v split v
+# set split orientation
+bindsym $mod+v split vertical
+bindsym $mod+Shift+v split horizontal
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -133,16 +131,15 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+        bindsym h resize grow left
+        bindsym j resize grow down
+        bindsym k resize grow up
+        bindsym l resize grow right
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Shift+h resize shrink right
+        bindsym Shift+j resize shrink up
+        bindsym Shift+k resize shrink down
+        bindsym Shift+l resize shrink left
 
         # Set window size to predefined values
         # firefox anti fingerprinting
@@ -196,7 +193,7 @@ default_border pixel 1
 hide_edge_borders smart
 
 # Power
-bindsym $mod+l exec xset s activate
+bindsym $mod+mod1+l exec xset s activate
 bindsym $mod+p exec ~/.config/rofi/powermenu.sh &
 exec --no-startup-id xss-lock -l ~/.config/xsecurelock/transfer-sleep-lock.sh &
 
