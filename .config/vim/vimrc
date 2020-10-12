@@ -30,6 +30,8 @@ set cursorline
 set formatoptions=tcroqlj
 " Keep lines under 80 characters.
 set textwidth=80
+" Do not insert two spaces before a new sentence when formatting
+set nojoinspaces
 " see :help persistent-undo
 set undofile
 " Update every 300ms for better experience with plugins like gitgutter and coc
