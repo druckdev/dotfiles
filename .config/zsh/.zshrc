@@ -1,9 +1,6 @@
 ## Author:  druckdev
 ## Created: 2018-11-23
 
-# Set terminals title if this is a scratchpad-terminal
-[[ -z "$SCRATCHPAD_TERMINAL" ]] || printf "\x1b\x5d\x30\x3bscratchpad-terminal\x07"
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
