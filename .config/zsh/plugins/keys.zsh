@@ -42,7 +42,8 @@ function zle-line-finish {
 }
 zle -N zle-line-finish
 
-bindkey '^[h' run-help
+bindkey '^H' run-help
+bindkey '^E' edit-command-line
 
 ## Navigation
 bindkey '^[[Z' reverse-menu-complete         # shift-tab
