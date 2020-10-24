@@ -149,7 +149,7 @@ interval = 3
 format-connected = <label-connected>
 label-connected = %{A1:st -e nmtui connect &:} %essid:0:20:...%:%signal%% %{A}
 
-fomat-disconnected = <label-disconnected>
+format-disconnected = <label-disconnected>
 label-disconnected = %{A1:st -e nmtui connect &:} %ifname% disconnected %{A}
 
 ;#################################################
