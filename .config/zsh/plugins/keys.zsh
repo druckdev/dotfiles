@@ -46,7 +46,6 @@ bindkey '^[h' run-help
 
 ## Navigation
 bindkey '^[[Z' reverse-menu-complete         # shift-tab
-bindkey '^K' kill-whole-line                 # ctrl-K
 bindkey '^Q' push-input                      # ctrl-Q
 bindkey '\e[H' beginning-of-line             # home
 bindkey "$terminfo[khome]" beginning-of-line # home
@@ -120,6 +119,12 @@ bindkey '^[[1;5A' fzf-history-widget
 # Down
 bindkey '^[[B' fzf-hist-down
 bindkey "$terminfo[kcud1]" fzf-hist-down
+# Ctrl-K
+bindkey '^K' fzf-hist-up
+# Ctrl-K in normal mode
+bindkey -M vicmd '^K' fzf-history-widget
+# Ctrl-J
+bindkey '^J' fzf-hist-down
 
 # Fuzzy finder bindings:
 # ^T fzf-file-widget
