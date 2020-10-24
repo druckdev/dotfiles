@@ -118,8 +118,8 @@ comp-source "$ZSH_CONF/fzf-tab/fzf-tab.plugin.zsh"
 
 ## Load external config files and modules
 autoload edit-command-line; zle -N edit-command-line
-! alias run-help >/dev/null 2>&1 || unalias run-help
-autoload run-help run-help-git zmv
+(( ! $+aliases[run-help] )) || unalias run-help
+autoload -Uz run-help run-help-git zmv
 if [[ -d "$ZDOTDIR/autoload" ]]; then
 	fpath=("$ZDOTDIR/autoload" $fpath)
 	autoload -Uz -- "" "${fpath[1]}"/[^_.]*(.xN:t)
