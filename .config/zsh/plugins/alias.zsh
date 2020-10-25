@@ -39,11 +39,11 @@
 	}'
 
 # Save keystrokes and my memory
-	alias la='${aliases[ls]:-ls} -A'
-	alias l='${aliases[ls]:-ls} -lh --time-style=long-iso'
-	alias ll='${aliases[l]} -A'
+	alias la='ls -A'
+	alias l='ls -lh --time-style=long-iso'
+	alias ll='l -A'
 	alias cd..='cd ..'
-	alias cl='() { cd "$@" && ${aliases[ls]:-[ls]}'
+	alias cl='() { cd "$@" && ls }'
 	alias getclip="xclip -selection c -o"
 	alias setclip="perl -pe 'chomp if eof' | xclip -selection c"
 	alias pdf='launch evince'
@@ -71,10 +71,10 @@
 	'
 	alias qrdecode='zbarimg'
 	alias loadhist='fc -RI'
-	alias hex=xxd
+	alias hex='xxd'
 	alias bin='xxd -b -c4 | cut -d" " -f2-5'
 	! command -v nvim &>/dev/null || alias vim=nvim
-	alias vi='${aliases[vim]:-vim}'
+	alias vi='vim'
 	alias resetCursor='echo -ne "\e[5 q"'
 	alias makeThisScratchpad='echo -ne "\033]0;scratchpad-terminal\007"'
 	# grep filenames and date entries in exiftool
