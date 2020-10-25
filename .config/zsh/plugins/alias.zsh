@@ -49,7 +49,6 @@
 	alias pdf='launch evince'
 	alias darkpdf='launch zathura'
 	alias geeqie='launch qeeqie'
-	alias trash-restore='restore-trash'
 	alias rd='rmdir'
 	alias md='mkdir -p'
 	alias o='xdg-open'
