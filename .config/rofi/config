@@ -1,7 +1,7 @@
 // vi: ft=css
 
 configuration {
-    modi:               "window,drun";
+    modi:               "drun,run,window";
     matching:           "glob";
     drun-match-fields:   "all";
     /*display-drun:     "Apps";*/
@@ -9,9 +9,12 @@ configuration {
     show-icons:         true;
 
     // continous scrolling
-    scroll-method:      1;
+    scroll-method: 1;
+
+    // Automatically select when only one item is left
+    auto-select: true;
 }
- 
+
 * {
     lines: 5;
     columns: 1;
@@ -21,7 +24,7 @@ configuration {
     text-color: #EFEFEF;
     font: "Hack 20";
 }
- 
+
 #window {
     border: 0;
     border-radius: 4px;
@@ -44,8 +47,7 @@ configuration {
     border: 1px;
     border-color: @base0D;
 }
- 
- 
+
 #listview {
     background-color: #00000000;
     fixed-height: 0;
@@ -54,25 +56,24 @@ configuration {
     scrollbar: true;
     padding: 10px 10px 0px;
 }
- 
+
 #element {
     background-color: #00000000;
     border: 0;
     border-radius: 15px;
     padding: 3 0  3 4 ;
 }
- 
+
 #element selected {
     background-color: #00a0e6;
     text-color: #EFEFEF;
 }
- 
- 
+
 #inputbar {
     children:   [ prompt,textbox-prompt-colon,entry,case-indicator ];
     background-color: #00000000;
 }
- 
+
 #case-indicator {
     background-color: #00000000;
     spacing:    0;
@@ -85,11 +86,10 @@ configuration {
     background-color: #00000000;
     spacing:    0;
 }
- 
+
 #textbox-prompt-colon {
     background-color: #00000000;
     expand:     false;
     str:        ":";
     margin:     0px 0.3em 0em 0em ;
 }
-
