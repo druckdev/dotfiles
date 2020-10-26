@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # A hook script to check the commit log message.
 # Called by "git commit" with one argument, the name of the file that has the
@@ -17,22 +17,32 @@ die() {
 subject="$(head -1 "$1")"
 body="$(tail +2 "$1" | grep -v "^#")"
 
-[ ${#subject} -le 50 ] || die "Subject too long. (<= 50)\n"
+[[ ${#subject} -le 50 ]] || die "Subject too long. (<= 50)\n"
 
-if ! echo "$subject" | grep -qE "^([-_,*(){}a-zA-Z0-9]+:)+ "; then
-	die "Specify which program was modified. (e.g. \"zsh:p10k: <subject>\")\n"
-fi
-if ! echo "$subject" | grep -qE "^([-_,*(){}a-zA-Z0-9]+:)+ [A-Z]"; then
-	die "Start subject with a capital letter.\n"
-fi
-if ! echo "$subject" | grep -qE "^([-_,*(){}a-zA-Z0-9]+:)+ [A-Z].*[^.]$"; then
-	die "Remove punctuation mark from end.\n"
-fi
+# The subject line has to match "${pats[@]}", but to be more verbose different
+# error messages are printed for the different 'levels' of the pattern.
+declare -a pats msg
+pats=(
+	"^([-_,*(){}a-zA-Z0-9]+:)+ "
+	"[A-Z]"
+	".*[^.]$"
+)
+msg=(
+	"Specify which program was modified. (e.g. \"zsh:p10k: <subject>\")\n"
+	"Start subject with a capital letter.\n"
+	"Remove punctuation mark from end.\n"
+)
+[[ ${#msg[@]} -ge ${#pats[@]} ]] || die "Something went wrong internally.\n"
+for ((i = 0; i < ${#pats[@]}; i++)); do
+	if ! grep -qE "$(printf "%s" "${pats[@]:0:$i+1}")" <<<"$subject"; then
+		die "${msg[$i]}"
+	fi
+done
 
 BKP_IFS="$IFS"
 IFS='
 '
 for line in $body; do
-	[ ${#line} -le 72 ] || die "Body lines too long. (<= 72)\n"
+	[[ ${#line} -le 72 ]] || die "Body lines too long. (<= 72)\n"
 done
 IFS="$BKP_IFS"
