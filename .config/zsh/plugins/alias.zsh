@@ -86,6 +86,10 @@
 	alias listopts='printf "%s %s\n" "${(kv)options[@]}"'
 	# Launch program independent and detached from shell.
 	alias launch='() { ${aliases[$1]:-$1} "${@[2,-1]}" &>/dev/null &| }'
+	# Launch program after reducing the screen resolution.
+	alias lowres='() {
+		xrandr -s 1920x1080; $1 "${@[2,-1]}"; xrandr -s 3200x1800
+	}'
 	# Create copy with .bkp extension
 	alias bkp='() { for f; do command cp -i "$f"{,.bkp}; done }'
 	# Reverse bkp()

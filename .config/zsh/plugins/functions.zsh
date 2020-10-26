@@ -269,6 +269,30 @@ safe-remove() {
 	udisksctl power-off -b "/dev/$(lsblk -no pkname "$1")"
 }
 
+crypt-mount() {
+	[[ $# -gt 0 ]] || return 1
+	[[ -e "$1" ]] || return 1
+
+	sudo cryptsetup open "$1" crypt_"${1##*/}" || return 1
+	udisksctl mount -b /dev/mapper/crypt_"${1##*/}"
+}
+
+crypt-umount() {
+	[[ $# -gt 0 ]] || return 1
+	[[ -e "$1" ]] || return 1
+
+	sync
+	if ! udisksctl unmount -b /dev/mapper/crypt_"${1##*/}"; then
+		lsof /dev/mapper/crypt_"${1##*/}"
+		return 1
+	fi
+	if ! sudo cryptsetup close crypt_"${1##*/}"; then
+		sudo cryptsetup status crypt_"${1##*/}"
+		return 1
+	fi
+	udisksctl power-off -b "$1"
+}
+
 ## List items in trash if no argument is specified
 function trash() {
 	if (( ! $# )); then
