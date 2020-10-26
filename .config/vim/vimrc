@@ -28,6 +28,10 @@ set cursorline
 " new lines and delete it when joining; do not break already too long lines;
 " allow formatting with gq.
 set formatoptions=tcroqlj
+" Autoindent new lines
+set autoindent
+" Copy structure of the existing lines indent when autoindenting a new line
+set copyindent
 " Keep lines under 80 characters.
 set textwidth=80
 " Do not insert two spaces before a new sentence when formatting
@@ -51,8 +55,6 @@ else
 	nmap cw dwi
 	nmap cW dWi
 endif
-" Copy structure of the existing lines indent when autoindenting a new line
-set copyindent
 " Show ruler at 80 and 100 columns
 set colorcolumn=80,100
 " Show menu for possible matches when using command-line completing.
