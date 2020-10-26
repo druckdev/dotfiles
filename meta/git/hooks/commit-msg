@@ -23,7 +23,7 @@ body="$(tail +2 "$1" | grep -v "^#")"
 # error messages are printed for the different 'levels' of the pattern.
 declare -a pats msg
 pats=(
-	"^([-_,*(){}a-zA-Z0-9]+:)+ "
+	"^([-_,*(){}./a-zA-Z0-9]+:)+ "
 	"[A-Z]"
 	".*[^.]$"
 )
