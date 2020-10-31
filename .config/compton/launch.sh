@@ -1,7 +1,10 @@
 #!/bin/sh
 
+basedir="$(cd "$(dirname "$0")" && pwd -P)"
+compositor="$(basename "$basedir")"
+
 if [ "$1" = "-k" ];  then
-	killall -q compton
-elif ! pgrep -ax compton >/dev/null 2>&1; then
-	compton --config "${XDG_CONFIG_HOME:-$HOME/.config}/compton/compton.conf" -b
+	killall -q "$compositor"
+elif ! pgrep -ax "$compositor" >/dev/null 2>&1; then
+	"$compositor" --config "$basedir/$compositor".conf -b
 fi

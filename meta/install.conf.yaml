@@ -20,10 +20,6 @@
       stdout: true
       stderr: true
 - link:
-    ~/.Xmodmap:
-        path: .Xmodmap
-    ~/.Xresources:
-        path: .Xresources
     ~/.xinitrc:
         path: .xinitrc
     ~/.zshenv:
