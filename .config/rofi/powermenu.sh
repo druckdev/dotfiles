@@ -6,9 +6,9 @@ declare -A entries
 entries=(
 	[lock]="xset s activate"
 	[logout]="i3-msg exit"
-	[reboot]="systemctl reboot"
-	[shutdown]="systemctl poweroff"
-	[suspend]="systemctl suspend"
+	[reboot]="loginctl reboot"
+	[shutdown]="loginctl poweroff"
+	[suspend]="loginctl suspend"
 	[suspend (scheduled)]="scheduled_suspend"
 )
 
@@ -34,7 +34,7 @@ scheduled_suspend() {
 	[[ "$min" -ne 0 ]] || exit 1
 
 	notify-send "suspend in" "$min minutes"
-	sleep $((min*60)) && systemctl suspend
+	sleep $((min*60)) && ${entries[suspend]}
 }
 
 # Choose option over rofi
