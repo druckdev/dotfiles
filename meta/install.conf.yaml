@@ -24,6 +24,8 @@
         path: .Xmodmap
     ~/.Xresources:
         path: .Xresources
+    ~/.xinitrc:
+        path: .xinitrc
     ~/.zshenv:
         path: .zshenv
     ~/.config/:
