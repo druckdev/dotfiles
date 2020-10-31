@@ -16,6 +16,11 @@ set $TERMINAL st
 # Focus should not follow mouse
 # focus_follows_mouse no
 
+# Gaps #########################################################################
+
+gaps inner 10
+gaps outer 7
+
 # Execs ########################################################################
 
 # Multi monitor support
