@@ -106,14 +106,17 @@
 	}'
 
 # Named directories
-	hash -d docs="$HOME"/Documents/
-	hash -d cheat="${nameddirs[docs]}"/cheat_sheets
-	hash -d proj="$HOME"/Projects/
-	hash -d dot{,s}="${nameddirs[proj]}"/github/dotfiles-github/
-	hash -d pics="$HOME"/Pictures/
-	hash -d down="$HOME"/Downloads/
+	hash -d docs=~/docs
+	hash -d down=~/downloads
+	hash -d pics=~/pics
+	hash -d proj=~/projs
 
-	hash -d uni="${nameddirs[docs]}"/uni
-	local UNI="${nameddirs[uni]}"
-	hash -d wise="$(printf "%s\n" "$UNI"/[0-9][0-9]-WiSe | tail -1)"
-	hash -d sose="$(printf "%s\n" "$UNI"/[0-9][0-9]-SoSe | tail -1)"
+	hash -d cheat=~docs/cheat_sheets
+	hash -d dot{,s}=~proj/dotfiles
+	hash -d uni=~docs/uni
+
+	# Use the first match in ~uni/[0-9][0-9]-{So,Wi}Se sorted in descending
+	# numeric order (most recent semester). The echo is necessary as else
+	# filename generation will include the wise= and nothing is matched. TODO!
+	hash -d sose="$(echo ~uni/[0-9][0-9]-SoSe(NnOn[1]))"
+	hash -d wise="$(echo ~uni/[0-9][0-9]-WiSe(NnOn[1]))"
