@@ -1,6 +1,4 @@
 [include]
-	path = gitlab.config
-[includeIf "gitdir:~/Projects/github/"]
 	path = github.config
 [include]
 	path = user.config
