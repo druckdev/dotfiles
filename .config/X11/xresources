@@ -1,3 +1,6 @@
+! vim: ft=xdefaults
+
 Xft.dpi: 150
+rofi.font: MesloLGS NF 24
 *.font: MesloLGS NF:style=Regular:pixelsize=24:antialias=true:autohint=true
 *.alpha: 0.77
