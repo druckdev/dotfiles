@@ -101,6 +101,11 @@
 		python3 -c \
 			"from urllib import parse; print(parse.unquote(\"$*\"), end=\"\")"
 	}'
+	# Workaround for stack smash when using stderred
+	alias gpg='
+		env LD_PRELOAD="$(
+			sed "s/[^:]*libstderred.so:\?//;s/:$//" <<<"$LD_PRELOAD"
+		)" gpg'
 
 # Named directories
 	hash -d docs=~/docs
