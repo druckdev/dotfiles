@@ -29,16 +29,26 @@ done
 
 # Print working directory when only flags were given as arguments.
 if ! (( ${#dirs} + ${#files} )); then
-	dirs+="$PWD"
+	dirs+=.
 fi
 
-# Do not separate files and directories if -d flag was specified.
+# Just pass everything to ls when the -d flag is given since then the -A flag
+# makes no difference.
+# Remove all long options because `getopts` cannot handle those and sees for
+# example -d in --group-directories-first. Remove the resulting empty strings
+# afterwards since that confuses `getopts` apparently.
+builtin local -a all_opts empty
+all_opts=("$@")
+empty=("")
+set -- "${(@)${(@)all_opts//--*}:|empty}"
 while getopts d flag 2>/dev/null; do
-	if [[ "$flag" = "d" ]]; then
-		command ls "$@" -- "${files[@]}" "${dirs[@]}"
-		return
-	fi
+	[[ "$flag" = "d" ]] || continue
+	command ls "${all_opts[@]}" -- "${files[@]}" "${dirs[@]}"
+	return
 done
+# Restore options.
+set -- "${all_opts[@]}"
+unset all_opts empty
 
 builtin local separator=""
 
