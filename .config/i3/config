@@ -187,6 +187,12 @@ for_window [class="^TelegramDesktop$"] \
 	scratchpad show
 bindsym $mod+Shift+t [class="^TelegramDesktop$"] scratchpad show
 
+for_window [class="^$TERMINAL-256color$" title="^polybar-datetime-calendar$"] \
+	floating enable,    \
+	border pixel 3,     \
+	resize set 378 300, \
+	move position 1411 32
+
 # screenshots
 bindsym --release Print exec gnome-screenshot -i
 bindsym --release $mod+Print exec gnome-screenshot -a
