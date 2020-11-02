@@ -126,11 +126,11 @@ if [[ -d "$ZDOTDIR/autoload" ]]; then
 fi
 ! command -v direnv >/dev/null 2>&1 || eval "$(direnv hook zsh)"
 # stderred
-if [[ -e "$ZSH_CONF/stderred/build/libstderred.so" ]]; then
-	export LD_PRELOAD="$ZSH_CONF/stderred/build/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD}"
-	export STDERRED_ESC_CODE="$(tput bold && tput setaf 1)"
-	export STDERRED_BLACKLIST="^(git|curl|wget|swipl)$"
-fi
+# if [[ -e "$ZSH_CONF/stderred/build/libstderred.so" ]]; then
+# 	export LD_PRELOAD="$ZSH_CONF/stderred/build/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD}"
+# 	export STDERRED_ESC_CODE="$(tput bold && tput setaf 1)"
+# 	export STDERRED_BLACKLIST="^(git|curl|wget|swipl)$"
+# fi
 comp-source "$ZSH_CONF/alias.zsh"
 comp-source "$ZSH_CONF/functions.zsh"
 comp-source "$ZSH_CONF/zsh-autosuggestions/zsh-autosuggestions.zsh"
