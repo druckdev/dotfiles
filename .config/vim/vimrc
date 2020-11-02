@@ -1,7 +1,7 @@
 " Plugins ######################################################################
 " Auto completion
 " needs vim >= 8.1.1719 to support features like popup and text property.
-if (has('patch-8.1.1719'))
+if (has('patch-8.1.1719') || has('nvim'))
 	packadd! coc.nvim
 	source $XDG_CONFIG_HOME/vim/coc.nvim.vim
 endif

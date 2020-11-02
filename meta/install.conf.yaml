@@ -19,6 +19,11 @@
       description: Building stderred
       stdout: true
       stderr: true
+    -
+      command: cd .config/vim/pack/plugins/opt/coc.nvim && yarn install --frozen-lockfile
+      description: Installing coc.nvim
+      stdout: true
+      stderr: true
 - link:
     ~/.xinitrc:
         path: .xinitrc
