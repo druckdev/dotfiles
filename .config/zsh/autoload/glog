@@ -17,15 +17,18 @@ local formatshort='--pretty=format:%C(yellow)%h %Creset%s%C(auto)%d'
 # This array is stitched together with newlines later
 local -a format=(
 	'--pretty=format:%C(yellow)'     # newline created by this eaten by %-
-	'%-commit: %H%C(auto)'           # yellow commit hash
-	'%-D%Cblue'                      # auto colored ref names (if any)
-	'Author:     %aN %aE%Cred'       # blue author mail
-	'AuthorDate: %ad%Cblue'          # red author date
-	'Commit:     %cN %cE%Cred'       # blue commiter mail
-	'CommitDate: %cd%Creset%C(bold)' # red commit date
-	''
+	'%-Commit:      %H%C(auto)'      # yellow commit hash
+	'             %D%Cblue'          # auto colored ref names (if any)
+	'Author:      %aN %aE%Cred'      # blue author mail
+	'AuthorDate:  %ad%Cblue'         # red author date
+	'Commit:      %cN %cE%Cred'      # blue commiter mail
+	'CommitDate:  %cd%Cblue'         # red commit date
+	'Signer:      %GS%Cgreen'        # signer name
+	'Fingerprint: %GF'               # pgp fingerprint
+	'%Creset%C(bold)'                # empty line
 	'    %s%Creset'                  # bold white subject
-	' ' # space is here so that the empty line is not eaten when empty body
+	# With the space the empty line is not eaten when the body is empty:
+	' '
 	'%-b'                            # body
 )
 
