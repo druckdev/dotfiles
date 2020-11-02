@@ -114,6 +114,7 @@
 	hash -d cheat=~docs/cheat_sheets
 	hash -d dot{,s}=~proj/dotfiles
 	hash -d uni=~docs/uni
+	hash -d work=~docs/work
 
 	# Use the first match in ~uni/[0-9][0-9]-{So,Wi}Se sorted in descending
 	# numeric order (most recent semester). The echo is necessary as else
