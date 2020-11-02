@@ -16,7 +16,7 @@
 		wget --config="${XDG_CONFIG_HOME:-$HOME/.config}/wget/wgetrc" \
 		     --hsts-file="${XDG_DATA_HOME:-$HOME/.local/share}/wget/wget-hsts"
 	'
-	alias tmux='tmux -f "$HOME/.config/tmux/tmux.conf"'
+	alias tmux='tmux -f "${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf"'
 	alias tmsu='tmsu -D "${XDG_DATA_HOME:-$HOME/.local/share}/tmsu/db"'
 
 # Global
@@ -63,12 +63,7 @@
 	'
 	alias pdf2t{e,}xt='pdftotext'
 	alias rm='printf "\033[1;031mUse trash!\n\033[0m"; false'
-	alias battery='
-		upower -i /org/freedesktop/UPower/devices/battery_BAT0
-		| grep -E "to full|percentage"
-		| tr -d " "
-		| sed "s/:/: /"
-	'
+	alias battery='cat /sys/class/power_supply/BAT0/capacity'
 	alias qrdecode='zbarimg'
 	alias loadhist='fc -RI'
 	alias hex='xxd'
@@ -98,11 +93,13 @@
 	alias histgrep='() { grep "$@" "${HISTFILE:-$HOME/.zsh_history}" }'
 	# URL-encode
 	alias urlenc='() {
-		python3 -c "from urllib import parse; print(parse.quote('$@'), end='')
+		python3 -c \
+			"from urllib import parse; print(parse.quote(\"$*\"), end=\"\")"
 	}'
 	# URL-decode
 	alias urldec='() {
-		python3 -c "from urllib import parse; print(parse.unquote('$@'), end='')
+		python3 -c \
+			"from urllib import parse; print(parse.unquote(\"$*\"), end=\"\")"
 	}'
 
 # Named directories
