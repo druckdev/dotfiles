@@ -32,7 +32,7 @@ unset {sys,user}{resources,modmap,xinitrcd}
 # <right-CTRL> acts as <ESC> when pressed alone and shortly.
 xcape -t 250 -e 'Control_R=Escape'
 # Key repeat rate
-xset r rate 500 25
+xset r rate 400 35
 
 touchpad="DLL082A:01 06CB:76AF Touchpad"
 xinput set-prop "$touchpad" "libinput Tapping Enabled" 1
