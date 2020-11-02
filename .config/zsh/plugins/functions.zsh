@@ -2,7 +2,7 @@
 ## Created: 2019-08-28
 
 ## Compares two pdfs based on the result of pdftotext
-function pdfdiff() {
+pdfdiff() {
 	if [[ $# -eq 2 && -r "$1" && -r "$2" ]]; then
 		diff <(pdftotext "$1" -) <(pdftotext "$2" -)
 	else
@@ -12,7 +12,7 @@ function pdfdiff() {
 }
 
 ## Gets Passwd from bitwarden and copies it into the clipboard
-function bwpwd() {
+bwpwd() {
 	if bw "get" "password" "$@" >/dev/null; then
 		bw "get" "password" "$@" | tr -d '\n' | setclip
 	else
@@ -21,7 +21,7 @@ function bwpwd() {
 }
 
 ## creates directory and changes into it
-function mkcd () {
+mkcd () {
 	# Create directory
 	mkdir "$@"
 	# shift arguments if mkdir options were used
@@ -35,7 +35,7 @@ function mkcd () {
 }
 
 ## Encode and decode qr-codes
-function qr() {
+qr() {
 	if [[ $# -eq 1 && -r "$1" ]]; then
 		zbarimg "$1"
 	else
@@ -44,7 +44,7 @@ function qr() {
 }
 
 ## Edit config file
-function conf() {
+conf() {
 	local CONF_EDITOR
 	if [[ -n "$EDITOR" ]]; then
 		CONF_EDITOR="$EDITOR"
@@ -126,7 +126,7 @@ function conf() {
 }
 
 ## Change into config dir
-function c() {
+c() {
 	CONF_DIR="$(_get_config_dir $*)"
 	if [[ $? -eq 0 ]]; then
 		cd "$CONF_DIR"
@@ -136,7 +136,7 @@ function c() {
 	fi
 }
 ## Get config directory
-function _get_config_dir() {
+_get_config_dir() {
 	if [[ $# -gt 1 ]]; then
 		printf "\033[1;31mPlease specify one config.\n\033[0m" >&2
 		return 1
@@ -153,7 +153,7 @@ function _get_config_dir() {
 }
 
 ## Function that resolves a command to the end
-function resolve() {
+resolve() {
 	# TODO: comment!!
 	# In script mode only the result and its arguments are printed
 	# The result can then be used directly by other scripts without further
@@ -246,7 +246,7 @@ function resolve() {
 }
 
 ## Grep a keyword at the beginning of a line (ignoring whitespace) in a man page
-function mangrep() {
+mangrep() {
 	if [[ $# -lt 2 ]]; then
 		printf "usage:   mangrep <man page> <pattern> [<man flags>]\n" >&2
 		printf "example: mangrep bash \"(declare|typeset)\"\n" >&2
@@ -294,7 +294,7 @@ crypt-umount() {
 }
 
 ## List items in trash if no argument is specified
-function trash() {
+trash() {
 	if (( ! $# )); then
 		command trash-list
 	else
@@ -303,7 +303,7 @@ function trash() {
 }
 
 ## Open nemo in current directory if no argument is specified
-function nemo() {
+nemo() {
 	if (( ! $# )); then
 		command nemo .
 	else
