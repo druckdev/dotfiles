@@ -15,7 +15,7 @@
       stdout: true
       stderr: true
     -
-      command: command -v make && cd .config/zsh/plugins/stderred && make
+      command: cd .config/zsh/plugins/stderred && make
       description: Building stderred
       stdout: true
       stderr: true
