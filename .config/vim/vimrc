@@ -105,23 +105,26 @@ endif
 
 " Interact with the system clipboard
 if (has('clipboard') || has('nvim'))
-	nnoremap <leader>y "+y
-	nnoremap <leader>d "+d
-	nnoremap <leader>p "+p
-	nnoremap <leader>P "+P
-
-	vnoremap <leader>y "+y
-	vnoremap <leader>d "+d
-	vnoremap <leader>p "+p
-	vnoremap <leader>P "+P
+	noremap <leader>y "+y
+	noremap <leader>d "+d
+	noremap <leader>p "+p
+	noremap <leader>P "+P
 endif
 
 " Ctrl-Backspace should delete words in insert mode and on command-line.
-inoremap <C-H> <C-W>
-cnoremap <C-H> <C-W>
+noremap! <C-H> <C-W>
 
 " Correct word with best/first suggestion.
 noremap <leader>c 1z=
+
+" Umlaute and sz
+map! ae ä
+map! Ae Ä
+map! oe ö
+map! Oe Ö
+map! ue ü
+map! Ue Ü
+map! sz ß
 
 " Aesthetics ###################################################################
 " Use 24-bit (true-color) mode
