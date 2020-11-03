@@ -310,3 +310,16 @@ nemo() {
 		command nemo "$@"
 	fi
 }
+
+## Move a file but keep a symlink to the new location.
+mvln() {
+	# DST will not exist if `mv` is used for renaming.
+	[[ -e $1 ]] && [[ -d $2 || -d "$(dirname "$2")" ]] || return 1
+
+	mv "$1" "$2" || return
+	if [[ -d $2 ]]; then
+		ln -s "${2:A}/$(basename "$1")" "$1"
+	else
+		ln -s "${2:A}" "$1"
+	fi
+}
