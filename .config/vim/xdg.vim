@@ -10,13 +10,13 @@
 " - https://github.com/kaleb/vim-files/blob/23ee9d4a97d21f040c63e5c6dfdb72382fada840/xdg.vim
 
 if empty($XDG_CACHE_HOME)
-	let $XDG_CACHE_HOME = '~/.cache'
+	let $XDG_CACHE_HOME = $HOME . '/.cache'
 endif
 if empty($XDG_CONFIG_HOME)
-	let $XDG_CONFIG_HOME = '~/.config'
+	let $XDG_CONFIG_HOME = $HOME . '/.config'
 endif
 if empty($XDG_DATA_HOME)
-	let $XDG_DATA_HOME = '~/.local/share'
+	let $XDG_DATA_HOME = $HOME . '/.local/share'
 endif
 
 if !isdirectory($XDG_CACHE_HOME . "/vim/swap")
