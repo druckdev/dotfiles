@@ -144,41 +144,6 @@ comp-source "$ZSH_CONF/keys.zsh"
 # Reenable fzf-tab since `bindkey -v` seems to deactivate it
 enable-fzf-tab
 
-## Setup PATH
-[[ "$PATH" =~ "$HOME/\.local/bin" ]] || export PATH="$HOME/.local/bin${PATH:+:$PATH}"
-
-## Env variables that have nothing to do with zsh
-if command -v nvim >/dev/null 2>&1; then
-	export EDITOR=nvim
-elif command -v vim >/dev/null 2>&1; then
-	export EDITOR=vim
-elif command -v nano >/dev/null 2>&1; then
-	export EDITOR=nano
-fi
-
-if command -v nvim >/dev/null 2>&1; then
-	export MANPAGER="nvim -c 'set ft=man' -"
-else
-	# https://www.tecmint.com/view-colored-man-pages-in-linux/
-	export LESS_TERMCAP_mb=$'\e[1;32m'
-	export LESS_TERMCAP_md=$'\e[1;32m'
-	export LESS_TERMCAP_me=$'\e[0m'
-	export LESS_TERMCAP_se=$'\e[0m'
-	export LESS_TERMCAP_so=$'\E[01;44;33m'
-	export LESS_TERMCAP_ue=$'\e[0m'
-	export LESS_TERMCAP_us=$'\e[1;4;31m'
-fi
-
-## Less clutter in $HOME by enforcing the XDG base directory standard
-export ATOM_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/atom"
-export GOPATH="${XDG_DATA_HOME:-$HOME/.local/share}/go"
-export SQLITE_HISTORY="${XDG_DATA_HOME:-$HOME/.local/share}/sqlite3/sqlite_history"
-# No less history file
-export LESSHISTFILE=-
-
-export ANDROID_SDK_HOME="${XDG_CONFIG_HOME:-$HOME/.config}/android"
-export VIMINIT="let \$MYVIMRC=\"${XDG_CONFIG_HOME:-$HOME/.config}/vim/xdg.vim\" | source \$MYVIMRC"
-
 ## Setup zle
 zle_highlight=('paste:none')
 
