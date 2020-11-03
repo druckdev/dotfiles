@@ -37,6 +37,7 @@ setopt AUTO_PUSHD               # Make cd push the old directory onto the direct
 setopt NO_AUTO_REMOVE_SLASH     # Keeps trailing slash for directories when auto completing.
                                 #   (Beware: commands will act on the target directory not the symlink with the slash)
 setopt NO_BEEP                  # Do not beep on error in ZLE.
+setopt CDABLE_VARS              # Expand named directories without leading '~'.
 setopt C_BASES                  # Output hexadecimal numbers in the standard C format ('16#FF' -> '0xFF').
 setopt CHASE_LINKS              # Resolve symbolic links to their true values when changing directory.
 setopt NO_CLOBBER               # '>!' or '>|' must be used to truncate a file, and '>>!' or '>>|' to create a file.
