@@ -106,6 +106,8 @@
 		env LD_PRELOAD="$(
 			sed "s/[^:]*libstderred.so:\?//;s/:$//" <<<"$LD_PRELOAD"
 		)" gpg'
+	# Use a reasonable time format
+	alias date='env LC_TIME=tk_TM date'
 
 # Named directories
 	hash -d docs=~/docs
