@@ -156,15 +156,19 @@ elif command -v nano >/dev/null 2>&1; then
 	export EDITOR=nano
 fi
 
-## https://www.tecmint.com/view-colored-man-pages-in-linux/
-## First seen in Fox Kiesters dotfiles
-export LESS_TERMCAP_mb=$'\e[1;32m'
-export LESS_TERMCAP_md=$'\e[1;32m'
-export LESS_TERMCAP_me=$'\e[0m'
-export LESS_TERMCAP_se=$'\e[0m'
-export LESS_TERMCAP_so=$'\E[01;44;33m'
-export LESS_TERMCAP_ue=$'\e[0m'
-export LESS_TERMCAP_us=$'\e[1;4;31m'
+if command -v nvim >/dev/null 2>&1; then
+	export MANPAGER="nvim -c 'set ft=man' -"
+else
+	# https://www.tecmint.com/view-colored-man-pages-in-linux/
+	export LESS_TERMCAP_mb=$'\e[1;32m'
+	export LESS_TERMCAP_md=$'\e[1;32m'
+	export LESS_TERMCAP_me=$'\e[0m'
+	export LESS_TERMCAP_se=$'\e[0m'
+	export LESS_TERMCAP_so=$'\E[01;44;33m'
+	export LESS_TERMCAP_ue=$'\e[0m'
+	export LESS_TERMCAP_us=$'\e[1;4;31m'
+	export MANPAGER="nvim -c 'set ft=man' -"
+fi
 
 ## Less clutter in $HOME by enforcing the XDG base directory standard
 export ATOM_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/atom"
