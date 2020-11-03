@@ -18,6 +18,8 @@
 	'
 	alias tmux='tmux -f "${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf"'
 	alias tmsu='tmsu -D "${XDG_DATA_HOME:-$HOME/.local/share}/tmsu/db"'
+	alias yarn='yarn --use-yarnrc "${XDG_CONFIG_HOME:-$HOME/.config}"/yarn/config'
+	alias bash='bash --rcfile "${XDG_CONFIG_HOME:-$HOME/.config}"/bash/bashrc'
 
 # Global
 	alias -g G='| grep'
