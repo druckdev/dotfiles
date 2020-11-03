@@ -167,7 +167,6 @@ else
 	export LESS_TERMCAP_so=$'\E[01;44;33m'
 	export LESS_TERMCAP_ue=$'\e[0m'
 	export LESS_TERMCAP_us=$'\e[1;4;31m'
-	export MANPAGER="nvim -c 'set ft=man' -"
 fi
 
 ## Less clutter in $HOME by enforcing the XDG base directory standard
