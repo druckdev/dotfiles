@@ -13,6 +13,9 @@
 # Ignore installation backups
 /existing-*.tar.gz
 
+/.config/VSCodium
+!/.config/VSCodium/User/settings.json
+
 /.config/git/github.config
 /.config/git/gitlab.config
 /.config/git/user.config

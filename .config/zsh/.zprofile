@@ -25,6 +25,9 @@ export ANDROID_EMULATOR_HOME="$XDG_DATA_HOME"/android/
 export ADB_VENDOR_KEY="$XDG_CONFIG_HOME"/android
 export ANDROID_SDK_HOME="$XDG_CONFIG_HOME"/android
 
+export VSCODE_PORTABLE="$XDG_DATA_HOME"/vscode
+export VSCODE_EXTENSIONS="$XDG_DATA_HOME"/vscode/extensions
+
 # Other environment variables
 if [[ ! "$PATH" =~ "$HOME/\.local/bin" ]]; then
 	export PATH="$HOME/.local/bin${PATH:+:$PATH}"
