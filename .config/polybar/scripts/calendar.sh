@@ -25,6 +25,13 @@ if [[ $# -eq 0 ]]; then
 	# Call fzf
 	cal -wm | fzf "${FZF_ARGS[@]}"
 	exit 0
+elif [[ $1 = "-t" ]]; then
+	TITLE=polybar-datetime-calendar
+
+	# Kill and exit if already running to achieve a toggle.
+	! pkill -f "$TITLE" || exit 0
+
+	exec st -A 0.45 -t "$TITLE" "$0"
 else
 	# Backend
 
