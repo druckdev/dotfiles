@@ -323,3 +323,20 @@ mvln() {
 		ln -s "${2:A}" "$1"
 	fi
 }
+
+## cd wrapper that when called without arguments, moves into the root of the
+## current repo instead of HOME. (Except when already there)
+cd() {
+	if [[ $# -gt 0 ]]; then
+		builtin cd "$@"
+		return
+	fi
+
+	local toplevel
+	toplevel="$(git rev-parse --show-toplevel 2>/dev/null)"
+	if (( $? )) || [[ $PWD = $toplevel ]]; then
+		builtin cd
+	else
+		builtin cd "$toplevel"
+	fi
+}
