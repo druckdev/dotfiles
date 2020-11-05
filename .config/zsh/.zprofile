@@ -10,6 +10,8 @@ export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 export GOPATH="$XDG_DATA_HOME"/go
+export MPLAYER_HOME="$XDG_CONFIG_HOME"/mplayer
+export WGETRC="$XDG_CONFIG_HOME"/wget/wgetrc
 
 export HISTFILE="$XDG_DATA_HOME"/bash/history
 export LESSHISTFILE=/dev/null

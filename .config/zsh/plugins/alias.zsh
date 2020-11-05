@@ -12,10 +12,6 @@
 	alias feh='feh -.'
 
 # XDG Base Directory Specification
-	alias wget='
-		wget --config="${XDG_CONFIG_HOME:-$HOME/.config}/wget/wgetrc" \
-		     --hsts-file="${XDG_DATA_HOME:-$HOME/.local/share}/wget/wget-hsts"
-	'
 	alias tmux='tmux -f "${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf"'
 	alias tmsu='tmsu -D "${XDG_DATA_HOME:-$HOME/.local/share}/tmsu/db"'
 	alias yarn='yarn --use-yarnrc "${XDG_CONFIG_HOME:-$HOME/.config}"/yarn/config'
