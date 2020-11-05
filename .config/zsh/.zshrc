@@ -67,7 +67,7 @@ autoload -U select-word-style && select-word-style bash
 
 ## Setup the prompt
 # use bright version of colors when printing bold
-if command -v dircolors >/dev/null 2>&1; then
+if command -v dircolors &>/dev/null; then
 	if [[ -e "${XDG_CONFIG_HOME:-$HOME/.config}/dircolors/dircolors" ]]; then
 		eval "$(dircolors -b "${XDG_CONFIG_HOME:-$HOME/.config}/dircolors/dircolors")"
 	else
@@ -125,7 +125,7 @@ if [[ -d "$ZDOTDIR/autoload" ]]; then
 	fpath=("$ZDOTDIR/autoload" $fpath)
 	autoload -Uz -- "" "${fpath[1]}"/[^_.]*(.xN:t)
 fi
-! command -v direnv >/dev/null 2>&1 || eval "$(direnv hook zsh)"
+! command -v direnv &>/dev/null || eval "$(direnv hook zsh)"
 # stderred
 if [[ -e "$ZSH_CONF/stderred/usr/share/stderred/stderred.sh" ]]; then
 	comp-source "$ZSH_CONF/stderred/usr/share/stderred/stderred.sh"
