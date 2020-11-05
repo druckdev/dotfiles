@@ -197,7 +197,7 @@ bindsym $mod+Shift+s [class="^Spotify$"] scratchpad show
 for_window [class="^TelegramDesktop$"] \
 	move scratchpad, \
 	scratchpad show
-bindsym $mod+Shift+t [class="^TelegramDesktop$"] scratchpad show
+bindsym $mod+Shift+t exec i3-msg '[class="^TelegramDesktop$"] scratchpad show' || telegram-desktop
 
 for_window [class="^$TERMINAL-256color$" title="^polybar-datetime-calendar$"] \
 	floating enable,    \
