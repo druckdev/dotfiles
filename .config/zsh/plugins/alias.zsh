@@ -67,6 +67,7 @@
 	alias bin='xxd -b -c4 | cut -d" " -f2-5'
 	! command -v nvim &>/dev/null || alias vim=nvim
 	alias vi='vim'
+	alias vimdiff='vim --cmd "set list" -c "set listchars=tab:>·,space:·" -d'
 	alias resetCursor='echo -ne "\e[5 q"'
 	alias makeThisScratchpad='echo -ne "\033]0;scratchpad-terminal\007"'
 	# grep filenames and date entries in exiftool
