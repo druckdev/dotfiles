@@ -132,6 +132,11 @@ map! ue ü
 map! Ue Ü
 map! sz ß
 
+" Jump through jump table but center
+noremap <Tab> <Tab>zz
+noremap <C-O> <C-O>zz
+nmap <S-Tab> <C-O>
+
 " Aesthetics ###################################################################
 " Use 24-bit (true-color) mode
 if (has('termguicolors'))
