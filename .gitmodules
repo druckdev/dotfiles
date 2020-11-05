@@ -19,16 +19,16 @@
 [submodule ".config/tmux/plugins/tpm"]
 	path = .config/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
-[submodule ".config/vim/plugged/coc.nvim"]
+[submodule ".config/vim/pack/plugins/opt/coc.nvim"]
 	path = .config/vim/pack/plugins/opt/coc.nvim
 	url = https://github.com/neoclide/coc.nvim.git
 [submodule ".config/vim/pack/plugins/opt/delimitMate"]
 	path = .config/vim/pack/plugins/opt/delimitMate
 	url = https://github.com/Raimondi/delimitMate.git
-[submodule ".config/vim/plugged/onedark.vim"]
+[submodule ".config/vim/pack/plugins/opt/onedark.vim"]
 	path = .config/vim/pack/plugins/opt/onedark.vim
 	url = https://github.com/joshdick/onedark.vim
-[submodule ".config/vim/plugged/vim-gitgutter"]
+[submodule ".config/vim/pack/plugins/opt/vim-gitgutter"]
 	path = .config/vim/pack/plugins/opt/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter
 [submodule ".config/vim/pack/plugins/opt/vim-surround"]
