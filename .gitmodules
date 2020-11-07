@@ -34,9 +34,6 @@
 [submodule ".config/vim/pack/plugins/opt/vim-surround"]
 	path = .config/vim/pack/plugins/opt/vim-surround
 	url = https://github.com/tpope/vim-surround
-[submodule ".config/zsh/plugins/fzf"]
-	path = .config/zsh/plugins/fzf
-	url = https://github.com/junegunn/fzf
 [submodule ".config/zsh/plugins/fzf-tab"]
 	path = .config/zsh/plugins/fzf-tab
 	url = https://github.com/Aloxaf/fzf-tab
@@ -52,3 +49,6 @@
 [submodule ".config/zsh/plugins/zsh-syntax-highlighting"]
 	path = .config/zsh/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule ".local/bin/fzf-repo"]
+	path = .local/bin/fzf-repo
+	url = https://github.com/junegunn/fzf

@@ -37,9 +37,10 @@
         create: true
         glob: true
         path: .local/bin/*
-    ~/.local/share/man/man1/fzf.1:
+    ~/.local/share/man/man1/:
         create: true
-        path: .config/zsh/plugins/fzf/man/man1/fzf.1
+        glob: true
+        path: .local/share/man/man1/*
     ~/.local/share/nvim/site/pack:
         create: true
         path: .config/vim/pack
