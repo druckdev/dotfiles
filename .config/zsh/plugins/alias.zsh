@@ -44,7 +44,7 @@
 	alias cl='() { cd "$@" && ls }'
 	alias getclip="xclip -selection c -o"
 	alias setclip="perl -pe 'chomp if eof' | xclip -selection c"
-	alias pdf='&>/dev/null zathura --fork'
+	alias pdf='zathura --fork &>/dev/null'
 	alias geeqie='launch qeeqie'
 	alias rd='rmdir'
 	alias md='mkdir -p'
