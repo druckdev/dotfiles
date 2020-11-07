@@ -9,6 +9,9 @@ endif
 packadd! onedark.vim
 " Automatically close parentheses, brackets, quotes, etc.
 packadd! delimitMate
+" Fuzzy finder
+packadd! fzf
+packadd! fzf.vim
 " Git information
 packadd! vim-gitgutter
 " Surround text with parentheses, brackets, quotes, tags, etc.
