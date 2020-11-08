@@ -78,6 +78,9 @@ set wildmode=longest:full,full
 if (has('cmdline_info'))
 	set showcmd
 endif
+" Show whitespace characters
+set list
+set listchars=tab:>·
 
 " Keybindings ##################################################################
 " Set leader key
