@@ -56,5 +56,9 @@ else
 	export LESS_TERMCAP_us=$'\e[1;4;31m'
 fi
 
+# Show also hidden files per default but ignore files in '.git' directories.
+FZF_DEFAULT_COMMAND="find . -name '.git' -prune -o \( -type f -a -print \)"
+export FZF_DEFAULT_COMMAND
+
 # Automatically start X on login after boot.
 [[ -n $DISPLAY || $XDG_VTNR -ne 1 ]] || exec startx
