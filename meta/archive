@@ -9,7 +9,7 @@ done
 if rmdir "$tmpd" 2>/dev/null; then
 	echo "Nothing to archive"
 else
-	name="existing-$(date +"%s").tar.gz"
+	name="existing-$(date +"%Y%m%d_%H%M%S").tar.gz"
 	if tar czvf "$name" "$tmpd"; then
 		rm -rf "$tmpd"
 		echo "$name created"
