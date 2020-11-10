@@ -1,0 +1,16 @@
+#!/bin/sh
+
+die() {
+	printf "$1" >&2
+	exit ${2:-1}
+}
+
+remote="$(git remote get-url origin)"
+! grep -q '^git@' <<<"$remote" || die "Using ssh already.\n" 0
+
+host="$(cut -d/ -f3 <<<"$remote")"
+grep -q "$host" "$HOME"/.ssh/known_hosts || die "No ssh key for $host found.\n"
+
+ssh_remote="$(sed 's_^https\?://_git@_;s_/_:_' <<<"$remote")"
+git remote set-url origin "$ssh_remote"
+die "Set origin remote url to $ssh_remote\n" $?

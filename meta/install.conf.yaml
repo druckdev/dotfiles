@@ -1,5 +1,12 @@
 - shell:
     -
+      command: chsh -s /usr/bin/zsh
+      description: Changing login shell to zsh
+    -
+      command: meta/git-remote
+      description: Updating git remote to use ssh
+      stderr: true
+    -
       command: meta/submodules --init
       description: Pulling all submodules
       stdout: true
