@@ -60,5 +60,14 @@ fi
 FZF_DEFAULT_COMMAND="find . -name '.git' -prune -o \( -type f -a -print \)"
 export FZF_DEFAULT_COMMAND
 
+# Setup LS_COLORS
+if command -v dircolors &>/dev/null; then
+	if [[ -e "$XDG_CONFIG_HOME"/dircolors/dircolors ]]; then
+		eval "$(dircolors -b "$XDG_CONFIG_HOME"/dircolors/dircolors)"
+	else
+		eval "$(dircolors -b)"
+	fi
+fi
+
 # Automatically start X on login after boot.
 [[ -n $DISPLAY || $XDG_VTNR -ne 1 ]] || exec startx

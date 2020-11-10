@@ -1,0 +1,4 @@
+# Bold red
+export STDERRED_ESC_CODE="$(tput bold && tput setaf 1)"
+
+export STDERRED_BLACKLIST="^(git|curl|wget|swipl)$"
