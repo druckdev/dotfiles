@@ -100,7 +100,7 @@
 			"from urllib import parse; print(parse.unquote(\"$*\"), end=\"\")"
 	}'
 	# Workaround for stack smash when using stderred
-	alias gpg='
+	alias gpg='\
 		env LD_PRELOAD="$(
 			sed "s/[^:]*libstderred.so:\?//;s/:$//" <<<"$LD_PRELOAD"
 		)" gpg'
