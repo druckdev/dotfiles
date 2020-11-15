@@ -57,7 +57,12 @@ else
 fi
 
 # Show also hidden files per default but ignore files in '.git' directories.
-FZF_DEFAULT_COMMAND="find . -name '.git' -prune -o \( -type f -a -print \)"
+if command -v rg &>/dev/null; then
+	# Also respect gitignores
+	FZF_DEFAULT_COMMAND="rg --hidden --files -g '!.git'"
+else
+	FZF_DEFAULT_COMMAND="find . -name '.git' -prune -o \( -type f -a -print \)"
+fi
 export FZF_DEFAULT_COMMAND
 
 # Setup LS_COLORS
