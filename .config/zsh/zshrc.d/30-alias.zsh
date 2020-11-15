@@ -8,7 +8,7 @@
 	alias mv='mv -i'
 	alias rm='rm -I'
 	alias less='less -N'
-	alias lsblk='lsblk -f'
+	alias lsblk='lsblk -o NAME,LABEL,FSTYPE,SIZE,FSAVAIL,MOUNTPOINT'
 	alias feh='feh -.'
 
 # XDG Base Directory Specification
