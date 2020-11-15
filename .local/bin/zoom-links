@@ -11,7 +11,7 @@
 ##   (although this should be solvable by separate Firefox profiles.)
 
 # Check if necessary commands exist
-command -v chromium-browser >/dev/null 2>&1 || return 1
+command -v firefox >/dev/null 2>&1 || return 1
 command -v xclip >/dev/null 2>&1 || return 1
 
 # If no argument is given, set the clipboard as argument
@@ -22,6 +22,6 @@ echo "$1" | grep -Eq "^https://tu-berlin.zoom.us/(j|wc/join)/[0-9]*\?pwd=.+" || 
 # Delete password part and convert /j/ to /wc/join/
 link="$(echo "${1%pwd=*}" | sed 's_/j/_/wc/join/_')"
 # Open link in private browser
-chromium-browser --incognito --new-window "$link" >/dev/null 2>&1 &
+firefox --no-remote -P zoom --private-window "$link" >/dev/null 2>&1 &
 # Put password in clipboard
 echo -n "${1##*pwd=}" | xclip -selection c
