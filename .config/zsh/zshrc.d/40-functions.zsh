@@ -262,7 +262,7 @@ safe-remove() {
 	[[ -e "$1" ]] || return 1
 
 	sync
-	if ! udisksctl unmount -b "$1"; then
+	if mount | grep -q "$1" && ! udisksctl unmount -b "$1"; then
 		lsof "$1"
 		return 1
 	fi
