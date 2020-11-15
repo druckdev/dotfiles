@@ -8,8 +8,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 	source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-ZSH_CONF="$ZDOTDIR/plugins"
-
 # https://github.com/romkatv/dotfiles-public/blob/7e49fc4fb71d/.zshrc#L35
 comp-conf() {
 	emulate -L zsh
@@ -41,20 +39,3 @@ folder-source() {
 }
 
 folder-source "$ZDOTDIR"/zshrc.d
-
-autoload -U select-word-style && select-word-style bash
-
-## Load external config files and modules
-autoload edit-command-line; zle -N edit-command-line
-(( ! $+aliases[run-help] )) || unalias run-help
-autoload -Uz run-help run-help-git zmv
-if [[ -d "$ZDOTDIR/autoload" ]]; then
-	fpath=("$ZDOTDIR/autoload" $fpath)
-	autoload -Uz -- "" "${fpath[1]}"/[^_.]*(.xN:t)
-fi
-! command -v direnv &>/dev/null || eval "$(direnv hook zsh)"
-# Reenable fzf-tab since `bindkey -v` seems to deactivate it
-enable-fzf-tab
-
-## Setup zle
-zle_highlight=('paste:none')
