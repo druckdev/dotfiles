@@ -1,0 +1,16 @@
+/* Tab bar */
+
+/* Hide tab scroll buttons */
+toolbarbutton[id^="scrollbutton"] {
+	display: none !important;
+}
+
+/* Hide new-tab button */
+toolbarbutton[id="new-tab-button"] {
+	display: none !important;
+}
+
+/* Hide tab close button */
+.tab-close-button {
+	display: none !important;
+}
