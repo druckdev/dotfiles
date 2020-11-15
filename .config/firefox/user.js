@@ -1,5 +1,6 @@
 user_pref("accessibility.force_disabled", 1);
 user_pref("app.shield.optoutstudies.enabled", false);
+user_pref("browser.aboutConfig.showWarning", false);
 user_pref("browser.contentblocking.category", "strict");
 user_pref("browser.download.useDownloadDir", false);
 user_pref("browser.in-content.dark-mode", true);
@@ -11,7 +12,9 @@ user_pref("browser.shell.checkDefaultBrowser", true);
 user_pref("browser.startup.page", 3);
 user_pref("browser.urlbar.placeholderName", "DuckDuckGo");
 user_pref("datareporting.healthreport.uploadEnabled", false);
+user_pref("devtools.theme", "dark");
 user_pref("extensions.activeThemeID", "firefox-compact-dark@mozilla.org");
+user_pref("extensions.pocket.enabled", "false");
 user_pref("full-screen-api.ignore-widgets", true);
 user_pref("network.IDN_show_punycode", true);
 user_pref("network.cookie.lifetimePolicy", 2);
