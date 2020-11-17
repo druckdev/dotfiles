@@ -192,12 +192,15 @@ for_window [class="^$TERMINAL-256color$" title="^scratchpad-terminal$"] \
 # Toggle the scratchpad-terminal or create a new one if none exists.
 bindsym $mod+comma exec i3-msg '[class="^$TERMINAL-256color$" title="^scratchpad-terminal$"] scratchpad show' || $TERMINAL -A 0.45 -d "$(xcwd)" -c $TERMINAL-256color -t scratchpad-terminal
 
-bindsym $mod+Shift+s [class="^Spotify$"] scratchpad show
-
 for_window [class="^TelegramDesktop$"] \
 	move scratchpad, \
 	scratchpad show
 bindsym $mod+Shift+t exec i3-msg '[class="^TelegramDesktop$"] scratchpad show' || telegram-desktop
+
+for_window [class="^Signal$"] \
+	move scratchpad, \
+	scratchpad show
+bindsym $mod+Shift+s exec i3-msg '[class="^Signal$"] scratchpad show' || signal-desktop
 
 for_window [class="^$TERMINAL-256color$" title="^polybar-datetime-calendar$"] \
 	floating enable,    \
