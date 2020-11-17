@@ -266,7 +266,7 @@ safe-remove() {
 		lsof "$1"
 		return 1
 	fi
-	udisksctl power-off -b "/dev/$(lsblk -no pkname "$1")"
+	udisksctl power-off -b "/dev/${$(lsblk -no pkname "$1"):-${1#/dev/}}"
 }
 
 crypt-mount() {
