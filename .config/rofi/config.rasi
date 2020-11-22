@@ -4,7 +4,7 @@ configuration {
 	modi: "drun,run,window";
 	matching: "fuzzy";
 	show-icons: true;
-	drun-match-fields: "all";
+	/* drun-match-fields: "all"; */
 	drun-show-actions: true;
 	/* continous scrolling */
 	scroll-method: 1;
