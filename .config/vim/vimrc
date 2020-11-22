@@ -168,6 +168,10 @@ if (has('nvim'))
 	highlight NonText guibg=NONE
 endif
 
+" Commands #####################################################################
+command DiffOrig vert new | set buftype=nofile | read ++edit # | 0d_ | diffthis
+	\ | wincmd p | diffthis
+
 " Autocommands #################################################################
 " Highlight trailing whitespaces
 " (https://vim.fandom.com/wiki/Highlight_unwanted_spaces)
