@@ -154,95 +154,78 @@ _get_config_dir() {
 
 ## Function that resolves a command to the end
 resolve() {
-	# TODO: comment!!
-	# In script mode only the result and its arguments are printed
-	# The result can then be used directly by other scripts without further
-	# manipulation
-	typeset SCRIPT_MODE VERBOSE_MODE 1>&2
-	while getopts "sv" opt 2>/dev/null; do
-		case $opt in
-			s)  SCRIPT_MODE=1;;
-			v)  VERBOSE_MODE=1;;
-			*)  echo "Unknown flag!" >&2
-				return 1;;
-		esac
-	done
-	shift $(( $OPTIND - 1 ))
+	local verbose cmd old_cmd args last_line
+	local -a full_cmd
 
-	if (( $SCRIPT_MODE )) && (( $VERBOSE_MODE )); then
-		echo "Script and verbose mode do no work together." >&2
-		return 1
-	fi
-
-	typeset THIS THIS_COMMAND THIS_ARGUMENTS 1>&2
-	# When receiving a command with arguments, do not differ between
-	# one and multiple arguments.
-	THIS="$*"
-	THIS_COMMAND="${THIS%% *}"
-	# ${THIS%%* } would result in THIS_COMMAND when no arguements are specified.
-	# We want an empty string in this case.
-	THIS_ARGUMENTS="${THIS#${THIS_COMMAND}}"
-
-	# Resolve all aliases
-	while [[ "$(which $THIS_COMMAND | head -n1)" =~ "^${THIS_COMMAND}: aliased to " ]]; do
-		if (( $VERBOSE_MODE )); then
-			echo $THIS_COMMAND$THIS_ARGUMENTS
+	# Since there are multiple occasions were the same line would be printed
+	# multiple times, this function makes the output in combination with the
+	# verbose flag cleaner.
+	local uniq_print() {
+		if [[ "$*" != "$last_line" ]]; then
+			printf "%s\n" "$*"
+			last_line="$*"
 		fi
-		THIS="$(which "$THIS_COMMAND" | cut -d' ' -f4-)"
-		THIS_COMMAND="${THIS%% *}"
-		THIS_ARGUMENTS="${THIS#${THIS_COMMAND}}$THIS_ARGUMENTS"
+	}
 
+	while getopts v flag 2>/dev/null; do
+		[[ "$flag" != "v" ]] || verbose=1
 	done
+	shift $((OPTIND - 1))
 
-	command_type="$(type $THIS_COMMAND)"
-	if [[ "$command_type" =~ "^$THIS_COMMAND is a shell function from " ]]; then
-		if (( $SCRIPT_MODE )); then
-			echo -n "$THIS_COMMAND$THIS_ARGUMENTS"
-			return 0
-		elif (( $VERBOSE_MODE )); then
-			echo "$THIS_COMMAND$THIS_ARGUMENTS"
+	full_cmd=("$@")
+	cmd="${full_cmd[1]}"
+
+	(( ! verbose )) || uniq_print "${full_cmd[@]}"
+
+	# Resolve aliases
+	while [[ "$cmd" != "$old_cmd" ]]; do
+		out="$(command -v "$cmd")"
+		# NOTE: cannot be combined for the case that $cmd is not an alias
+		out="${out#alias $cmd=}" # Extract the alias or command
+		out="${${out#\'}%\'}"
+		# Beware of potential empty element leading to print trailing whitespace
+		if (( $#full_cmd > 1)); then
+			full_cmd=($out "${full_cmd[2,-1]}")
 		else
-			echo "$* is resolved to:\n$THIS_COMMAND$THIS_ARGUMENTS"
+			full_cmd=($out)
 		fi
-		echo -n "${command_type}:"
-		from_file="$(echo $command_type | cut -d' ' -f7-)"
-		# from_file=${command_type##* }
-		grep -En -m1 "(function[ \t]+${THIS_COMMAND}[ \t]*(\(\)|)[ \t]*{|${THIS_COMMAND}[ \t]*\(\)[ \t]*{)" "$from_file" \
-			| cut -d: -f1
-	else
-		if (( $VERBOSE_MODE )); then
-			echo "$THIS_COMMAND$THIS_ARGUMENTS"
-		fi
-		THIS_COMMAND="$(which $THIS_COMMAND)"
-		if [[ $? -ne 0 ]]; then
-			echo "${THIS_COMMAND%% *} not found." >&2
-			return 1
-		fi
-		if (( $VERBOSE_MODE )); then
-			echo -n "$THIS_COMMAND"
-			NEXT_STEP="$(file -bh $THIS_COMMAND | cut -d' ' -f4-)"
-			if [[ "${NEXT_STEP:0:1}" != '/' ]]; then
-				NEXT_STEP="${THIS_COMMAND%/*}/$NEXT_STEP"
-			fi
-			while [[ "$(file -bh $THIS_COMMAND)" =~ "^symbolic link to" && "$NEXT_STEP" != "$THIS_COMMAND" ]]; do
-				THIS_COMMAND=$NEXT_STEP
-				NEXT_STEP="$(file -bh $THIS_COMMAND | cut -d' ' -f4-)"
-				if [[ "${NEXT_STEP:0:1}" != '/' ]]; then
-					NEXT_STEP="${THIS_COMMAND%/*}/$NEXT_STEP"
-				fi
+		(( ! verbose )) || uniq_print "${full_cmd[@]}"
+		old_cmd="$cmd"
+		cmd="${full_cmd[1]}"
+	done
 
-				echo -n "\n$THIS_COMMAND"
+	# Resolve symlinks
+	if [[ -e "$cmd" ]]; then
+		# When we are not verbose a call to realpath is sufficient and way
+		# faster.
+		if (( ! verbose )); then
+			cmd="$(realpath "$cmd")"
+			full_cmd=("$cmd" "${full_cmd[2,-1]}")
+		else
+			old_cmd=
+			while [[ "$cmd" != "$old_cmd" ]]; do
+				# Get filename with potential symlink target
+				out="$(stat -c "%N" "$cmd")"
+				# NOTE: cannot be combined for the case that $cmd is not symlink
+				out="${out#*-> }"
+				out="${${out#\'}%\'}"
+				# Beware of symlinks pointing to a relative path
+				[[ "${out[1]}" = '/' ]] || out="$(dirname "$cmd")/$out"
+				# Beware of potential empty element leading to print trailing
+				# whitespace
+				if (( $#full_cmd > 1)); then
+					full_cmd=("$out" "${full_cmd[2,-1]}")
+				else
+					full_cmd=("$out")
+				fi
+				uniq_print "${full_cmd[@]}" # verbose is set
+				old_cmd="$cmd"
+				cmd="${full_cmd[1]}"
 			done
-			echo $THIS_ARGUMENTS
-			return 0
 		fi
-		THIS_COMMAND="$(realpath $THIS_COMMAND)"
-		if (( $SCRIPT_MODE )); then
-			echo -n "$THIS_COMMAND$THIS_ARGUMENTS"
-			return 0
-		fi
-		echo "$* is resolved to:\n$THIS_COMMAND$THIS_ARGUMENTS"
 	fi
+
+	uniq_print "${full_cmd[@]}"
 }
 
 ## Grep a keyword at the beginning of a line (ignoring whitespace) in a man page
