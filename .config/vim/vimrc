@@ -91,6 +91,10 @@ endif
 " Show whitespace characters
 set list
 set listchars=tab:>·
+" Keep current line away from top/bottom borders of the buffer when scrolling
+set scrolloff=15
+" Enable mouse in normal and visual mode
+set mouse=nv
 
 " Keybindings ##################################################################
 " Stop highlighting search result when pressing Return
