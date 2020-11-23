@@ -28,13 +28,6 @@
 	alias gpush='git push'
 	alias gpull='git pull'
 	alias gd='git diff'
-	# Commit, but put the last written commit message into the editor buffer.
-	# Useful for example when the commit-msg hook fails but only slight
-	# modifications are needed.
-	alias git-commit-last-msg='() {
-		local gitdir="$(git rev-parse --git-dir)" || return
-		git commit -eF <(grep -v "^#" "$gitdir/COMMIT_EDITMSG")
-	}'
 
 # Save keystrokes and my memory
 	alias la='ls -A'

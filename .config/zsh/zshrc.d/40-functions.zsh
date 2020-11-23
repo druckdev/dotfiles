@@ -323,3 +323,14 @@ cd() {
 		builtin cd "$toplevel"
 	fi
 }
+
+# Commit, but put the last written commit message into the editor buffer.
+# For this it uses .git/COMMIT_EDITMSG but deletes all lines after and including
+# the first comment of the file.
+# Useful for example when the commit-msg hook fails but only slight
+# modifications are needed.
+git-commit-last-msg() {
+	local gitdir
+	gitdir="$(git rev-parse --git-dir)" || return
+	git commit -eF <(sed -n '/^#/q;p' "$gitdir/COMMIT_EDITMSG")
+}

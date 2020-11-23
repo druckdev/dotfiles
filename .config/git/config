@@ -4,6 +4,7 @@
     signingkey = 2BA20014C779A9611ED81E2163DF2C14933E928C
 [commit]
 	gpgsign = true
+	verbose = true
 [difftool "meld"]
 	path = /usr/bin/meld
 [color "status"]
