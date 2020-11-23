@@ -58,3 +58,6 @@
 [submodule ".local/bin/fzf-repo"]
 	path = .local/bin/fzf-repo
 	url = https://github.com/junegunn/fzf
+[submodule ".config/vim/pack/plugins/opt/vimtex"]
+	path = .config/vim/pack/plugins/opt/vimtex
+	url = https://github.com/lervag/vimtex

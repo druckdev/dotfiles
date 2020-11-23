@@ -16,3 +16,7 @@ set recolor-reverse-video true
 
 # Search while typing
 set incremental-search true
+
+# vimtex
+set synctex true
+set synctex-editor-command "nvr --remote +%{line} %{input}"
