@@ -141,6 +141,10 @@ noremap! <C-H> <C-W>
 " Correct word with best/first suggestion.
 noremap <leader>c 1z=
 
+" Toggle spell, cycle and set spelllang
+map <leader>st :set spell=!&spell<CR>
+map <leader>sc :call CycleSpellLang()<CR>
+map <leader>ss :set spelllang=
 " Umlaute and sz in Insert and Command-line mode when spelllang is set to de
 autocmd OptionSet spelllang call NewSpellLang(v:option_new, v:option_old)
 function! NewSpellLang(new_lang, old_lang)
@@ -194,6 +198,16 @@ endif
 " Commands #####################################################################
 command! DiffOrig vert new | set buftype=nofile | read ++edit # | 0d_ | diffthis
 	\ | wincmd p | diffthis
+
+" Functions ####################################################################
+" Toggle spell language between German and English
+function! CycleSpellLang()
+	if (&spelllang == 'en')
+		set spelllang=de
+	else
+		set spelllang=en
+	endif
+endfunction
 
 " Autocommands #################################################################
 " Highlight trailing whitespaces
