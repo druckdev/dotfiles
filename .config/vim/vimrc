@@ -141,14 +141,28 @@ noremap! <C-H> <C-W>
 " Correct word with best/first suggestion.
 noremap <leader>c 1z=
 
-" Umlaute and sz
-map! ae ä
-map! Ae Ä
-map! oe ö
-map! Oe Ö
-map! ue ü
-map! Ue Ü
-map! sz ß
+" Umlaute and sz in Insert and Command-line mode when spelllang is set to de
+autocmd OptionSet spelllang call NewSpellLang(v:option_new, v:option_old)
+function! NewSpellLang(new_lang, old_lang)
+	let mappings = {
+	\ 'ae': 'ä',
+	\ 'Ae': 'Ä',
+	\ 'oe': 'ö',
+	\ 'Oe': 'Ö',
+	\ 'ue': 'ü',
+	\ 'Ue': 'Ü',
+	\ 'sz': 'ß',
+	\ }
+	if (a:new_lang == 'de')
+		for [key, value] in items(mappings)
+			execute 'map! <buffer>' key value
+		endfor
+	elseif (a:old_lang == 'de')
+		for key in keys(mappings)
+			execute 'unmap! <buffer>' key
+		endfor
+	endif
+endfunction
 
 " Jump through jump table but center
 noremap <Tab> <Tab>zz
