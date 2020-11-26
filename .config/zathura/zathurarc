@@ -2,14 +2,14 @@
 set selection-clipboard "clipboard"
 
 # Dark colors
-set default-bg "#252525"
+set default-bg "rgba(25, 25, 25, 0.5)"
 set notification-bg "#000000"
 set notification-fg "#FFFFFF"
 
 # Invert colors per default. Toggle with `i`
 map i recolor
 set recolor true
-set recolor-lightcolor "#252525"
+set recolor-lightcolor "rgba(25, 25, 25, 0)"
 set recolor-darkcolor "#FFFFFF"
 set recolor-keephue true
 set recolor-reverse-video true
