@@ -294,17 +294,43 @@ nemo() {
 	fi
 }
 
-## Move a file but keep a symlink to the new location.
+## Move one or more file(s) but keep a symlink to the new location.
 mvln() {
-	# DST will not exist if `mv` is used for renaming.
-	[[ -e $1 ]] && [[ -d $2 || -d "$(dirname "$2")" ]] || return 1
-
-	mv "$1" "$2" || return
-	if [[ -d $2 ]]; then
-		ln -s "${2:A}/$(basename "$1")" "$1"
-	else
-		ln -s "${2:A}" "$1"
+	if (( # < 2 )); then
+		printf "$0: missing file operand\n"
+		return 1
+	elif (( # == 2 )); then
+		# When used for renaming only the dirname has to exist
+		if [[ ! -d $(dirname "$2") ]]; then
+			printf "$0: cannot move '$1' to '$2': No such file or directory\n"
+			return 1
+		fi
+	elif [[ ! -d ${@[-1]} ]]; then
+		printf "$0: target '${@[-1]}' is not a directory\n"
+		return 1
 	fi
+
+	reg=0
+	for file in "${@[1,-2]}"; do
+		# If the target is a directory, `file` will end up in it
+		# NOTE: We need absolute paths here for executions like `$0 foo/bar .`
+		# TODO: When do we want/can we use relative links? Only when file is in
+		# current dir?
+		if [[ -d ${@[-1]} ]]; then
+			target="${@[-1]:A}/$(basename "$file")"
+		else
+			target="${@[-1]:A}"
+		fi
+		if ! command mv -i "$file" "${@[-1]}"; then
+			reg=1
+			continue
+		fi
+
+		# NOTE: `ln` does not like trailing slashes on the last argument
+		ln -s "$target" "${file%/}"
+	done
+
+	return $reg
 }
 
 ## cd wrapper that when called without arguments, moves into the root of the
