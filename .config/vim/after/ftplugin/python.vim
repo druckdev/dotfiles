@@ -4,3 +4,5 @@ setlocal shiftwidth=0
 setlocal expandtab
 " Delete all 4 spaces when pressing backspace
 setlocal smarttab
+" PEP-8 wants 79 as maximum line length
+setlocal textwidth=79
