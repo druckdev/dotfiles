@@ -19,8 +19,8 @@ command -v xclip >/dev/null 2>&1 || return 1
 # Check for right format
 echo "$1" | grep -Eq "^https://tu-berlin.zoom.us/(j|wc/join)/[0-9]*\?pwd=.+" || return 1
 
-# Delete password part and convert /j/ to /wc/join/
-link="$(echo "${1%pwd=*}" | sed 's_/j/_/wc/join/_')"
+# Make link work for browser joining
+link="$(echo "${1%?pwd=*}" | sed 's_/j/_/wc/join/_')"
 # Open link in private browser
 firefox --no-remote -P zoom --private-window "$link" >/dev/null 2>&1 &
 # Put password in clipboard
