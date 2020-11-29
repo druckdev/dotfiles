@@ -24,3 +24,7 @@
 	autostash = true
 [include]
 	path = user.config
+[pull]
+	rebase = true
+[merge]
+	log = true
