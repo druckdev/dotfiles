@@ -61,3 +61,6 @@
 [submodule ".config/vim/pack/plugins/opt/vimtex"]
 	path = .config/vim/pack/plugins/opt/vimtex
 	url = https://github.com/lervag/vimtex
+[submodule ".config/vim/pack/plugins/opt/arm-syntax-vim"]
+	path = .config/vim/pack/plugins/opt/arm-syntax-vim
+	url = https://github.com/ARM9/arm-syntax-vim

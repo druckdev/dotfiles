@@ -29,6 +29,8 @@ let g:surround_no_mappings = 1
 packadd! vim-surround
 source $XDG_CONFIG_HOME/vim/vim-surround.vim
 
+packadd! arm-syntax-vim
+
 " Settings #####################################################################
 " hybrid linenumbers
 set number relativenumber
@@ -258,6 +260,9 @@ else
 		autocmd VimLeave * silent !echo -ne "\e[5 q"
 	endif
 endif
+
+" ARM assembly syntax highlighting
+au BufNewFile,BufRead *.s,*.S set filetype=arm
 
 " Load filetype plugins
 filetype plugin indent on
