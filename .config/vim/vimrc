@@ -262,7 +262,7 @@ else
 endif
 
 " ARM assembly syntax highlighting
-au BufNewFile,BufRead *.s,*.S set filetype=arm
+autocmd BufNewFile,BufRead *.s,*.S set filetype=arm
 
 " Load filetype plugins
 filetype plugin indent on
