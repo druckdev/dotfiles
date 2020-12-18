@@ -69,10 +69,17 @@ local -a fzf_args=(
 	# Do not sort when typing to maintain the sorting by date.
 	"--no-sort"
 )
-# Hide preview window by default when the terminal is too small.
-# 154 columns so that the commit subject on the left and the body lines on the
-# right all fit. The preview can always be shown using the keybind from above.
-[[ "$(tput cols)" -ge 154 ]] || fzf_args+=(--preview-window hidden)
+
+# The preview-window should be placed differently depending on the dimensions of
+# the terminal.
+# 0.45 seems to be round about the ratio between cols and lines on my system.
+# With that I get somewhat decent results with. This probably depends on the
+# font and font-size of the terminal and needs to be changed potentially.
+if (( $(tput cols) * 0.4 > $(tput lines) )); then
+	fzf_args+=(--preview-window=right)
+else
+	fzf_args+=(--preview-window=down)
+fi
 
 # Display an ascii graph of the commits in the above format and pipe that into
 # fzf.
