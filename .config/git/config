@@ -20,6 +20,7 @@
 	submodulesummary = true
 [diff]
 	submodule = log
+	tool = nvimdiff
 [rebase]
 	autostash = true
 [include]
@@ -28,3 +29,4 @@
 	rebase = true
 [merge]
 	log = true
+	tool = nvimdiff
