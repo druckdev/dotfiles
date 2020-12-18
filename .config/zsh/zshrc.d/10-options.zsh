@@ -19,6 +19,7 @@ setopt NO_FLOW_CONTROL          # Disables output flow control in the shell's ed
 setopt GLOB_DOTS                # Do not require a leading `.' in a filename to be matched explicitly.
 setopt HIST_IGNORE_DUPS         # Do not enter command lines into the history list if they are duplicates of the previous event.
 setopt HIST_IGNORE_SPACE        # History should ignore commands beginning with a space
+setopt HIST_NO_FUNCTIONS        # Remove function definitions from the history list.
 setopt HIST_VERIFY              # perform history expansion and reload line in editing buffer instead of executing it directly
 setopt NO_INC_APPEND_HISTORY    # Do not write lines as soon as they are entered (breaks exec time otherwise)
 setopt INC_APPEND_HISTORY_TIME  # Write lines after they are finished
