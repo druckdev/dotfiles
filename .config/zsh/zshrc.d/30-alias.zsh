@@ -22,12 +22,15 @@
 	alias -g no2='2>/dev/null'
 
 # Git
+	alias g='git'
 	alias gs='git status --short'
 	alias ga='git add'
 	alias gc="git commit"
 	alias gpush='git push'
 	alias gpull='git pull'
 	alias gd='git diff'
+	alias gl='git log'
+	alias gss='git stash'
 
 # Save keystrokes and my memory
 	alias la='ls -A'
