@@ -22,7 +22,7 @@ module-margin-right = 2
 
 modules-left = i3 pulseaudio xbacklight battery-custom
 modules-center = datetime
-modules-right = media vpn wlan bluetooth powermenu
+modules-right = media vpn wlan powermenu
 
 tray-position = ${env:TRAY_POS:right}
 tray-detached = false
