@@ -47,14 +47,6 @@
 	alias md='mkdir -p'
 	alias o='xdg-open'
 	alias :{q,Q}='exit'
-	alias update='
-		sudo apt update \
-		&& sudo apt upgrade -y \
-		&& sudo apt autoremove -y
-
-		[[ ! -e /var/run/reboot-required ]] \
-		|| printf "\n\nSystem restart required.\n"
-	'
 	alias pdf2t{e,}xt='pdftotext'
 	alias rm='printf "\033[1;031mUse trash!\n\033[0m"; false'
 	alias battery='cat /sys/class/power_supply/BAT0/capacity'
