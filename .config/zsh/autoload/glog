@@ -27,9 +27,9 @@ local -a format=(
 	'Fingerprint: %GF'               # pgp fingerprint
 	'%Creset%C(bold)'                # empty line
 	'    %s%Creset'                  # bold white subject
-	# With the space the empty line is not eaten when the body is empty:
-	' '
+	''                               # newline
 	'%-b'                            # body
+	''                               # newline
 )
 
 # Ignore the graph part at the beginning, then capture the commit hash and throw
@@ -41,15 +41,22 @@ local date="$dateshort %T %z" # year time timezone
 
 # Put the commit hash into the clipboard
 local fzf_copy_command="echo -n {} | sed -E '$commit_hash' | xclip -sel c"
-# Execute git show on selected commit
-local fzf_preview_command
-read -r -d '' fzf_preview_command <<EOT
-	out="\$(echo {} | sed -E "$commit_hash")"
-	if [[ -n "\$out" ]]; then
-		git show "${(j:%n:)format}" "$date" --color=always "\$out" \
-		| diff-so-fancy --color=always
-	fi
+
+local -A fzf_preview
+read -r -d '' <<EOT
+	out="\$(echo {} | sed -E "$commit_hash")"; [[ -z "\$out" ]] ||
 EOT
+fzf_preview[construct]="$REPLY"
+read -r -d '' <<EOT
+	git show "${(j:%n:)format}" "$date" --color=always "\$out" \
+	| diff-so-fancy --color=always
+EOT
+fzf_preview[patch]="$fzf_preview[construct] { $REPLY }"
+read -r -d '' <<EOT
+	git show "${(j:%n:)format}" "$date" --color=always --stat "\$out"
+EOT
+fzf_preview[stat]="$fzf_preview[construct] { $REPLY }"
+
 local -A binds=(
 	"ctrl-space" "toggle-preview"
 	"ctrl-alt-j" "preview-down"
@@ -57,9 +64,14 @@ local -A binds=(
 	# Copy commit hash
 	"ctrl-y" "execute-silent@$fzf_copy_command@"
 	# Open preview "fullscreen"
-	"enter" "execute@$fzf_preview_command | command less -R@"
+	"enter" "execute@$fzf_preview[patch] | command less -R@"
 	# Clear query if not empty, abort otherwise
 	"esc" "cancel"
+	# Preview stats
+	"ctrl-s" "preview($fzf_preview[stat])"
+	# Preview patch
+	"ctrl-d" "preview($fzf_preview[patch])"
+	"ctrl-p" "preview($fzf_preview[patch])"
 )
 local -a fzf_args=(
 	# Understand ansi color escape sequences.
@@ -67,7 +79,7 @@ local -a fzf_args=(
 	# Expand the binds array in the format "key1:value1,key2:value2".
 	"--bind" "${(@kj:,:)binds/(#m)*/$MATCH:$binds[$MATCH]}"
 	# Execute git show on the commit as preview.
-	"--preview" "$fzf_preview_command"
+	"--preview" "$fzf_preview[patch]"
 	# Reverse the layout so that the newest commit is at the top.
 	"--reverse"
 	# Do not sort when typing to maintain the sorting by date.
