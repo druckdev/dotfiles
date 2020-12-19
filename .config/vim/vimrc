@@ -20,16 +20,16 @@ nmap <leader>f :Files<CR>
 " Theme
 packadd! onedark.vim
 " LaTeX
-packadd! vimtex
-source $XDG_CONFIG_HOME/vim/vimtex.vim
+autocmd BufNewFile,BufRead *.tex packadd! vimtex
+	\ | source $XDG_CONFIG_HOME/vim/vimtex.vim
 " Git information
 packadd! vim-gitgutter
 " Surround text with parentheses, brackets, quotes, tags, etc.
 let g:surround_no_mappings = 1
 packadd! vim-surround
 source $XDG_CONFIG_HOME/vim/vim-surround.vim
-
-packadd! arm-syntax-vim
+" ARM assembly syntax highlighting
+autocmd BufNewFile,BufRead *.s,*.S packadd! arm-syntax-vim | set filetype=arm
 
 " Settings #####################################################################
 " hybrid linenumbers
@@ -275,9 +275,6 @@ else
 		autocmd VimLeave * silent !echo -ne "\e[5 q"
 	endif
 endif
-
-" ARM assembly syntax highlighting
-autocmd BufNewFile,BufRead *.s,*.S set filetype=arm
 
 " Load filetype plugins
 filetype plugin indent on
