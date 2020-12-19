@@ -54,8 +54,12 @@ local -A binds=(
 	"ctrl-space" "toggle-preview"
 	"ctrl-alt-j" "preview-down"
 	"ctrl-alt-k" "preview-up"
-	"ctrl-y"     "execute-silent@$fzf_copy_command@"
-	"enter"      "execute@$fzf_preview_command | command less -R@"
+	# Copy commit hash
+	"ctrl-y" "execute-silent@$fzf_copy_command@"
+	# Open preview "fullscreen"
+	"enter" "execute@$fzf_preview_command | command less -R@"
+	# Clear query if not empty, abort otherwise
+	"esc" "cancel"
 )
 local -a fzf_args=(
 	# Understand ansi color escape sequences.
