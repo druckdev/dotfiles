@@ -175,6 +175,15 @@ noremap <Tab> <Tab>zz
 noremap <C-O> <C-O>zz
 nmap <S-Tab> <C-O>
 
+" Terminal
+if (has('nvim'))
+	" tnoremap <Esc> <C-\><C-n>
+	nmap <leader>t :split +terminal<CR>i
+	nmap <leader>vt :vsplit +terminal<CR>i
+elseif (has('terminal'))
+	nmap <leader>t :terminal<CR>
+endif
+
 " Aesthetics ###################################################################
 " Use 24-bit (true-color) mode
 if (has('termguicolors'))
@@ -226,6 +235,12 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 " Clear all matches
 autocmd BufWinLeave * call clearmatches()
+
+" Terminal
+if (has('nvim'))
+	" Disable spellcheck
+	autocmd TermOpen * setlocal nospell
+endif
 
 " change cursor shape depending on mode
 if (has('nvim'))
