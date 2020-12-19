@@ -210,9 +210,7 @@ for_window [class="^$TERMINAL-256color$" title="^polybar-datetime-calendar$"] \
 bindsym $mod+c exec ~/.config/polybar/scripts/calendar.sh -t &
 
 # screenshots
-bindsym --release Print exec gnome-screenshot -i
-bindsym --release $mod+Print exec gnome-screenshot -a
-
+bindsym --release Print exec cd ~/pics/screens/ && scrot -sf
 # Zoom links in private browser
 bindsym $mod+z exec ~/.local/bin/zoom-links
 
