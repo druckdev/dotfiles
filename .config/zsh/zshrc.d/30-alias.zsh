@@ -54,7 +54,10 @@
 	alias loadhist='fc -RI'
 	alias hex='xxd'
 	alias bin='xxd -b -c4 | cut -d" " -f2-5'
-	! command -v nvim &>/dev/null || alias vim=nvim
+	if (( $+commands[nvim] )); then
+		alias vim='jobs | grep -q nvim && {fg;:;} || nvim'
+	fi
+	alias v='vim'
 	alias vi='vim'
 	alias vimdiff='vim --cmd "set list" -c "set listchars=tab:>·,space:·" -d'
 	alias resetCursor='echo -ne "\e[5 q"'
