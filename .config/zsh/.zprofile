@@ -12,10 +12,12 @@ export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 export GOPATH="$XDG_DATA_HOME"/go
 export MPLAYER_HOME="$XDG_CONFIG_HOME"/mplayer
 export WGETRC="$XDG_CONFIG_HOME"/wget/wgetrc
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrcü
 
 export HISTFILE="$XDG_DATA_HOME"/bash/history
 export LESSHISTFILE=/dev/null
 export SQLITE_HISTORY="$XDG_DATA_HOME"/sqlite3/sqlite_history
+export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/pass
 
 VIMINIT="let \$MYVIMRC=\"$XDG_CONFIG_HOME/vim/xdg.vim\" | source \$MYVIMRC"
 export VIMINIT

@@ -16,6 +16,7 @@
 	alias tmsu='tmsu -D "${XDG_DATA_HOME:-$HOME/.local/share}/tmsu/db"'
 	alias yarn='yarn --use-yarnrc "${XDG_CONFIG_HOME:-$HOME/.config}"/yarn/config'
 	alias bash='bash --rcfile "${XDG_CONFIG_HOME:-$HOME/.config}"/bash/bashrc'
+	alias mbsync='mbsync -c "$XDG_CONFIG_HOME"/isync/mbsyncrc'
 
 # Global
 	alias -g G='| grep'
