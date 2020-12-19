@@ -87,7 +87,7 @@ fi
 
 # Display an ascii graph of the commits in the above format and pipe that into
 # fzf.
-git log "$formatshort" --graph "$dateshort" --color=always \
+git log "$formatshort" --graph "$dateshort" --color=always "$@" \
 | fzf "${fzf_args[@]}"
 return 0
 
