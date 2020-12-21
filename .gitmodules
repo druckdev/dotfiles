@@ -64,3 +64,6 @@
 [submodule ".config/vim/pack/plugins/opt/arm-syntax-vim"]
 	path = .config/vim/pack/plugins/opt/arm-syntax-vim
 	url = https://github.com/ARM9/arm-syntax-vim
+[submodule ".config/vim/pack/plugins/opt/vim-gutentags"]
+	path = .config/vim/pack/plugins/opt/vim-gutentags
+	url = https://github.com/ludovicchabant/vim-gutentags

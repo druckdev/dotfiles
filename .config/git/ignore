@@ -1,5 +1,8 @@
 # Ignore all compiled zsh-files
 *.zwc
 
+# Ignore ctags
+/tags
+
 # Ignore vscode files
 .vscode

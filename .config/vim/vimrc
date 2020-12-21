@@ -30,6 +30,9 @@ packadd! vim-surround
 source $XDG_CONFIG_HOME/vim/vim-surround.vim
 " ARM assembly syntax highlighting
 autocmd BufNewFile,BufRead *.s,*.S packadd! arm-syntax-vim | set filetype=arm
+" ctags
+packadd! vim-gutentags
+nmap <leader>t :Tags<CR>
 
 " Settings #####################################################################
 " hybrid linenumbers
