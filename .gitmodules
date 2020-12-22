@@ -1,69 +1,71 @@
 [submodule "dotbot"]
 	path = meta/dotbot
 	url = https://github.com/anishathalye/dotbot
-[submodule ".config/git/diff-so-fancy"]
-	path = .config/git/diff-so-fancy
-	url = https://github.com/so-fancy/diff-so-fancy
-[submodule ".config/tmux/plugins/tmux-continuum"]
-	path = .config/tmux/plugins/tmux-continuum
-	url = https://github.com/tmux-plugins/tmux-continuum
-[submodule ".config/tmux/plugins/tmux-prefix-highlight"]
-	path = .config/tmux/plugins/tmux-prefix-highlight
-	url = https://github.com/tmux-plugins/tmux-prefix-highlight
-[submodule ".config/tmux/plugins/tmux-resurrect"]
-	path = .config/tmux/plugins/tmux-resurrect
-	url = https://github.com/tmux-plugins/tmux-resurrect
-[submodule ".config/tmux/plugins/tmux-sensible"]
-	path = .config/tmux/plugins/tmux-sensible
-	url = https://github.com/tmux-plugins/tmux-sensible
-[submodule ".config/tmux/plugins/tpm"]
-	path = .config/tmux/plugins/tpm
-	url = https://github.com/tmux-plugins/tpm
-[submodule ".config/vim/pack/plugins/opt/coc.nvim"]
-	path = .config/vim/pack/plugins/opt/coc.nvim
-	url = https://github.com/neoclide/coc.nvim.git
-[submodule ".config/vim/pack/plugins/opt/delimitMate"]
-	path = .config/vim/pack/plugins/opt/delimitMate
-	url = https://github.com/Raimondi/delimitMate.git
-[submodule ".config/vim/pack/plugins/opt/fzf.vim"]
-	path = .config/vim/pack/plugins/opt/fzf.vim
-	url = https://github.com/junegunn/fzf.vim
-[submodule ".config/vim/pack/plugins/opt/onedark.vim"]
-	path = .config/vim/pack/plugins/opt/onedark.vim
-	url = https://github.com/joshdick/onedark.vim
-[submodule ".config/vim/pack/plugins/opt/vim-gitgutter"]
-	path = .config/vim/pack/plugins/opt/vim-gitgutter
-	url = https://github.com/airblade/vim-gitgutter
-[submodule ".config/vim/pack/plugins/opt/vim-surround"]
-	path = .config/vim/pack/plugins/opt/vim-surround
-	url = https://github.com/tpope/vim-surround
-[submodule ".config/zsh/plugins/fzf-tab"]
-	path = .config/zsh/plugins/fzf-tab
-	url = https://github.com/Aloxaf/fzf-tab
-[submodule ".config/zsh/plugins/fzf-tab-fork"]
-	path = .config/zsh/plugins/fzf-tab-fork
-	url = git@github.com:druckdev/fzf-tab.git
-[submodule ".config/zsh/plugins/powerlevel10k"]
-	path = .config/zsh/plugins/powerlevel10k
-	url = https://github.com/romkatv/powerlevel10k.git
-[submodule ".config/zsh/plugins/stderred"]
-	path = .config/zsh/plugins/stderred
-	url = https://github.com/sickill/stderred
-[submodule ".config/zsh/plugins/zsh-autosuggestions"]
-	path = .config/zsh/plugins/zsh-autosuggestions
-	url = https://github.com/zsh-users/zsh-autosuggestions
-[submodule ".config/zsh/plugins/zsh-syntax-highlighting"]
-	path = .config/zsh/plugins/zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule ".local/bin/fzf-repo"]
+
+[submodule "fzf"]
 	path = .local/bin/fzf-repo
 	url = https://github.com/junegunn/fzf
-[submodule ".config/vim/pack/plugins/opt/vimtex"]
-	path = .config/vim/pack/plugins/opt/vimtex
-	url = https://github.com/lervag/vimtex
-[submodule ".config/vim/pack/plugins/opt/arm-syntax-vim"]
+
+[submodule "diff-so-fancy"]
+	path = .config/git/diff-so-fancy
+	url = https://github.com/so-fancy/diff-so-fancy
+
+[submodule "tmux-continuum"]
+	path = .config/tmux/plugins/tmux-continuum
+	url = https://github.com/tmux-plugins/tmux-continuum
+[submodule "tmux-prefix-highlight"]
+	path = .config/tmux/plugins/tmux-prefix-highlight
+	url = https://github.com/tmux-plugins/tmux-prefix-highlight
+[submodule "tmux-resurrect"]
+	path = .config/tmux/plugins/tmux-resurrect
+	url = https://github.com/tmux-plugins/tmux-resurrect
+[submodule "tmux-sensible"]
+	path = .config/tmux/plugins/tmux-sensible
+	url = https://github.com/tmux-plugins/tmux-sensible
+[submodule "tpm"]
+	path = .config/tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
+
+[submodule "arm-syntax-vim"]
 	path = .config/vim/pack/plugins/opt/arm-syntax-vim
 	url = https://github.com/ARM9/arm-syntax-vim
-[submodule ".config/vim/pack/plugins/opt/vim-gutentags"]
+[submodule "coc.nvim"]
+	path = .config/vim/pack/plugins/opt/coc.nvim
+	url = https://github.com/neoclide/coc.nvim
+[submodule "delimitMate"]
+	path = .config/vim/pack/plugins/opt/delimitMate
+	url = https://github.com/Raimondi/delimitMate
+[submodule "fzf.vim"]
+	path = .config/vim/pack/plugins/opt/fzf.vim
+	url = https://github.com/junegunn/fzf.vim
+[submodule "onedark.vim"]
+	path = .config/vim/pack/plugins/opt/onedark.vim
+	url = https://github.com/joshdick/onedark.vim
+[submodule "vimtex"]
+	path = .config/vim/pack/plugins/opt/vimtex
+	url = https://github.com/lervag/vimtex
+[submodule "vim-gitgutter"]
+	path = .config/vim/pack/plugins/opt/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter
+[submodule "vim-gutentags"]
 	path = .config/vim/pack/plugins/opt/vim-gutentags
 	url = https://github.com/ludovicchabant/vim-gutentags
+[submodule "vim-surround"]
+	path = .config/vim/pack/plugins/opt/vim-surround
+	url = https://github.com/tpope/vim-surround
+
+[submodule "fzf-tab"]
+	path = .config/zsh/plugins/fzf-tab
+	url = https://github.com/Aloxaf/fzf-tab
+[submodule "powerlevel10k"]
+	path = .config/zsh/plugins/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k
+[submodule "stderred"]
+	path = .config/zsh/plugins/stderred
+	url = https://github.com/sickill/stderred
+[submodule "zsh-autosuggestions"]
+	path = .config/zsh/plugins/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions
+[submodule "zsh-syntax-highlighting"]
+	path = .config/zsh/plugins/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting
