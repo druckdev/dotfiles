@@ -19,20 +19,22 @@ if empty($XDG_DATA_HOME)
 	let $XDG_DATA_HOME = $HOME . '/.local/share'
 endif
 
+" NOTE: Double trailing slash tells vim to use the full path for swap files to
+" prevent name clashings. See `:help directory`
 if !isdirectory($XDG_CACHE_HOME . "/vim/swap")
 	call mkdir($XDG_CACHE_HOME . "/vim/swap", "p")
 endif
-set directory=$XDG_CACHE_HOME/vim/swap/
+set directory=$XDG_CACHE_HOME/vim/swap//
 
 if !isdirectory($XDG_DATA_HOME . "/vim/backup")
 	call mkdir($XDG_DATA_HOME . "/vim/backup", "p")
 endif
-set backupdir=$XDG_DATA_HOME/vim/backup/
+set backupdir=$XDG_DATA_HOME/vim/backup//
 
 if !isdirectory($XDG_DATA_HOME . "/vim/undo")
 	call mkdir($XDG_DATA_HOME . "/vim/undo", "p")
 endif
-set undodir=$XDG_DATA_HOME/vim/undo/
+set undodir=$XDG_DATA_HOME/vim/undo//
 
 if (!has('nvim'))
 	set viminfo+=n$XDG_DATA_HOME/vim/viminfo
