@@ -17,7 +17,7 @@
       stdout: true
       stderr: true
     -
-      command: .config/zsh/plugins/fzf/install --bin
+      command: .local/bin/fzf-repo/install --bin
       description: Pulling fzf binary
       stdout: true
       stderr: true
