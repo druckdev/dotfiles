@@ -181,10 +181,10 @@ nmap <S-Tab> <C-O>
 " Terminal
 if (has('nvim'))
 	" tnoremap <Esc> <C-\><C-n>
-	nmap <leader>t :split +terminal<CR>i
-	nmap <leader>vt :vsplit +terminal<CR>i
+	nmap <leader><CR> :split +terminal<CR>i
+	nmap <leader>v<CR> :vsplit +terminal<CR>i
 elseif (has('terminal'))
-	nmap <leader>t :terminal<CR>
+	nmap <leader><CR> :terminal<CR>
 endif
 
 " Aesthetics ###################################################################
