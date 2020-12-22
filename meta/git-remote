@@ -6,11 +6,11 @@ die() {
 }
 
 remote="$(git remote get-url origin)"
-! grep -q '^git@' <<<"$remote" || die "Using ssh already.\n" 0
+! printf "$remote" | grep -q '^git@' || die "Using ssh already.\n" 0
 
-host="$(cut -d/ -f3 <<<"$remote")"
+host="$(printf "$remote" | cut -d/ -f3)"
 grep -q "$host" "$HOME"/.ssh/known_hosts || die "No ssh key for $host found.\n"
 
-ssh_remote="$(sed 's_^https\?://_git@_;s_/_:_' <<<"$remote")"
+ssh_remote="$(printf "$remote" | sed 's_^https\?://_git@_;s_/_:_')"
 git remote set-url origin "$ssh_remote"
 die "Set origin remote url to $ssh_remote\n" $?
