@@ -29,6 +29,3 @@ nmap <leader>t :Tags<CR>
 let g:surround_no_mappings = 1
 packadd! vim-surround
 source $XDG_CONFIG_HOME/vim/vim-surround.vim
-
-" Load filetype plugins
-filetype plugin indent on
