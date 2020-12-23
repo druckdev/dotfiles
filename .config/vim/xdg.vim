@@ -44,4 +44,7 @@ set runtimepath-=~/.vim       runtimepath^=$XDG_CONFIG_HOME/vim
 set runtimepath-=~/.vim/after runtimepath+=$XDG_CONFIG_HOME/vim/after
 set packpath-=~/.vim          packpath^=$XDG_CONFIG_HOME/vim
 
-source $XDG_CONFIG_HOME/vim/vimrc
+" Source everything in vimrc.d/
+for file in split(glob($XDG_CONFIG_HOME . '/vim/vimrc.d/**/*.vim'), '\n')
+      execute 'source' file
+endfor
