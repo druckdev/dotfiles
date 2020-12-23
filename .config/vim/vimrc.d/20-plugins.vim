@@ -12,17 +12,6 @@ if (has('patch-8.1.1719') || has('nvim'))
 	packadd! coc.nvim
 	source $XDG_CONFIG_HOME/vim/coc.nvim.vim
 endif
-" Fuzzy finder
-packadd! fzf
-packadd! fzf.vim
-nmap <leader>f :Files<CR>
 " LaTeX
 autocmd BufNewFile,BufRead *.tex packadd! vimtex
 	\ | source $XDG_CONFIG_HOME/vim/vimtex.vim
-" ctags
-packadd! vim-gutentags
-nmap <leader>t :Tags<CR>
-" Surround text with parentheses, brackets, quotes, tags, etc.
-let g:surround_no_mappings = 1
-packadd! vim-surround
-source $XDG_CONFIG_HOME/vim/vim-surround.vim
