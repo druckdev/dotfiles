@@ -4,7 +4,7 @@
 # NOTE: Only copies first line. If there are multiple lines (as with
 # SHARE_HISTORY) the other lines have to be copied manually.
 
-# Changing Directories
+# Changing Directories #########################################################
 	# Make cd push the old directory onto the directory stack.
 	setopt AUTO_PUSHD
 
@@ -23,7 +23,7 @@
 	# Don't push multiple copies of the same directory onto the directory stack.
 	setopt PUSHD_IGNORE_DUPS
 
-# Completion
+# Completion ###################################################################
 	# Automatically list choices on an ambiguous completion.
 	setopt AUTO_LIST
 
@@ -65,7 +65,7 @@
 	# direction. This option overrides AUTO_MENU.
 	setopt NO_MENU_COMPLETE
 
-# Expansion and Globbing
+# Expansion and Globbing #######################################################
 	# Treat the `#', `~' and `^' characters as part of patterns for filename
 	# generation, etc.  (An initial unquoted `~' always produces named directory
 	# expansion.)
@@ -74,7 +74,7 @@
 	# Do not require a leading `.' in a filename to be matched explicitly.
 	setopt GLOB_DOTS
 
-# History
+# History ######################################################################
 	# Save each command's beginning timestamp (in seconds since the epoch) and
 	# the duration (in seconds) to the history file.  The format of this
 	# prefixed data is:
@@ -141,7 +141,7 @@
 	# whenever you need them using `fc -RI'.
 	setopt NO_SHARE_HISTORY
 
-# Input/Output
+# Input/Output #################################################################
 	# Allows `>' redirection to truncate existing files.  Otherwise `>!' or `>|'
 	# must be used to truncate a file.
 	#
@@ -170,13 +170,13 @@
 	# (usually assigned to ^S/^Q) is disabled in the shell's editor.
 	setopt NO_FLOW_CONTROL
 
-# Job Control
+# Job Control ##################################################################
 	# With this option set, stopped jobs that are removed from the job table
 	# with the disown builtin command are automatically sent a CONT signal to
 	# make them running.
 	setopt AUTO_CONTINUE
 
-# Scripts and Functions
+# Scripts and Functions ########################################################
 	# Output hexadecimal numbers in the standard C format, for example `0xFF'
 	# instead of the usual `16#FF'.  If the option OCTAL_ZEROES is also set (it
 	# is not by default), octal numbers will be treated similarly and hence
@@ -186,12 +186,12 @@
 	# input irrespective of the setting of C_BASES.
 	setopt C_BASES
 
-# Shell Emulation
+# Shell Emulation ##############################################################
 	# Causes field splitting to be performed on unquoted parameter expansions.
 	# Note that this option has nothing to do with word splitting.
 	# (See zshexpn(1).)
 	setopt SH_WORD_SPLIT
 
-# Zle
+# Zle ##########################################################################
 	# Beep on error in ZLE.
 	setopt NO_BEEP
