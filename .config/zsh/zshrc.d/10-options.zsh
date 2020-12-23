@@ -66,6 +66,14 @@
 	setopt NO_MENU_COMPLETE
 
 # Expansion and Globbing #######################################################
+	# Make globbing (filename generation) sensitive to case.  Note that other
+	# uses of patterns are always sensitive to case.  If the option is unset,
+	# the presence of any character which is special to filename generation will
+	# cause case-insensitive matching.  For example, cvs(/) can match the
+	# directory CVS owing to the presence of the globbing flag (unless the
+	# option BARE_GLOB_QUAL is unset).
+	setopt NO_CASE_GLOB
+
 	# Treat the `#', `~' and `^' characters as part of patterns for filename
 	# generation, etc.  (An initial unquoted `~' always produces named directory
 	# expansion.)
@@ -74,12 +82,29 @@
 	# Do not require a leading `.' in a filename to be matched explicitly.
 	setopt GLOB_DOTS
 
+	# When this option is set and the default zsh-style globbing is in effect,
+	# the pattern `**/*' can be abbreviated to `**' and the pattern `***/*' can
+	# be abbreviated to ***.  Hence `**.c' finds a file ending in .c in any
+	# subdirectory, and `***.c' does the same while also following symbolic
+	# links.  A / immediately after the `**' or `***' forces the pattern to be
+	# treated as the unabbreviated form.
+	setopt GLOB_STAR_SHORT
+
 # History ######################################################################
 	# Save each command's beginning timestamp (in seconds since the epoch) and
 	# the duration (in seconds) to the history file.  The format of this
 	# prefixed data is:
 	# `: <beginning time>:<elapsed seconds>;<command>'.
 	setopt EXTENDED_HISTORY
+
+	# If the internal history needs to be trimmed to add the current command
+	# line, setting this option will cause the oldest history event that has a
+	# duplicate to be lost before losing a unique event from the list.  You
+	# should be sure to set the value of HISTSIZE to a larger number than
+	# SAVEHIST in order to give you some room for the duplicated events,
+	# otherwise this option will behave just like HIST_IGNORE_ALL_DUPS once the
+	# history fills up with unique events.
+	setopt HIST_EXPIRE_DUPS_FIRST
 
 	# Do not enter command lines into the history list if they are duplicates of
 	# the previous event.
@@ -169,6 +194,9 @@
 	# If this option is unset, output flow control via start/stop characters
 	# (usually assigned to ^S/^Q) is disabled in the shell's editor.
 	setopt NO_FLOW_CONTROL
+
+	# Do not query the user before executing `rm *' or `rm path/*'.
+	setopt NO_RM_STAR_SILENT
 
 # Job Control ##################################################################
 	# With this option set, stopped jobs that are removed from the job table
