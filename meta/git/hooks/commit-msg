@@ -15,7 +15,10 @@ die() {
 }
 
 subject="$(head -1 "$1")"
-body="$(tail +2 "$1" | grep -v "^#")"
+# Because of potential long lines in the changes (when using verbose commit) or
+# comments (for example when rebasing), everything until the first comment is
+# interpreted as body.
+body="$(tail +2 "$1" | sed -n '/^#/q;p')"
 
 [[ ${#subject} -le 50 ]] || die "Subject too long. (<= 50)\n"
 
@@ -42,13 +45,7 @@ done
 BKP_IFS="$IFS"
 IFS='
 '
-# The -v flag or commit.verbose setting add the changes of the commit to the
-# bottom of the commit message. But when the changes contain lines longer than
-# 72 characters this hook will fail when not breaking the loop before the end
-# start of the patch.
-verbose_start_line="$(git diff --staged -u | head -1)"
-for line in $body; do
-	[[ "$line" != "$verbose_start_line" ]] || break
+for line in $($body); do
 	[[ ${#line} -le 72 ]] || die "Body lines too long. (<= 72)\n"
 done
 IFS="$BKP_IFS"
