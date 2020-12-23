@@ -265,7 +265,10 @@ crypt-umount() {
 	[[ -e "$1" ]] || return 1
 
 	sync
-	if ! udisksctl unmount -b /dev/mapper/crypt_"${1##*/}"; then
+	if
+			mount | grep -q /dev/mapper/crypt_"${1##*/}" \
+			&& ! udisksctl unmount -b /dev/mapper/crypt_"${1##*/}"
+	then
 		lsof /dev/mapper/crypt_"${1##*/}"
 		return 1
 	fi
