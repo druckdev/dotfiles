@@ -1,4 +1,7 @@
 " Plugins ######################################################################
+" Load all plugins in pack/*/start
+packloadall
+
 " ARM assembly syntax highlighting
 autocmd BufNewFile,BufRead *.s,*.S packadd! arm-syntax-vim | set filetype=arm
 " Auto completion
@@ -9,19 +12,13 @@ if (has('patch-8.1.1719') || has('nvim'))
 	packadd! coc.nvim
 	source $XDG_CONFIG_HOME/vim/coc.nvim.vim
 endif
-" Automatically close parentheses, brackets, quotes, etc.
-packadd! delimitMate
 " Fuzzy finder
 packadd! fzf
 packadd! fzf.vim
 nmap <leader>f :Files<CR>
-" Theme
-packadd! onedark.vim
 " LaTeX
 autocmd BufNewFile,BufRead *.tex packadd! vimtex
 	\ | source $XDG_CONFIG_HOME/vim/vimtex.vim
-" Git information
-packadd! vim-gitgutter
 " ctags
 packadd! vim-gutentags
 nmap <leader>t :Tags<CR>
