@@ -12,6 +12,3 @@ if (has('patch-8.1.1719') || has('nvim'))
 	packadd! coc.nvim
 	source $XDG_CONFIG_HOME/vim/coc.nvim.vim
 endif
-" LaTeX
-autocmd BufNewFile,BufRead *.tex packadd! vimtex
-	\ | source $XDG_CONFIG_HOME/vim/vimtex.vim
