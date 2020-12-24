@@ -64,3 +64,5 @@ set listchars=tab:>·
 set scrolloff=15
 " Enable mouse in normal and visual mode
 set mouse=nv
+" Disable pesky swap files
+set noswapfile
