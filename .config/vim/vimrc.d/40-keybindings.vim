@@ -89,6 +89,7 @@ endif
 " Plugin specific bindings
 if (get(g:, 'loaded_fzf'))
 	nmap <leader>f :Files<CR>
+	nmap <leader>j :Lines<CR>
 	if (get(g:, 'loaded_gutentags'))
 		nmap <leader>t :Tags<CR>
 	endif
