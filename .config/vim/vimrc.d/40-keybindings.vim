@@ -50,6 +50,8 @@ map <leader>ss :set spelllang=
 " Umlaute and sz in Insert and Command-line mode when spelllang is set to de
 autocmd OptionSet spelllang call NewSpellLang(v:option_new, v:option_old)
 function! NewSpellLang(new_lang, old_lang)
+	let &spellfile = $XDG_DATA_HOME . '/vim/spell/' . a:new_lang . '.utf-8.add'
+
 	let mappings = {
 	\ 'ae': 'ä',
 	\ 'Ae': 'Ä',
