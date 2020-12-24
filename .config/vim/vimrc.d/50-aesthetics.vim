@@ -37,4 +37,6 @@ if (get(g:, 'loaded_fzf'))
 		\ 'spinner': ['fg', 'Label'],
 		\ 'header':  ['fg', 'Comment']
 	\ }
+	" Use a theme for bat in the preview that somewhat resembles onedark
+	let $BAT_THEME='TwoDark'
 endif
