@@ -48,9 +48,9 @@ conf() {
 	local CONF_EDITOR
 	if [[ -n "$EDITOR" ]]; then
 		CONF_EDITOR="$EDITOR"
-	elif command -v vim &>/dev/null; then
+	elif (( $+commands[vim] )); then
 		CONF_EDITOR=vim
-	elif command -v nano &>/dev/null; then
+	elif (( $+commands[nano] )); then
 		CONF_EDITOR=nano
 	else
 		CONF_EDITOR=cat

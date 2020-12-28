@@ -35,17 +35,17 @@ if [[ ! "$PATH" =~ "$HOME/\.local/bin" ]]; then
 	export PATH="$HOME/.local/bin${PATH:+:$PATH}"
 fi
 
-if command -v nvim &>/dev/null; then
+if (( $+commands[nvim] )); then
 	export EDITOR=nvim
-elif command -v vim &>/dev/null; then
+elif (( $+commands[vim] )); then
 	export EDITOR=vim
-elif command -v vi &>/dev/null; then
+elif (( $+commands[vi] )); then
 	export EDITOR=vi
-elif command -v nano &>/dev/null; then
+elif (( $+commands[nano] )); then
 	export EDITOR=nano
 fi
 
-if command -v nvim &>/dev/null; then
+if (( $+commands[nvim] )); then
 	export MANPAGER="nvim -c 'set ft=man' -"
 else
 	# https://www.tecmint.com/view-colored-man-pages-in-linux/
@@ -59,7 +59,7 @@ else
 fi
 
 # Show also hidden files per default but ignore files in '.git' directories.
-if command -v rg &>/dev/null; then
+if (( $+commands[rg] )); then
 	# Also respect gitignores
 	FZF_DEFAULT_COMMAND="rg --hidden --files -g '!.git'"
 else
@@ -68,7 +68,7 @@ fi
 export FZF_DEFAULT_COMMAND
 
 # Setup LS_COLORS
-if command -v dircolors &>/dev/null; then
+if (( $+commands[dircolors] )); then
 	if [[ -e "$XDG_CONFIG_HOME"/dircolors/dircolors ]]; then
 		eval "$(dircolors -b "$XDG_CONFIG_HOME"/dircolors/dircolors)"
 	else
