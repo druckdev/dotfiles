@@ -56,6 +56,8 @@
 	alias bin='xxd -b -c4 | cut -d" " -f2-5'
 	if (( $+commands[nvim] )); then
 		alias vim='jobs | grep -q nvim && {fg;:;} || nvim'
+		# $MANPAGER does the trick too but lines are hard-wrapped.
+		alias man='() { nvim +"Man $* | only" }'
 	fi
 	alias v='vim'
 	alias vi='vim'
