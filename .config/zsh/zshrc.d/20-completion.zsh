@@ -30,3 +30,9 @@ _comp_options+=(globdots)
 # Don't complete the same argument twice for these programs.
 # Taken from http://leahneukirchen.org/dotfiles/.zshrc
 zstyle ':completion:*:(diff|meld|trash):*' ignore-line yes
+
+# Use completion of `ls` for `ls-show-hidden`
+compdef ls-show-hidden=ls
+
+# Do not sort `git checkout`s completion
+zstyle ":completion:*:git-checkout:*" sort false
