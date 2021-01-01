@@ -19,8 +19,10 @@ for m in visual viopp; do
 	done
 done
 
-# no delay when switching into NORMAL
-export KEYTIMEOUT=1
+# Decrease delay when switching into NORMAL mode.
+# A timeout is still necessary as otherwise multi character bindings (for
+# example in vicmd) do not work.
+export KEYTIMEOUT=20
 
 function zle-line-init zle-keymap-select {
 	# Switch cursor style depending on mode
