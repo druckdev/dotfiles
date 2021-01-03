@@ -63,6 +63,21 @@ bindkey '^H' backward-kill-word              # ctrl-backspace
 bindkey '^[[3;5~' kill-word                  # ctrl-delete
 bindkey "$terminfo[kmous]" kill-word         # ctrl-delete
 
+# Open file in EDITOR selected with fzf
+function edit-fuzzy-file {
+	local fzf_fallback="find . -type f"
+	local -a fzf_args=(--height "40%" --reverse)
+
+	file="$(eval ${FZF_DEFAULT_COMMAND:-$fzf_fallback} | fzf "$fzf_args[@]")"
+	[[ -n $file ]] || $EDITOR "$file"
+
+	# Fix prompt
+	zle redisplay
+}
+zle -N edit-fuzzy-file
+# Simulate <leader>f from vim config
+bindkey -M vicmd " f" edit-fuzzy-file
+
 # Modified version (end with a trailing slash) of:
 # https://github.com/majutsushi/etc/blob/1d8a5aa28/zsh/zsh/func/rationalize-dots
 function rationalize_dots {
