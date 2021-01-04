@@ -363,3 +363,12 @@ git-commit-last-msg() {
 	gitdir="$(git rev-parse --git-dir)" || return
 	git commit -eF <(sed -n '/^#/q;p' "$gitdir/COMMIT_EDITMSG")
 }
+
+nvim-man() {
+	if (( $+commands[nvim] )); then
+		# $MANPAGER does the trick too but lines are hard-wrapped.
+		nvim +"Man $* | only"
+	else
+		command man "$@"
+	fi
+}

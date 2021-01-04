@@ -56,12 +56,11 @@
 	alias bin='xxd -b -c4 | cut -d" " -f2-5'
 	if (( $+commands[nvim] )); then
 		alias vim='jobs | grep -q nvim && {fg;:;} || nvim'
-		# $MANPAGER does the trick too but lines are hard-wrapped.
-		alias man='() { nvim +"Man $* | only" }'
 	fi
 	alias v='vim'
 	alias vi='vim'
 	alias vimdiff='vim --cmd "set list" -c "set listchars=tab:>·,space:·" -d'
+	alias man='nvim-man'
 	alias resetCursor='echo -ne "\e[5 q"'
 	alias makeThisScratchpad='echo -ne "\033]0;scratchpad-terminal\007"'
 	# grep filenames and date entries in exiftool

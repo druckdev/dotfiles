@@ -31,8 +31,9 @@ _comp_options+=(globdots)
 # Taken from http://leahneukirchen.org/dotfiles/.zshrc
 zstyle ':completion:*:(diff|meld|trash):*' ignore-line yes
 
-# Use completion of `ls` for `ls-show-hidden`
+# Use completion of commands for their wrapper functions
 compdef ls-show-hidden=ls
+compdef nvim-man=man
 
 # Do not sort `git checkout`s completion
 zstyle ":completion:*:git-checkout:*" sort false
