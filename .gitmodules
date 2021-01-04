@@ -50,6 +50,9 @@
 [submodule "vim-gutentags"]
 	path = .config/vim/pack/plugins/opt/vim-gutentags
 	url = https://github.com/ludovicchabant/vim-gutentags
+[submodule "vim-lastplace"]
+	path = .config/vim/pack/plugins/opt/vim-lastplace
+	url = https://github.com/farmergreg/vim-lastplace
 [submodule "vim-surround"]
 	path = .config/vim/pack/plugins/opt/vim-surround
 	url = https://github.com/tpope/vim-surround
