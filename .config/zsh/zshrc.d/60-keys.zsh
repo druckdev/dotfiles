@@ -69,7 +69,7 @@ function edit-fuzzy-file {
 	local -a fzf_args=(--height "40%" --reverse)
 
 	file="$(eval ${FZF_DEFAULT_COMMAND:-$fzf_fallback} | fzf "$fzf_args[@]")"
-	[[ -n $file ]] || $EDITOR "$file"
+	[[ -z $file ]] || $EDITOR "$file"
 
 	# Fix prompt
 	zle redisplay
