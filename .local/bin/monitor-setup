@@ -1,0 +1,66 @@
+#!/bin/bash
+
+################################################################################
+#
+# Small script using `xrandr` and `fzf` to quickly select connected monitors.
+#
+# TODO:
+#       - Add possibility to not only mirror onto all outputs but use the total
+#         screen space.
+################################################################################
+
+command -v xrandr &>/dev/null || exit 1
+command -v fzf &>/dev/null || exit 1
+
+# Grep for all connected outs including their highest resolution,
+# throw away additional information and finally merge the out name and
+# resolution lines separating them with a tab.
+connected_outs="$(
+	xrandr -q \
+	| grep -A1 ' connected' \
+	| sed 's/^[[:space:]]*//' \
+	| grep -Eo "^([^ ]* connected|[0-9]+x[0-9]+)" \
+	| paste -d " " - - \
+	| sed 's/ connected \(.*\)/\t(\1)/'
+)"
+[[ -n "$connected_outs" ]] || exit 1
+
+# Multi select on connected outs
+selected_outs="$(fzf -m --cycle --header "Select outputs" <<<"$connected_outs")"
+[[ -n "$selected_outs" ]] || exit 1
+
+# Selection of primary out out of the selected ones if there is more than one.
+if [[ $(wc -l <<<"$selected_outs") -gt 1 ]]; then
+	primary_out="$(fzf --cycle --header "Select primary" <<<"$selected_outs")"
+else
+	primary_out="$selected_outs"
+fi
+# Strip trailing resolution
+primary_out="$(cut -d$'\t' -f1 <<<"$primary_out")"
+[[ -n "$primary_out" ]] || exit 1
+
+# "Convert" to array and strip trailing resolutions
+# Only done here to display the resolutions in the fzf dialogs.
+typeset -a selected_outs=($(cut -d$'\t' -f1 <<<"$selected_outs"))
+typeset -a connected_outs=($(cut -d$'\t' -f1 <<<"$connected_outs"))
+
+# Build `xrandr` command
+typeset -a xrandr_command
+xrandr_command+="xrandr"
+for out in "${connected_outs[@]}"; do
+	xrandr_command+=(--output "$out")
+
+	# TODO: Solution with better performance?
+	if printf "%s\n" "${selected_outs[@]}" | grep -qE "^$out$"; then
+		# Current out was selected by user
+		xrandr_command+=(--auto)
+	else
+		xrandr_command+=(--off)
+	fi
+
+	[[ "$out" != "$primary_out" ]] || xrandr_command+=(--primary)
+done
+
+# Print for debugging purposes and finally execute it
+printf "%s\n" "${xrandr_command[*]}"
+"${xrandr_command[@]}"
