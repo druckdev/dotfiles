@@ -1,0 +1,6 @@
+HISTFILESIZE=100000
+
+if [[ ! -d "${XDG_DATA_HOME:-$HOME/.local/share}"/bash ]]; then
+	mkdir -p "${XDG_DATA_HOME:-$HOME/.local/share}"/bash
+fi
+HISTFILE="${XDG_DATA_HOME:-$HOME/.local/share}"/bash/bash_history
