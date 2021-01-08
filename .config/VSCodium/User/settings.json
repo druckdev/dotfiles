@@ -21,4 +21,5 @@
     "workbench.activityBar.visible": false,
     "workbench.colorTheme": "One Dark Pro",
     "editor.insertSpaces": false,
+    "explorer.autoReveal": false,
 }
