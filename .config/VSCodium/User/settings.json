@@ -16,7 +16,23 @@
         {
             "before": ["C-w"],
             "commands": [":q"]
-        }
+        },
+        {
+            "before":["<C-h>"],
+            "after": ["<C-w>", "h"]
+        },
+        {
+            "before":["<C-j>"],
+            "after": ["<C-w>", "j"]
+        },
+        {
+            "before":["<C-k>"],
+            "after": ["<C-w>", "k"]
+        },
+        {
+            "before":["<C-l>"],
+            "after": ["<C-w>", "l"]
+        },
     ],
     "workbench.activityBar.visible": false,
     "workbench.colorTheme": "One Dark Pro",
