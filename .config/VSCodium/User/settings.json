@@ -34,6 +34,7 @@
             "after": ["<C-w>", "l"]
         },
     ],
+    "vim.hlsearch": true,
     "workbench.activityBar.visible": false,
     "workbench.colorTheme": "One Dark Pro",
     "editor.insertSpaces": false,
