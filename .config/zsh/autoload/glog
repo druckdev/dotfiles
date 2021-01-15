@@ -40,11 +40,11 @@ local dateshort='--date=format:%F' # year
 local date="$dateshort %T %z" # year time timezone
 
 # Put the commit hash into the clipboard
-local fzf_copy_command="echo -n {} | sed -E '$commit_hash' | xclip -sel c"
+local fzf_copy_command="echo -nE {} | sed -E '$commit_hash' | xclip -sel c"
 
 local -A fzf_preview
 read -r -d '' <<EOT
-	out="\$(echo {} | sed -E "$commit_hash")"; [[ -z "\$out" ]] ||
+	out="\$(echo -E {} | sed -E "$commit_hash")"; [[ -z "\$out" ]] ||
 EOT
 fzf_preview[construct]="$REPLY"
 read -r -d '' <<EOT
