@@ -365,9 +365,13 @@ git-commit-last-msg() {
 }
 
 nvim-man() {
-	if (( $+commands[nvim] )); then
+	# Check for existence of man page. Assume that the page was specified as the
+	# last argument.
+	command man --where "${@[$#]}" >/dev/null || return
+
+	if (( $+commands[nvim] )) && [[ $# -eq 1 ]]; then
 		# $MANPAGER does the trick too but lines are hard-wrapped.
-		nvim +"Man $* | only"
+		nvim +"Man $1 | only"
 	else
 		command man "$@"
 	fi
