@@ -62,7 +62,7 @@ set list
 set listchars=tab:>·
 " Keep current line away from top/bottom borders of the buffer when scrolling
 set scrolloff=15
-" Enable mouse in normal and visual mode
-set mouse=nv
+" Enable mouse
+set mouse=a
 " Disable pesky swap file warnings
 set shortmess+=A
