@@ -340,7 +340,15 @@ mvln() {
 ## current repo instead of HOME. (Except when already there)
 cd() {
 	if [[ $# -gt 0 ]]; then
-		builtin cd "$@"
+		# Call `ls` on paths that end on '/ls' and don't exist with the suffix.
+		# (When not properly pressing <CR>)
+		if [[ ! -e ${@[-1]} && -e ${@[-1]%%/ls} ]]; then
+			builtin cd "${@[1,-2]}" "${@[-1]%%ls}"
+			pwd
+			ls
+		else
+			builtin cd "$@"
+		fi
 		return
 	fi
 
