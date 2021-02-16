@@ -1,16 +1,9 @@
-! Bind Caps_Lock on Escape key, Ctrl_R on Caps_Lock key and Escape on Control_R
-! The Caps_Lock key is also used for Escape through xcape
-remove Control = Control_R
+! Bind Caps_Lock to Escape
 remove Lock = Caps_Lock
 
-keycode 9 =
-keycode 9 = Caps_Lock
-
 keycode 66 =
-keycode 66 = Control_R
+keycode 66 = Escape
 
-keycode 105 =
-keycode 105 = Escape
-
-add Control = Control_R
-add Lock = Caps_Lock
+! Bind both Shift keys together to Caps_Lock
+keycode 50 = Shift_L Caps_Lock
+keycode 62 = Shift_R Caps_Lock
