@@ -6,7 +6,7 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # Preview files and folders
 # NOTE: Find out more about current context with <c-x>h
 (( $+commands[bat] )) && file_prev_cmd="bat --color=always" || file_prev_cmd=cat
-(( $+commands[tree] )) && dir_prev_cmd="tree -C" || dir_prev_cmd=ls
+(( $+commands[tree] )) && dir_prev_cmd="tree -C -L 3" || dir_prev_cmd=ls
 read -r -d '' preview_cmd <<EOT
 	[[ -d \$realpath ]] && $dir_prev_cmd \$realpath || $file_prev_cmd \$realpath
 EOT
