@@ -48,7 +48,7 @@ read -r -d '' <<EOT
 EOT
 fzf_preview[construct]="$REPLY"
 read -r -d '' <<EOT
-	git show "${(j:%n:)format}" "$date" --color=always "\$out" \
+	git show "${(j:%n:)format}" "$date" --color=always --patch-with-stat "\$out" \
 	| diff-so-fancy --color=always
 EOT
 fzf_preview[patch]="$fzf_preview[construct] { $REPLY }"
