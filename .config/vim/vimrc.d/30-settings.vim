@@ -66,3 +66,8 @@ set scrolloff=15
 set mouse=a
 " Disable pesky swap file warnings
 set shortmess+=A
+" Automatically update file that was modified outside of vim.
+" Beware that this updates only on certain events and thus works different then
+" probably expected. See corresponding autocommand or:
+" https://vi.stackexchange.com/questions/2702
+set autoread
