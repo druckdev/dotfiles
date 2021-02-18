@@ -1,9 +1,11 @@
 ! Bind Caps_Lock to Escape
 remove Lock = Caps_Lock
-
 keycode 66 =
 keycode 66 = Escape
 
-! Bind both Shift keys together to Caps_Lock
-keycode 50 = Shift_L Caps_Lock
-keycode 62 = Shift_R Caps_Lock
+! Bind Alt_R to mode_switch
+keycode 108 = Mode_switch ISO_Level3_Shift
+
+! Bind mode_switch + both shifts to caps_lock
+keycode 50 = Shift_L Shift_L Shift_L Caps_Lock
+keycode 62 = Shift_R Shift_R Shift_R Caps_Lock
