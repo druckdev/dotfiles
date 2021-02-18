@@ -11,7 +11,7 @@
     added = 076
     untracked = 014
 [core]
-	pager = diff-so-fancy | less --tabs=8 -Rg -+FX -p'^(commit|added|deleted|modified|renamed|(Submodule .* [a-f0-9]+[.]+[a-f0-9]+))[: ]'
+	pager = diff-so-fancy | less --tabs=8 -Rg -+FX -p'^(commit|added|deleted|modified|renamed|tag|(Submodule .* [a-f0-9]+[.]+[a-f0-9]+)|(stash@{[0-9]+}))[: ]'
 	excludesfile = ~/.config/git/ignore
 [alias]
 	root = rev-parse --show-toplevel
