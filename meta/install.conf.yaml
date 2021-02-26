@@ -1,6 +1,6 @@
 - shell:
     -
-      command: chsh -s /usr/bin/zsh
+      command: chsh -s "$(command -v zsh)"
       description: Changing login shell to zsh
     -
       command: meta/git-remote
