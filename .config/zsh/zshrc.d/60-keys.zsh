@@ -98,17 +98,28 @@ function rationalize_dots {
 zle -N rationalize_dots
 bindkey . rationalize_dots
 
-function ls-on-enter {
-	# Execute `ls` when enter is pressed without a command entered.
-	[[ -n "$BUFFER" ]] || BUFFER=ls
+function cmd-on-enter {
+	zle -M "$CMD_ON_ENTER"
+	if [[ -z $BUFFER ]]; then
+		# Overwrite BUFFER and default to ls
+		BUFFER="${CMD_ON_ENTER:=ls}"
+
+		# Cycle through ls and git status
+		case "$CMD_ON_ENTER" in
+			ls)
+				! git rev-parse &>/dev/null || CMD_ON_ENTER='gs';;
+			gs)
+				CMD_ON_ENTER='ls';;
+		esac
+	fi
 	zle accept-line
 
 	# See fzf-hist below
 	FZF_HIST_WENT_UP=
 }
-zle -N ls-on-enter
-bindkey "^M" ls-on-enter
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(ls-on-enter)
+zle -N cmd-on-enter
+bindkey "^M" cmd-on-enter
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(cmd-on-enter)
 
 # "Scroll" through history if buffer was empty but use it as query for fzf over
 # command line history if not (similar to substring-search but with fzf)
