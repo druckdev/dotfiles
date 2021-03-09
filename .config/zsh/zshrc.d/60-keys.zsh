@@ -111,6 +111,9 @@ function cmd-on-enter {
 			gs)
 				CMD_ON_ENTER='ls';;
 		esac
+	else
+		# Reset if other command is executed
+		CMD_ON_ENTER=ls
 	fi
 	zle accept-line
 
