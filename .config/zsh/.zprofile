@@ -31,6 +31,9 @@ export VSCODE_PORTABLE="$XDG_DATA_HOME"/vscode
 export VSCODE_EXTENSIONS="$XDG_DATA_HOME"/vscode/extensions
 
 # Other environment variables
+if [[ ! "$PATH" =~ "/usr/local/bin" ]]; then
+	export PATH="/usr/local/bin${PATH:+:$PATH}"
+fi
 if [[ ! "$PATH" =~ "$HOME/\.local/bin" ]]; then
 	export PATH="$HOME/.local/bin${PATH:+:$PATH}"
 fi
