@@ -375,7 +375,7 @@ git-commit-last-msg() {
 nvim-man() {
 	# Check for existence of man page. Assume that the page was specified as the
 	# last argument.
-	command man --where "${@[$#]}" >/dev/null || return
+	command man -w "${@[$#]}" >/dev/null || return
 
 	if (( $+commands[nvim] )) && [[ $# -eq 1 ]]; then
 		# $MANPAGER does the trick too but lines are hard-wrapped.
