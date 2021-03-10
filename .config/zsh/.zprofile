@@ -37,6 +37,9 @@ fi
 if [[ ! "$PATH" =~ "$HOME/\.local/bin" ]]; then
 	export PATH="$HOME/.local/bin${PATH:+:$PATH}"
 fi
+if [[ $OSTYPE =~ darwin && ! $PATH =~ "/Library/Apple/usr/bin" ]]; then
+	export PATH="${PATH:+$PATH:}/Library/Apple/usr/bin"
+fi
 
 # Locale settings as $LANG
 [[ ! -e "$XDG_CONFIG_HOME/locale.conf" ]] || . "$XDG_CONFIG_HOME/locale.conf"
