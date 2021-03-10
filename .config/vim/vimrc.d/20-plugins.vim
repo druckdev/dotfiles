@@ -10,3 +10,9 @@ if (has('patch-8.1.1719') || has('nvim'))
 	packadd! coc.nvim
 	source $XDG_CONFIG_HOME/vim/coc.nvim.vim
 endif
+
+" ctags
+let g:gutentags_ctags_exclude = [
+	\ 'node_modules/*',
+	\ '.git/*'
+\]
