@@ -23,6 +23,7 @@
 /.config/vim/.netrwhist
 
 /.config/zsh/.zcompdump
+/.config/zsh/.zcompcache
 
 /.config/ranger/bookmarks
 /.config/ranger/history
