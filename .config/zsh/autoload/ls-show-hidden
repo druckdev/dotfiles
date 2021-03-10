@@ -13,6 +13,11 @@ builtin emulate -L zsh -o no_glob_dots -o null_glob
 # files should always be listed.
 builtin local LS_SHOW_ALL_DIRS=${LS_SHOW_ALL_DIRS:-"dotfiles|\.config"}
 
+builtin local LS_COMMAND=ls
+if [[ $OSTYPE =~ darwin ]] && command -v gls &>/dev/null; then
+	LS_COMMAND=gls
+fi
+
 builtin local -a dirs files
 # Pop files and folders from arguments and put them in the corresponding array.
 # All other arguments are kept.
@@ -43,7 +48,7 @@ empty=("")
 set -- "${(@)${(@)all_opts//--*}:|empty}"
 while getopts d flag 2>/dev/null; do
 	[[ "$flag" = "d" ]] || continue
-	command ls "${all_opts[@]}" -- "${files[@]}" "${dirs[@]}"
+	command $LS_COMMAND "${all_opts[@]}" -- "${files[@]}" "${dirs[@]}"
 	return
 done
 # Restore options.
@@ -54,7 +59,7 @@ builtin local separator=""
 
 # Print files.
 if (( ${#files} )); then
-	command ls "$@" -- "${files[@]}"
+	command $LS_COMMAND "$@" -- "${files[@]}"
 	# Print a newline between files and folder segment.
 	separator="\n"
 fi
@@ -75,7 +80,7 @@ for dir in ${(@f)dirs}; do
 	# executed) followed by the dir-name.
 	! (( ${#dirs} + ${#files} - 1 )) || echo "$separator$dir:"
 	# Print directory. $all_flag has to be unquoted else ls will fail.
-	command ls "$@" $all_flag -- "$dir"
+	command $LS_COMMAND "$@" $all_flag -- "$dir"
 	separator="\n"
 done
 
