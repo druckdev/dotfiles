@@ -15,7 +15,7 @@
 	excludesfile = ~/.config/git/ignore
 [alias]
 	root = rev-parse --show-toplevel
-	spull = "__git_spull() { git pull \"$@\" && git submodule sync --recursive && git submodule update --init --recursive; }; __git_spull"
+	spull = "!__git_spull() { git pull \"$@\" && git submodule sync --recursive && git submodule update --init --recursive; }; __git_spull"
 [status]
 	submodulesummary = true
 [diff]
