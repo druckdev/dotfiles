@@ -62,7 +62,7 @@ echo
 
 for c in "${commands[@]}"; do
 	# Escape all characters that sed could misinterpret.
-	pat="^: [0-9]+:[0-9]+;$(sed -E 's/[./?+|()*\\^$]|\[|\]/\\&/g' <<<"$c")\$"
+	pat="^: [0-9]+:[0-9]+;$(sed -E 's/[./?+|(){}*\\^$]|\[|\]/\\&/g' <<<"$c")\$"
 	# Find line number of first occurrence of the command in the history file
 	first="$(grep -Enm1 "$pat" "$1" | cut -d: -f1)"
 
