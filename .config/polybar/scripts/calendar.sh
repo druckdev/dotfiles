@@ -23,7 +23,7 @@ if [[ $# -eq 0 ]]; then
 	echo 0 > "$FZF_CAL_TMP"
 
 	# Call fzf
-	cal -wm | fzf "${FZF_ARGS[@]}"
+	LC_TIME= cal -wm | fzf "${FZF_ARGS[@]}"
 	exit 0
 elif [[ $1 = "-t" ]]; then
 	TITLE=polybar-datetime-calendar
@@ -49,5 +49,5 @@ else
 	fi
 
 	# Print calendar
-	cal -wm $(date +"%m %Y" -d "$counter months ago")
+	LC_TIME= cal -wm $(date +"%m %Y" -d "$counter months ago")
 fi
