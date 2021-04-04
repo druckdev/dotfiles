@@ -6,3 +6,6 @@
 
 # Ignore vscode files
 .vscode
+
+# Ignore all node_modules
+node_modules
