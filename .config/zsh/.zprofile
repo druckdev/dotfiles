@@ -44,6 +44,10 @@ fi
 # Locale settings as $LANG
 [[ ! -e "$XDG_CONFIG_HOME/locale.conf" ]] || . "$XDG_CONFIG_HOME/locale.conf"
 
+# SSH
+eval "$(ssh-agent)" >/dev/null
+
+# Editor
 if (( $+commands[nvim] )); then
 	export EDITOR=nvim
 elif (( $+commands[vim] )); then
@@ -54,6 +58,7 @@ elif (( $+commands[nano] )); then
 	export EDITOR=nano
 fi
 
+# Pager
 if (( $+commands[nvim] )); then
 	export MANPAGER="nvim -c 'set ft=man' -"
 else

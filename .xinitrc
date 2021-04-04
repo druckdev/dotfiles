@@ -43,9 +43,6 @@ unset touchpad
 # Muted at startup
 amixer -q -D pulse sset Master mute
 
-# SSH
-eval $(ssh-agent)
-
 # Compositor
 compositor="${XDG_CONFIG_HOME:-$HOME/.config}"/compositor/launch.sh
 [ ! -x "$compositor" ] || "$compositor"
