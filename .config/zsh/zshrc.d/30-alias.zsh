@@ -33,14 +33,25 @@
 	alias gl='git log'
 	alias gss='git stash'
 
+# Clipboard
+	if [[ $OSTYPE =~ darwin ]]; then
+		alias getclip="pbpaste"
+		SETCLIP_COMMAND="pbcopy"
+	else
+		alias getclip="xclip -selection c -o"
+		SETCLIP_COMMAND="xclip -selection c"
+	fi
+	! command -v perl &>/dev/null \
+		|| SETCLIP_COMMAND="perl -pe 'chomp if eof' | $SETCLIP_COMMAND"
+	alias setclip="$SETCLIP_COMMAND"
+	unset SETCLIP_COMMAND
+
 # Save keystrokes and my memory
 	alias la='ls -A'
 	alias l='ls -lh --time-style=long-iso'
 	alias ll='l -A'
 	alias cd..='cd ..'
 	alias cl='() { cd "$@" && ls }'
-	alias getclip="xclip -selection c -o"
-	alias setclip="perl -pe 'chomp if eof' | xclip -selection c"
 	alias pdf='zathura --fork &>/dev/null'
 	alias geeqie='launch qeeqie'
 	alias rd='rmdir'
