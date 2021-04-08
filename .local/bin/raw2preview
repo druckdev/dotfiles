@@ -13,7 +13,6 @@ extractRAW() {
 	[[ -n "$1" ]] || return
 	prev="./JPGs/${1%.*}.JPG"
 	if [[ ! -e "$prev" ]]; then
-		mkdir -p JPGs
 		exiftool -progress \
 		         -b \
 		         -PreviewImage \
@@ -26,14 +25,23 @@ extractRAW() {
 	fi
 }
 
+mkdir -p JPGs
 for file; do
-	if [[ "$(file -b --mime-type "$file")" = "image/x-canon-cr2" ]]; then
+	[[ -f $file ]] || continue
+
+	mime="$(file -b --mime-type "$file")"
+
+	if [[ $mime = image/x-canon-cr2 ]]; then
 		extractRAW "$file"
+
 	elif [[ "$(head -1 "$file")" = "#Geeqie collection" ]]; then
 		while read line; do
 			extractRAW "$file"
 		done <"$(sed -E '/^#/d;s/(^"|"$)//g' "$file")"
+
 	else
 		>&2 printf "Unrecognized format: $file\n"
+
 	fi
 done
+rmdir JPGs >/dev/null 2>&1
