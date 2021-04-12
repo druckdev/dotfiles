@@ -3,6 +3,8 @@
 
 # Ignore ctags
 /tags
+/tags.lock
+/tags.temp
 
 # Ignore vscode files
 .vscode
