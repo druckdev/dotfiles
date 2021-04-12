@@ -94,4 +94,8 @@ if (( $+commands[dircolors] )); then
 fi
 
 # Automatically start X on login after boot.
-[[ -n $DISPLAY || $XDG_VTNR -ne 1 ]] || exec startx
+# Do not use exec so that the zlogout is still read.
+if command -v startx &>/dev/null && [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+	startx
+	exit $?
+fi
