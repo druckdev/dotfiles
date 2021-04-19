@@ -23,5 +23,5 @@ echo "$1" | grep -Eq "^https://tu-berlin.zoom.us/(j|wc/join)/[0-9]*\?pwd=.+" || 
 link="$(echo "${1%?pwd=*}" | sed 's_/j/_/wc/join/_')"
 # Open link in private browser
 firefox --no-remote -P zoom --private-window "$link" >/dev/null 2>&1 &
-# Put password in clipboard
-echo -n "${1##*pwd=}" | xclip -selection c
+# Put password in clipboard if successful
+(( $? )) || echo -n "${1##*pwd=}" | xclip -selection c
