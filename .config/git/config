@@ -30,3 +30,5 @@
 [merge]
 	log = true
 	tool = nvimdiff
+[init]
+	defaultBranch = main
