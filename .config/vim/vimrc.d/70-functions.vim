@@ -7,3 +7,11 @@ function! CycleSpellLang()
 		set spelllang=en
 	endif
 endfunction
+
+" Check time every second to read file changes.
+if (exists('+autoread') && &autoread)
+	function! CheckTime(timer)
+		checktime
+	endfunc
+	execute timer_start(1000, 'CheckTime', {'repeat': -1})
+endif

@@ -53,9 +53,3 @@ else
 		autocmd VimLeave * silent !echo -ne "\e[5 q"
 	endif
 endif
-
-" Read file changes when cursor is not moved for &updatetime ms and then move
-" cursor to restart the timer
-if (exists('+autoread') && &autoread)
-	autocmd CursorHold * checktime | call feedkeys('hl')
-endif
