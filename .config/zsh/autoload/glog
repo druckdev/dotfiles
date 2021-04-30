@@ -7,6 +7,12 @@
 # extendedglob is necessary for the expansion of the binds array
 emulate -L zsh -o extendedglob
 
+# Return if fzf is not available
+if ! command -v fzf &>/dev/null; then
+	printf "command not found: fzf" >&2
+	return 1
+fi
+
 # Return if not in git repo
 git rev-parse || return
 
@@ -40,18 +46,29 @@ local dateshort='--date=format:%F' # year
 local date="$dateshort %T %z" # year time timezone
 
 # Put the commit hash into the clipboard
-local fzf_copy_command="echo -nE {} | sed -E '$commit_hash' | xclip -sel c"
+# (If no known clipboard tool is available, just print it)
+local fzf_copy_command="echo -nE {} | sed -E '$commit_hash'"
+if [[ $OSTYPE =~ darwin ]] && command -v pbcopy &>/dev/null; then
+	fzf_copy_command+=" | pbcopy"
+elif command -v xclip &>/dev/null; then
+	fzf_copy_command+=" | xclip -selection c"
+fi
 
 local -A fzf_preview
 read -r -d '' <<EOT
 	out="\$(echo -E {} | sed -E "$commit_hash")"; [[ -z "\$out" ]] ||
 EOT
 fzf_preview[construct]="$REPLY"
+
 read -r -d '' <<EOT
-	git show "${(j:%n:)format}" "$date" --color=always --patch-with-stat "\$out" \
-	| diff-so-fancy --color=always
+	git show "${(j:%n:)format}" "$date" --color=always --patch-with-stat "\$out"
 EOT
-fzf_preview[patch]="$fzf_preview[construct] { $REPLY }"
+fzf_preview[patch]="$fzf_preview[construct] { $REPLY"
+if command -v diff-so-fancy &>/dev/null; then
+	fzf_preview[patch]+=" | diff-so-fancy --color=always"
+fi
+fzf_preview[patch]+=" }"
+
 read -r -d '' <<EOT
 	git show "${(j:%n:)format}" "$date" --color=always --stat "\$out"
 EOT
@@ -62,7 +79,7 @@ local -A binds=(
 	"ctrl-alt-j" "preview-down"
 	"ctrl-alt-k" "preview-up"
 	# Copy commit hash
-	"ctrl-y" "execute-silent@$fzf_copy_command@"
+	"ctrl-y" "execute@$fzf_copy_command@"
 	# Open preview "fullscreen"
 	"enter" "execute@$fzf_preview[patch] | command less -R@"
 	# Clear query if not empty, abort otherwise
