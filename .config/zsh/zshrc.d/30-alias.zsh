@@ -110,6 +110,8 @@
 		)" gpg'
 	# Use a reasonable time format
 	alias date='env LC_TIME=tk_TM date'
+	# Use multiple jobs when making
+	alias make='make -j'
 
 # Named directories
 	for dir in "$HOME"/[^.]*(/); do
