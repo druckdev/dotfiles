@@ -6,6 +6,9 @@
 /tags.lock
 /tags.temp
 
+# clangd
+compile_flags.txt
+
 # Ignore vscode files
 .vscode
 
