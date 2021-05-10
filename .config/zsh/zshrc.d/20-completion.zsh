@@ -38,6 +38,10 @@ compdef nvim-man=man
 # Copy git completion for arguments
 compdef _git-log glog
 compdef _git-checkout git-checkout-worktree
+# Run git's completion once to avoid a `command not found` error when using the
+# completion functions on other programs without having completed something for
+# git before in the same session.
+_git &>/dev/null || true
 
 # Do not sort `git checkout`s completion
 zstyle ":completion:*:git-checkout:*" sort false
