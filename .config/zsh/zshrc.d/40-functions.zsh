@@ -288,15 +288,6 @@ trash() {
 	fi
 }
 
-## Open nemo in current directory if no argument is specified
-nemo() {
-	if (( ! $# )); then
-		command nemo .
-	else
-		command nemo "$@"
-	fi
-}
-
 ## Move one or more file(s) but keep a symlink to the new location.
 mvln() {
 	if (( # < 2 )); then
