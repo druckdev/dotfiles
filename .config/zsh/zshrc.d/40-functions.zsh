@@ -384,3 +384,22 @@ nvim-man() {
 		command man "$@"
 	fi
 }
+
+# Creates a git worktree checking it out the first argument in a temporary
+# directory that is deleted again, if the spawned subshell exits.
+git-checkout-worktree() {
+	local GIT_ROOT TEMP_DIR
+	GIT_ROOT="$(basename "$(git rev-parse --show-toplevel)")" || return
+	TEMP_DIR="$(mktemp -dp "${TMPDIR:-/tmp}" "$GIT_ROOT.XXXXX")"
+
+	git worktree add "$TEMP_DIR" "$1"
+	pushd -q "$TEMP_DIR"
+
+	# Start subshell
+	"$SHELL"
+
+	# Cleanup when exiting
+	popd -q
+	git worktree remove "$TEMP_DIR"
+	git worktree prune
+}
