@@ -30,7 +30,7 @@ local -a format=(
 	'Commit:      %cN %cE%Cred'      # blue commiter mail
 	'CommitDate:  %cd%Cblue'         # red commit date
 	'Signer:      %GS%Cgreen'        # signer name
-	'Fingerprint: %GF'               # pgp fingerprint
+	'Key (%G?):     %GK'             # pgp key used to sign
 	'%Creset%C(bold)'                # empty line
 	'    %s%Creset'                  # bold white subject
 	''                               # newline
