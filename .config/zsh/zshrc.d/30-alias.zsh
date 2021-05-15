@@ -35,7 +35,7 @@
 	# https://nilansanjaya.wordpress.com/2017/06/02/git-find-base-branch/
 	git_bb='git show-branch -a 2>/dev/null'
 	git_bb+=' | grep "^[^[]*[*-].*\["'
-	git_bb+=' | grep -v "^[^[]*\[$(git rev-parse --abbrev-ref HEAD)\]"'
+	git_bb+=' | grep -v "^[^[]*\[$(git rev-parse --abbrev-ref HEAD)[]~^]"'
 	git_bb+=' | head -n1'
 	git_bb+=' | sed -E "s/^[^[]*\[([^]~^]*).*$/\1/"'
 	alias git-base-branch="$git_bb"
