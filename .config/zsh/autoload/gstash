@@ -45,15 +45,6 @@ local commit_hash='s/^[^a-f0-9]*([a-f0-9]*).*$/\1/'
 local dateshort='--date=format:%F' # year
 local date="$dateshort %T %z" # year time timezone
 
-# Put the commit hash into the clipboard
-# (If no known clipboard tool is available, just print it)
-local fzf_copy_command="echo -nE {} | sed -E '$commit_hash'"
-if [[ $OSTYPE =~ darwin ]] && command -v pbcopy &>/dev/null; then
-	fzf_copy_command+=" | pbcopy"
-elif command -v xclip &>/dev/null; then
-	fzf_copy_command+=" | xclip -selection c"
-fi
-
 local -A fzf_preview
 read -r -d '' <<EOT
 	out="\$(echo -E {} | sed -E "$commit_hash")"; [[ -z "\$out" ]] ||
@@ -73,6 +64,15 @@ read -r -d '' <<EOT
 	git show "${(j:%n:)format}" "$date" --color=always --stat "\$out"
 EOT
 fzf_preview[stat]="$fzf_preview[construct] { $REPLY }"
+
+# Put the commit hash into the clipboard
+# (If no known clipboard tool is available, just print it)
+local fzf_copy_command="$fzf_preview[construct] echo \"\$out\""
+if [[ $OSTYPE =~ darwin ]] && command -v pbcopy &>/dev/null; then
+	fzf_copy_command+=" | pbcopy"
+elif command -v xclip &>/dev/null; then
+	fzf_copy_command+=" | xclip -selection c"
+fi
 
 local -A binds=(
 	"ctrl-space" "toggle-preview"
