@@ -37,8 +37,7 @@
 	git_bb+=' | grep "\*"'
 	git_bb+=' | grep -v "$(git rev-parse --abbrev-ref HEAD)"'
 	git_bb+=' | head -n1'
-	git_bb+=' | sed "s/.*\[\(.*\)\].*/\1/"'
-	git_bb+=' | sed "s/[\^~].*//"'
+	git_bb+=' | sed -E "s/^.*\[([^^~\]*)([~^].*)?\].*$/\1/"'
 	alias git-base-branch="$git_bb"
 	unset git_bb
 	# https://stackoverflow.com/a/1549155
