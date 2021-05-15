@@ -27,6 +27,7 @@
 	path = user.config
 [pull]
 	rebase = true
+	ff = yes
 [merge]
 	log = true
 	tool = nvimdiff
