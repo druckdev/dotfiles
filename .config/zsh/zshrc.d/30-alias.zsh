@@ -32,6 +32,17 @@
 	alias gd='git diff'
 	alias gl='git log'
 	alias gss='git stash'
+	# https://nilansanjaya.wordpress.com/2017/06/02/git-find-base-branch/
+	git_bb='git show-branch -a 2>/dev/null'
+	git_bb+=' | grep "\*"'
+	git_bb+=' | grep -v "$(git rev-parse --abbrev-ref HEAD)"'
+	git_bb+=' | head -n1'
+	git_bb+=' | sed "s/.*\[\(.*\)\].*/\1/"'
+	git_bb+=' | sed "s/[\^~].*//"'
+	alias git-base-branch="$git_bb"
+	unset git_bb
+	# https://stackoverflow.com/a/1549155
+	alias git-ancestor='git merge-base "$(git-base-branch)" HEAD'
 
 # Clipboard
 	if [[ $OSTYPE =~ darwin ]]; then
