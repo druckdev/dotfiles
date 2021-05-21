@@ -77,3 +77,9 @@ set autoread
 
 " Use tree style listing
 let g:netrw_liststyle=3
+
+
+" TermDebug
+
+" Have source view to the side of the splits of debugger and program
+autocmd SourcePost termdebug.vim let g:termdebug_wide = 1
