@@ -102,3 +102,10 @@ vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 " Select last pasted text in same visual mode as it was selected (v, V, or ^V)
 " Taken from: https://vim.fandom.com/wiki/Selecting_your_pasted_text
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+
+if exists('g:loaded_fugitive')
+	nnoremap <leader>cd :Gcd<CR>
+else
+	" only works if a file is already opened
+	nnoremap <leader>cd :cd %:h <Bar> cd `git rev-parse --show-toplevel`<CR>
+endif
