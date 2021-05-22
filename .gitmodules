@@ -44,6 +44,9 @@
 [submodule "vimtex"]
 	path = .config/vim/pack/plugins/opt/vimtex
 	url = https://github.com/lervag/vimtex
+[submodule "vim-fugitive"]
+	path = .config/vim/pack/plugins/opt/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive
 [submodule "vim-gitgutter"]
 	path = .config/vim/pack/plugins/opt/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter
