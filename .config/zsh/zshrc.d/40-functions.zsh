@@ -392,8 +392,15 @@ git-checkout-worktree() {
 
 	# Cleanup when exiting
 	popd -q
-	git worktree remove "$REPO_DIR"
-	git worktree prune
 
+	# Restart the subshell until every issue is resolved and the worktree is
+	# removed
+	until git worktree remove "$REPO_DIR"; do
+		pushd -q "$REPO_DIR"
+		"$SHELL"
+		popd -q
+	done
+
+	git worktree prune
 	command rm -rf "$TEMP_DIR"
 }
