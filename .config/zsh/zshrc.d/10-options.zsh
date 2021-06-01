@@ -66,6 +66,12 @@
 	setopt NO_MENU_COMPLETE
 
 # Expansion and Globbing #######################################################
+
+# Do not unset CHASE_GLOB under android as then globbing with absolute paths
+# breaks as the PWD is often in a path with subdirectories that are owned by
+# root and not world-readable (e.g. /data/data/).
+# I *believe* this is the reason for it.
+if [[ $OSTYPE != linux-android ]]; then
 	# Make globbing (filename generation) sensitive to case.  Note that other
 	# uses of patterns are always sensitive to case.  If the option is unset,
 	# the presence of any character which is special to filename generation will
@@ -73,6 +79,7 @@
 	# directory CVS owing to the presence of the globbing flag (unless the
 	# option BARE_GLOB_QUAL is unset).
 	setopt NO_CASE_GLOB
+fi
 
 	# Treat the `#', `~' and `^' characters as part of patterns for filename
 	# generation, etc.  (An initial unquoted `~' always produces named directory
