@@ -51,6 +51,9 @@
     ~/.local/share/nvim/site/pack:
         create: true
         path: .config/vim/pack
+    ~/.local/share/gnupg/gpg-agent.conf:
+        create: true
+        path: .local/share/gnupg/gpg-agent.conf
     .git/hooks/:
         create: true
         glob: true
