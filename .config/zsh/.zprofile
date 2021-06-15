@@ -9,6 +9,7 @@ export XDG_CONFIG_HOME XDG_CACHE_HOME XDG_DATA_HOME
 export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
+[[ -e $GNUPGHOME ]] || mkdir -p "$GNUPGHOME"
 export GOPATH="$XDG_DATA_HOME"/go
 export MPLAYER_HOME="$XDG_CONFIG_HOME"/mplayer
 export WGETRC="$XDG_CONFIG_HOME"/wget/wgetrc
