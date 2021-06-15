@@ -48,6 +48,8 @@ fi
 # SSH
 if (( $+commands[ssh-agent] )) && [[ ! $SSH_AGENT_PID ]]; then
 	eval "$(ssh-agent)" >/dev/null
+	# See .zlogout
+	LAUNCHED_SSH_AGENT=1
 fi
 
 # Editor
