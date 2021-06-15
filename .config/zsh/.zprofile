@@ -4,7 +4,7 @@
 : ${XDG_CONFIG_HOME:=$HOME/.config}
 : ${XDG_CACHE_HOME:=$HOME/.cache}
 : ${XDG_DATA_HOME:=$HOME/.local/share}
-export XDG_CONFIG_HOME XDG_CACHE_HOME XDG_DATA_HOME
+export XDG_{CONFIG,CACHE,DATA}_HOME
 
 export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 
@@ -23,8 +23,7 @@ export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/pass
 VIMINIT="let \$MYVIMRC=\"$XDG_CONFIG_HOME/vim/xdg.vim\" | source \$MYVIMRC"
 export VIMINIT
 
-export ANDROID_AVD_HOME="$XDG_DATA_HOME"/android/
-export ANDROID_EMULATOR_HOME="$XDG_DATA_HOME"/android/
+export ANDROID_{AVD,EMULATOR}_HOME="$XDG_DATA_HOME"/android/
 export ADB_VENDOR_KEY="$XDG_CONFIG_HOME"/android
 export ANDROID_SDK_HOME="$XDG_CONFIG_HOME"/android
 
