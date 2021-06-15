@@ -46,7 +46,9 @@ fi
 [[ ! -e "$XDG_CONFIG_HOME/locale.conf" ]] || . "$XDG_CONFIG_HOME/locale.conf"
 
 # SSH
-eval "$(ssh-agent)" >/dev/null
+if (( $+commands[ssh-agent] )) && [[ ! $SSH_AGENT_PID ]]; then
+	eval "$(ssh-agent)" >/dev/null
+fi
 
 # Editor
 if (( $+commands[nvim] )); then
