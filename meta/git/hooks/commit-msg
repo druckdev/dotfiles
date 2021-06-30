@@ -45,7 +45,7 @@ done
 BKP_IFS="$IFS"
 IFS='
 '
-for line in $($body); do
+for line in $body; do
 	[[ ${#line} -le 72 ]] || die "Body lines too long. (<= 72)\n"
 done
 IFS="$BKP_IFS"
