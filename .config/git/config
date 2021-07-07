@@ -33,3 +33,5 @@
 	tool = nvimdiff
 [init]
 	defaultBranch = main
+[push]
+	default = current
