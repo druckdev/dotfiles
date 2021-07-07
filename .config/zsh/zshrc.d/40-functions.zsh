@@ -364,10 +364,11 @@ cd() {
 # the first comment of the file.
 # Useful for example when the commit-msg hook fails but only slight
 # modifications are needed.
+# Additional arguments (for example `-n` to bypass the hooks) can be passed.
 git-commit-last-msg() {
 	local gitdir
 	gitdir="$(git rev-parse --git-dir)" || return
-	git commit -eF <(sed -n '/^#/q;p' "$gitdir/COMMIT_EDITMSG")
+	git commit -eF <(sed -n '/^#/q;p' "$gitdir/COMMIT_EDITMSG") "$@"
 }
 
 nvim-man() {
