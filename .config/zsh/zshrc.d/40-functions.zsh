@@ -256,8 +256,15 @@ crypt-mount() {
 	[[ $# -gt 0 ]] || return 1
 	[[ -e "$1" ]] || return 1
 
-	sudo cryptsetup open "$1" crypt_"${1##*/}" || return 1
-	udisksctl mount -b /dev/mapper/crypt_"${1##*/}"
+	local name=crypt_"${1##*/}"
+	sudo cryptsetup open "$1" "$name" || return 1
+	udisksctl mount -b /dev/mapper/"$name" || return 1
+	local mount_point="$(
+		findmnt -lo SOURCE,TARGET \
+			| grep -F /dev/mapper/"$name" \
+			| awk '{ print $2; }'
+	)"
+	[[ -d $mount_point ]] && cd "$mount_point"
 }
 
 crypt-umount() {
