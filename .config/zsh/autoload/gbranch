@@ -44,7 +44,9 @@ elif command -v xclip &>/dev/null; then
 	fzf_copy_command+=" | xclip -selection c"
 fi
 
-local AUTOLOAD_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload"
+# Get directory of this file
+# (When using the autoloaded function or executing this file directly)
+local AUTOLOAD_DIR="${${functions_source[${0:t}]:-$0}:A:h}"
 
 local -A binds=(
 	"ctrl-space" "toggle-preview"
