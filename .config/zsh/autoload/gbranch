@@ -1,0 +1,90 @@
+#!/usr/bin/zsh
+## Author:  druckdev
+## Created: 2021-05-15
+##
+## A TUI for displaying branches using fzf.
+## Displays `git branch -a` in fzf and git-log as preview for each branch.
+
+# extendedglob is necessary for the expansion of the binds array
+emulate -L zsh -o extendedglob
+
+# Return if fzf is not available
+if ! command -v fzf &>/dev/null; then
+	printf "command not found: fzf" >&2
+	return 1
+fi
+
+# Return if not in git repo
+git rev-parse || return
+
+# One line format for fzf list view
+# abbreviated commit hash (yellow), title and ref names
+local formatshort='--pretty=format:%C(yellow)%h %Creset%s%C(auto)%d'
+
+local dateshort='--date=format:%F' # year
+local date="$dateshort %T %z" # year time timezone
+
+local -A fzf_preview
+read -r -d '' <<EOT
+	out="\$(echo -En {} | cut -c3- | cut -d' ' -f1)"; [[ -z "\$out" ]] ||
+EOT
+fzf_preview[construct]="$REPLY"
+
+read -r -d '' <<EOT
+	git log "$formatshort" --graph "$dateshort" --color=always "\$out"
+EOT
+fzf_preview[log]="$fzf_preview[construct] { $REPLY }"
+
+# Put the commit hash into the clipboard
+# (If no known clipboard tool is available, just print it)
+local fzf_copy_command="$fzf_preview[construct] echo -n \"\$out\""
+if [[ $OSTYPE =~ darwin ]] && command -v pbcopy &>/dev/null; then
+	fzf_copy_command+=" | pbcopy"
+elif command -v xclip &>/dev/null; then
+	fzf_copy_command+=" | xclip -selection c"
+fi
+
+local AUTOLOAD_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload"
+
+local -A binds=(
+	"ctrl-space" "toggle-preview"
+	"ctrl-alt-j" "preview-down"
+	"ctrl-alt-k" "preview-up"
+	# Copy commit hash
+	"ctrl-y" "execute@$fzf_copy_command@"
+	# Open preview "fullscreen"
+	"enter" "execute@$fzf_preview[construct] "$AUTOLOAD_DIR"/glog \"\$out\"@"
+	# Clear query if not empty, abort otherwise
+	"esc" "cancel"
+)
+local -a fzf_args=(
+	# Understand ansi color escape sequences.
+	"--ansi"
+	# Expand the binds array in the format "key1:value1,key2:value2".
+	"--bind" "${(@kj:,:)binds/(#m)*/$MATCH:$binds[$MATCH]}"
+	# Execute git show on the commit as preview.
+	"--preview" "$fzf_preview[log]"
+	# Reverse the layout so that the newest commit is at the top.
+	"--reverse"
+	# Do not sort when typing to maintain the sorting by date.
+	"--no-sort"
+)
+
+# The preview-window should be placed differently depending on the dimensions of
+# the terminal.
+# 0.45 seems to be round about the ratio between cols and lines on my system.
+# With that I get somewhat decent results with. This probably depends on the
+# font and font-size of the terminal and needs to be changed potentially.
+local -a tty_size
+tty_size=(${=$(command stty size 2>/dev/null)})
+if (( ! $? )) && (( $tty_size[2] * 0.4 > $tty_size[1] )); then
+	fzf_args+=(--preview-window=right)
+else
+	fzf_args+=(--preview-window=down)
+fi
+
+# Display an ascii graph of the commits in the above format and pipe that into
+# fzf.
+git branch -a --color=always "$@" \
+| fzf "${fzf_args[@]}"
+return 0
