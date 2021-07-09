@@ -25,4 +25,7 @@ zstyle ':fzf-tab:complete:-parameter-:*' fzf-preview 'typeset -p1 "$word"'
 # Move down after selecting and yank with ctrl-y
 zstyle ':fzf-tab:complete:*' fzf-bindings 'ctrl-space:toggle+down' 'ctrl-y:yank'
 
+# Switch completion groups with the keys `.` & `,`
+zstyle ':fzf-tab:*' switch-group ',' '.'
+
 # vim: ft=zsh
