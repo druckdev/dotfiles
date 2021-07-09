@@ -1,3 +1,4 @@
+#!/usr/bin/zsh
 ## Author:  druckdev
 ## Created: 2019-11-28
 ##
@@ -36,5 +37,3 @@ style="{${style%,}}"
 # Overwrite the argument of the style flag with the parsed format file.
 set -- "${@[1, $idx - 1]}" "${prefix}${style}" "${@[$idx + 1, -1]}"
 command clang-format "$@"
-
-# vim: ft=zsh

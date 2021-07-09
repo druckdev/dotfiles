@@ -1,3 +1,4 @@
+#!/usr/bin/zsh
 ## Author:  druckdev
 ## Created: 2020-09-13
 ##
@@ -29,5 +30,3 @@ for arg in "$@"; do
 
 	separator="\n"
 done
-
-# vim: ft=zsh

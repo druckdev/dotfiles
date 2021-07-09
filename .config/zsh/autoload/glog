@@ -1,3 +1,4 @@
+#!/usr/bin/zsh
 ## Author:  druckdev
 ## Created: 2020-08-28
 ##
@@ -121,5 +122,3 @@ fi
 git log "$formatshort" --graph "$dateshort" --color=always "$@" \
 | fzf "${fzf_args[@]}"
 return 0
-
-# vim: ft=zsh

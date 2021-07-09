@@ -1,3 +1,4 @@
+#!/usr/bin/zsh
 ## Author:  druckdev
 ## Created: 2021-05-14
 ##
@@ -121,5 +122,3 @@ fi
 git stash list "$formatshort" --color=always "$@" \
 | fzf "${fzf_args[@]}"
 return 0
-
-# vim: ft=zsh

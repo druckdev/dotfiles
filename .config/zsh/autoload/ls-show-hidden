@@ -1,3 +1,4 @@
+#!/usr/bin/zsh
 ## Author:  druckdev
 ## Created: 2019-10-21
 ##
@@ -83,5 +84,3 @@ for dir in ${(@f)dirs}; do
 	command $LS_COMMAND "$@" $all_flag -- "$dir"
 	separator="\n"
 done
-
-# vim: ft=zsh
