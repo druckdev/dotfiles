@@ -28,4 +28,7 @@ zstyle ':fzf-tab:complete:*' fzf-bindings 'ctrl-space:toggle+down' 'ctrl-y:yank'
 # Switch completion groups with the keys `.` & `,`
 zstyle ':fzf-tab:*' switch-group ',' '.'
 
+# Remove color preview symbol
+zstyle ':fzf-tab:*' prefix ''
+
 # vim: ft=zsh
