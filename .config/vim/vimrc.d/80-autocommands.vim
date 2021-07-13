@@ -53,3 +53,6 @@ else
 		autocmd VimLeave * silent !echo -ne "\e[5 q"
 	endif
 endif
+
+" Custom bindings when debugging
+autocmd SourcePost termdebug.vim tnoremap <Esc> <C-\><C-n>
