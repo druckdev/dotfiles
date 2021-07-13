@@ -34,6 +34,10 @@ for file; do
 	if [[ $mime = image/x-canon-cr2 ]]; then
 		extractRAW "$file"
 
+	elif [[ $mime = image/tiff ]]; then
+		prev="./JPGs/${file%.*}.JPG"
+		[[ -e "$prev" ]] || convert "$file" "$prev"
+
 	elif [[ "$(head -1 "$file")" = "#Geeqie collection" ]]; then
 		while read line; do
 			extractRAW "$file"
