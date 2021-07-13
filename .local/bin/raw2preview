@@ -48,4 +48,4 @@ for file; do
 
 	fi
 done
-rmdir JPGs >/dev/null 2>&1
+rmdir JPGs >/dev/null 2>&1 || true
