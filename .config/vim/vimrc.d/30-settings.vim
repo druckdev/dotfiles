@@ -1,4 +1,4 @@
-" Settings #####################################################################
+" Settings """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " hybrid linenumbers
 set number relativenumber
 " no timeout when exiting insert-mode

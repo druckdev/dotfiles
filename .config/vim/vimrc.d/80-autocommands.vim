@@ -1,4 +1,4 @@
-" Autocommands #################################################################
+" Autocommands """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Highlight trailing whitespaces
 " (https://vim.fandom.com/wiki/Highlight_unwanted_spaces)
 " Create highlight group

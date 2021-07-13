@@ -1,4 +1,4 @@
-" Functions ####################################################################
+" Functions """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Toggle spell language between German and English
 function! CycleSpellLang()
 	if (&spelllang == 'en')

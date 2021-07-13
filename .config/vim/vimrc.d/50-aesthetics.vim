@@ -1,4 +1,4 @@
-" Aesthetics ###################################################################
+" Aesthetics """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use 24-bit (true-color) mode
 if (has('termguicolors'))
 	set termguicolors

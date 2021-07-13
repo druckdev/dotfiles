@@ -1,4 +1,4 @@
-" Keybindings ##################################################################
+" Keybindings """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Stop highlighting search result when pressing Return
 nnoremap <silent> <CR> :nohlsearch<CR><CR>
 
