@@ -116,47 +116,16 @@ function cmd-on-enter {
 		CMD_ON_ENTER=ls
 	fi
 	zle accept-line
-
-	# See fzf-hist below
-	FZF_HIST_WENT_UP=
 }
 zle -N cmd-on-enter
 bindkey "^M" cmd-on-enter
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(cmd-on-enter)
 
-# "Scroll" through history if buffer was empty but use it as query for fzf over
-# command line history if not (similar to substring-search but with fzf)
-function fzf-hist-up {
-	if [[ -z "$BUFFER" || "$FZF_HIST_WENT_UP" -eq 1 ]]; then
-		zle up-line-or-history
-		FZF_HIST_WENT_UP=1
-	else
-		# Will take BUFFER as query
-		fzf-history-widget
-	fi
-}
-function fzf-hist-down {
-	zle down-line-or-history
-	[[ -n "$BUFFER" ]] || FZF_HIST_WENT_UP=
-}
-zle -N fzf-hist-up
-zle -N fzf-hist-down
-
 ## History
-# Up
-bindkey '^[[A' fzf-hist-up
-bindkey "$terminfo[kcuu1]" fzf-hist-up
 # Ctrl-Up
 bindkey '^[[1;5A' fzf-history-widget
-# Down
-bindkey '^[[B' fzf-hist-down
-bindkey "$terminfo[kcud1]" fzf-hist-down
-# Ctrl-K
-bindkey '^K' fzf-hist-up
 # Ctrl-K in normal mode
 bindkey -M vicmd '^K' fzf-history-widget
-# Ctrl-J
-bindkey '^J' fzf-hist-down
 
 # Fuzzy finder bindings:
 # ^T fzf-file-widget
