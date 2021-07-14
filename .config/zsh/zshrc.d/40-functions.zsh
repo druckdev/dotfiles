@@ -412,3 +412,20 @@ git-checkout-worktree() {
 	git worktree prune
 	command rm -rf "$TEMP_DIR"
 }
+
+# This is meant for adding a quick fix to a commit.
+# It automatically rebases a given commit (defaults to HEAD), applies the given
+# stash (defaults to last) and finishes the rebase.
+git-rebase-add-stash() {
+	: ${1:=HEAD~}
+	[[ "$(git cat-file -t "$1")" = "commit" ]] || return 1
+	(( $(git stash list | wc -l) )) || { echo "No stashes" >&2; return 1; }
+
+	# Substitute the first 'pick' with 'edit' in the rebase todo, apply the
+	# stash & finish
+	EDITOR='sed -i "1s/^pick/edit/"' \
+		git rebase -i "$1" &&
+		git stash apply "${2:-0}" &&
+		git add -u &&
+		git rebase --continue
+}
