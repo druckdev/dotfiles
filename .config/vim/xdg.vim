@@ -51,5 +51,5 @@ set packpath-=~/.vim          packpath^=$XDG_CONFIG_HOME/vim
 
 " Source everything in vimrc.d/
 for file in split(glob($XDG_CONFIG_HOME . '/vim/vimrc.d/**/*.vim'), '\n')
-      execute 'source' file
+	execute 'source' file
 endfor
