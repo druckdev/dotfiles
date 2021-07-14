@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 TAGS_TO_TRANSFER=(
 	-Orientation

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # The separation and recursion is sadly necessary since reload is apparently
 # executed in a subshell and thus using an environment variable does not work

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 XDG_CONF="${XDG_CONFIG_HOME:-$HOME/.config}"
 BASE_DIR="$XDG_CONF/polybar"

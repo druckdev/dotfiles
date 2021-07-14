@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Inspired by https://github.com/cramermarius/rofi-menus/blob/master/scripts/powermenu.sh
 
 # entries with associated commands

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ## This runs as a crontab every 5minutes ('*/5 *   * * * /usr/local/bin/wifi-mute')
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 [[ $# -eq 1 ]] || { echo "Specify what to do" >&2; exit 1; }
 

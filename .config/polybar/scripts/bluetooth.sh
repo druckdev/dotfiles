@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # See https://github.com/polybar/polybar-scripts/pull/237
 
 bluetooth_print() {

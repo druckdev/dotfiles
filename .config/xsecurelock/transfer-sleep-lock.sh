@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # !Modified! /usr/share/doc/xss-lock/transfer-sleep-lock-generic-delay.sh
 
 # Example locker script -- demonstrates how to use the --transfer-sleep-lock
