@@ -393,6 +393,7 @@ git-checkout-worktree() {
 	REPO_DIR="$TEMP_DIR/$GIT_ROOT"
 
 	git worktree add "$REPO_DIR" "$1"
+	[[ -e "$REPO_DIR" ]] || return 1
 	pushd -q "$REPO_DIR"
 
 	# Start subshell
@@ -403,7 +404,7 @@ git-checkout-worktree() {
 
 	# Restart the subshell until every issue is resolved and the worktree is
 	# removed
-	until git worktree remove "$REPO_DIR"; do
+	until [[ ! -e "$REPO_DIR" ]] || git worktree remove "$REPO_DIR"; do
 		pushd -q "$REPO_DIR"
 		"$SHELL"
 		popd -q
