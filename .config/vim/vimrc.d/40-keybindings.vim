@@ -110,3 +110,6 @@ else
 	" only works if a file is already opened
 	nnoremap <leader>cd :cd %:h <Bar> cd `git rev-parse --show-toplevel`<CR>
 endif
+
+" Y should behave like D & C does
+nnoremap Y y$
