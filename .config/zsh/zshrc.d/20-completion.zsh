@@ -1,4 +1,4 @@
-[[ ! -d "$ZSH_CONF/completion" ]] || fpath=("$ZSH_CONF/completion" $fpath)
+[[ ! -d "$ZDOTDIR/completion" ]] || fpath=("$ZDOTDIR/completion" $fpath)
 
 autoload -Uz compinit
 compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump-$ZSH_VERSION"

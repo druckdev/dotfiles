@@ -131,4 +131,4 @@ bindkey -M vicmd '^K' fzf-history-widget
 # ^T fzf-file-widget
 # \ec (Alt-C) fzf-cd-widget
 # ^R fzf-history-widget
-comp-source "$ZSH_CONF/fzf/shell/key-bindings.zsh"
+comp-source "$ZDOTDIR/plugins/fzf/shell/key-bindings.zsh"
