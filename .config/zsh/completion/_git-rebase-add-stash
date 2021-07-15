@@ -1,0 +1,3 @@
+#compdef git-rebase-add-stash
+
+_arguments '1:commit:__git_commits_prefer_recent' '2:stash:__git_stashes'
