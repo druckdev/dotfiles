@@ -98,7 +98,7 @@ endif
 
 " Search for selected text.
 " Taken from https://vim.fandom.com/wiki/Search_for_visually_selected_text
-vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+vnoremap / y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 " Select last pasted text in same visual mode as it was selected (v, V, or ^V)
 " Taken from: https://vim.fandom.com/wiki/Selecting_your_pasted_text
