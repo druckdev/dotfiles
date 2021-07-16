@@ -1,4 +1,7 @@
 " Plugins """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if (!exists('g:vscode'))
+
 " Load all plugins in pack/*/start
 packloadall
 
@@ -17,3 +20,5 @@ let g:gutentags_ctags_exclude = [
 	\ '.git/*',
 	\ 'build/*'
 \]
+
+endif " !exists('g:vscode')"

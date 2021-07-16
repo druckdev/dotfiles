@@ -1,4 +1,7 @@
 " Aesthetics """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if (!exists('g:vscode'))
+
 " Use 24-bit (true-color) mode
 if (has('termguicolors'))
 	set termguicolors
@@ -40,3 +43,5 @@ if (get(g:, 'loaded_fzf'))
 	" Use a theme for bat in the preview that somewhat resembles onedark
 	let $BAT_THEME='TwoDark'
 endif
+
+endif " !exists('g:vscode')

@@ -1,4 +1,7 @@
 " Autocommands """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if (!exists('g:vscode'))
+
 " Highlight trailing whitespaces
 " (https://vim.fandom.com/wiki/Highlight_unwanted_spaces)
 " Create highlight group
@@ -14,6 +17,8 @@ autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 " Clear all matches
 autocmd BufWinLeave * call clearmatches()
 
+endif " !exists('g:vscode')
+
 " Terminal
 if (has('nvim'))
 	" Disable spellcheck
@@ -21,6 +26,8 @@ if (has('nvim'))
 endif
 
 " change cursor shape depending on mode
+if (!exists('g:vscode'))
+
 if (has('nvim'))
 	" Beam when exiting
 	autocmd VimLeave * silent !echo -ne "\e[5 q"
@@ -53,6 +60,8 @@ else
 		autocmd VimLeave * silent !echo -ne "\e[5 q"
 	endif
 endif
+
+endif " !exists('g:vscode')
 
 " Custom bindings when debugging
 autocmd SourcePost termdebug.vim tnoremap <Esc> <C-\><C-n>
