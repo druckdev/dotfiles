@@ -32,6 +32,9 @@
 [submodule "coc.nvim"]
 	path = .config/vim/pack/plugins/opt/coc.nvim
 	url = https://github.com/neoclide/coc.nvim
+[submodule "Colorizer"]
+	path = .config/vim/pack/plugins/opt/Colorizer
+	url = https://github.com/chrisbra/Colorizer
 [submodule "delimitMate"]
 	path = .config/vim/pack/plugins/opt/delimitMate
 	url = https://github.com/Raimondi/delimitMate
