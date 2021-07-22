@@ -7,4 +7,7 @@
 #     Chooses a suggestion based on what tab-completion would suggest.
 ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion)
 
+ZSH_AUTOSUGGEST_MATCH_NUM_PREV_CMDS=2
+ZSH_AUTOSUGGEST_MATCH_PREV_MAX_CMDS=-1
+
 # vim: ft=zsh
