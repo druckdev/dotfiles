@@ -71,7 +71,6 @@
 	alias pdf2t{e,}xt='pdftotext'
 	alias rm='printf "\033[1;031mUse trash!\n\033[0m"; false'
 	alias battery='cat /sys/class/power_supply/BAT0/capacity'
-	alias qrdecode='zbarimg'
 	alias loadhist='fc -RI'
 	alias hex='xxd'
 	alias bin='xxd -b -c4 | cut -d" " -f2-5'
