@@ -286,14 +286,16 @@ crypt-umount() {
 	udisksctl power-off -b "$1"
 }
 
-## List items in trash if no argument is specified
-trash() {
-	if (( ! $# )); then
-		command trash-list
-	else
-		command trash "$@"
-	fi
-}
+if (( $+commands[trash] )); then
+	## List items in trash if no argument is specified
+	trash() {
+		if (( ! $# )); then
+			command trash-list
+		else
+			command trash "$@"
+		fi
+	}
+fi
 
 ## Move one or more file(s) but keep a symlink to the new location.
 mvln() {
