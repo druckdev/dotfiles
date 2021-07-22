@@ -1,22 +1,37 @@
 ## Author:  druckdev
 ## Created: 2019-01-16
 
+# Helper functions for this file. Are `unfunction`ed at the end.
+	is_exec() {
+		(( $# > 0 )) || return 1
+		(( $+commands[$1] || $+aliases[$1] || $+functions[$1] ))
+	}
+
+	add_flags() {
+		(( $# >= 2 )) || (( $+commands[$1])) || return 0
+
+		alias "$1"="$*"
+	}
+
 # Default flags
-	alias ls='ls-show-hidden --color=auto --group-directories-first -p -v'
-	alias grep='grep --color'
-	alias cp='cp -i'
-	alias mv='mv -i'
-	alias rm='rm -I'
-	alias less='less -N'
-	alias lsblk='lsblk -o NAME,LABEL,FSTYPE,SIZE,FSAVAIL,MOUNTPOINT'
-	alias feh='feh -.'
+	(( ! $+functions[ls-show-hidden] )) ||
+		alias ls='ls-show-hidden --color=auto --group-directories-first -p -v'
+	add_flags grep --color
+	add_flags cp -i
+	add_flags mv -i
+	add_flags rm -I
+	add_flags less -N
+	add_flags lsblk -o NAME,LABEL,FSTYPE,SIZE,FSAVAIL,MOUNTPOINT
+	add_flags feh -.
+	# Use multiple jobs when making
+	add_flags make -j
 
 # XDG Base Directory Specification
-	alias tmux='tmux -f "${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf"'
-	alias tmsu='tmsu -D "${XDG_DATA_HOME:-$HOME/.local/share}/tmsu/db"'
-	alias yarn='yarn --use-yarnrc "${XDG_CONFIG_HOME:-$HOME/.config}"/yarn/config'
-	alias bash='bash --rcfile "${XDG_CONFIG_HOME:-$HOME/.config}"/bash/bashrc'
-	alias mbsync='mbsync -c "$XDG_CONFIG_HOME"/isync/mbsyncrc'
+	add_flags tmux -f "${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf"
+	add_flags tmsu -D "${XDG_DATA_HOME:-$HOME/.local/share}/tmsu/db"
+	add_flags yarn --use-yarnrc "${XDG_CONFIG_HOME:-$HOME/.config}"/yarn/config
+	add_flags bash --rcfile "${XDG_CONFIG_HOME:-$HOME/.config}"/bash/bashrc
+	add_flags mbsync -c "$XDG_CONFIG_HOME"/isync/mbsyncrc
 
 # Global
 	alias -g G='| grep'
@@ -62,25 +77,31 @@
 	alias ll='l -A'
 	alias cd..='cd ..'
 	alias cl='() { cd "$@" && ls }'
-	alias pdf='zathura --fork &>/dev/null'
-	alias geeqie='launch qeeqie'
+	(( ! $+commands[zathura] )) || alias pdf='zathura --fork &>/dev/null'
+	(( ! $+commands[geeqie] )) || alias geeqie='launch qeeqie'
 	alias rd='rmdir'
 	alias md='mkdir -p'
 	alias o='xdg-open'
 	alias :{q,Q}='exit'
 	alias pdf2t{e,}xt='pdftotext'
-	alias rm='printf "\033[1;031mUse trash!\n\033[0m"; false'
+	(( ! $+commands[trash] )) ||
+		alias rm='printf "\033[1;031mUse trash!\n\033[0m"; false'
 	alias battery='cat /sys/class/power_supply/BAT0/capacity'
 	alias loadhist='fc -RI'
-	alias hex='xxd'
-	alias bin='xxd -b -c4 | cut -d" " -f2-5'
+	if (( $+commands[xxd] )); then
+		alias hex='xxd'
+		alias bin='xxd -b -c4 | cut -d" " -f2-5'
+	fi
 	if (( $+commands[nvim] )); then
 		alias vim='jobs | grep -q nvim && {fg;:;} || nvim'
 		alias vimdiff='nvim --cmd "set list" -c "set listchars=tab:>·,space:·" -d'
 	fi
-	alias v='vim'
-	alias vi='vim'
-	alias man='nvim-man'
+	! is_exec vim ||
+		alias vi='vim'
+	! is_exec vi ||
+		alias v='vi'
+	(( ! $+commands[man] )) ||
+		alias man='nvim-man'
 	alias resetCursor='echo -ne "\e[5 q"'
 	alias makeThisScratchpad='echo -ne "\033]0;scratchpad-terminal\007"'
 	# grep filenames and date entries in exiftool
@@ -119,8 +140,6 @@
 		)" gpg'
 	# Use a reasonable time format
 	alias date='env LC_TIME=tk_TM date'
-	# Use multiple jobs when making
-	alias make='make -j'
 
 # Named directories
 	for dir in "$HOME"/[^.]*(/); do
@@ -147,3 +166,5 @@
 		hash -d sose="$(echo ~uni/[0-9][0-9]-SoSe(NnOn[1]))"
 		hash -d wise="$(echo ~uni/[0-9][0-9]-WiSe(NnOn[1]))"
 	fi
+
+unfunction add_flags is_exec
