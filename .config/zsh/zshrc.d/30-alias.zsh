@@ -46,17 +46,15 @@
 	alias git-ancestor='git merge-base "$(git-base-branch)" HEAD'
 
 # Clipboard
+	(( ! $+commands[perl] )) || SETCLIP_PREFIX="perl -pe 'chomp if eof' | "
 	if [[ $OSTYPE =~ darwin ]]; then
-		alias getclip="pbpaste"
-		SETCLIP_COMMAND="pbcopy"
-	else
+		(( ! $+commands[pbpaste] )) || alias getclip="pbpaste"
+		(( ! $+commands[pbcopy] ))  || alias setclip="${SETCLIP_PREFIX}pbcopy"
+	elif (( $+commands[xclip] )); then
 		alias getclip="xclip -selection c -o"
-		SETCLIP_COMMAND="xclip -selection c"
+		alias setclip="${SETCLIP_PREFIX}xclip -selection c"
 	fi
-	! command -v perl &>/dev/null \
-		|| SETCLIP_COMMAND="perl -pe 'chomp if eof' | $SETCLIP_COMMAND"
-	alias setclip="$SETCLIP_COMMAND"
-	unset SETCLIP_COMMAND
+	unset SETCLIP_PREFIX
 
 # Save keystrokes and my memory
 	alias la='ls -A'
