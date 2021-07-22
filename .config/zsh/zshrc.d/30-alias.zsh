@@ -20,7 +20,9 @@
 
 # Global
 	alias -g G='| grep'
+	alias -g no1='>/dev/null'
 	alias -g no2='2>/dev/null'
+	alias -g noO='&>/dev/null'
 
 # Git
 	alias g='git'
