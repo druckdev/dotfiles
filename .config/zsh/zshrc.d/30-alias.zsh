@@ -77,31 +77,13 @@
 	alias ll='l -A'
 	alias cd..='cd ..'
 	alias cl='() { cd "$@" && ls }'
-	(( ! $+commands[zathura] )) || alias pdf='zathura --fork &>/dev/null'
-	(( ! $+commands[geeqie] )) || alias geeqie='launch qeeqie'
 	alias rd='rmdir'
 	alias md='mkdir -p'
 	alias o='xdg-open'
 	alias :{q,Q}='exit'
 	alias pdf2t{e,}xt='pdftotext'
-	(( ! $+commands[trash] )) ||
-		alias rm='printf "\033[1;031mUse trash!\n\033[0m"; false'
 	alias battery='cat /sys/class/power_supply/BAT0/capacity'
 	alias loadhist='fc -RI'
-	if (( $+commands[xxd] )); then
-		alias hex='xxd'
-		alias bin='xxd -b -c4 | cut -d" " -f2-5'
-	fi
-	if (( $+commands[nvim] )); then
-		alias vim='jobs | grep -q nvim && {fg;:;} || nvim'
-		alias vimdiff='nvim --cmd "set list" -c "set listchars=tab:>·,space:·" -d'
-	fi
-	! is_exec vim ||
-		alias vi='vim'
-	! is_exec vi ||
-		alias v='vi'
-	(( ! $+commands[man] )) ||
-		alias man='nvim-man'
 	alias resetCursor='echo -ne "\e[5 q"'
 	alias makeThisScratchpad='echo -ne "\033]0;scratchpad-terminal\007"'
 	# grep filenames and date entries in exiftool
@@ -140,6 +122,28 @@
 		)" gpg'
 	# Use a reasonable time format
 	alias date='env LC_TIME=tk_TM date'
+
+# External command depending aliases
+	(( ! $+commands[zathura] )) ||
+		alias pdf='zathura --fork &>/dev/null'
+	(( ! $+commands[geeqie] )) ||
+		alias geeqie='launch qeeqie'
+	(( ! $+commands[trash] )) ||
+		alias rm='printf "\033[1;031mUse trash!\n\033[0m"; false'
+	if (( $+commands[xxd] )); then
+		alias hex='xxd'
+		alias bin='xxd -b -c4 | cut -d" " -f2-5'
+	fi
+	if (( $+commands[nvim] )); then
+		alias vim='jobs | grep -q nvim && {fg;:;} || nvim'
+		alias vimdiff='nvim --cmd "set list" -c "set listchars=tab:>·,space:·" -d'
+	fi
+	! is_exec vim ||
+		alias vi='vim'
+	! is_exec vi ||
+		alias v='vi'
+	(( ! $+commands[man] )) ||
+		alias man='nvim-man'
 
 # Named directories
 	for dir in "$HOME"/[^.]*(/); do
