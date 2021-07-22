@@ -113,3 +113,9 @@ endif
 
 " Y should behave like D & C does
 nnoremap Y y$
+
+" Move lines up and down while correcting the indentation
+nnoremap <A-Up> ddkP==
+nnoremap <A-Down> ddp==
+vmap <A-Up> dkPgp=gv
+vmap <A-Down> dpgp=gv
