@@ -34,7 +34,7 @@ zstyle ':completion:*:(diff|meld|trash):*' ignore-line yes
 # Use completion of commands for their wrapper functions
 compdef ls-show-hidden=ls
 compdef nvim-man=man
-#
+
 # Copy git completion for arguments
 compdef _git-log glog
 compdef _git-checkout git-checkout-worktree
