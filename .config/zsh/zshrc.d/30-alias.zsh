@@ -99,10 +99,6 @@
 	alias lowres='() {
 		xrandr -s 1920x1080; $1 "${@[2,-1]}"; xrandr -s 3200x1800
 	}'
-	# Create copy with .bkp extension
-	alias bkp='() { for f; do command cp -i "$f"{,.bkp}; done }'
-	# Reverse bkp()
-	alias unbkp='() { for f; do command cp -i "$f" "${f%.bkp}; done }'
 	# Grep in history file
 	alias histgrep='() { grep "$@" "${HISTFILE:-$HOME/.zsh_history}" }'
 	# URL-encode

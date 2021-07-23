@@ -432,3 +432,21 @@ git-rebase-add-stash() {
 		git add -u &&
 		git rebase --continue
 }
+
+# Create copy with a .bkp extension
+bkp() {
+	for f; do
+		command cp -i "$f"{,.bkp}
+	done
+}
+
+# Reverse bkp()
+unbkp() {
+	for f; do
+		if [[ ${f%.bkp} != $f ]]; then
+			command mv -i "$f" "${f%.bkp}"
+		elif [[ -e $f.bkp ]]; then
+			command mv -i "$f.bkp" "$f"
+		fi
+	done
+}
