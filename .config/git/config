@@ -35,3 +35,5 @@
 	defaultBranch = main
 [push]
 	default = current
+[advice]
+	detachedHead = off
