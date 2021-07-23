@@ -10,7 +10,7 @@
 	add_flags() {
 		(( $# >= 2 )) || (( $+commands[$1])) || return 0
 
-		alias "$1"="$*"
+		alias "$1"="${aliases[$1]:-$1} ${*[2,-1]}"
 	}
 
 # Default flags
