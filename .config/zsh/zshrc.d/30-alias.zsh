@@ -13,6 +13,19 @@
 		alias "$1"="${aliases[$1]:-$1} ${*[2,-1]}"
 	}
 
+# Create aliases for coreutils versions of commands under OSX.
+# NOTE: This should come before any other alias definitions of these commands as
+#       otherwise this block would overwrite them.
+if [[ $OSTYPE =~ darwin && -e /usr/local/Cellar/coreutils ]]; then
+	for f in /usr/local/Cellar/coreutils/*/bin/g*; do
+		no_gnu_file="${f/bin\/g/bin\/}"
+		[[ -e $f && ! -e $no_gnu_file ]] || continue
+
+		alias "${no_gnu_file:t}"="${f:t}"
+	done
+	unset f no_gnu_file
+fi
+
 # Default flags
 	(( ! $+functions[ls-show-hidden] )) ||
 		alias ls='ls-show-hidden --color=auto --group-directories-first -p -v'
