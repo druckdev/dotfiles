@@ -50,6 +50,8 @@
         create: true
         glob: true
         path: .local/bin/*
+    ~/.local/share/direnv:
+        path: .local/share/direnv
     ~/.local/share/man/man1/:
         create: true
         glob: true
