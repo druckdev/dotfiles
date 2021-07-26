@@ -2,6 +2,9 @@
     -
       command: chsh -s "$(command -v zsh)"
       description: Changing login shell to zsh
+      stdin: true
+      stdout: true
+      stderr: true
     -
       command: meta/git-remote
       description: Updating git remote to use ssh
