@@ -102,3 +102,18 @@ if command -v startx &>/dev/null && [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]]; then
 	startx
 	exit $?
 fi
+
+# Attach to tmux session if connected over ssh and not already attached
+if [[ (-n $SSH_CLIENT || -n $SSH_TTY || -n $SSH_CONNECTION) && -z $TMUX ]]; then
+	num_sessions="$(tmux list-sessions 2>/dev/null | wc -l)"
+
+	if (( ! num_sessions )); then
+		tmux
+	elif (( num_sessions == 1 )); then
+		tmux attach
+	else
+		tmux attach\; choose-tree -Zs
+	fi
+
+	unset num_sessions
+fi
