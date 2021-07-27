@@ -450,3 +450,13 @@ unbkp() {
 		fi
 	done
 }
+
+# Create a virtual environment for python including a .envrc that loads the venv
+create_venv() {
+	[[ ! -e venv ]] || return 0
+	python -m venv venv
+	if (( $+commands[direnv] )); then
+		ln -s ~/.local/share/direnv/templates/python-venv.envrc .envrc
+		direnv allow
+	fi
+}
