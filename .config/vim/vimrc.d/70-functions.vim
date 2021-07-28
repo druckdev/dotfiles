@@ -15,3 +15,11 @@ if (exists('+autoread') && &autoread)
 	endfunc
 	execute timer_start(1000, 'CheckTime', {'repeat': -1})
 endif
+
+function! CdGitRoot()
+	let root_dir = system('git rev-parse --show-toplevel')
+	if v:shell_error
+		return
+	endif
+	cd root_dir
+endfunction

@@ -17,6 +17,9 @@ zstyle ":fzf-tab:complete:(${(j:|:)file_commands}):*" fzf-preview "$preview_cmd"
 zstyle ":fzf-tab:complete:(${(j:|:)file_commands}):options" fzf-preview
 unset {file,dir}_prev_cmd preview_cmd file_commands
 
+zstyle ':fzf-tab:complete:git-checkout:*' fzf_preview 'echo $word'
+#zstyle ':fzf-tab:complete:git-checkout:options' fzf-preview
+# zstyle ":fzf-tab:complete:git-stash-pop:argument-1" fzf_preview 'echo $realpath'
 # Preview variables
 # TODO: Only works with exported values as this is executed in a subshell. Is
 #       there a way around this? I fear not...

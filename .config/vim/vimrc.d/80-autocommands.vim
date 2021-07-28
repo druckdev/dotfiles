@@ -54,5 +54,13 @@ else
 	endif
 endif
 
+autocmd VimEnter * if bufname("%") == "" | :call CdGitRoot() | endif
+" if (exists(":Gcd") == "2")
+" 	autocmd VimEnter * if bufname("%") == "" | :Gcd | endif
+" else
+" 	autocmd VimEnter * if bufname("%") == "" | :cd `git rev-parse --show-toplevel` | endif
+" endif
+
 " Custom bindings when debugging
+" (Mayble only when really debugging? Is something set?)
 autocmd SourcePost termdebug.vim tnoremap <Esc> <C-\><C-n>

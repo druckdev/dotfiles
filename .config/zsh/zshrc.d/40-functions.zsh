@@ -253,6 +253,8 @@ safe-remove() {
 }
 
 crypt-mount() {
+	# This is set for the whole session
+	# emulate -L zsh -o err_exit
 	[[ $# -gt 0 ]] || return 1
 	[[ -e "$1" ]] || return 1
 

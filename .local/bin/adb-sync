@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# TODO: Fix recursion (Make function?)
+# TODO: Fix whitespaces
+# Find directories that do not contain subdirectories
+# TODO: Take path and remove that one instead of ./
+dirs=( $(find . -type d -links 2 | cut -d/ -f2-) )
+for dir in "${dirs[@]}"; do
+	echo "$dir"
+	command adb-sync -R /sdcard/"$dir"/ "$dir"
+done

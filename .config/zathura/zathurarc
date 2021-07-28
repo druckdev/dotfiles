@@ -15,7 +15,8 @@ set recolor-keephue true
 set recolor-reverse-video true
 
 # Search while typing
-# set incremental-search true
+set incremental-search true
+set abort-clear-search false
 
 # vimtex
 set synctex true

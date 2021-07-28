@@ -5,7 +5,7 @@
 #     Won't work as expected with HIST_IGNORE_ALL_DUPS or HIST_EXPIRE_DUPS_FIRST
 # completion:
 #     Chooses a suggestion based on what tab-completion would suggest.
-ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion)
+ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd)
 
 ZSH_AUTOSUGGEST_MATCH_NUM_PREV_CMDS=2
 ZSH_AUTOSUGGEST_MATCH_PREV_MAX_CMDS=-1

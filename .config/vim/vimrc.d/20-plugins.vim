@@ -17,3 +17,8 @@ let g:gutentags_ctags_exclude = [
 	\ '.git/*',
 	\ 'build/*'
 \]
+
+let g:gutentags_extra_args = []
+
+" :help TermDebug
+" packadd termdebug

@@ -49,5 +49,6 @@ else
 	fi
 
 	# Print calendar
+	# TODO: Fix past month on days like the 31st
 	LC_TIME= cal -wm $(date +"%m %Y" -d "$counter months ago")
 fi
