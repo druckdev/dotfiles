@@ -138,7 +138,7 @@ fi
 	(( ! $+commands[geeqie] )) ||
 		alias geeqie='launch qeeqie'
 	(( ! $+commands[trash] )) ||
-		alias rm='printf "\033[1;031mUse trash!\n\033[0m"; false'
+		alias rm='trash'
 	if (( $+commands[xxd] )); then
 		alias hex='xxd'
 		alias bin='xxd -b -c4 | cut -d" " -f2-5'
