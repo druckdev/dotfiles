@@ -16,8 +16,8 @@ declare -a rofi_args
 rofi_args=(
 	-no-config
 	-theme /usr/share/rofi/themes/android_notification.rasi
-	-lines ${#entries[@]}
-	-width 12
+	-theme-str "#listview { lines: ${#entries[@]}; fixed-height: false; }"
+	-theme-str "#window { width: 12%; }"
 	-location 3
 	-yoffset 32
 	-dmenu

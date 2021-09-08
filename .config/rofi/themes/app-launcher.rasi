@@ -1,0 +1,69 @@
+// vi: ft=css
+
+* {
+	columns: 1;
+	font: "mono 18";
+	background-color: #00000000;
+	border-color: #00000000;
+	text-color: #EFEFEF;
+}
+
+#window {
+	border: 0;
+	border-radius: 4px;
+	padding: 30;
+	width: 40%;
+	height: 60%;
+}
+
+#scrollbar {
+	handle-color: #00a0e6b0;
+	border-color: #00a0e6b0;
+}
+
+#mainbox {
+	children: [inputbar, listview];
+	spacing: 10px;
+	padding: 7px 0;
+	border: 1px;
+	border-color: @base0D;
+}
+
+#listview {
+	fixed-height: 0;
+	border: 0px;
+	spacing: 5px;
+	scrollbar: true;
+	padding: 10px 10px 0px;
+}
+
+#element {
+	border: 0;
+	border-radius: 15px;
+	padding: 3 0  3 4 ;
+}
+
+#element selected {
+	background-color: #00a0e6b0;
+	text-color: #EFEFEF;
+}
+
+#inputbar {
+	children:   [ prompt,textbox-prompt-colon,entry,case-indicator ];
+}
+
+#case-indicator {
+	spacing:	0;
+}
+#entry {
+	spacing:	0;
+}
+#prompt {
+	spacing:	0;
+}
+
+#textbox-prompt-colon {
+	expand:	 false;
+	str:		":";
+	margin:	 0px 0.3em 0em 0em ;
+}
