@@ -131,6 +131,8 @@ fi
 		)" gpg'
 	# Use a reasonable time format
 	alias date='env LC_TIME=tk_TM date'
+	# Disable globbing
+	alias zmv='noglob zmv'
 
 # External command depending aliases
 	(( ! $+commands[zathura] )) ||
