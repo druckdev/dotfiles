@@ -18,7 +18,10 @@ configuration {
 	kb-mode-previous: "Control+h,Shift+Left,Control+ISO_Left_Tab";
 	kb-row-down: "Control+j,Down,Control+n";
 	kb-row-up: "Control+k,Up,Control+p,ISO_Left_Tab";
-	kb-mode-complete: "";
+	/* Control+l is bound to kb-mode-complete and Control+f is bound to
+	 * kb-move-char-forward per default*/
+	kb-move-char-forward: "Right";
+	kb-mode-complete: "Control+f";
 	kb-mode-next: "Control+l,Shift+Right,Control+Tab";
 }
 
