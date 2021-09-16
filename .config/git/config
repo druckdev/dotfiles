@@ -31,6 +31,7 @@
 [merge]
 	log = true
 	tool = nvimdiff
+	suppressDest = *
 [init]
 	defaultBranch = main
 [push]
