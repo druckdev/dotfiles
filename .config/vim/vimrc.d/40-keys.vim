@@ -120,3 +120,7 @@ nnoremap <A-Up> ddkP==
 nnoremap <A-Down> ddp==
 vmap <A-Up> dkPgp=gv
 vmap <A-Down> dpgp=gv
+
+" Fix & command to also use last flags
+nnoremap & :&&<CR>
+xnoremap & :&&<CR>
