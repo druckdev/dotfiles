@@ -38,6 +38,8 @@ fi
 	add_flags feh -.
 	# Use multiple jobs when making
 	add_flags make -j
+	# Bulk renaming with all files and spaces between swapped columns
+	add_flags qmv -Ao swap,spaces
 
 # XDG Base Directory Specification
 	add_flags tmux -f "${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf"
