@@ -38,3 +38,4 @@
 	default = current
 [advice]
 	detachedHead = off
+	addIgnoredFile = off
