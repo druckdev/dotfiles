@@ -143,7 +143,7 @@ interval = 5
 
 [module/wlan]
 type = internal/network
-interface = wlp58s0
+interface = wlan0
 interval = 3
 
 format-connected = <label-connected>
