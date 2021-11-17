@@ -16,7 +16,7 @@
 [alias]
 	root = rev-parse --show-toplevel
 	spull = "!__git_spull() { git pull \"$@\" && git submodule sync --recursive && git submodule update --init --recursive; }; __git_spull"
-	track = "!track() { git for-each-ref --format='%(upstream)%(if)%(upstream)%(then),%(end)%(refname)' refs/heads refs/remotes | sort | sed -Ez 's:(refs/remotes/[^\\n]*)\\n\\1:\\1:g' | sed -E 's/(.*),(.*)/\\2,\\1/; s:(heads/[^,]*)$:\\1,:; s:^refs/remotes/:,:; s:refs/[^/]*/::g' | column -ts,; }; track"
+	track = "!track() { git for-each-ref --format='%(upstream),%(refname)' refs/heads refs/remotes | sort -d | sed -Ez 's:,([^\\n]*)\\n\\1:\\1:g' | sed -E 's:(^|,)refs/(heads|remotes/):\\1:g; s:^,([^/].*):\\1,:; s:(.*),(.*):\\2,\\1:; s:^/::' | column -ts,; }; track"
 [status]
 	submodulesummary = true
 [diff]
