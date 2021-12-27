@@ -62,6 +62,9 @@
 [submodule "vim-surround"]
 	path = .config/vim/pack/plugins/opt/vim-surround
 	url = https://github.com/tpope/vim-surround
+[submodule "vim-syntax-extra"]
+	path = .config/vim/pack/plugins/opt/vim-syntax-extra
+	url = https://github.com/justinmk/vim-syntax-extra
 
 [submodule "fzf-tab"]
 	path = .config/zsh/plugins/fzf-tab
