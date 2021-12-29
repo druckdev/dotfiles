@@ -98,21 +98,26 @@ function rationalize_dots {
 zle -N rationalize_dots
 bindkey . rationalize_dots
 
+CMDS_ON_ENTER=(ll gs)
+REQUIREMENTS_CMDS_ON_ENTER=(true "git rev-parse")
 function cmd-on-enter {
 	if [[ -z $BUFFER ]]; then
 		# Overwrite BUFFER and default to ll
-		BUFFER="${CMD_ON_ENTER:=ll}"
+		BUFFER="${CMDS_ON_ENTER[${cmd_on_enter_idx:=1}]}"
 
 		# Cycle through ll and git status
-		case "$CMD_ON_ENTER" in
-			ll)
-				! git rev-parse &>/dev/null || CMD_ON_ENTER='gs';;
-			gs)
-				CMD_ON_ENTER='ll';;
-		esac
+		local idx=$cmd_on_enter_idx
+		idx=$((idx < $#CMDS_ON_ENTER ? idx + 1 : 1))
+		until
+			$REQUIREMENTS_CMDS_ON_ENTER[$idx] &>/dev/null \
+			|| [[ $idx = $cmd_on_enter_idx ]]
+		do
+			idx=$((idx < $#CMDS_ON_ENTER ? idx + 1 : 1))
+		done
+		cmd_on_enter_idx=$idx
 	else
 		# Reset if other command is executed
-		CMD_ON_ENTER=ll
+		cmd_on_enter_idx=1
 	fi
 	zle accept-line
 }
