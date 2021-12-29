@@ -99,7 +99,6 @@ zle -N rationalize_dots
 bindkey . rationalize_dots
 
 function cmd-on-enter {
-	zle -M "$CMD_ON_ENTER"
 	if [[ -z $BUFFER ]]; then
 		# Overwrite BUFFER and default to ll
 		BUFFER="${CMD_ON_ENTER:=ll}"
