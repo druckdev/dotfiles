@@ -1,43 +1,43 @@
-[user]
-    email = druckdev@protonmail.com
-    name = druckdev
-    signingkey = C0A44F69F2E29F6586C86B96CA6B3A516FAC2555
-[commit]
-	gpgsign = true
-	verbose = true
-[difftool "meld"]
-	path = /usr/bin/meld
-[color "status"]
-    added = 076
-    untracked = 014
-[core]
-	pager = diff-so-fancy | less --tabs=8 -Rg -+FX -p'^(commit|added|deleted|modified|renamed|tag|(Submodule .* [a-f0-9]+[.]+[a-f0-9]+)|(stash@{[0-9]+}))[: ]'
-	excludesfile = ~/.config/git/ignore
+[advice]
+	addIgnoredFile = off
+	detachedHead = off
 [alias]
+	branches = track
 	root = rev-parse --show-toplevel
 	spull = "!__git_spull() { git pull \"$@\" && git submodule sync --recursive && git submodule update --init --recursive; }; __git_spull"
 	track = "!git for-each-ref --format='%(upstream),%(refname)' refs/heads refs/remotes | sort -d | sed -Ez 's:(^|\\n|,)refs/(heads|remotes/):\\1:g; s:(^|\\n),([^/][^\\n]*):\\1\\2,:g; s:,/:,:g; s:(^|\\n)([^,]+),\\n\\2:\\1\\2:g; s:(^|\\n)([^/,]*)([^\\n]*\\n\\2(,|/))*:\\n&:g; s:\\n+$:\\n:' | (echo remote,local; cat) | column -tdLs, -Na,b -Ob,a | sed '2d; 1{p;s/./―/g}'"
-	branches = track
-[status]
-	submodulesummary = true
+[color "status"]
+	added = 076
+	untracked = 014
+[commit]
+	gpgsign = true
+	verbose = true
+[core]
+	excludesfile = ~/.config/git/ignore
+	pager = diff-so-fancy | less --tabs=8 -Rg -+FX -p'^(commit|added|deleted|modified|renamed|tag|(Submodule .* [a-f0-9]+[.]+[a-f0-9]+)|(stash@{[0-9]+}))[: ]'
 [diff]
 	submodule = log
 	tool = nvimdiff
-[rebase]
-	autostash = true
+[difftool "meld"]
+	path = /usr/bin/meld
 [include]
 	path = user.config
-[pull]
-	rebase = true
-	ff = yes
-[merge]
-	log = true
-	tool = nvimdiff
-	suppressDest = *
 [init]
 	defaultBranch = main
+[merge]
+	log = true
+	suppressDest = *
+	tool = nvimdiff
+[pull]
+	ff = yes
+	rebase = true
 [push]
 	default = current
-[advice]
-	detachedHead = off
-	addIgnoredFile = off
+[rebase]
+	autostash = true
+[status]
+	submodulesummary = true
+[user]
+	email = druckdev@protonmail.com
+	name = druckdev
+	signingkey = C0A44F69F2E29F6586C86B96CA6B3A516FAC2555
