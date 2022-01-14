@@ -59,12 +59,12 @@ fzf_preview[patch]="$fzf_preview[construct] { $REPLY"
 if command -v diff-so-fancy &>/dev/null; then
 	fzf_preview[patch]+=" | diff-so-fancy --color=always"
 fi
-fzf_preview[patch]+=" }"
+fzf_preview[patch]+="; }"
 
 read -r -d '' <<EOT
 	git show "${(j:%n:)format}" "$date" --color=always --stat "\$out"
 EOT
-fzf_preview[stat]="$fzf_preview[construct] { $REPLY }"
+fzf_preview[stat]="$fzf_preview[construct] { $REPLY; }"
 
 # Put the commit hash into the clipboard
 # (If no known clipboard tool is available, just print it)
