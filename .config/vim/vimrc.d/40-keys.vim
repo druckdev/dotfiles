@@ -106,7 +106,9 @@ vnoremap # y?\V<C-R>=escape(@",'?\')<CR><CR>
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 if exists('g:loaded_fugitive')
-	nnoremap <leader>cd :Gcd<CR>
+	nnoremap <leader>ga :G add -p<CR>
+	nnoremap <leader>gcc :G commit<CR>
+	nnoremap <leader>gcd :Gcd<CR>
 else
 	" only works if a file is already opened
 	nnoremap <leader>cd :cd %:h <Bar> cd `git rev-parse --show-toplevel`<CR>
