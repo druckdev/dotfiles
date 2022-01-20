@@ -130,3 +130,22 @@ inoremap <silent> <A-Down> <Esc>:m .+1<CR>==gi
 " Fix & command to also use last flags
 nnoremap & :&&<CR>
 xnoremap & :&&<CR>
+
+" see :help i_ctrl-g_u
+" Do not break undo sequence when using the arrow keys or home and end in insert
+" mode
+inoremap <Left>  <C-G>U<Left>
+inoremap <Right> <C-G>U<Right>
+inoremap <expr> <Home> col('.') == match(getline('.'), '\S') + 1 ?
+	\ repeat('<C-G>U<Left>', col('.') - 1) :
+	\ (col('.') < match(getline('.'), '\S') ?
+	\     repeat('<C-G>U<Right>', match(getline('.'), '\S') + 0) :
+	\     repeat('<C-G>U<Left>', col('.') - 1 - match(getline('.'), '\S')))
+inoremap <expr> <End> repeat('<C-G>U<Right>', col('$') - col('.'))
+" Make insert-mode texts repeatable by `.` with the closing parentheses at the
+" right position
+inoremap ( ()<C-G>U<Left>
+" break undo sequence with every space and newline, making insert mode changes
+" revertible in smaller chunks
+inoremap <Space> <C-G>u<Space>
+inoremap <CR> <C-G>u<CR>
