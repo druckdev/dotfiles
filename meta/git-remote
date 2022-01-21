@@ -6,6 +6,7 @@ die() {
 }
 
 remote="$(git remote -v | grep -m1 "druckdev/dotfiles" | cut -f1)"
+: "${remote:=origin}"
 url="$(git remote get-url "$remote")"
 ! printf "$url" | grep -q '^git@' || die "Using ssh already.\n" 0
 
