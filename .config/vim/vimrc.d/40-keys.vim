@@ -79,7 +79,7 @@ nmap <S-Tab> <C-O>
 
 " Terminal
 if (has('nvim'))
-	" tnoremap <Esc> <C-\><C-n>
+	tnoremap <leader><Esc> <C-\><C-n>
 	nmap <leader><CR> :split +terminal<CR>i
 	nmap <leader>v<CR> :vsplit +terminal<CR>i
 elseif (has('terminal'))
