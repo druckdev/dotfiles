@@ -5,12 +5,13 @@ die() {
 	exit ${2:-1}
 }
 
-remote="$(git remote get-url origin)"
-! printf "$remote" | grep -q '^git@' || die "Using ssh already.\n" 0
+remote="$(git remote -v | grep -m1 "druckdev/dotfiles" | cut -f1)"
+url="$(git remote get-url "$remote")"
+! printf "$url" | grep -q '^git@' || die "Using ssh already.\n" 0
 
-host="$(printf "$remote" | cut -d/ -f3)"
+host="$(printf "$url" | cut -d/ -f3)"
 grep -q "$host" "$HOME"/.ssh/known_hosts || die "No ssh key for $host found.\n"
 
-ssh_remote="$(printf "$remote" | sed 's_^https\?://_git@_;s_/_:_')"
-git remote set-url origin "$ssh_remote"
-die "Set origin remote url to $ssh_remote\n" $?
+ssh_url="$(printf "$url" | sed 's_^https\?://_git@_;s_/_:_')"
+git remote set-url "$remote" "$ssh_url"
+die "Set $remote remote url to $ssh_url\n" $?
