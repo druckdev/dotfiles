@@ -37,6 +37,14 @@
     -
       command: ! command -v gpg >/dev/null 2>&1 || mkdir -p ~/.local/share/gnupg
       description: Creating GNUPGHOME if necessary
+- create:
+    - ~/docs
+    - ~/downs
+    - ~/media
+    - ~/media/music
+    - ~/media/pics
+    - ~/media/vids
+    - ~/misc
 - link:
     ~/.xinitrc:
         path: .xinitrc
