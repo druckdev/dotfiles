@@ -30,7 +30,7 @@ fi
 unset {sys,user}{resources,modmap,xinitrcd}
 
 # <right-CTRL> acts as <ESC> when pressed alone and shortly.
-# xcape -t 250 -e 'Control_R=Escape'
+# ! command -v xcape || xcape -t 250 -e 'Control_R=Escape'
 # Key repeat rate
 xset r rate 400 35
 
