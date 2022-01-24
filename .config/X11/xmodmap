@@ -1,14 +1,8 @@
-! Bind Caps_Lock to Escape
+! Make unmodified Caps_Lock Esc, but keep regular Caps behaviour on Shift +
+! Caps_Lock
 remove Lock = Caps_Lock
 keycode 66 =
-keycode 66 = Escape
-
-! Bind Alt_R to mode_switch
-keycode 108 = Mode_switch ISO_Level3_Shift
-
-! Bind mode_switch + both shifts to caps_lock
-keycode 50 = Shift_L Shift_L Shift_L Caps_Lock
-keycode 62 = Shift_R Shift_R Shift_R Caps_Lock
+keycode 66 = Escape Caps_Lock
 
 ! Do not double assign less and greater on the key right of Shift_L on an ISO
 ! layout
