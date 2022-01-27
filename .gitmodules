@@ -41,6 +41,9 @@
 [submodule "fzf.vim"]
 	path = .config/vim/pack/plugins/opt/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
+[submodule "markdown-preview.nvim"]
+	path = .config/vim/pack/plugins/opt/markdown-preview.nvim
+	url = https://github.com/iamcco/markdown-preview.nvim
 [submodule "onedark.vim"]
 	path = .config/vim/pack/plugins/opt/onedark.vim
 	url = https://github.com/joshdick/onedark.vim
