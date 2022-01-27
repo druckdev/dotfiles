@@ -32,6 +32,9 @@
 [submodule "coc.nvim"]
 	path = .config/vim/pack/plugins/opt/coc.nvim
 	url = https://github.com/neoclide/coc.nvim
+[submodule "cocci-syntax"]
+	path = .config/vim/pack/plugins/opt/cocci-syntax
+	url = https://github.com/ahf/cocci-syntax
 [submodule "Colorizer"]
 	path = .config/vim/pack/plugins/opt/Colorizer
 	url = https://github.com/chrisbra/Colorizer
