@@ -1,0 +1,48 @@
+#!/bin/bash
+
+YEAR="$(date "+%Y")"
+EARLIEST_MOD_WEEK="$(date "+%V" --date="14 days ago")"
+typeset -A WEEKS
+
+# gather times
+IFS=$'\n'
+for line in $(xclip -sel c -o | grep $'\t' | tail -n +2); do
+	# csv fields (1-bases)
+	end="11,12"
+	start="3,4"
+
+	# get relevant parts and format to ISO 8601'ish format
+	end="$(printf "%s" "$line" | cut -d$'\t' -f"$end" | sed -E 's/^....(..)\.(..)\.(.{4}) \t(.*) $/\3-\2-\1 \4/')"
+	# check for valid end date & time in this year
+	[[ $end ]] && [[ $end != $'\t' ]] || continue
+	[[ ${end%%-*} = $YEAR ]] || continue
+	# convert to UNIX timestamp
+	end="$(date --date="$end" "+%s")"
+
+	# get relevant parts and format to ISO 8601'ish format, then UNIX timestamp
+	start="$(printf "%s" "$line" | cut -d$'\t' -f"$start" | sed -E 's/^....(..)\.(..)\.(.{4}) \t(.*) $/\3-\2-\1 \4/')"
+	start="$(date --date="$start" "+%s")"
+
+	diff=$((end - start))
+	# subtract pauses
+	(( diff <= 32400 )) || : $((diff -= 900))
+	(( diff <= 21600 )) || : $((diff -= 1800))
+
+	# sum the hours in the same week
+	week=$(date "+%V" --date="@$start")
+	: $((WEEKS[$week] += $diff))
+done
+
+# print
+for week in "${!WEEKS[@]}"; do
+	time="${WEEKS[$week]}"
+	hrs=$(( time / 60 / 60 ))
+	mins=$(( (time % (60 * 60)) / 60 ))
+
+	# last 2 weeks are modifiable
+	(( week >= EARLIEST_MOD_WEEK )) && modifiable="*" || modifiable=" "
+	# 20h limit
+	(( time <= 72000 )) && warn= || warn=" !!"
+
+	printf "%s%s %02d:%02d%s\n" "$week" "$modifiable" "$hrs" "$mins" "$warn"
+done | sort
