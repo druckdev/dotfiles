@@ -286,6 +286,11 @@ crypt-umount() {
 
 	local name mount_point
 	name=crypt_"${1##*/}"
+	mount_point="$(
+		findmnt -lo SOURCE,TARGET \
+			| grep -F /dev/mapper/"$name" \
+			| awk '{ print $2; }'
+	)"
 
 	if
 			mount | grep -q /dev/mapper/"$name" \
@@ -300,11 +305,6 @@ crypt-umount() {
 	fi
 	udisksctl power-off -b "$1"
 
-	mount_point="$(
-		findmnt -lo SOURCE,TARGET \
-			| grep -F /dev/mapper/"$name" \
-			| awk '{ print $2; }'
-	)"
 	rm ~/mounts/"${mount_point:t}" && rmdir --ignore-fail-on-non-empty ~/mounts/ \
 		|| echo "~/mounts/${mount_point:t} did not exist"
 }
