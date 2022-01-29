@@ -257,10 +257,13 @@ crypt-mount() {
 	[[ $# -gt 0 ]]
 	[[ -b "$1" ]]
 
-	local name=crypt_"${1##*/}"
+	local name mount_point
+	name=crypt_"${1##*/}"
+
 	sudo cryptsetup open "$1" "$name"
 	udisksctl mount -b /dev/mapper/"$name"
-	local mount_point="$(
+
+	mount_point="$(
 		findmnt -lo SOURCE,TARGET \
 			| grep -F /dev/mapper/"$name" \
 			| awk '{ print $2; }'
@@ -281,7 +284,8 @@ crypt-umount() {
 
 	sync
 
-	local name=crypt_"${1##*/}"
+	local name mount_point
+	name=crypt_"${1##*/}"
 
 	if
 			mount | grep -q /dev/mapper/"$name" \
@@ -296,7 +300,7 @@ crypt-umount() {
 	fi
 	udisksctl power-off -b "$1"
 
-	local mount_point="$(
+	mount_point="$(
 		findmnt -lo SOURCE,TARGET \
 			| grep -F /dev/mapper/"$name" \
 			| awk '{ print $2; }'
