@@ -253,12 +253,13 @@ safe-remove() {
 }
 
 crypt-mount() {
-	[[ $# -gt 0 ]] || return 1
-	[[ -e "$1" ]] || return 1
+	emulate -L zsh -o err_return
+	[[ $# -gt 0 ]]
+	[[ -e "$1" ]]
 
 	local name=crypt_"${1##*/}"
-	sudo cryptsetup open "$1" "$name" || return 1
-	udisksctl mount -b /dev/mapper/"$name" || return 1
+	sudo cryptsetup open "$1" "$name"
+	udisksctl mount -b /dev/mapper/"$name"
 	local mount_point="$(
 		findmnt -lo SOURCE,TARGET \
 			| grep -F /dev/mapper/"$name" \
@@ -268,8 +269,9 @@ crypt-mount() {
 }
 
 crypt-umount() {
-	[[ $# -gt 0 ]] || return 1
-	[[ -e "$1" ]] || return 1
+	emulate -L zsh -o err_return
+	[[ $# -gt 0 ]]
+	[[ -e "$1" ]]
 
 	sync
 
