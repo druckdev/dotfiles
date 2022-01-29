@@ -253,7 +253,7 @@ safe-remove() {
 }
 
 crypt-mount() {
-	emulate -L zsh -o err_return
+	emulate -L zsh -o err_return -o pipe_fail
 	[[ $# -gt 0 ]]
 	[[ -b "$1" ]]
 
@@ -278,7 +278,7 @@ crypt-mount() {
 }
 
 crypt-umount() {
-	emulate -L zsh -o err_return
+	emulate -L zsh -o err_return -o pipe_fail
 	[[ $# -gt 0 ]]
 	[[ -b "$1" ]]
 
