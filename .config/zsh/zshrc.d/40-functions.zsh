@@ -272,15 +272,17 @@ crypt-umount() {
 	[[ -e "$1" ]] || return 1
 
 	sync
+
+	local name=crypt_"${1##*/}"
 	if
-			mount | grep -q /dev/mapper/crypt_"${1##*/}" \
-			&& ! udisksctl unmount -b /dev/mapper/crypt_"${1##*/}"
+			mount | grep -q /dev/mapper/"$name" \
+			&& ! udisksctl unmount -b /dev/mapper/"$name"
 	then
-		lsof /dev/mapper/crypt_"${1##*/}"
+		lsof /dev/mapper/"$name"
 		return 1
 	fi
-	if ! sudo cryptsetup close crypt_"${1##*/}"; then
-		sudo cryptsetup status crypt_"${1##*/}"
+	if ! sudo cryptsetup close "$name"; then
+		sudo cryptsetup status "$name"
 		return 1
 	fi
 	udisksctl power-off -b "$1"
