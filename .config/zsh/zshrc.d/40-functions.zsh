@@ -255,7 +255,7 @@ safe-remove() {
 crypt-mount() {
 	emulate -L zsh -o err_return
 	[[ $# -gt 0 ]]
-	[[ -e "$1" ]]
+	[[ -b "$1" ]]
 
 	local name=crypt_"${1##*/}"
 	sudo cryptsetup open "$1" "$name"
@@ -271,7 +271,7 @@ crypt-mount() {
 crypt-umount() {
 	emulate -L zsh -o err_return
 	[[ $# -gt 0 ]]
-	[[ -e "$1" ]]
+	[[ -b "$1" ]]
 
 	sync
 
