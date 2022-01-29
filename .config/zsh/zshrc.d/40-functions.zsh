@@ -305,8 +305,8 @@ crypt-umount() {
 			| grep -F /dev/mapper/"$name" \
 			| awk '{ print $2; }'
 	)"
-	rm ~/mounts/"$name" && rmdir --ignore-fail-on-non-empty ~/mounts/ \
-		|| echo "~/mounts/$name did not exist"
+	rm ~/mounts/"${mount_point:t}" && rmdir --ignore-fail-on-non-empty ~/mounts/ \
+		|| echo "~/mounts/${mount_point:t} did not exist"
 }
 
 if (( $+commands[trash] )); then
