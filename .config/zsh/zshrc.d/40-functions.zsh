@@ -266,6 +266,12 @@ crypt-mount() {
 			| awk '{ print $2; }'
 	)"
 	[[ -d $mount_point ]] && cd "$mount_point"
+
+	# create link in $HOME/mounts
+	[[ ! -e "$HOME/mounts/${mount_point:t}" ]] \
+		|| { echo "~/mounts/${mount_point:t} exists" >&2; return 1; }
+	mkdir -p ~/mounts/
+	ln -s "$mount_point" ~/mounts/
 }
 
 crypt-umount() {
@@ -276,6 +282,7 @@ crypt-umount() {
 	sync
 
 	local name=crypt_"${1##*/}"
+
 	if
 			mount | grep -q /dev/mapper/"$name" \
 			&& ! udisksctl unmount -b /dev/mapper/"$name"
@@ -288,6 +295,14 @@ crypt-umount() {
 		return 1
 	fi
 	udisksctl power-off -b "$1"
+
+	local mount_point="$(
+		findmnt -lo SOURCE,TARGET \
+			| grep -F /dev/mapper/"$name" \
+			| awk '{ print $2; }'
+	)"
+	rm ~/mounts/"$name" && rmdir --ignore-fail-on-non-empty ~/mounts/ \
+		|| echo "~/mounts/$name did not exist"
 }
 
 if (( $+commands[trash] )); then
