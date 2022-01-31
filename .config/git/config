@@ -6,7 +6,7 @@
 	fixes = log -1 --pretty=fixes
 	root = rev-parse --show-toplevel
 	spull = "!__git_spull() { git pull \"$@\" && git submodule sync --recursive && git submodule update --init --recursive; }; __git_spull"
-	track = "!git for-each-ref --format='%(upstream),%(refname)' refs/heads refs/remotes | sort -d | sed -Ez 's:(^|\\n|,)refs/(heads|remotes/):\\1:g; s:(^|\\n),([^/][^\\n]*):\\1\\2,:g; s:,/:,:g; s:(^|\\n)([^,]+),\\n\\2:\\1\\2:g; s:(^|\\n)([^/,]*)([^\\n]*\\n\\2(,|/))*:\\n&:g; s:\\n+$:\\n:' | (echo remote,local; cat) | column -tdLs, -Na,b -Ob,a | sed '2d; 1{p;s/./―/g}'"
+	track = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-track\""
 [color "status"]
 	added = 076
 	untracked = 014

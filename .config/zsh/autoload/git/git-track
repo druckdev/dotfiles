@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+
+git for-each-ref --format='%(upstream),%(refname)' refs/heads refs/remotes \
+	| sort -d \
+	| sed -Ez '
+		s:(^|\n|,)refs/(heads|remotes/):\1:g
+		s:(^|\n),([^/][^\n]*):\1\2,:g
+		s:,/:,:g
+		s:(^|\n)([^,]+),\n\2:\1\2:g
+		s:(^|\n)([^/,]*)([^\n]*\n\2(,|/))*:\n&:g
+		s:\n+$:\n:
+	  ' \
+	| (echo remote,local; cat) \
+	| column -tdLs, -Na,b -Ob,a \
+	| sed '2d; 1{p;s/./―/g}'
