@@ -258,7 +258,7 @@ crypt-mount() {
 	[[ -b "$1" ]]
 
 	local name mount_point
-	name=crypt_"${1##*/}"
+	name=crypt_"${1:t}"
 
 	sudo cryptsetup open "$1" "$name"
 	udisksctl mount -b /dev/mapper/"$name"
@@ -285,7 +285,7 @@ crypt-umount() {
 	sync
 
 	local name mount_point
-	name=crypt_"${1##*/}"
+	name=crypt_"${1:t}"
 	mount_point="$(
 		findmnt -lo SOURCE,TARGET \
 			| grep -F /dev/mapper/"$name" \
