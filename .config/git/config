@@ -7,6 +7,8 @@
 	root = rev-parse --show-toplevel
 	spull = "!__git_spull() { git pull \"$@\" && git submodule sync --recursive && git submodule update --init --recursive; }; __git_spull"
 	track = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-track\""
+[branch]
+	autosetuprebase = always
 [color "status"]
 	added = 076
 	untracked = 014
