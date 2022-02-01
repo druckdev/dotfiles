@@ -252,7 +252,7 @@ safe-remove() {
 	udisksctl power-off -b "/dev/${$(lsblk -no pkname "$1"):-${1#/dev/}}"
 }
 
-crypt-mount() {
+crypt-open() {
 	emulate -L zsh -o err_return -o pipe_fail
 	[[ $# -gt 0 ]]
 	[[ -b "$1" ]]
@@ -277,7 +277,7 @@ crypt-mount() {
 	ln -s "$mount_point" ~/mounts/
 }
 
-crypt-umount() {
+crypt-close() {
 	emulate -L zsh -o err_return -o pipe_fail
 	[[ $# -gt 0 ]]
 	[[ -b "$1" ]]
