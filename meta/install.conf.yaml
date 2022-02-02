@@ -1,6 +1,6 @@
 - shell:
     -
-      command: chsh -s "$(command -v zsh)"
+      command: command -v zsh >/dev/null && chsh -s "$(command -v zsh)"
       description: Changing login shell to zsh
       stdin: true
       stdout: true
