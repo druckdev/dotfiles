@@ -62,23 +62,20 @@ elif (( $+commands[nano] )); then
 fi
 
 # Less
-if (( $+commands[less] )); then
-	# https://www.tecmint.com/view-colored-man-pages-in-linux/
-	export LESS_TERMCAP_mb=$'\e[1;32m'
-	export LESS_TERMCAP_md=$'\e[1;32m'
-	export LESS_TERMCAP_me=$'\e[0m'
-	export LESS_TERMCAP_se=$'\e[0m'
-	export LESS_TERMCAP_so=$'\E[01;44;33m'
-	export LESS_TERMCAP_ue=$'\e[0m'
-	export LESS_TERMCAP_us=$'\e[1;4;31m'
+# https://www.tecmint.com/view-colored-man-pages-in-linux/
+export LESS_TERMCAP_mb=$'\e[1;32m'
+export LESS_TERMCAP_md=$'\e[1;32m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;31m'
 
-	# Enable mouse wheel support
-	LESS+="${LESS:+ }--mouse --wheel-lines=3"
-	# Display ANSI color escape sequences
-	LESS+="${LESS:+ }-R"
-
-	export LESS
-fi
+# Enable mouse wheel support
+LESS+="${LESS:+ }--mouse --wheel-lines=3"
+# Display ANSI color escape sequences
+LESS+="${LESS:+ }-R"
+export LESS
 
 # Show also hidden files per default but ignore files in '.git' directories.
 if (( $+commands[rg] )); then
