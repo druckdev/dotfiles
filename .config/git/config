@@ -6,7 +6,7 @@
 	filter-repo = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/git/git-filter-repo/git-filter-repo\""
 	fixes = log -1 --pretty=fixes
 	root = rev-parse --show-toplevel
-	spull = "!__git_spull() { git pull \"$@\" && git submodule sync --recursive && git submodule update --init --recursive; }; __git_spull"
+	spull = "!git pull \"$@\" && git submodule sync --recursive && git submodule update --init --recursive;"
 	track = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-track\""
 [branch]
 	autosetuprebase = always
