@@ -403,7 +403,7 @@ nvim-man() {
 
 	if (( $+commands[nvim] )) && [[ $# -eq 1 ]]; then
 		# $MANPAGER does the trick too but lines are hard-wrapped.
-		nvim +"Man $1 | only"
+		nvim -u NORC +"runtime! plugin/man.vim | Man $1 | only | set scrolloff=999 | normal M"
 	else
 		command man "$@"
 	fi
