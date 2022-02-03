@@ -397,11 +397,10 @@ git-commit-last-msg() {
 }
 
 nvim-man() {
-	# Check for existence of man page. Assume that the page was specified as the
-	# last argument.
-	command man -w "${@[$#]}" >/dev/null || return
+	if (( $+commands[nvim] && $# == 1 )); then
+		# Check for existence of man page.
+		command man -w "$1" >/dev/null || return
 
-	if (( $+commands[nvim] )) && [[ $# -eq 1 ]]; then
 		# $MANPAGER does the trick too but lines are hard-wrapped.
 		nvim -u NORC +"runtime! plugin/man.vim | Man $1 | only | set scrolloff=999 | normal M"
 	else
