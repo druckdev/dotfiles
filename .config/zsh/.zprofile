@@ -61,10 +61,8 @@ elif (( $+commands[nano] )); then
 	export EDITOR=nano
 fi
 
-# Pager
-if (( $+commands[nvim] )); then
-	export MANPAGER="nvim -c 'set ft=man' -"
-else
+# Less
+if (( $+commands[less] )); then
 	# https://www.tecmint.com/view-colored-man-pages-in-linux/
 	export LESS_TERMCAP_mb=$'\e[1;32m'
 	export LESS_TERMCAP_md=$'\e[1;32m'
