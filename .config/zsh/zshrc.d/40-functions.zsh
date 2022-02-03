@@ -403,7 +403,7 @@ nvim-man() {
 		# Check for existence of man page.
 		command man -w "$1" >/dev/null || return
 
-		# $MANPAGER does the trick too but lines are hard-wrapped.
+		# $MANPAGER would do the trick too but lines would be hard-wrapped.
 		nvim -u NORC +"runtime! plugin/man.vim | Man $1 | only | set scrolloff=999 | normal M"
 	else
 		command man "$@"
