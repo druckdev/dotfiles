@@ -397,9 +397,9 @@ git-commit-last-msg() {
 }
 
 nvim-man() {
-	# Use nvim only if it exists, there was just one argument passed and that
-	# argument is not an option (e.g. `--version`)
-	if (( $+commands[nvim] && $# == 1 && $1 == ${1#-} )); then
+	# Use nvim only if it exists, there was just one argument passed, that
+	# argument is not an option (e.g. `--version`) and stdout is a terminal.
+	if (( $+commands[nvim] && $# == 1 && $1 == ${1#-} )) && [[ -t 1 ]]; then
 		# Check for existence of man page.
 		command man -w "$1" >/dev/null || return
 
