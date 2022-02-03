@@ -9,6 +9,9 @@
 [submodule "diff-so-fancy"]
 	path = .config/git/diff-so-fancy
 	url = https://github.com/so-fancy/diff-so-fancy
+[submodule "git-filter-repo"]
+	path = .config/git/git-filter-repo
+	url = https://github.com/newren/git-filter-repo
 
 [submodule "tmux-continuum"]
 	path = .config/tmux/plugins/tmux-continuum
