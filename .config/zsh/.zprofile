@@ -73,7 +73,11 @@ if (( $+commands[less] )); then
 	export LESS_TERMCAP_us=$'\e[1;4;31m'
 
 	# Enable mouse wheel support
-	export LESS="--mouse --wheel-lines=3"
+	LESS+="${LESS:+ }--mouse --wheel-lines=3"
+	# Display ANSI color escape sequences
+	LESS+="${LESS:+ }-R"
+
+	export LESS
 fi
 
 # Show also hidden files per default but ignore files in '.git' directories.
