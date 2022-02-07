@@ -490,3 +490,18 @@ create_venv() {
 		direnv allow
 	fi
 }
+
+# Open READMEs in a pager when going into a directory that contains one.
+# See 45-hooks.zsh
+_page_readme_chpwd_handler() {
+	local readme
+	local -a readmes=(README.md README.txt README Readme.md Readme.txt Readme
+	                  readme.md readme.txt readme)
+
+	for readme in "$readmes[@]"; do
+		[[ -e "$readme" ]] || continue
+
+		${PAGER:-less} "$readme"
+		break
+	done
+}

@@ -2,6 +2,8 @@ autoload -U select-word-style && select-word-style bash
 
 autoload edit-command-line; zle -N edit-command-line
 
+autoload -U add-zsh-hook
+
 (( ! $+aliases[run-help] )) || unalias run-help
 autoload -Uz run-help run-help-git zmv
 
