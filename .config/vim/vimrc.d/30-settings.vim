@@ -10,8 +10,6 @@ set ignorecase smartcase
 set tabstop=4
 " Shift the same amount as tabstop
 set shiftwidth=0
-" Highlight current line
-set cursorline
 " Auto-wrap text and comments; automatically add comment leader when creating
 " new lines and delete it when joining; do not break already too long lines;
 " allow formatting with gq.
@@ -43,8 +41,10 @@ else
 	nmap cw dwi
 	nmap cW dWi
 endif
-" Show ruler at 80 columns
-set colorcolumn=80
+" Highlight current line
+set cursorline
+" Show ruler at &textwidth columns
+let &colorcolumn=&textwidth
 " Show menu for possible matches when using command-line completing.
 if (has('wildmenu'))
 	set wildmenu
