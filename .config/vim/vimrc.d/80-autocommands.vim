@@ -56,3 +56,6 @@ endif
 
 " Custom bindings when debugging
 autocmd SourcePost termdebug.vim tnoremap <Esc> <C-\><C-n>
+
+" Adjust the colorcolumn together with &textwidth
+autocmd OptionSet textwidth let &colorcolumn=&textwidth
