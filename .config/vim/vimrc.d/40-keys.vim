@@ -1,6 +1,6 @@
 " Keybindings """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Stop highlighting search result when pressing Return
-nnoremap <silent> <CR> :nohlsearch<CR><CR>
+nnoremap <silent> <Esc> :nohlsearch<CR><Esc>
 
 " Indentation jump
 " https://vim.fandom.com/wiki/Move_to_next/previous_line_with_same_indentation
