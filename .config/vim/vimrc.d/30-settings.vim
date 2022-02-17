@@ -42,7 +42,7 @@ else
 	nmap cW dWi
 endif
 " Highlight current line
-set cursorline
+" set cursorline
 " Show ruler at &textwidth columns
 let &colorcolumn=&textwidth
 " Show menu for possible matches when using command-line completing.
