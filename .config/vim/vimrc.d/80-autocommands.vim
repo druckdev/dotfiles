@@ -59,3 +59,10 @@ autocmd SourcePost termdebug.vim tnoremap <Esc> <C-\><C-n>
 
 " Adjust the colorcolumn together with &textwidth
 autocmd OptionSet textwidth let &colorcolumn=&textwidth
+"
+" Highlight word under cursor
+augroup highlight_current_word
+	au!
+	au CursorHold * :exec 'match CursorColumn /\V\<' . escape(expand('<cword>'), '/\') . '\>/'
+	au CursorMoved * :exec 'match'
+augroup END
