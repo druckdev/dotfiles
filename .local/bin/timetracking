@@ -1,26 +1,34 @@
 #!/bin/bash
 
-YEAR="$(date "+%Y")"
 EARLIEST_MOD_WEEK="$(date "+%V" --date="14 days ago")"
 typeset -A WEEKS
 
-# gather times
-IFS=$'\n'
-for line in $(xclip -sel c -o | grep $'\t' | tail -n +2); do
-	# csv fields (1-bases)
-	end="11,12"
-	start="3,4"
+if [[ -t 0 ]]; then
+	times="$(xclip -sel c -o)"
+else
+	times="$(cat)"
+fi
+times="$(<<<"$times" grep $'\t' | tail -n +2)"
+YEAR="$(tail -2 <<<"$times" | head -1 | grep -Eo "[0-9]{4}" | head -1)"
 
-	# get relevant parts and format to ISO 8601'ish format
-	end="$(printf "%s" "$line" | cut -d$'\t' -f"$end" | sed -E 's/^....(..)\.(..)\.(.{4}) \t(.*) $/\3-\2-\1 \4/')"
+# get relevant parts, format to ISO 8601'ish format and calculate difference
+IFS=$'\n'
+for line in $times; do
+	# gather times
+	times="$(<<<"$line" \
+		grep -Eo $'[0-9. \t:]{18}' \
+		| sed -E 's/.(..)\.(..)\.(.{4}) \t(.*)/\3-\2-\1 \4/'
+	)"
+
+	end="$(<<<"$times" tail -1)"
 	# check for valid end date & time in this year
 	[[ $end ]] && [[ $end != $'\t' ]] || continue
 	[[ ${end%%-*} = $YEAR ]] || continue
+
+	start="$(<<<"$times" head -1)"
+
 	# convert to UNIX timestamp
 	end="$(date --date="$end" "+%s")"
-
-	# get relevant parts and format to ISO 8601'ish format, then UNIX timestamp
-	start="$(printf "%s" "$line" | cut -d$'\t' -f"$start" | sed -E 's/^....(..)\.(..)\.(.{4}) \t(.*) $/\3-\2-\1 \4/')"
 	start="$(date --date="$start" "+%s")"
 
 	diff=$((end - start))
