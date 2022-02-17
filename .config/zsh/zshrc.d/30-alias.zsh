@@ -63,6 +63,7 @@ fi
 	alias gpush='git push'
 	alias gpull='git pull'
 	alias gd='git diff'
+	alias gf='git fetch'
 	alias gl='git log'
 	alias gr='git rebase'
 	alias grc='git rebase --continue'
