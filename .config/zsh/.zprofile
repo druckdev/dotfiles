@@ -109,15 +109,16 @@ fi
 if (( $+commands[tmux] )) &&
 	[[ (-n $SSH_CLIENT || -n $SSH_TTY || -n $SSH_CONNECTION) && -z $TMUX ]]
 then
-	num_sessions="$(tmux list-sessions 2>/dev/null | wc -l)"
+	TMUX_CMD=(tmux -f "${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf")
+	num_sessions="$("${TMUX_CMD[@]}" list-sessions 2>/dev/null | wc -l)"
 
 	if (( ! num_sessions )); then
-		tmux
+		"${TMUX_CMD[@]}"
 	elif (( num_sessions == 1 )); then
-		tmux attach
+		"${TMUX_CMD[@]}" attach
 	else
-		tmux attach\; choose-tree -Zs
+		"${TMUX_CMD[@]}" attach\; choose-tree -Zs
 	fi
 
-	unset num_sessions
+	unset TMUX_CMD num_sessions
 fi
