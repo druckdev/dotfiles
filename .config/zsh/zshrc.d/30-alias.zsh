@@ -60,6 +60,7 @@ fi
 	alias ga='git add'
 	alias gap='git add -p'
 	alias gc="git commit"
+	alias gp='git push'
 	alias gpush='git push'
 	alias gpull='git pull'
 	alias gd='git diff'
