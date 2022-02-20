@@ -46,6 +46,7 @@ zle -N zle-line-finish
 
 bindkey '^H' run-help
 bindkey '^E' edit-command-line
+bindkey '^3' pound-insert
 
 ## Navigation
 bindkey '^[[Z' reverse-menu-complete         # shift-tab
