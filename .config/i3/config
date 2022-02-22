@@ -218,6 +218,11 @@ bindsym --release Print exec cd ~/pics/screens/ && scrot -sf
 # Zoom links in private browser
 bindsym $mod+z exec ~/.local/bin/zoom-links
 # Monitor selection with fzf
-bindsym $mod+m exec $TERMINAl -e ~/.local/bin/monitor-setup &
+for_window [class="^$TERMINAL-256color$" title="^fzf-monitor-setup$"] \
+	floating enable,    \
+	border pixel 3,     \
+	resize set 378 300, \
+	move position 1 32
+bindsym $mod+m exec pkill -f fzf-monitor-setup -O 1 || $TERMINAL -t fzf-monitor-setup -e ~/.local/bin/monitor-setup
 
 # vim: ft=i3
