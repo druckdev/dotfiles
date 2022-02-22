@@ -201,6 +201,11 @@ for_window [class="^Signal$"] \
 	scratchpad show
 bindsym $mod+Shift+s exec i3-msg '[class="^Signal$"] scratchpad show' || signal-desktop
 
+for_window [class="^Bitwarden$"] \
+	move scratchpad, \
+	scratchpad show
+bindsym $mod+Shift+b exec i3-msg '[class="^Bitwarden$"] scratchpad show' || bitwarden
+
 for_window [class="^$TERMINAL-256color$" title="^polybar-datetime-calendar$"] \
 	floating enable,    \
 	border pixel 3,     \
