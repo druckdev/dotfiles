@@ -71,6 +71,8 @@ set shortmess+=A
 " probably expected. See corresponding autocommand or:
 " https://vi.stackexchange.com/questions/2702
 set autoread
+" Include `-` in keyword characters
+set iskeyword+=-
 
 
 " Netrw
