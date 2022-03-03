@@ -7,13 +7,13 @@ packloadall
 if (has('patch-8.1.1719') || has('nvim'))
 	let g:coc_global_extensions =
 		\ ['coc-clangd', 'coc-sh', 'coc-python', 'coc-vimtex']
-	packadd! coc.nvim
+	packadd coc.nvim
 	source $XDG_CONFIG_HOME/vim/coc.nvim.vim
 endif
 
 " ctags
 if (executable('ctags'))
-	packadd! vim-gutentags
+	packadd vim-gutentags
 	let g:gutentags_ctags_exclude = [
 		\ 'node_modules/*',
 		\ '.git/*',
