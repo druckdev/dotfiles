@@ -8,6 +8,8 @@
 	root = rev-parse --show-toplevel
 	spull = "!git pull \"$@\" && git submodule sync --recursive && git submodule update --init --recursive;"
 	track = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-track\""
+[blame]
+	date = short
 [branch]
 	autosetuprebase = always
 [color "status"]
