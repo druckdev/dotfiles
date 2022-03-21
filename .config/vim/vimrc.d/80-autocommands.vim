@@ -58,7 +58,7 @@ endif
 autocmd SourcePost termdebug.vim tnoremap <Esc> <C-\><C-n>
 
 " Adjust the colorcolumn together with &textwidth
-autocmd OptionSet textwidth exec 'set cc=' . v:option_old . ' | set cc+=' . &tw
+autocmd OptionSet textwidth exec 'set cc-=' . v:option_old . ' | set cc+=' . &tw
 "
 " Highlight word under cursor
 augroup highlight_current_word
