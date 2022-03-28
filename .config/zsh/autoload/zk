@@ -1,0 +1,57 @@
+#!/usr/bin/env zsh
+
+# Create a new zettel in the zettelkasten
+# Expects $ZETTELKASTEN_NOTES to be set to the root of the zettelkasten
+
+emulate -L zsh -o errreturn
+
+err() {
+	[[ -z $1 ]] || >&2 printf "%s\n" "$1"
+}
+
+die() {
+	err "$1"
+	return ${2:-1}
+}
+
+[[ $ZETTELKASTEN_NOTES ]] || die '$ZETTELKASTEN_NOTES not set'
+pushd -q "$ZETTELKASTEN_NOTES"
+
+setopt NO_ERR_RETURN
+
+# Use year/month/day/time as directory and create it, if does not exist
+dir="$(date +"%Y/%m/%d/%H%M%S")"
+mkdir -p "$dir"
+
+if [[ ! -e "$dir/README.md" ]]; then
+	# Paste zettel template
+	cat >"$dir/README.md" <<-EOF
+	# 
+
+	<!--- vim: set ft=markdown.zettel: -->
+	EOF
+else
+	# For the (not indented) case that the README.md already exists, remember
+	# that so that it does not get deleted later on.
+	existed=1
+fi
+
+"${EDITOR:-vim}" "$dir/README.md"
+errc=$?
+
+if (( $errc )); then
+	# Delete remainders on error
+	[[ $existed ]] || rm -f "$dir/README.md" || true
+	rmdir -p "$dir" 2>/dev/null || true
+else
+	# Append subject to directory name
+	escaped_name="$(
+		head -n1 "$dir/README.md" \
+		| sed -E 's/^(#* )?//; s/[^-a-zA-Z0-9_.]/-/g' \
+		| tr '[:upper:]' '[:lower:]'
+	)"
+	mv "$dir" "$dir-$escaped_name"
+fi
+
+popd -q
+return $errc
