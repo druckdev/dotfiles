@@ -505,3 +505,31 @@ _page_readme_chpwd_handler() {
 		break
 	done
 }
+
+# Improved pgrep
+# I sometimes find `pgrep` not matching the processes I am searching for, but
+# `ps aux | grep ...` did not disappoint yet.
+pgrep() {
+	# Fall back to real `pgrep` if options are specified. I have no interest in
+	# emulating `pgrep` features with `ps` and other tools. This function is
+	# only meant for quick searches
+	if (( $# > 1 )); then
+		command pgrep "$@"
+		return
+	fi
+
+	# If NO_EXTENDED_GLOB were set, the substitution would not work leading to
+	# the `grep` being listed as well.
+	# Set UNSET so that no arguments can be specified leading to `grep ""`
+	# matching everything, as `ps aux` without pipe would be my desired
+	# behavior.
+	emulate -L zsh -o extendedglob -o unset
+
+	# Substitute the captured first character with itself surrounded by
+	# brackets. The `(#b)` turns on backreferences, storing the match in the
+	# array $match (in this case with only one element).
+	# So for example: "pattern" -> "[p]attern"
+	# This has the effect that the `grep` does not grep itself in the processes
+	# list.
+	ps aux | grep "${1/(#b)(?)/[$match]}"
+}
