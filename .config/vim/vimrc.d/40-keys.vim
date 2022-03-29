@@ -97,7 +97,8 @@ if (get(g:, 'loaded_fzf'))
 	nmap <leader>f :Files<CR>
 	nmap <leader>j :Lines<CR>
 	nmap <leader>/ :Lines<CR>
-	if (get(g:, 'loaded_gutentags'))
+	" TODO: fix this?
+	if (get(g:, 'loaded_gutentags') || 1)
 		nmap <leader>t :Tags<CR>
 	endif
 endif
