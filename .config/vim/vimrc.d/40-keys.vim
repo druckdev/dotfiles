@@ -42,6 +42,12 @@ noremap! <C-H> <C-W>
 
 " Correct word with best/first suggestion.
 noremap <leader>c 1z=
+" Correct next or last misspelled word (and their non-rare/region versions)
+" without moving
+noremap <leader>]s ]s1z=<C-O>
+noremap <leader>[s [s1z=<C-O>
+noremap <leader>]S ]S1z=<C-O>
+noremap <leader>[S [S1z=<C-O>
 
 " Toggle spell, cycle and set spelllang
 map <leader>st :set spell=!&spell<CR>
