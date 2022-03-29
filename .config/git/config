@@ -34,7 +34,6 @@
 [merge]
 	log = true
 	suppressDest = *
-	tool = nvimdiff
 [pretty]
 	fixes = Fixes: %h (\"%s\")
 [pull]
