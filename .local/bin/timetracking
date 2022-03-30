@@ -1,6 +1,7 @@
 #!/bin/bash
 
 EARLIEST_MOD_WEEK="$(date "+%V" --date="14 days ago")"
+EARLIEST_MOD_WEEK="${EARLIEST_MOD_WEEK#0}"
 typeset -A WEEKS
 
 if [[ -t 0 ]]; then
@@ -48,7 +49,8 @@ for week in "${!WEEKS[@]}"; do
 	mins=$(( (time % (60 * 60)) / 60 ))
 
 	# last 2 weeks are modifiable
-	(( ${week#0} >= EARLIEST_MOD_WEEK )) && modifiable="*" || modifiable=" "
+	week="${week#0}"
+	(( week >= EARLIEST_MOD_WEEK )) && modifiable="*" || modifiable=" "
 	# 20h limit
 	(( time <= 72000 )) && warn= || warn=" !!"
 
