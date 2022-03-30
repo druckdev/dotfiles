@@ -4,8 +4,10 @@
 ##
 ## Completely remove a git submodule.
 
+local toplevel
+
 # Exit if not in git repo
-local toplevel="$(git rev-parse --show-toplevel)" || return
+toplevel="$(git rev-parse --show-toplevel)" || return
 
 # Exit if no arguements were given
 [[ $# -gt 0 ]] || return
