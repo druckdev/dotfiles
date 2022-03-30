@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+## Author:  Julian Prein <druckdev@protonmail.com>
+## Created: 2022-03-29
+##
+## Signoff range of commits
+
+# Exit if not in git repo
+git rev-parse || return
+
+# Exit if no arguments were given
+[[ $# -gt 0 ]] || return
+
+# Signoff all commits
+env GIT_SEQUENCE_EDITOR="sed -Ei 's/^p(ick)?/e/'" git rebase -i "$@" || return
+
+while git rebase --show-current-patch &>/dev/null; do
+	git commit --amend --signoff --no-edit --no-verify
+	git rebase --continue
+done
+
+return 0

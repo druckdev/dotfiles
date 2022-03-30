@@ -39,6 +39,7 @@ compdef nvim-man=man
 compdef _git-log glog
 compdef _git-checkout git-checkout-worktree
 compdef _git-commit git-commit-last-msg
+compdef _git-rebase git-signoff
 # Run git's completion once to avoid a `command not found` error when using the
 # completion functions on other programs without having completed something for
 # git before in the same session.
