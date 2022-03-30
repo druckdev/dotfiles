@@ -59,7 +59,7 @@ for week in "${!WEEKS[@]}"; do
 	(( time <= 72000 )) && warn= || warn=" !!"
 
 	printf "%s%s %02d:%02d%s\n" "$week" "$modifiable" "$hrs" "$mins" "$warn"
-done | sort
+done | sort -n
 
 : $(( sum -= ${#WEEKS[@]} * 15 * 60 * 60))
 hrs=$(( sum / 60 / 60 ))
