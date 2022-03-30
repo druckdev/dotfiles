@@ -120,7 +120,25 @@ if exists('g:loaded_fugitive')
 	nnoremap <leader>gcd :Gcd<CR>
 else
 	" only works if a file is already opened
-	nnoremap <leader>cd :cd %:h <Bar> cd `git rev-parse --show-toplevel`<CR>
+	nnoremap <leader>gcd :cd %:h <Bar> cd `git rev-parse --show-toplevel`<CR>
+endif
+
+if exists('g:loaded_gitgutter')
+	" Add `g` prefix to hunk bindings
+	nmap <leader>ghs <Plug>(GitGutterStageHunk)
+	xmap <leader>ghs <Plug>(GitGutterStageHunk)
+	nmap <leader>ghu <Plug>(GitGutterUndoHunk)
+	nmap <leader>ghp <Plug>(GitGutterPreviewHunk)
+
+	" Add hunk/h version to textobject bindings that use `c` (for `change I
+	" presume?) (e.g. ic -> ih)
+	omap ih <Plug>(GitGutterTextObjectInnerPending)
+	omap ah <Plug>(GitGutterTextObjectOuterPending)
+	xmap ih <Plug>(GitGutterTextObjectInnerVisual)
+	xmap ah <Plug>(GitGutterTextObjectOuterVisual)
+	" Same for hunk navigation bindings
+	nmap [h <Plug>(GitGutterPrevHunk)
+	nmap ]h <Plug>(GitGutterNextHunk)
 endif
 
 " Y should behave like D & C does
