@@ -12,6 +12,8 @@ fi
 times="$(<<<"$times" grep $'\t' | tail -n +2)"
 YEAR="$(tail -2 <<<"$times" | head -1 | grep -Eo "[0-9]{4}" | head -1)"
 
+sum=0
+
 # get relevant parts, format to ISO 8601'ish format and calculate difference
 IFS=$'\n'
 for line in $times; do
@@ -37,6 +39,8 @@ for line in $times; do
 	(( diff <= 32400 )) || : $((diff -= 900))
 	(( diff <= 21600 )) || : $((diff -= 1800))
 
+	: $((sum += diff))
+
 	# sum the hours in the same week
 	week=$(date "+%V" --date="@$start")
 	: $((WEEKS[$week] += $diff))
@@ -56,3 +60,8 @@ for week in "${!WEEKS[@]}"; do
 
 	printf "%s%s %02d:%02d%s\n" "$week" "$modifiable" "$hrs" "$mins" "$warn"
 done | sort
+
+: $(( sum -= ${#WEEKS[@]} * 15 * 60 * 60))
+hrs=$(( sum / 60 / 60 ))
+mins=$(( (sum % (60 * 60)) / 60 ))
+printf "\ntotal:\n%02d:%02d\n" "$hrs" "$mins"
