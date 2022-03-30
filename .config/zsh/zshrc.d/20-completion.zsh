@@ -45,5 +45,8 @@ compdef _git-rebase git-signoff
 # git before in the same session.
 _git &>/dev/null || true
 
-# Do not sort `git checkout`s completion
+# Do not sort completion list
 zstyle ":completion:*:git-checkout:*" sort false
+zstyle ":completion:*:git-rebase:*" sort false
+zstyle ":completion:*:git-show:*" sort false
+zstyle ":completion:*:git-signoff:*" sort false
