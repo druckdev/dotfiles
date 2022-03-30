@@ -32,6 +32,7 @@ endif
 " Interact with the system clipboard
 if (has('clipboard') || has('nvim'))
 	map <leader>y "+y
+	map <leader>Y "+Y
 	map <leader>d "+d
 	map <leader>p "+p
 	map <leader>P "+P
