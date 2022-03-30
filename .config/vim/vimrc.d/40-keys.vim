@@ -44,6 +44,8 @@ noremap! <C-H> <C-W>
 noremap <leader>c 1z=
 " Correct next or last misspelled word (and their non-rare/region versions)
 " without moving
+" TODO: see :keepjumps
+"       Problem: with keepjumps the <C-O> is not possible anymore
 noremap <leader>]s ]s1z=<C-O>
 noremap <leader>[s [s1z=<C-O>
 noremap <leader>]S ]S1z=<C-O>
