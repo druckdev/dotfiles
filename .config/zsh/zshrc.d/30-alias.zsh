@@ -60,16 +60,17 @@ fi
 	alias ga='git add'
 	alias gap='git add -p'
 	alias gc="git commit"
+	alias gd='git diff'
+	alias gf='git fetch'
 	alias gp='git push'
 	alias gpush='git push'
 	alias gpull='git pull'
-	alias gd='git diff'
-	alias gf='git fetch'
 	alias gl='git log'
 	alias gr='git rebase'
 	alias grc='git rebase --continue'
 	alias grcia='git rebase --committer-date-is-author-date'
 	alias gss='git stash'
+	# inspired by but modified:
 	# https://nilansanjaya.wordpress.com/2017/06/02/git-find-base-branch/
 	git_bb='git show-branch -a 2>/dev/null'
 	git_bb+=' | grep "^[^[]*[*-].*\["'
