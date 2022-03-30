@@ -3,8 +3,9 @@
 packloadall
 
 " Auto completion
-" needs vim >= 8.1.1719 to support features like popup and text property.
-if ((has('patch-8.1.1719') || has('nvim')) && executable('nodejs'))
+" needs vim >= 8.1.1719 to support features like popup and text property as well
+" as nodejs.
+if ((has('patch-8.1.1719') || has('nvim')) && executable('node'))
 	let g:coc_global_extensions =
 		\ ['coc-clangd', 'coc-sh', 'coc-python', 'coc-vimtex']
 	packadd coc.nvim
