@@ -15,7 +15,8 @@ builtin emulate -L zsh -o no_glob_dots -o null_glob
 builtin local LS_SHOW_ALL_DIRS=${LS_SHOW_ALL_DIRS:-"dotfiles|\.config"}
 
 builtin local LS_COMMAND=ls
-if [[ $OSTYPE =~ darwin ]] && command -v gls &>/dev/null; then
+# Use GNU version if available under MacOS
+if [[ $OSTYPE =~ darwin ]] && (( $+commands[gls] )); then
 	LS_COMMAND=gls
 fi
 

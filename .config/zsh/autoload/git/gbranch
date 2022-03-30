@@ -9,7 +9,7 @@
 emulate -L zsh -o extendedglob
 
 # Return if fzf is not available
-if ! command -v fzf &>/dev/null; then
+if (( ! $+commands[fzf] )); then
 	printf "command not found: fzf" >&2
 	return 1
 fi
@@ -38,9 +38,9 @@ fzf_preview[log]="$fzf_preview[construct] { $REPLY }"
 # Put the commit hash into the clipboard
 # (If no known clipboard tool is available, just print it)
 local fzf_copy_command="$fzf_preview[construct] echo -n \"\$out\""
-if [[ $OSTYPE =~ darwin ]] && command -v pbcopy &>/dev/null; then
+if [[ $OSTYPE =~ darwin ]] && (( $+commands[pbcopy] )); then
 	fzf_copy_command+=" | pbcopy"
-elif command -v xclip &>/dev/null; then
+elif (( $+commands[xclip] )); then
 	fzf_copy_command+=" | xclip -selection c"
 fi
 

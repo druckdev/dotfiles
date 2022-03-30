@@ -1,6 +1,6 @@
 # Bold red
 
-if command -v tput >/dev/null 2>&1; then
+if (( $+commands[tput] )); then
 	STDERRED_ESC_CODE="$(tput bold && tput setaf 1)"
 else
 	STDERRED_ESC_CODE="\e[1m\e31m"
