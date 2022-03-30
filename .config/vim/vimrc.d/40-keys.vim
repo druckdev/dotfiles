@@ -31,10 +31,10 @@ endif
 
 " Interact with the system clipboard
 if (has('clipboard') || has('nvim'))
-	noremap <leader>y "+y
-	noremap <leader>d "+d
-	noremap <leader>p "+p
-	noremap <leader>P "+P
+	map <leader>y "+y
+	map <leader>d "+d
+	map <leader>p "+p
+	map <leader>P "+P
 endif
 
 " Ctrl-Backspace should delete words in insert mode and on command-line.
