@@ -35,7 +35,13 @@ zstyle ':completion:*:(diff|meld|trash):*' ignore-line yes
 compdef ls-show-hidden=ls
 compdef nvim-man=man
 
-# Copy git completion for arguments
+# Reuse other completion functions
+# NOTE: Show completion functions for current context:
+#       <C-x>h
+#       Generate completion debug trace:
+#       <C-x>?
+
+# git
 compdef _git-log glog
 compdef _git-checkout git-checkout-worktree
 compdef _git-commit git-commit-last-msg
