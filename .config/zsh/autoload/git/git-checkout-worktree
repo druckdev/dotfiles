@@ -15,6 +15,14 @@
 # Instead of dropping in an interactive shell, the commands to execute can be
 # passed via stdin. If any conflicts arise, all further shells are interactive.
 # TODO: Override with flag that just `stash -u`
+#
+# Examples for scripted usage:
+#   Merge branches without leaving the current one:
+#   % git-checkout-worktree main <<<"git merge dev"
+#
+#   Same for rebase (as `git rebase dev feature` switches to `feature`):
+#   % git-checkout-worktree feature <<<"git rebase dev"
+#
 
 emulate -L zsh -o err_return -o no_unset
 
