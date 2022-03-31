@@ -416,36 +416,6 @@ nvim-man() {
 	fi
 }
 
-# Creates a git worktree checking it out the first argument in a temporary
-# directory that is deleted again, if the spawned subshell exits.
-git-checkout-worktree() {
-	local GIT_ROOT TEMP_DIR REPO_DIR
-	GIT_ROOT="$(basename "$(git rev-parse --show-toplevel)")" || return
-	TEMP_DIR="$(mktemp -d)"
-	REPO_DIR="$TEMP_DIR/$GIT_ROOT"
-
-	git worktree add "$REPO_DIR" "$1"
-	[[ -e "$REPO_DIR" ]] || return 1
-	pushd -q "$REPO_DIR"
-
-	# Start subshell
-	"$SHELL"
-
-	# Cleanup when exiting
-	popd -q
-
-	# Restart the subshell until every issue is resolved and the worktree is
-	# removed
-	until [[ ! -e "$REPO_DIR" ]] || git worktree remove "$REPO_DIR"; do
-		pushd -q "$REPO_DIR"
-		"$SHELL"
-		popd -q
-	done
-
-	git worktree prune
-	command rm -rf "$TEMP_DIR"
-}
-
 # This is meant for adding a quick fix to a commit.
 # It automatically rebases a given commit (defaults to HEAD), applies the given
 # stash (defaults to last) and finishes the rebase.
