@@ -7,7 +7,7 @@
 # (e.g. stashing). Finally the temporary directory is deleted.
 
 local GIT_ROOT TEMP_DIR REPO_DIR
-GIT_ROOT="$(basename "$(git rev-parse --show-toplevel)")" || return
+GIT_ROOT="${$(git rev-parse --show-toplevel):t}" || return
 TEMP_DIR="$(mktemp -d)"
 REPO_DIR="$TEMP_DIR/$GIT_ROOT"
 
