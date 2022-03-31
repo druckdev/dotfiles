@@ -30,3 +30,7 @@
 
 # Ignore symlink to meta/envrc in repo root (created in installation)
 /.envrc
+
+# Do not commit any files by accident that might land in there
+/.ssh
+!/.ssh/config
