@@ -74,6 +74,9 @@
     ~/.local/share/gnupg/gpg-agent.conf:
         create: true
         path: .local/share/gnupg/gpg-agent.conf
+    ~/.ssh/config:
+        create: true
+        path: .ssh/config
     .git/hooks/:
         create: true
         glob: true
