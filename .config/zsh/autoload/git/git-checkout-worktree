@@ -5,6 +5,11 @@
 # When the shell closes the worktree is tried to be removed. Until that works
 # without problems (e.g. dirty), a new shell is spawned to resolve all conflicts
 # (e.g. stashing). Finally the temporary directory is deleted.
+#
+# Instead of dropping in an interactive shell, the commands to execute can be
+# passed via stdin.
+# TODO: If any conflicts arise, all further shells should be interactive instead
+#       of looping forever.
 
 local GIT_ROOT TEMP_DIR REPO_DIR
 GIT_ROOT="${$(git rev-parse --show-toplevel):t}" || return
