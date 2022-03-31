@@ -11,29 +11,38 @@
 # TODO: If any conflicts arise, all further shells should be interactive instead
 #       of looping forever.
 
+emulate -L zsh -o err_return -o no_unset
+
 local REPO_NAME WORKTREE_PATH
-REPO_NAME="${$(git rev-parse --show-toplevel):t}" || return
+REPO_NAME="${$(git rev-parse --show-toplevel):t}"
 WORKTREE_PATH="$(mktemp -d -p "" "worktree.XXX.$REPO_NAME.$1")"
 
+trap '
+	errc=$?
+	<&2 printf "Exiting abnormally. Check and possibly remove '$WORKTREE_PATH' manually.\n"
+	return $errc
+' INT QUIT TERM EXIT
+
 git worktree add "$WORKTREE_PATH" "$1"
-[[ -e "$WORKTREE_PATH" ]] || return 1
+
 pushd -q "$WORKTREE_PATH"
 
 # Start subshell
-"$SHELL"
-errc=$?
+"$SHELL" && errc=$? || errc=$?
 
 # Cleanup when exiting
-popd -q
+popd -q || true
 
 # Restart the subshell until every issue is resolved and the worktree is
 # removed
 until [[ ! -e "$WORKTREE_PATH" ]] || git worktree remove "$WORKTREE_PATH"; do
 	pushd -q "$WORKTREE_PATH"
-	"$SHELL"
-	errc=$?
-	popd -q
+	"$SHELL" && errc=$? || errc=$?
+	popd -q || true
 done
+
+# Reset traps
+trap '-' INT QUIT TERM EXIT
 
 git worktree prune
 return $errc
