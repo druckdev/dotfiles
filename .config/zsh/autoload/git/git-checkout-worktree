@@ -1,10 +1,16 @@
 #!/usr/bin/env zsh
 
+# Create a temporary worktree.
+#
+# Useful for doing quick tasks on other branches without modifying the current
+# working tree. So no broken/outdated symlinks to dotfiles or unnecessary
+# recompiling after switching back for example.
+#
 # Checks out the first argument in a worktree at a temporary directory. Then
 # spawns an interactive shell inside of it.
 # When the shell closes the worktree is tried to be removed. Until that works
 # without problems (e.g. dirty), a new shell is spawned to resolve all conflicts
-# (e.g. stashing). Finally the temporary directory is deleted.
+# (e.g. stashing).
 #
 # Instead of dropping in an interactive shell, the commands to execute can be
 # passed via stdin. If any conflicts arise, all further shells are interactive.
