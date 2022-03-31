@@ -11,10 +11,9 @@
 # TODO: If any conflicts arise, all further shells should be interactive instead
 #       of looping forever.
 
-local GIT_ROOT TEMP_DIR REPO_DIR
-GIT_ROOT="${$(git rev-parse --show-toplevel):t}" || return
-TEMP_DIR="$(mktemp -d)"
-REPO_DIR="$TEMP_DIR/$GIT_ROOT"
+local REPO_NAME REPO_DIR
+REPO_NAME="${$(git rev-parse --show-toplevel):t}" || return
+REPO_DIR="$(mktemp -d -p "" "worktree.XXX.$REPO_NAME.$1")"
 
 git worktree add "$REPO_DIR" "$1"
 [[ -e "$REPO_DIR" ]] || return 1
@@ -37,5 +36,4 @@ until [[ ! -e "$REPO_DIR" ]] || git worktree remove "$REPO_DIR"; do
 done
 
 git worktree prune
-command rm -rf "$TEMP_DIR"
 return $errc
