@@ -17,6 +17,7 @@ pushd -q "$REPO_DIR"
 
 # Start subshell
 "$SHELL"
+errc=$?
 
 # Cleanup when exiting
 popd -q
@@ -26,8 +27,10 @@ popd -q
 until [[ ! -e "$REPO_DIR" ]] || git worktree remove "$REPO_DIR"; do
 	pushd -q "$REPO_DIR"
 	"$SHELL"
+	errc=$?
 	popd -q
 done
 
 git worktree prune
 command rm -rf "$TEMP_DIR"
+return $errc
