@@ -3,6 +3,7 @@
 	detachedHead = off
 [alias]
 	branches = track
+	checkout-worktree = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-checkout-worktree\""
 	filter-repo = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/git/git-filter-repo/git-filter-repo\""
 	fixes = log -1 --pretty=fixes
 	root = rev-parse --show-toplevel
