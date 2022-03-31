@@ -14,7 +14,8 @@ else
 		rm -rf "$tmpd"
 		echo "$name created"
 	else
+		errc=$?
 		echo "Archive could not be created. See $tmpd."
-		exit 1
+		exit $errc
 	fi
 fi
