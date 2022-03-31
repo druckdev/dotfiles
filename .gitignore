@@ -28,6 +28,8 @@
 /.config/ranger/bookmarks
 /.config/ranger/history
 
+/.config/git/gitk
+
 # Ignore symlink to meta/envrc in repo root (created in installation)
 /.envrc
 
