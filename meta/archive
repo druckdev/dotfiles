@@ -49,15 +49,15 @@ for file in "${to_archive[@]}"; do
 done
 
 if rmdir "$tmpd" 2>/dev/null; then
-	echo "Nothing to archive"
+	>&2 echo "Nothing to archive"
 else
 	name="existing-$(date +"%Y%m%d_%H%M%S").tar.gz"
 	if tar czvf "$name" "$tmpd"; then
 		rm -rf "$tmpd"
-		echo "$name created"
+		>&2 echo "$name created"
 	else
 		errc=$?
-		echo "Archive could not be created. See $tmpd."
+		>&2 echo "Archive could not be created. See $tmpd."
 		exit $errc
 	fi
 fi
