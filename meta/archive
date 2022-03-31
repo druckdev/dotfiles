@@ -1,9 +1,51 @@
-#!/bin/sh
+#!/bin/bash
+
+CONFIG=meta/install.conf.yaml
+
+set -o noglob
+# Match all source and target paths of the link segment
+links=( $(
+	sed -n '/^- link:$/,$ p' "$CONFIG" \
+	| grep -Po "(?<=path: ).*|(?<=^    ).*(?=:$)" \
+	| sed "s/~/${HOME//\//\\/}/g"
+) )
+set +o noglob
+
+# Assemble files that would be potentially overwritten by the `link` step
+typeset -a to_archive
+for (( i = 0; i < ${#links[@]}; i+=2 )); do
+	# Source and target of link
+	src="${links[$((i+1))]}"
+	tar="${links[$i]}"
+
+	# TODO: This assumes that the globbing can only be specified at the end
+	if [[ ${src##*\*} ]]; then
+		# `glob` set to false; just add the target
+		to_archive+=("$tar")
+	else
+		# `glob` set to true; add globbed path portion in target
+
+		# TODO: this breaks on files with spaces, but quotes must not be used for
+		#       the globbing to take effect
+		for path in $src; do
+			# Keep the dirname as base
+			base="${src%%/*}/"
+			# Only the matched portion
+			file="${path#$base}"
+
+			# Skip `.` and `..` when globbing hidden files through `/.*`
+			[[ $file != '.' && $file != '..' ]] || continue
+
+			# Avoid potential double slashes (e.g. `//`)
+			to_archive+=("${tar%/}${file:+/$file}")
+		done
+	fi
+done
 
 tmpd="$(mktemp -d)"
 
-for file in .config/*; do
-	[ ! -e "$HOME/$file" ] || mv "$HOME/$file" "$tmpd"
+for file in "${to_archive[@]}"; do
+	[[ ! -e "$file" ]] || mv "$file" "$tmpd"
 done
 
 if rmdir "$tmpd" 2>/dev/null; then
