@@ -1,7 +1,10 @@
 #!/usr/bin/env zsh
 
-# Creates a git worktree checking it out the first argument in a temporary
-# directory that is deleted again, if the spawned subshell exits.
+# Checks out the first argument in a worktree at a temporary directory. Then
+# spawns an interactive shell inside of it.
+# When the shell closes the worktree is tried to be removed. Until that works
+# without problems (e.g. dirty), a new shell is spawned to resolve all conflicts
+# (e.g. stashing). Finally the temporary directory is deleted.
 
 local GIT_ROOT TEMP_DIR REPO_DIR
 GIT_ROOT="$(basename "$(git rev-parse --show-toplevel)")" || return
