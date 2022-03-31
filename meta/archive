@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO: Support `exclude` option
+
 CONFIG=meta/install.conf.yaml
 
 set -o noglob
