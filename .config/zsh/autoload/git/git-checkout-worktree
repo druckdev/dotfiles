@@ -7,9 +7,8 @@
 # (e.g. stashing). Finally the temporary directory is deleted.
 #
 # Instead of dropping in an interactive shell, the commands to execute can be
-# passed via stdin.
-# TODO: If any conflicts arise, all further shells should be interactive instead
-#       of looping forever.
+# passed via stdin. If any conflicts arise, all further shells are interactive.
+# TODO: Override with flag that just `stash -u`
 
 emulate -L zsh -o err_return -o no_unset
 
@@ -26,15 +25,16 @@ trap '
 git worktree add "$WORKTREE_PATH" "$1"
 pushd -q "$WORKTREE_PATH"
 
-# Restart the shell until every the worktree is removed
-while [[ -e "$WORKTREE_PATH" ]]; do
-	"$SHELL" && errc=$? || errc=$?
-	git worktree remove "$WORKTREE_PATH" || true
+"$SHELL" && errc=$? || errc=$?
+
+# Restart the shell (forcefully interactive) until the worktree is removed
+until [[ ! -e "$WORKTREE_PATH" ]] || git worktree remove "$WORKTREE_PATH"; do
+	[[ -t 0 ]] || >&2 printf "Dropping into interactive shell to resolve conflicts\n"
+	"$SHELL" -i && errc=$? || errc=$?
 done
 
-# Reset traps
+# Reset traps and PWD
 trap '-' INT QUIT TERM EXIT
-
 popd -q || true
 
 git worktree prune
