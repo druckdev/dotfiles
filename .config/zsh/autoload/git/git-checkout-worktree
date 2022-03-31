@@ -24,25 +24,18 @@ trap '
 ' INT QUIT TERM EXIT
 
 git worktree add "$WORKTREE_PATH" "$1"
-
 pushd -q "$WORKTREE_PATH"
 
-# Start subshell
-"$SHELL" && errc=$? || errc=$?
-
-# Cleanup when exiting
-popd -q || true
-
-# Restart the subshell until every issue is resolved and the worktree is
-# removed
-until [[ ! -e "$WORKTREE_PATH" ]] || git worktree remove "$WORKTREE_PATH"; do
-	pushd -q "$WORKTREE_PATH"
+# Restart the shell until every the worktree is removed
+while [[ -e "$WORKTREE_PATH" ]]; do
 	"$SHELL" && errc=$? || errc=$?
-	popd -q || true
+	git worktree remove "$WORKTREE_PATH" || true
 done
 
 # Reset traps
 trap '-' INT QUIT TERM EXIT
+
+popd -q || true
 
 git worktree prune
 return $errc
