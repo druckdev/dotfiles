@@ -54,6 +54,9 @@
         create: true
         glob: true
         path: .config/*
+    ~/.config/:
+        glob: true
+        path: .config/.*
     ~/.local/bin/:
         create: true
         glob: true
