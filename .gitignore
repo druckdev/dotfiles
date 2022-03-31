@@ -13,11 +13,11 @@
 # Ignore installation backups
 /existing-*.tar.gz
 
+# Ignore all VSCodium files but the settings.json
 /.config/VSCodium
 !/.config/VSCodium/User/settings.json
 
-/.config/git/github.config
-/.config/git/gitlab.config
+# Ignore private git config
 /.config/git/user.config
 
 /.config/vim/.netrwhist
