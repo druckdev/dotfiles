@@ -78,3 +78,5 @@
         create: true
         glob: true
         path: meta/git/hooks/*
+    .envrc:
+        path: meta/envrc
