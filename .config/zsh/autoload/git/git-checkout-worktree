@@ -28,7 +28,7 @@ emulate -L zsh -o err_return -o no_unset
 
 local REPO_NAME WORKTREE_PATH
 REPO_NAME="${$(git rev-parse --show-toplevel):t}"
-WORKTREE_PATH="$(mktemp -d -p "" "worktree.XXX.$REPO_NAME.$1")"
+WORKTREE_PATH="$(mktemp -d -p "" "worktree.XXX.$REPO_NAME.${1//\//_}")"
 
 trap '
 	errc=$?
