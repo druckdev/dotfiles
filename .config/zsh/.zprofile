@@ -111,7 +111,7 @@ fi
 if (( $+commands[tmux] )) &&
 	[[ (-n $SSH_CLIENT || -n $SSH_TTY || -n $SSH_CONNECTION) && -z $TMUX ]]
 then
-	TMUX_CMD=(exec tmux -f "${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf")
+	TMUX_CMD=(tmux -f "${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf")
 	num_sessions="$("${TMUX_CMD[@]}" list-sessions 2>/dev/null | wc -l)"
 
 	if (( ! num_sessions )); then
@@ -122,7 +122,8 @@ then
 		"${TMUX_CMD[@]}" attach\; choose-tree -Zs
 	fi
 
-	unset TMUX_CMD num_sessions
+	# NOTE: Do not use exec so that the zlogout is still read.
+	exit $?
 fi
 # NOTE: nothing should be placed behind this except for stuff that is sure that
 #       `tmux` was not called
