@@ -1,7 +1,8 @@
 [[ ! -d "$ZDOTDIR/completion" ]] || fpath=("$ZDOTDIR/completion" $fpath)
 
-autoload -Uz compinit
+autoload -Uz compinit bashcompinit
 compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump-$ZSH_VERSION"
+bashcompinit
 
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
