@@ -177,3 +177,7 @@ inoremap ( ()<C-G>U<Left>
 " revertible in smaller chunks
 inoremap <Space> <C-G>u<Space>
 inoremap <CR> <C-G>u<CR>
+
+" Open the manpage in the WORD under cursor
+nnoremap gm :Man <C-r><C-a><CR>
+xnoremap gm :Man <C-r><C-a><CR>
