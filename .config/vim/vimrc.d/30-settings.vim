@@ -73,6 +73,8 @@ set shortmess+=A
 set autoread
 " Include `-` in keyword characters
 set iskeyword+=-
+" Do not automatically insert <EOL> at EOF if missing
+set nofixendofline
 
 
 " Netrw
