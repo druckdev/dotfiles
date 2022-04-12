@@ -24,9 +24,12 @@ dir="$(date +"%Y/%m/%d/%H%M%S")"
 mkdir -p "$dir"
 
 if [[ ! -e "$dir/README.md" ]]; then
-	# Paste zettel template
+	# Paste zettel template, including header prefix, end-of-payload divider and
+	# vim-modeline
 	cat >"$dir/README.md" <<-EOF
 	# 
+
+	---
 
 	<!--- vim: set ft=markdown.zettel: -->
 	EOF
