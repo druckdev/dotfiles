@@ -116,9 +116,11 @@ vnoremap # y?\V<C-R>=escape(@",'?\')<CR><CR>
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 if exists('g:loaded_fugitive')
-	nnoremap <leader>ga :G add -p<CR>
-	nnoremap <leader>gcc :G commit<CR>
-	nnoremap <leader>gcd :Gcd<CR>
+	nmap <leader>gc :G commit<CR>
+
+	nmap <leader>ga :G add -- %<CR>
+	nmap <leader>gs :G stash -- %<CR>
+	nmap <leader>gu :G checkout -- %<CR>
 else
 	" only works if a file is already opened
 	nnoremap <leader>gcd :cd %:h <Bar> cd `git rev-parse --show-toplevel`<CR>
@@ -126,8 +128,11 @@ endif
 
 if exists('g:loaded_gitgutter')
 	" Add `g` prefix to hunk bindings
-	nmap <leader>ghs <Plug>(GitGutterStageHunk)
-	xmap <leader>ghs <Plug>(GitGutterStageHunk)
+
+	" Mnemonic: "git hunk <add|undo|preview>"
+	nmap <leader>gha <Plug>(GitGutterStageHunk)
+	xmap <leader>gha <Plug>(GitGutterStageHunk)
+	" TODO: nmap <leader>ghs <Plug>(GitGutterStashHunk)
 	nmap <leader>ghu <Plug>(GitGutterUndoHunk)
 	nmap <leader>ghp <Plug>(GitGutterPreviewHunk)
 
