@@ -14,3 +14,6 @@ compile_flags.txt
 
 # Ignore all node_modules
 node_modules
+
+# Ignore session file created by obsession-vim
+Session.vim
