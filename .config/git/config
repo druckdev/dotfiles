@@ -29,8 +29,6 @@
 	tool = nvimdiff
 [difftool "meld"]
 	path = /usr/bin/meld
-[include]
-	path = user.config
 [gpg]
 	program = ~/.config/gnupg/gpg.loopback
 [init]
@@ -55,3 +53,6 @@
 	email = druckdev@protonmail.com
 	name = Julian Prein
 	signingkey = C0A44F69F2E29F6586C86B96CA6B3A516FAC2555
+
+[include]
+	path = user.config
