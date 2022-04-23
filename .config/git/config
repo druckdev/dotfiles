@@ -38,6 +38,8 @@
 	program = ~/.config/gnupg/gpg.loopback
 [init]
 	defaultBranch = main
+[log]
+	follow = true
 [merge]
 	log = true
 	suppressDest = *
