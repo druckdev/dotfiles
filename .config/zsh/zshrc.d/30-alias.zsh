@@ -111,6 +111,7 @@ fi
 	alias loadhist='fc -RI'
 	alias resetCursor='echo -ne "\e[5 q"'
 	alias makeThisScratchpad='echo -ne "\033]0;scratchpad-terminal\007"'
+	alias py='python3'
 	# grep filenames and date entries in exiftool
 	alias grepdate='grep -E "(={8})|([:0-9]{10} [:0-9]{8})"'
 	# 'Temporary' shell in alternate mode for hiding commands in scrollback.
