@@ -31,6 +31,8 @@
 	path = /usr/bin/meld
 [include]
 	path = user.config
+[gpg]
+	program = ~/.config/gnupg/gpg.loopback
 [init]
 	defaultBranch = main
 [merge]
