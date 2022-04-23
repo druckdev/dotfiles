@@ -2,6 +2,11 @@
 	addIgnoredFile = off
 	detachedHead = off
 [alias]
+	# Automatically fixup/squash marked commits without opening the
+	# git-rebase-todo
+	autofixup = -c sequence.editor=/bin/true rebase -i --autosquash
+	autosquash = autofixup
+
 	branches = track
 	checkout-worktree = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-checkout-worktree\""
 	filter-repo = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/git/git-filter-repo/git-filter-repo\""
