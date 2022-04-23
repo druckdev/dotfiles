@@ -359,28 +359,17 @@ mvln() {
 	return $reg
 }
 
-## cd wrapper that when called without arguments, moves into the root of the
-## current repo instead of HOME. (Except when already there)
+## cd-wrapper that recognizes a trailing `ls` behind the path (When not properly
+## pressing <CR>)
 cd() {
-	if [[ $# -gt 0 ]]; then
-		# Call `ls` on paths that end on '/ls' and don't exist with the suffix.
-		# (When not properly pressing <CR>)
-		if [[ ! -e ${@[-1]} && -e ${@[-1]%%/ls} ]]; then
-			builtin cd "${@[1,-2]}" "${@[-1]%%ls}"
-			pwd
-			ls
-		else
-			builtin cd "$@"
-		fi
-		return
-	fi
-
-	local toplevel
-	toplevel="$(git rev-parse --show-toplevel 2>/dev/null)"
-	if (( $? )) || [[ $PWD = $toplevel ]]; then
-		builtin cd
+	# Call `ls` on paths that end on '/ls' and don't exist with the suffix.
+	# (When not properly pressing <CR>)
+	if [[ ! -e ${@[-1]} && -e ${@[-1]%%/ls} ]]; then
+		builtin cd "${@[1,-2]}" "${@[-1]%%ls}"
+		pwd
+		ls
 	else
-		builtin cd "$toplevel"
+		builtin cd "$@"
 	fi
 }
 
