@@ -19,10 +19,24 @@ subject="$(head -1 "$1")"
 subject="${subject#fixup! }"
 subject="${subject#squash! }"
 
-# Because of potential long lines in the changes (when using verbose commit) or
-# comments (for example when rebasing), everything until the first comment is
-# interpreted as body.
-body="$(tail +2 "$1" | sed -n '/^#/q;p')"
+# git's character to comment out lines in commit messages. The `auto` value is
+# handled specially (see the different uses of $git_comment_char).
+# NOTE: Only `^` is escaped as $git_comment_char is used in character classes
+#       and thus all other characters are free to use.
+git_comment_char="$(git config --get --default='#' core.commentChar \
+                    | sed 's:\^:\\&:g')"
+# git's cut-line to cut off everything behind it (e.g. commit patch when verbose)
+cut_line='------------------------ >8 ------------------------'
+
+# Take all lines after the subject until EOF or the cut-line (here `auto` is
+# replaced with 'any character' as the cut-line in itself should hopefully be
+# unambiguous enough) and remove all lines starting with the comment-char
+# (`auto` is not handled properly but rather replaced with the default `#`)
+body="$(
+	tail +2 "$1" \
+	| sed -n "/^[${git_comment_char/auto/[:print:]\t}] $cut_line\$/q
+	          /^[^${git_comment_char/auto/\#}]/p"
+)"
 
 [[ ${#subject} -le 50 ]] || die "Subject too long. (<= 50)\n"
 
