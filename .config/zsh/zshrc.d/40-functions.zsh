@@ -433,6 +433,18 @@ git-rebase-add-stash() {
 		git rebase --continue
 }
 
+# Display the log for the staged files (excluding additions, as they do not have
+# a history and I prefer the full log instead of nothing in that case).
+git-log-staged-files() {
+	# No quotes around the filename expansion as they are only field splitted on
+	# newlines anyway and `git log -- ""` complains with:
+	#
+	#     fatal: empty string is not a valid pathspec.
+	#
+	# As the `git-diff` command can return nothing, this is important.
+	git log --name-only "$@" -- ${(f)"$(git diff --name-only --cached --diff-filter=a)"}
+}
+
 # Create copy with a .bkp extension
 bkp() {
 	for f; do
