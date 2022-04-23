@@ -15,6 +15,10 @@ die() {
 }
 
 subject="$(head -1 "$1")"
+# Ignore "fixup! " and "squash! " prefix' added by `git-commit`
+subject="${subject#fixup! }"
+subject="${subject#squash! }"
+
 # Because of potential long lines in the changes (when using verbose commit) or
 # comments (for example when rebasing), everything until the first comment is
 # interpreted as body.
