@@ -1,7 +1,7 @@
 ## Author:  druckdev
 ## Created: 2019-08-28
 
-## Compares two pdfs based on the result of pdftotext
+# Compares two pdfs based on the result of pdftotext
 pdfdiff() {
 	if [[ $# -eq 2 && -r "$1" && -r "$2" ]]; then
 		diff <(pdftotext "$1" -) <(pdftotext "$2" -)
@@ -11,7 +11,7 @@ pdfdiff() {
 	fi
 }
 
-## Gets Passwd from bitwarden and copies it into the clipboard
+# Gets Passwd from bitwarden and copies it into the clipboard
 bwpwd() {
 	if bw "get" "password" "$@" >/dev/null; then
 		bw "get" "password" "$@" | tr -d '\n' | setclip
@@ -20,7 +20,7 @@ bwpwd() {
 	fi
 }
 
-## creates directory and changes into it
+# creates directory and changes into it
 mkcd () {
 	# Create directory
 	mkdir "$@"
@@ -34,7 +34,7 @@ mkcd () {
 	fi
 }
 
-## Encode and decode qr-codes
+# Encode and decode qr-codes
 qr() {
 	if [[ $# -eq 1 && -r "$1" ]]; then
 		zbarimg "$1"
@@ -43,7 +43,7 @@ qr() {
 	fi
 }
 
-## Edit config file
+# Edit config file
 conf() {
 	local CONF_EDITOR
 	if [[ -n "$EDITOR" ]]; then
@@ -125,7 +125,7 @@ conf() {
 	return 1
 }
 
-## Change into config dir
+# Change into config dir
 c() {
 	CONF_DIR="$(_get_config_dir $*)"
 	if [[ $? -eq 0 ]]; then
@@ -135,7 +135,7 @@ c() {
 		return 1
 	fi
 }
-## Get config directory
+# Get config directory
 _get_config_dir() {
 	if [[ $# -gt 1 ]]; then
 		printf "\033[1;31mPlease specify one config.\n\033[0m" >&2
@@ -152,7 +152,7 @@ _get_config_dir() {
 	fi
 }
 
-## Function that resolves a command to the end
+# Function that resolves a command to the end
 resolve() {
 	local verbose cmd old_cmd args last_line
 	local -a full_cmd
@@ -228,7 +228,7 @@ resolve() {
 	uniq_print "${full_cmd[@]}"
 }
 
-## Grep a keyword at the beginning of a line (ignoring whitespace) in a man page
+# Grep a keyword at the beginning of a line (ignoring whitespace) in a man page
 mangrep() {
 	if [[ $# -lt 2 ]]; then
 		printf "usage:   mangrep <man page> <pattern> [<man flags>]\n" >&2
@@ -310,7 +310,7 @@ crypt-close() {
 }
 
 if (( $+commands[trash] )); then
-	## List items in trash if no argument is specified
+	# List items in trash if no argument is specified
 	trash() {
 		if (( ! $# )); then
 			command trash-list
@@ -320,7 +320,7 @@ if (( $+commands[trash] )); then
 	}
 fi
 
-## Move one or more file(s) but keep a symlink to the new location.
+# Move one or more file(s) but keep a symlink to the new location.
 mvln() {
 	if (( # < 2 )); then
 		printf "$0: missing file operand\n"
@@ -359,8 +359,8 @@ mvln() {
 	return $reg
 }
 
-## cd-wrapper that recognizes a trailing `ls` behind the path (When not properly
-## pressing <CR>)
+# cd-wrapper that recognizes a trailing `ls` behind the path (When not properly
+# pressing <CR>)
 cd() {
 	# Call `ls` on paths that end on '/ls' and don't exist with the suffix.
 	# (When not properly pressing <CR>)
