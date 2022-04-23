@@ -442,7 +442,10 @@ git-log-staged-files() {
 	#     fatal: empty string is not a valid pathspec.
 	#
 	# As the `git-diff` command can return nothing, this is important.
-	git log --name-only "$@" -- ${(f)"$(git diff --name-only --cached --diff-filter=a)"}
+	#
+	# NOTE: Use `log.follow` instead of `--follow` to support multiple arguments
+	git -c log.follow log --name-only "$@" -- \
+		${(f)"$(git diff --name-only --cached --diff-filter=a)"}
 }
 
 # Create copy with a .bkp extension
