@@ -60,6 +60,7 @@ fi
 	alias ga='git add'
 	alias gap='git add -p'
 	alias gc="git commit"
+	alias gch="git checkout"
 	alias gd='git diff'
 	alias gds='git diff --staged'
 	alias gf='git fetch'
