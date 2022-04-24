@@ -71,6 +71,9 @@
 [submodule "vim-obsession"]
 	path = .config/vim/pack/plugins/opt/vim-obsession
 	url = https://github.com/tpope/vim-obsession
+[submodule "vim-sort-folds"]
+	path = .config/vim/pack/plugins/opt/vim-sort-folds
+	url = https://github.com/obreitwi/vim-sort-folds
 [submodule "vim-surround"]
 	path = .config/vim/pack/plugins/opt/vim-surround
 	url = https://github.com/tpope/vim-surround
