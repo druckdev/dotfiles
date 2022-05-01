@@ -32,7 +32,7 @@ folder-source() {
 	for f in "$1"/[^._]*(N); do
 		if [[ -d "$f" ]]; then
 			folder-source "$f"
-		elif [[ -n "${f##*.zwc}" ]]; then
+		elif [[ $f =~ .zsh$ ]]; then
 			comp-source "$f"
 		fi
 	done
