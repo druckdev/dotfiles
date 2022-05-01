@@ -21,3 +21,8 @@ if (executable('ctags'))
 		\ 'build/*'
 	\]
 endif
+
+if (exists("g:loaded_tmux_navigator"))
+	" Disable tmux navigator when zooming the Vim pane
+	let g:tmux_navigator_disable_when_zoomed = 1
+endif
