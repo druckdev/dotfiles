@@ -11,11 +11,6 @@ nnoremap <silent> <Esc> :nohlsearch<CR><Esc>
 " Create new panes
 nnoremap <C-w>N :vsplit<CR>
 nnoremap <C-w>n :split<CR>
-" Move between panes
-nnoremap <C-h> <C-w><C-h>
-nnoremap <C-j> <C-w><C-j>
-nnoremap <C-k> <C-w><C-k>
-nnoremap <C-l> <C-w><C-l>
 
 " Substitute command
 if (exists('+inccommand') && &inccommand != '')
