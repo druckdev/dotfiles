@@ -76,6 +76,11 @@ set iskeyword+=-
 " Do not automatically insert <EOL> at EOF if missing
 set nofixendofline
 
+if (exists('g:loaded_gitgutter'))
+	" Augment the default `foldtext()` with an indicator whether the folded
+	" lines have been changed.
+	set foldtext=gitgutter#fold#foldtext()
+endif
 
 " Netrw
 
