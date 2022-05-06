@@ -1,9 +1,3 @@
-! Make unmodified Caps_Lock Esc, but keep regular Caps behaviour on Shift +
-! Caps_Lock
-remove Lock = Caps_Lock
-keycode 66 =
-keycode 66 = Escape Caps_Lock
-
 ! Do not double assign less and greater on the key right of Shift_L on an ISO
 ! layout
 keycode 94 = grave asciitilde
