@@ -34,7 +34,7 @@
 [difftool "meld"]
 	path = /usr/bin/meld
 [gpg]
-	program = ~/.config/gnupg/gpg.loopback
+	program = gpg.loopback
 [init]
 	defaultBranch = main
 [log]
