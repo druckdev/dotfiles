@@ -60,6 +60,7 @@ bindkey '^[[P' delete-char                   # delete
 bindkey '^[[3~' delete-char                  # delete
 bindkey '^[[1;5D' backward-word              # ctrl-left
 bindkey '^[[1;5C' forward-word               # ctrl-right
+bindkey '^W' backward-kill-word              # ctrl-W
 bindkey '^H' backward-kill-word              # ctrl-backspace
 bindkey '^[[3;5~' kill-word                  # ctrl-delete
 bindkey "$terminfo[kmous]" kill-word         # ctrl-delete
