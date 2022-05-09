@@ -35,6 +35,11 @@
 	tool = nvimdiff
 [difftool "meld"]
 	path = /usr/bin/meld
+[fetch]
+	output = compact
+	prune = true
+	pruneTags = true
+	parallel = 0
 [gpg]
 	program = gpg.loopback
 [init]
