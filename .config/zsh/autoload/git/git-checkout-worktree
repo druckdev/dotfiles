@@ -43,7 +43,8 @@ pushd -q "$WORKTREE_PATH"
 
 # Restart the shell (forcefully interactive) until the worktree is removed
 until [[ ! -e "$WORKTREE_PATH" ]] || git worktree remove "$WORKTREE_PATH"; do
-	[[ -t 0 ]] || >&2 printf "Dropping into interactive shell to resolve conflicts\n"
+	[[ -t 0 ]] ||
+		>&2 printf "Dropping into interactive shell to resolve conflicts\n"
 	"$SHELL" -i && errc=$? || errc=$?
 done
 

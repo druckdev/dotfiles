@@ -3,12 +3,14 @@
 ## Author:  druckdev
 ## Created: 2020-06-05
 ##
-## A script that modifies Zoom links for the use in browsers, opens it then in a private chromium
-##   window and puts the password into the clipboard. If no argument is given the link is taken out
-##   of the clipboard.
-## The reason behind the choice of Chromium is that my Firefox does weird things when used in
-##   scripts and that I wanted to run Zoom separately from my normal Firefox instances.
-##   (although this should be solvable by separate Firefox profiles.)
+## A script that modifies Zoom links for the use in browsers, opens it then in a
+## private chromium window and puts the password into the clipboard. If no
+## argument is given the link is taken out of the clipboard.
+##
+## The reason behind the choice of Chromium is that my Firefox does weird things
+## when used in scripts and that I wanted to run Zoom separately from my normal
+## Firefox instances. (although this should be solvable by separate Firefox
+## profiles.)
 
 # Check if necessary commands exist
 command -v firefox >/dev/null 2>&1 || return 1
@@ -17,7 +19,8 @@ command -v xclip >/dev/null 2>&1 || return 1
 # If no argument is given, set the clipboard as argument
 [ $# -gt 0 ] || set "$(xclip -selection c -o)"
 # Check for right format
-echo "$1" | grep -Eq "^https://tu-berlin.zoom.us/(j|wc/join)/[0-9]*\?pwd=.+" || return 1
+echo "$1" | grep -Eq "^https://tu-berlin.zoom.us/(j|wc/join)/[0-9]*\?pwd=.+" \
+|| return 1
 
 # Make link work for browser joining
 link="$(echo "${1%?pwd=*}" | sed 's_/j/_/wc/join/_')"

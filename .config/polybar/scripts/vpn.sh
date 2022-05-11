@@ -6,8 +6,8 @@ if [ -n "$connection" ]; then
     exit 0
 fi
 
-# [o] is a hack to not grep the grep-command
-# see: https://stackoverflow.com/questions/9375711/more-elegant-ps-aux-grep-v-grep
+# [o] is a hack to not grep the grep-command. See:
+# https://stackoverflow.com/questions/9375711/more-elegant-ps-aux-grep-v-grep
 if ps ax | grep -q "[o]penvpn"; then
 	echo "VPN"
 	exit 0

@@ -25,7 +25,8 @@ subject="${subject#squash! }"
 #       and thus all other characters are free to use.
 git_comment_char="$(git config --get --default='#' core.commentChar \
                     | sed 's:\^:\\&:g')"
-# git's cut-line to cut off everything behind it (e.g. commit patch when verbose)
+# git's cut-line to cut off everything behind it (e.g. commit patch with
+# `commit.verbose`)
 cut_line='------------------------ >8 ------------------------'
 
 # Take all lines after the subject until EOF or the cut-line (here `auto` is

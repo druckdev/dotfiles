@@ -1,4 +1,5 @@
-# This file is based on the standard dircolors but with bright colors when using bold font
+# This file is based on the standard dircolors but with bright colors when using
+# bold font
 
 TERM Eterm
 TERM ansi

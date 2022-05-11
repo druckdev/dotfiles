@@ -305,8 +305,9 @@ crypt-close() {
 	fi
 	udisksctl power-off -b "$1"
 
-	rm ~/mounts/"${mount_point:t}" && rmdir --ignore-fail-on-non-empty ~/mounts/ \
-		|| echo "~/mounts/${mount_point:t} did not exist"
+	rm ~/mounts/"${mount_point:t}" \
+	&& rmdir --ignore-fail-on-non-empty ~/mounts/ \
+	|| echo "~/mounts/${mount_point:t} did not exist"
 }
 
 if (( $+commands[trash] )); then

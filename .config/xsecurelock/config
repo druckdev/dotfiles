@@ -1,27 +1,32 @@
-# specifies the time (in seconds) to wait for response to a prompt by auth_x11 before giving up and
-# reverting to the screen saver.
+# specifies the time (in seconds) to wait for response to a prompt by auth_x11
+# before giving up and reverting to the screen saver.
 export XSECURELOCK_AUTH_TIMEOUT=10
 
-# specifies the time (in seconds) before telling X11 to fully blank the screen; a negative value
-# disables X11 blanking. The time is measured since the closing of the auth window or xsecurelock
-# startup. Setting this to 0 is rather nonsensical, as key-release events (e.g. from the keystroke
-# to launch xsecurelock or from pressing escape to close the auth dialog) always wake up the screen.
+# specifies the time (in seconds) before telling X11 to fully blank the screen;
+# a negative value disables X11 blanking. The time is measured since the closing
+# of the auth window or xsecurelock startup. Setting this to 0 is rather
+# nonsensical, as key-release events (e.g. from the keystroke to launch
+# xsecurelock or from pressing escape to close the auth dialog) always wake up
+# the screen.
 export XSECURELOCK_BLANK_TIMEOUT=10
 
 # the date format to show. Defaults to the locale settings.
 export XSECURELOCK_DATETIME_FORMAT="%F %T  "
 
-# time_ shows the current time since the epoch on each keystroke. This may be the most secure mode,
-# as it gives feedback to keystroke based exclusively on public information, and does not carry
-# over any state between keystrokes whatsoever - not even some form of randomness.
+# time: shows the current time since the epoch on each keystroke. This may be
+#       the most secure mode, as it gives feedback to keystroke based
+#       exclusively on public information, and does not carry over any state
+#       between keystrokes whatsoever - not even some form of randomness.
+#
 # time_hex: same as time, but in microseconds and hexadecimal. "Because we can".
 export XSECURELOCK_PASSWORD_PROMPT=time_hex
 
 # whether to show local date and time on the login. Disabled by default.
 export XSECURELOCK_SHOW_DATETIME=1
 
-# whether  to  show  the  hostname on the login screen of auth_x11. Possible values are 0 for not
-# showing the hostname, 1 for showing the short form, and 2 for showing the long form.
+# whether  to  show  the  hostname on the login screen of auth_x11. Possible
+# values are 0 for not showing the hostname, 1 for showing the short form, and 2
+# for showing the long form.
 export XSECURELOCK_SHOW_HOSTNAME=0
 
 # whether to show the username on the login screen of auth_x11.

@@ -126,7 +126,12 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec \
+	i3-nagbar \
+		-t warning \
+		-m 'Do you really want to exit i3? This will end your X session.' \
+		-b 'Yes' \
+		'i3-msg exit'
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -163,10 +168,14 @@ bindsym $mod+r mode "resize"
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5
 
-# Volume controls (see https://faq.i3wm.org/question/125/how-to-change-the-systems-volume.1.html)
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q -D pulse sset Master 5%+ unmute
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q -D pulse sset Master 5%- unmute
-bindsym XF86AudioMute exec --no-startup-id amixer -q -D pulse sset Master toggle-mute
+# Volume controls
+# See: https://faq.i3wm.org/question/125/how-to-change-the-systems-volume.1.html
+bindsym XF86AudioRaiseVolume exec --no-startup-id \
+	amixer -q -D pulse sset Master 5%+ unmute
+bindsym XF86AudioLowerVolume exec --no-startup-id \
+	amixer -q -D pulse sset Master 5%- unmute
+bindsym XF86AudioMute exec --no-startup-id \
+	amixer -q -D pulse sset Master toggle-mute
 
 # Lock
 bindsym $mod+mod1+l exec xset s activate
@@ -188,22 +197,34 @@ for_window [class="^$TERMINAL-256color$" title="^scratchpad-terminal$"] \
 	resize set 1600 900,   \
 	move position center
 # Toggle the scratchpad-terminal or create a new one if none exists.
-bindsym $mod+comma exec i3-msg '[class="^$TERMINAL-256color$" title="^scratchpad-terminal$"] scratchpad show' || $TERMINAL -A 0.45 -d "$(xcwd)" -c $TERMINAL-256color -t scratchpad-terminal
+bindsym $mod+comma exec \
+	i3-msg '[class="^$TERMINAL-256color$" title="^scratchpad-terminal$"]
+	        scratchpad show' \
+	|| $TERMINAL -A 0.45 \
+	             -d "$(xcwd)" \
+	             -c $TERMINAL-256color \
+	             -t scratchpad-terminal
 
 for_window [class="^TelegramDesktop$"] \
 	move scratchpad, \
 	scratchpad show
-bindsym $mod+Shift+t exec i3-msg '[class="^TelegramDesktop$"] scratchpad show' || telegram-desktop
+bindsym $mod+Shift+t exec \
+	i3-msg '[class="^TelegramDesktop$"] scratchpad show' \
+	|| telegram-desktop
 
 for_window [class="^Signal$"] \
 	move scratchpad, \
 	scratchpad show
-bindsym $mod+Shift+s exec i3-msg '[class="^Signal$"] scratchpad show' || signal-desktop
+bindsym $mod+Shift+s exec \
+	i3-msg '[class="^Signal$"] scratchpad show' \
+	|| signal-desktop
 
 for_window [class="^Bitwarden$"] \
 	move scratchpad, \
 	scratchpad show
-bindsym $mod+Shift+b exec i3-msg '[class="^Bitwarden$"] scratchpad show' || bitwarden
+bindsym $mod+Shift+b exec \
+	i3-msg '[class="^Bitwarden$"] scratchpad show' \
+	|| bitwarden
 
 for_window [class="^$TERMINAL-256color$" title="^polybar-datetime-calendar$"] \
 	floating enable,    \
@@ -222,6 +243,8 @@ for_window [class="^$TERMINAL-256color$" title="^fzf-monitor-setup$"] \
 	border pixel 3,     \
 	resize set 378 300, \
 	move position 1 32
-bindsym $mod+m exec pkill -f fzf-monitor-setup -O 1 || $TERMINAL -t fzf-monitor-setup -e ~/.local/bin/monitor-setup
+bindsym $mod+m exec \
+	pkill -f fzf-monitor-setup -O 1 \
+	|| $TERMINAL -t fzf-monitor-setup -e ~/.local/bin/monitor-setup
 
 # vim: ft=i3
