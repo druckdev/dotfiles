@@ -8,6 +8,7 @@
 #
 # Checks out the first argument in a worktree at a temporary directory. Then
 # spawns an interactive shell inside of it.
+#
 # When the shell closes the worktree is tried to be removed. Until that works
 # without problems (e.g. dirty), a new shell is spawned to resolve all conflicts
 # (e.g. stashing).
@@ -22,7 +23,6 @@
 #
 #   Same for rebase (as `git rebase dev feature` switches to `feature`):
 #   % git-checkout-worktree feature <<<"git rebase dev"
-#
 
 emulate -L zsh -o err_return -o no_unset
 
