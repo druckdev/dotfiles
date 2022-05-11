@@ -4,7 +4,7 @@
 # ('*/5 *   * * * /usr/local/bin/wifi-mute')
 
 if [[ "$(nmcli -t -f name con show --active)" =~ eduroam* ]]; then # iwgetid -r
-    # TODO: mute only speaker, not headphones
-    amixer set Master mute
+	# TODO: mute only speaker, not headphones
+	amixer set Master mute
 fi
 

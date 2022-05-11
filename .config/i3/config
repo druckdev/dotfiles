@@ -135,31 +135,31 @@ bindsym $mod+Shift+e exec \
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        bindsym h resize grow left
-        bindsym j resize grow down
-        bindsym k resize grow up
-        bindsym l resize grow right
+	bindsym h resize grow left
+	bindsym j resize grow down
+	bindsym k resize grow up
+	bindsym l resize grow right
 
-        bindsym Shift+h resize shrink right
-        bindsym Shift+j resize shrink up
-        bindsym Shift+k resize shrink down
-        bindsym Shift+l resize shrink left
+	bindsym Shift+h resize shrink right
+	bindsym Shift+j resize shrink up
+	bindsym Shift+k resize shrink down
+	bindsym Shift+l resize shrink left
 
-        # Set window size to predefined values
-        # firefox anti fingerprinting
-        bindsym p resize set 1920 1080
-        # scratchpad-terminal default size
-	    bindsym s resize set 1600 900
-        # "fullscreen"
-        bindsym f resize set 3200 1770
+	# Set window size to predefined values
+	# firefox anti fingerprinting
+	bindsym p resize set 1920 1080
+	# scratchpad-terminal default size
+	bindsym s resize set 1600 900
+	# "fullscreen"
+	bindsym f resize set 3200 1770
 
-        # Move window to center
-        bindsym c move position center
+	# Move window to center
+	bindsym c move position center
 
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
+	# back to normal: Enter or Escape
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+r mode "default"
 }
 
 bindsym $mod+r mode "resize"

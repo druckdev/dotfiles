@@ -19,16 +19,16 @@ sleep_delay=1
 
 # Run before starting the locker
 pre_lock() {
-    playerctl pause
-    "${XDG_CONFIG_HOME:-$HOME/.config}/compositor/launch.sh" -k
-    amixer -q -D pulse sset Master mute
-    return
+	playerctl pause
+	"${XDG_CONFIG_HOME:-$HOME/.config}/compositor/launch.sh" -k
+	amixer -q -D pulse sset Master mute
+	return
 }
 
 # Run after the locker exits
 post_lock() {
-    "${XDG_CONFIG_HOME:-$HOME/.config}/compositor/launch.sh"
-    return
+	"${XDG_CONFIG_HOME:-$HOME/.config}/compositor/launch.sh"
+	return
 }
 
 ###############################################################################
@@ -39,15 +39,15 @@ pre_lock
 trap 'kill %%' TERM INT
 
 if [[ -e /dev/fd/${XSS_SLEEP_LOCK_FD:--1} ]]; then
-    # lock fd is open, make sure the locker does not inherit a copy
-    $locker {XSS_SLEEP_LOCK_FD}<&- &
+	# lock fd is open, make sure the locker does not inherit a copy
+	$locker {XSS_SLEEP_LOCK_FD}<&- &
 
-    sleep $sleep_delay
+	sleep $sleep_delay
 
-    # now close our fd (only remaining copy) to indicate we're ready to sleep
-    exec {XSS_SLEEP_LOCK_FD}<&-
+	# now close our fd (only remaining copy) to indicate we're ready to sleep
+	exec {XSS_SLEEP_LOCK_FD}<&-
 else
-    $locker &
+	$locker &
 fi
 
 wait # for locker to exit

@@ -2,8 +2,8 @@
 
 connection="$(nmcli con show --active | awk '$3 ~ /^(vpn|tun)$/ { print $1 }')"
 if [ -n "$connection" ]; then
-    echo "VPN: $connection"
-    exit 0
+	echo "VPN: $connection"
+	exit 0
 fi
 
 # [o] is a hack to not grep the grep-command. See:
