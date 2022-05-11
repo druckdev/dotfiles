@@ -507,3 +507,27 @@ pgrep() {
 	# list.
 	ps aux | grep "${1/(#b)(?)/[$match]}"
 }
+
+# Use shellcheck.net if shellcheck is not installed.
+shellcheck() {
+	if (( $+commands[shellcheck] )); then
+		command shellcheck "$@"
+		return
+	fi
+
+	printf >&2 \
+		"Using www.shellcheck.net. You might want to install shellcheck.\n\n"
+	local url json_parser arg
+
+		url='https://www.shellcheck.net/shellcheck.php'
+		json_parser="${${commands[jq]:-cat}:c}"
+
+		for arg; do
+			if [[ ! -r $arg ]]; then
+				printf "%s\n" "$arg: File does not exist or is non-readable" >&2
+				continue
+			fi
+			curl -sS "$url" -X POST --data-urlencode script@"$arg" \
+			| "$json_parser"
+		done
+	}
