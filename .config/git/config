@@ -29,7 +29,7 @@
 	verbose = true
 [core]
 	abbrev = 12
-	pager = diff-so-fancy | less --tabs=8 -Rg -+FX
+	pager = diff-so-fancy | less --tabs=8 -RF
 [diff]
 	submodule = log
 	tool = nvimdiff
