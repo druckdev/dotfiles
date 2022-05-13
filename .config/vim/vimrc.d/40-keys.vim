@@ -113,7 +113,9 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 " Git bindings
 " Insert a commit's subject behind the SHA1 that the cursor is currently on.
 " Mnemonic: "git reference commit"
-nmap <leader>grc yiwea<CR><Esc>k:r!git show -s --format='("\%s")' <C-R>0<CR>kJJ
+" NOTE: This uses `system` and not `:r!` to insert the text directly at the
+"       cursor. `subject[:-2]` cuts off the trailing newline.
+nmap <leader>grc :let subject=system('git show -s --format="(\"%s\")" <C-R><C-W>')<CR>ea <C-R>=subject[:-2]<CR><Esc>
 if exists('g:loaded_fugitive')
 	nmap <leader>gc :G commit<CR>
 
