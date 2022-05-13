@@ -110,6 +110,10 @@ vnoremap # y?\V<C-R>=escape(@",'?\')<CR><CR>
 " Taken from: https://vim.fandom.com/wiki/Selecting_your_pasted_text
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
+" Git bindings
+" Insert a commit's subject behind the SHA1 that the cursor is currently on.
+" Mnemonic: "git reference commit"
+nmap <leader>grc yiwea<CR><Esc>k:r!git show -s --format='("\%s")' <C-R>0<CR>kJJ
 if exists('g:loaded_fugitive')
 	nmap <leader>gc :G commit<CR>
 
