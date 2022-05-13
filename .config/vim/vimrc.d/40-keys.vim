@@ -126,8 +126,11 @@ nmap <leader>gu :!git checkout -- %<CR>
 if exists('g:loaded_fugitive')
 	" Using fugitive.vim, start a commit and open the message in a new split
 	nmap <leader>gc :G commit<CR>
+	" Move to root of directory
+	nmap <leader>gcd :Gcd<CR>
 else
-	" only works if a file is already opened
+	" Move to root of directory
+	" NOTE: only works if a file is already opened
 	nnoremap <leader>gcd :cd %:h <Bar> cd `git rev-parse --show-toplevel`<CR>
 endif
 
