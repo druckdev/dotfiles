@@ -111,17 +111,21 @@ vnoremap # y?\V<C-R>=escape(@",'?\')<CR><CR>
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " Git bindings
+
 " Insert a commit's subject behind the SHA1 that the cursor is currently on.
 " Mnemonic: "git reference commit"
 " NOTE: This uses `system` and not `:r!` to insert the text directly at the
 "       cursor. `subject[:-2]` cuts off the trailing newline.
 nmap <leader>grc :let subject=system('git show -s --format="(\"%s\")" <C-R><C-W>')<CR>ea <C-R>=subject[:-2]<CR><Esc>
-if exists('g:loaded_fugitive')
-	nmap <leader>gc :G commit<CR>
 
-	nmap <leader>ga :G add -- %<CR>
-	nmap <leader>gs :G stash -- %<CR>
-	nmap <leader>gu :G checkout -- %<CR>
+" Add, stash or checkout the current file
+nmap <leader>ga :!git add -- %<CR>
+nmap <leader>gs :!git stash -- %<CR>
+nmap <leader>gu :!git checkout -- %<CR>
+
+if exists('g:loaded_fugitive')
+	" Using fugitive.vim, start a commit and open the message in a new split
+	nmap <leader>gc :G commit<CR>
 else
 	" only works if a file is already opened
 	nnoremap <leader>gcd :cd %:h <Bar> cd `git rev-parse --show-toplevel`<CR>
