@@ -16,7 +16,7 @@
       stderr: true
     -
       command: meta/archive
-      description: Archiving all files in ~/.config before overwriting them
+      description: Archiving all files where links will be placed.
       stdout: true
       stderr: true
     -
