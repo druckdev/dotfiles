@@ -194,3 +194,6 @@ inoremap <CR> <C-G>u<CR>
 " Open the manpage in the WORD under cursor
 nnoremap gm :Man <C-r><C-a><CR>
 xnoremap gm :Man <C-r><C-a><CR>
+
+" Format the current paragraph
+nmap Q gqap
