@@ -65,6 +65,8 @@
 	enabled = true
 [status]
 	submodulesummary = true
+[submodule]
+	fetchJobs = 0
 [user]
 	email = druckdev@protonmail.com
 	name = Julian Prein
