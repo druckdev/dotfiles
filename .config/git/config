@@ -15,7 +15,7 @@
 	flog = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/glog\""
 	root = rev-parse --show-toplevel
 	signoff = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-signoff\""
-	spull = "!__git_spull() { git pull \"$@\" && git submodule sync --recursive && git submodule update --init --recursive; }; __git_spull"
+	spull = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-spull\""
 	track = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-track\""
 [blame]
 	date = short

@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+emulate -L zsh -o err_return
+
+git pull "$@"
+git submodule sync --recursive
+git submodule update --init --recursive
