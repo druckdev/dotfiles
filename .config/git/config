@@ -16,7 +16,7 @@
 	checkout-worktree = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-checkout-worktree\""
 	filter-repo = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/git/git-filter-repo/git-filter-repo\""
 	flog = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/glog\""
-	signoff = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-signoff\""
+	signoff = rebase --signoff
 	ssync = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-ssync\""
 	track = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-track\""
 [blame]
