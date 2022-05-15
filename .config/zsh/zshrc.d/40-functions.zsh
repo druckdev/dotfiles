@@ -493,11 +493,10 @@ pgrep() {
 		return
 	fi
 
-	# If NO_EXTENDED_GLOB were set, the substitution would not work leading to
-	# the `grep` being listed as well.
-	# Set UNSET so that no arguments can be specified leading to `grep ""`
-	# matching everything, as `ps aux` without pipe would be my desired
-	# behavior.
+	# - Set EXTENDED_GLOB for the `b` globbing flag.
+	# - Set UNSET so that no arguments can be specified leading to `grep ""`
+	#   matching everything, as `ps aux` without pipe would be my desired
+	#   behavior.
 	emulate -L zsh -o extendedglob -o unset
 
 	# Substitute the captured first character with itself surrounded by
