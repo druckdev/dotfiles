@@ -246,5 +246,3 @@ for_window [class="^$TERMINAL-256color$" title="^fzf-monitor-setup$"] \
 bindsym $mod+m exec \
 	pkill -f fzf-monitor-setup -O 1 \
 	|| $TERMINAL -t fzf-monitor-setup -e ~/.local/bin/monitor-setup
-
-# vim: ft=i3
