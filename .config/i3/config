@@ -198,7 +198,7 @@ for_window [class="^$TERMINAL-256color$" title="^scratchpad-terminal$"] \
 	move position center
 # Toggle the scratchpad-terminal or create a new one if none exists.
 bindsym $mod+comma exec \
-	i3-msg '[class="^$TERMINAL-256color$" title="^scratchpad-terminal$"]
+	i3-msg '[class="^$TERMINAL-256color$" title="^scratchpad-terminal$"] \
 	        scratchpad show' \
 	|| $TERMINAL -A 0.45 \
 	             -d "$(xcwd)" \
