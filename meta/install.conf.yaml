@@ -20,7 +20,7 @@
       stdout: true
       stderr: true
     -
-      command: .local/bin/fzf-repo/install --bin
+      command: .local/share/fzf-repo/install --bin
       description: Pulling fzf binary
       stdout: true
       stderr: true

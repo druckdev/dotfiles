@@ -8,112 +8,112 @@
 
 # bin
 [submodule "fzf"]
-	path = .local/bin/fzf-repo
+	path = .local/share/fzf-repo
 	url = https://github.com/junegunn/fzf
 
 # git
 [submodule "diff-so-fancy"]
-	path = .config/git/diff-so-fancy
+	path = .local/share/git/plugins/diff-so-fancy
 	url = https://github.com/so-fancy/diff-so-fancy
 [submodule "git-filter-repo"]
-	path = .config/git/git-filter-repo
+	path = .local/share/git/plugins/git-filter-repo
 	url = https://github.com/newren/git-filter-repo
 
 # tmux
 [submodule "tmux-continuum"]
-	path = .config/tmux/plugins/tmux-continuum
+	path = .local/share/tmux/plugins/tmux-continuum
 	url = https://github.com/tmux-plugins/tmux-continuum
 [submodule "tmux-prefix-highlight"]
-	path = .config/tmux/plugins/tmux-prefix-highlight
+	path = .local/share/tmux/plugins/tmux-prefix-highlight
 	url = https://github.com/tmux-plugins/tmux-prefix-highlight
 [submodule "tmux-resurrect"]
-	path = .config/tmux/plugins/tmux-resurrect
+	path = .local/share/tmux/plugins/tmux-resurrect
 	url = https://github.com/tmux-plugins/tmux-resurrect
 [submodule "tmux-sensible"]
-	path = .config/tmux/plugins/tmux-sensible
+	path = .local/share/tmux/plugins/tmux-sensible
 	url = https://github.com/tmux-plugins/tmux-sensible
 [submodule "tmux-yank"]
-	path = .config/tmux/plugins/tmux-yank
+	path = .local/share/tmux/plugins/tmux-yank
 	url = https://github.com/tmux-plugins/tmux-yank
 [submodule "tpm"]
-	path = .config/tmux/plugins/tpm
+	path = .local/share/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
 [submodule "vim-tmux-navigator"]
-	path = .config/tmux/plugins/vim-tmux-navigator
+	path = .local/share/tmux/plugins/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator
 
 # vim
 [submodule "arm-syntax-vim"]
-	path = .config/vim/pack/plugins/opt/arm-syntax-vim
+	path = .local/share/vim/pack/plugins/opt/arm-syntax-vim
 	url = https://github.com/ARM9/arm-syntax-vim
 [submodule "coc.nvim"]
-	path = .config/vim/pack/plugins/opt/coc.nvim
+	path = .local/share/vim/pack/plugins/opt/coc.nvim
 	url = https://github.com/neoclide/coc.nvim
 [submodule "cocci-syntax"]
-	path = .config/vim/pack/plugins/opt/cocci-syntax
+	path = .local/share/vim/pack/plugins/opt/cocci-syntax
 	url = https://github.com/ahf/cocci-syntax
 [submodule "Colorizer"]
-	path = .config/vim/pack/plugins/opt/Colorizer
+	path = .local/share/vim/pack/plugins/opt/Colorizer
 	url = https://github.com/chrisbra/Colorizer
 [submodule "delimitMate"]
-	path = .config/vim/pack/plugins/opt/delimitMate
+	path = .local/share/vim/pack/plugins/opt/delimitMate
 	url = https://github.com/Raimondi/delimitMate
 [submodule "fzf.vim"]
-	path = .config/vim/pack/plugins/opt/fzf.vim
+	path = .local/share/vim/pack/plugins/opt/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
 [submodule "markdown-preview.nvim"]
-	path = .config/vim/pack/plugins/opt/markdown-preview.nvim
+	path = .local/share/vim/pack/plugins/opt/markdown-preview.nvim
 	url = https://github.com/iamcco/markdown-preview.nvim
 [submodule "onedark.vim"]
-	path = .config/vim/pack/plugins/opt/onedark.vim
+	path = .local/share/vim/pack/plugins/opt/onedark.vim
 	url = https://github.com/joshdick/onedark.vim
 [submodule "vimtex"]
-	path = .config/vim/pack/plugins/opt/vimtex
+	path = .local/share/vim/pack/plugins/opt/vimtex
 	url = https://github.com/lervag/vimtex
 [submodule "vim-fugitive"]
-	path = .config/vim/pack/plugins/opt/vim-fugitive
+	path = .local/share/vim/pack/plugins/opt/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
 [submodule "vim-gitgutter"]
-	path = .config/vim/pack/plugins/opt/vim-gitgutter
+	path = .local/share/vim/pack/plugins/opt/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter
 [submodule "vim-gutentags"]
-	path = .config/vim/pack/plugins/opt/vim-gutentags
+	path = .local/share/vim/pack/plugins/opt/vim-gutentags
 	url = https://github.com/ludovicchabant/vim-gutentags
 [submodule "vim-lastplace"]
-	path = .config/vim/pack/plugins/opt/vim-lastplace
+	path = .local/share/vim/pack/plugins/opt/vim-lastplace
 	url = https://github.com/farmergreg/vim-lastplace
 [submodule "vim-obsession"]
-	path = .config/vim/pack/plugins/opt/vim-obsession
+	path = .local/share/vim/pack/plugins/opt/vim-obsession
 	url = https://github.com/tpope/vim-obsession
 [submodule "vim-sort-folds"]
-	path = .config/vim/pack/plugins/opt/vim-sort-folds
+	path = .local/share/vim/pack/plugins/opt/vim-sort-folds
 	url = https://github.com/obreitwi/vim-sort-folds
 [submodule "vim-surround"]
-	path = .config/vim/pack/plugins/opt/vim-surround
+	path = .local/share/vim/pack/plugins/opt/vim-surround
 	url = https://github.com/tpope/vim-surround
 [submodule "vim-syntax-extra"]
-	path = .config/vim/pack/plugins/opt/vim-syntax-extra
+	path = .local/share/vim/pack/plugins/opt/vim-syntax-extra
 	url = https://github.com/justinmk/vim-syntax-extra
 [submodule "vim-textobj-comment"]
-	path = .config/vim/pack/plugins/opt/vim-textobj-comment
+	path = .local/share/vim/pack/plugins/opt/vim-textobj-comment
 	url = https://github.com/glts/vim-textobj-comment
 [submodule "vim-textobj-user"]
-	path = .config/vim/pack/plugins/opt/vim-textobj-user
+	path = .local/share/vim/pack/plugins/opt/vim-textobj-user
 	url = https://github.com/kana/vim-textobj-user
 
 # zsh
 [submodule "fzf-tab"]
-	path = .config/zsh/plugins/fzf-tab
+	path = .local/share/zsh/plugins/fzf-tab
 	url = https://github.com/Aloxaf/fzf-tab
 [submodule "powerlevel10k"]
-	path = .config/zsh/plugins/powerlevel10k
+	path = .local/share/zsh/plugins/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k
 [submodule "stderred"]
-	path = .config/zsh/plugins/stderred
+	path = .local/share/zsh/plugins/stderred
 	url = https://github.com/sickill/stderred
 [submodule "zsh-autosuggestions"]
-	path = .config/zsh/plugins/zsh-autosuggestions
+	path = .local/share/zsh/plugins/zsh-autosuggestions
 	url = https://github.com/druckdev/zsh-autosuggestions
 [submodule "zsh-syntax-highlighting"]
-	path = .config/zsh/plugins/zsh-syntax-highlighting
+	path = .local/share/zsh/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
