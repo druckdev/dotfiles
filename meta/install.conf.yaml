@@ -25,6 +25,11 @@
       stdout: true
       stderr: true
     -
+      command: cd .local/share/git/plugins/git-filter-repo && make Documentation/man1/git-filter-repo.1
+      description: Building git-filter-repo manpage
+      stdout: true
+      stderr: true
+    -
       command: cd .config/zsh/plugins/stderred && make
       description: Building stderred
       stdout: true
