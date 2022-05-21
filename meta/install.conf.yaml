@@ -42,6 +42,11 @@
     -
       command: ! command -v gpg >/dev/null 2>&1 || mkdir -p ~/.local/share/gnupg
       description: Creating GNUPGHOME if necessary
+    -
+      command: mandb
+      description: Update the manual page index cache
+      stdout: true
+      stderr: true
 - create:
     - ~/docs
     - ~/downs
