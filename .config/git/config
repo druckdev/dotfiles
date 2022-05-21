@@ -11,12 +11,12 @@
 	changes = flog HEAD...FETCH_HEAD
 	fixes = log -1 --pretty=fixes
 	root = rev-parse --show-toplevel
+	signoff = rebase --signoff
 
-	# Implemented as zsh functions
+	# Implemented as zsh functions or external programs
 	checkout-worktree = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-checkout-worktree\""
 	filter-repo = !git-filter-repo
 	flog = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/glog\""
-	signoff = rebase --signoff
 	ssync = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-ssync\""
 	track = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-track\""
 [blame]
