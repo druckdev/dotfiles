@@ -47,6 +47,8 @@
 	program = gpg.loopback
 [init]
 	defaultBranch = main
+[interactive]
+	diffFilter = diff-so-fancy --patch
 [log]
 	follow = true
 [merge]
