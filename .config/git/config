@@ -14,7 +14,7 @@
 
 	# Implemented as zsh functions
 	checkout-worktree = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-checkout-worktree\""
-	filter-repo = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/git/git-filter-repo/git-filter-repo\""
+	filter-repo = !git-filter-repo
 	flog = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/glog\""
 	signoff = rebase --signoff
 	ssync = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-ssync\""
