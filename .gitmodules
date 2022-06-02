@@ -32,9 +32,6 @@
 [submodule "tmux-sensible"]
 	path = .local/share/tmux/plugins/tmux-sensible
 	url = https://github.com/tmux-plugins/tmux-sensible
-[submodule "tmux-yank"]
-	path = .local/share/tmux/plugins/tmux-yank
-	url = https://github.com/tmux-plugins/tmux-yank
 [submodule "tpm"]
 	path = .local/share/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
