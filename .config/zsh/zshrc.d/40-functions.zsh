@@ -554,8 +554,8 @@ suffix() {
 	# starting point is passed to `find`, which then defaults to `.`.
 
 	local -a names
-	# Take everything before "--"
-	names=( "${@:1:$((i-1))}" )
+	# Take everything before "--" and quote special characters
+	names=( "${(@q)@:1:$((i-1))}" )
 	# Prepend an `*` to every element and quote the result
 	names=( "${(@)names//(#b)(*)/\"*$match\"}")
 	# Join with " -o -name " and then split again using shell parsing
