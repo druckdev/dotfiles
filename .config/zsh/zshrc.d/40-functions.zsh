@@ -531,3 +531,27 @@ shellcheck() {
 		| "$json_parser"
 	done
 }
+
+# Find files that end with one of multiple given suffixes.
+#
+# Usage:
+# suffix sfx... [-- path...]
+#
+# `sfx` is given to `find` in the form `-name "*$sfx"`.
+# `path` is given as starting point to `find`, defaulting to `.`.
+suffix() {
+	if (( ! $+commands[find] )); then
+		printf >&2 "find not installed\n"
+		return 1
+	fi
+
+	local i=1
+	for arg; do
+		[[ $arg != "--" ]] || break
+		: "$((i++))"
+	done
+	# NOTE: if "--" is not included in $@, i will be greater than $#, and no
+	# starting point is passed to `find`, which then defaults to `.`.
+
+	find "${@:$((i+1))}" -name "*${(@j: -o -name *:)@:1:$((i-1))}"
+}
