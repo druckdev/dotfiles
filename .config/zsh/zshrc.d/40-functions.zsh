@@ -553,5 +553,13 @@ suffix() {
 	# NOTE: if "--" is not included in $@, i will be greater than $#, and no
 	# starting point is passed to `find`, which then defaults to `.`.
 
-	find "${@:$((i+1))}" -name "*${(@j: -o -name *:)@:1:$((i-1))}"
+	local -a names
+	# Take everything before "--"
+	names=( "${@:1:$((i-1))}" )
+	# Prepend an `*` to every element and quote the result
+	names=( "${(@)names//(#b)(*)/\"*$match\"}")
+	# Join with " -o -name " and then split again using shell parsing
+	names=( "${(@zj: -o -name :)names}" )
+	# Pass starting points and the names after removing one level of quotes
+	find "${@:$((i+1))}" -name "${(@Q)names}"
 }
