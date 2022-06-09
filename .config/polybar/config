@@ -1,7 +1,7 @@
 ; vi: ft=dosini
 
 [colors]
-background = #202020
+background = #7F101010
 background-alt = #444
 foreground = #fff
 foreground-alt = #fff
