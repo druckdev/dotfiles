@@ -40,6 +40,9 @@
 	url = https://github.com/christoomey/vim-tmux-navigator
 
 # vim
+[submodule "Colorizer"]
+	path = .local/share/vim/pack/plugins/opt/Colorizer
+	url = https://github.com/chrisbra/Colorizer
 [submodule "arm-syntax-vim"]
 	path = .local/share/vim/pack/plugins/opt/arm-syntax-vim
 	url = https://github.com/ARM9/arm-syntax-vim
@@ -49,9 +52,6 @@
 [submodule "cocci-syntax"]
 	path = .local/share/vim/pack/plugins/opt/cocci-syntax
 	url = https://github.com/ahf/cocci-syntax
-[submodule "Colorizer"]
-	path = .local/share/vim/pack/plugins/opt/Colorizer
-	url = https://github.com/chrisbra/Colorizer
 [submodule "delimitMate"]
 	path = .local/share/vim/pack/plugins/opt/delimitMate
 	url = https://github.com/Raimondi/delimitMate
@@ -64,9 +64,6 @@
 [submodule "onedark.vim"]
 	path = .local/share/vim/pack/plugins/opt/onedark.vim
 	url = https://github.com/joshdick/onedark.vim
-[submodule "vimtex"]
-	path = .local/share/vim/pack/plugins/opt/vimtex
-	url = https://github.com/lervag/vimtex
 [submodule "vim-fugitive"]
 	path = .local/share/vim/pack/plugins/opt/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
@@ -97,6 +94,9 @@
 [submodule "vim-textobj-user"]
 	path = .local/share/vim/pack/plugins/opt/vim-textobj-user
 	url = https://github.com/kana/vim-textobj-user
+[submodule "vimtex"]
+	path = .local/share/vim/pack/plugins/opt/vimtex
+	url = https://github.com/lervag/vimtex
 [submodule "vimwiki"]
 	path = .local/share/vim/pack/plugins/opt/vimwiki
 	url = https://github.com/vimwiki/vimwiki
