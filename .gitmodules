@@ -97,6 +97,9 @@
 [submodule "vim-textobj-user"]
 	path = .local/share/vim/pack/plugins/opt/vim-textobj-user
 	url = https://github.com/kana/vim-textobj-user
+[submodule "vimwiki"]
+	path = .local/share/vim/pack/plugins/opt/vimwiki
+	url = https://github.com/vimwiki/vimwiki
 
 # zsh
 [submodule "fzf-tab"]
