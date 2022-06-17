@@ -43,6 +43,9 @@
       command: ! command -v gpg >/dev/null 2>&1 || mkdir -p ~/.local/share/gnupg
       description: Creating GNUPGHOME if necessary
     -
+      command: python3 -m pip install --user --upgrade pynvim
+      description: Installing pynvim over pip for python3 support in neovim
+    -
       command: mandb
       description: Update the manual page index cache
       stdout: true
