@@ -7,6 +7,6 @@ setlocal smarttab
 " PEP-8 wants 79 as maximum line length
 setlocal textwidth=79
 " Lines with equal indent form a fold
-set foldmethod=indent
+setlocal foldmethod=indent
 " Open all folds after they were closed automatically by foldmethod=indent
 normal zR
