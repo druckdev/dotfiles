@@ -63,3 +63,9 @@ augroup highlight_current_word
 	au CursorHold * :exec 'match CursorColumn /\V\<' . escape(expand('<cword>'), '/\') . '\>/'
 	au CursorMoved * :exec 'match'
 augroup END
+
+augroup numbertoggle
+	au!
+	au BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu   | endif
+	au BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
+augroup END
