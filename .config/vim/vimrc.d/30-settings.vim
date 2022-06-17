@@ -28,9 +28,10 @@ set undofile
 set updatetime=300
 " Check for spelling in comments and strings
 set spell spelllang=en
-" Show the effect of a command while typing (substitute)
+" Show the effect of a command while typing (substitute). Show partial
+" off-screen results in a preview window.
 if (has('nvim'))
-	set inccommand=nosplit
+	set inccommand=split
 endif
 " Put new window below/right of current
 set splitbelow splitright
