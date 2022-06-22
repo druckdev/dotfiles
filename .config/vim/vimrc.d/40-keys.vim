@@ -95,6 +95,7 @@ if (get(g:, 'loaded_fzf'))
 	nmap <leader>f :Files<CR>
 	nmap <leader>j :Lines<CR>
 	nmap <leader>/ :Lines<CR>
+	nmap <leader>h :Helptags<CR>
 	" TODO: fix this?
 	if (get(g:, 'loaded_gutentags') || 1)
 		nmap <leader>t :Tags<CR>
