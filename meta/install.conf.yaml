@@ -46,6 +46,8 @@
       command: python3 -m pip install --user --upgrade pynvim
       description: Installing pynvim over pip for python3 support in neovim
     -
+      command: nvim "+helptags ALL" "+q"
+    -
       command: mandb
       description: Update the manual page index cache
       stdout: true
