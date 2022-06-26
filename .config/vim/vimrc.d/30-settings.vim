@@ -76,6 +76,8 @@ set autoread
 set iskeyword+=-
 " Do not automatically insert <EOL> at EOF if missing
 set nofixendofline
+" Let the cursor move beyond the EOL when in visual-block mode.
+set virtualedit+=block
 
 if (exists('g:loaded_gitgutter'))
 	" Augment the default `foldtext()` with an indicator whether the folded
