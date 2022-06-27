@@ -29,7 +29,7 @@ fi
 # Default flags
 	(( ! $+functions[ls-show-hidden] )) ||
 		alias ls='ls-show-hidden --color=auto --group-directories-first -p -v'
-	add_flags grep --color
+	add_flags grep --color=auto --exclude-dir=.git --exclude=tags
 	add_flags cp -i
 	add_flags mv -i
 	add_flags rm -I
