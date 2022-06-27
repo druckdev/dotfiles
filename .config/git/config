@@ -18,6 +18,7 @@
 	filter-repo = !git-filter-repo
 	flog = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/glog\""
 	ssync = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-ssync\""
+	submodule-rm = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-submodule-rm\""
 	track = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-track\""
 [blame]
 	date = short
