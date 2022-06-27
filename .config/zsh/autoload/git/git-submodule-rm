@@ -23,7 +23,7 @@ for arg in "$@"; do
 	# argument has to exist in repo
 	[[ -e "$toplevel/$arg_from_git" ]] || continue
 	# has to be a submodule
-	[[ -e "$toplevel/.git/modules/$arg_from_git" ]] || continue
+	[[ -e "$toplevel/.git/modules/${1:t}" ]] || continue
 
 	git submodule deinit -f  "$arg"
 	echo "command rm -rf \"$toplevel/.git/modules/$arg_from_git\""
