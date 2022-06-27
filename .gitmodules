@@ -25,7 +25,7 @@
 	url = https://github.com/tmux-plugins/tmux-continuum
 [submodule "tmux-prefix-highlight"]
 	path = .local/share/tmux/plugins/tmux-prefix-highlight
-	url = https://github.com/tmux-plugins/tmux-prefix-highlight
+	url = https://github.com/druckdev/tmux-prefix-highlight
 [submodule "tmux-resurrect"]
 	path = .local/share/tmux/plugins/tmux-resurrect
 	url = https://github.com/tmux-plugins/tmux-resurrect
