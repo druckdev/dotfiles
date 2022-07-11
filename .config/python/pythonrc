@@ -1,0 +1,28 @@
+# vim: ft=python
+
+import os
+from os.path import expanduser as expanduser
+from os.path import join as pjoin
+import atexit
+import readline
+
+# Use ${XDG_DATA_HOME:-~/.local/share}/python/python_history instead of
+# ~/.python_history
+
+xdg_data = os.getenv('XDG_DATA_HOME', expanduser(pjoin('~' '.local', 'share')))
+history = pjoin(xdg_data, 'python')
+os.makedirs(history, exist_ok=True)
+history = pjoin(history, 'python_history')
+
+try:
+    readline.read_history_file(history)
+except OSError:
+    pass
+
+def write_history():
+    try:
+        readline.write_history_file(history)
+    except OSError:
+        pass
+
+atexit.register(write_history)

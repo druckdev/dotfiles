@@ -13,6 +13,12 @@ export GOPATH="$XDG_DATA_HOME"/go
 export MPLAYER_HOME="$XDG_CONFIG_HOME"/mplayer
 export WGETRC="$XDG_CONFIG_HOME"/wget/wgetrc
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
+export NVM_DIR="$XDG_DATA_HOME"/nvm
+export KODI_DATA=$XDG_DATA_HOME/kodi
+export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
+export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME"/jupyter
+export PYLINTHOME="${XDG_CACHE_HOME}"/pylint
+export PYTHONSTARTUP="${XDG_CONFIG_HOME}"/python/pythonrc
 
 export HISTFILE="$XDG_DATA_HOME"/bash/history
 export LESSHISTFILE=/dev/null
@@ -22,8 +28,8 @@ export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/pass
 VIMINIT="let \$MYVIMRC=\"$XDG_CONFIG_HOME/vim/xdg.vim\" | source \$MYVIMRC"
 export VIMINIT
 
-export ANDROID_{AVD,EMULATOR}_HOME="$XDG_DATA_HOME"/android/
-export ADB_VENDOR_KEY="$XDG_CONFIG_HOME"/android
+export ANDROID{,_AVD,_EMULATOR}_HOME="$XDG_DATA_HOME"/android
+export ADB_VENDOR_KEYS="$XDG_CONFIG_HOME"/android
 export ANDROID_SDK_HOME="$XDG_CONFIG_HOME"/android
 
 export VSCODE_PORTABLE="$XDG_DATA_HOME"/vscode
