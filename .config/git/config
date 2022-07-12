@@ -50,6 +50,7 @@
 	defaultBranch = main
 [interactive]
 	diffFilter = diff-so-fancy --patch
+	singleKey = true
 [log]
 	follow = true
 [merge]
