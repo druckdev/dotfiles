@@ -93,9 +93,9 @@
         create: true
         glob: true
         path: .ssh/*
-    .git/hooks/:
+    .git/hooks:
         create: true
-        glob: true
-        path: meta/git/hooks/*
+        relative: true
+        path: ../meta/git/hooks
     .envrc:
         path: meta/envrc
