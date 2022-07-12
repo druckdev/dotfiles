@@ -19,6 +19,11 @@ try:
 except OSError:
     pass
 
+# Create dummy entry if the file does not yet exist, as otherwise
+# ~/.python_history is used by site.py
+if not readline.get_current_history_length():
+    readline.add_history("# python history file")
+
 def write_history():
     try:
         readline.write_history_file(history)
