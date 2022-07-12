@@ -49,7 +49,9 @@
 [init]
 	defaultBranch = main
 [interactive]
-	diffFilter = diff-so-fancy --patch
+	# disbaled for now, as not compatible with git v2.37. See:
+	# https://github.com/so-fancy/diff-so-fancy/issues/437
+	# diffFilter = diff-so-fancy --patch
 	singleKey = true
 [log]
 	follow = true
