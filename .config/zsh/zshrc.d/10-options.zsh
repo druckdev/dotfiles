@@ -131,6 +131,10 @@ fi
 	# it vanishes, allowing you to briefly reuse or edit the definition.
 	setopt HIST_NO_FUNCTIONS
 
+	# Remove superfluous blanks from each command line being added to the
+	# history list.
+	setopt HIST_REDUCE_BLANKS
+
 	# Whenever the user enters a line with history expansion, don't execute the
 	# line directly; instead, perform history expansion and reload the line into
 	# the editing buffer.
