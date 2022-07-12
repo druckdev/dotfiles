@@ -25,7 +25,7 @@ else
 endif
 
 " Interact with the system clipboard
-if (has('clipboard') || has('nvim'))
+if (has('clipboard'))
 	map <leader>y "+y
 	map <leader>Y "+Y
 	map <leader>d "+d
