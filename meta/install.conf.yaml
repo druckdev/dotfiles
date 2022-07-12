@@ -1,44 +1,36 @@
+- default:
+    shell:
+      stdout: true
+      stderr: true
+    link:
+      create: true
+
 - shell:
     -
       command: command -v zsh >/dev/null && chsh -s "$(command -v zsh)"
       description: Changing login shell to zsh
       stdin: true
-      stdout: true
-      stderr: true
     -
       command: meta/git-remote
       description: Updating git remote to use ssh
-      stderr: true
     -
       command: meta/submodules --init
       description: Pulling all submodules
-      stdout: true
-      stderr: true
     -
       command: meta/archive
       description: Archiving all files where links will be placed.
-      stdout: true
-      stderr: true
     -
       command: .local/share/fzf-repo/install --bin
       description: Pulling fzf binary
-      stdout: true
-      stderr: true
     -
       command: cd .local/share/git/plugins/git-filter-repo && make Documentation/man1/git-filter-repo.1
       description: Building git-filter-repo manpage
-      stdout: true
-      stderr: true
     -
       command: cd .config/zsh/plugins/stderred && make
       description: Building stderred
-      stdout: true
-      stderr: true
     -
       command: cd .config/vim/pack/plugins/opt/coc.nvim && yarn install --frozen-lockfile
       description: Installing coc.nvim
-      stdout: true
-      stderr: true
     -
       command: ! command -v gpg >/dev/null 2>&1 || mkdir -p ~/.local/share/gnupg
       description: Creating GNUPGHOME if necessary
@@ -50,8 +42,6 @@
     -
       command: mandb
       description: Update the manual page index cache
-      stdout: true
-      stderr: true
 - create:
     - ~/docs
     - ~/downs
@@ -66,7 +56,6 @@
     ~/.zshenv:
         path: .zshenv
     ~/.config/:
-        create: true
         glob: true
         path: .config/*
     ~/.config/:
@@ -74,28 +63,22 @@
         ignore-missing: true
         path: .config/.*
     ~/.local/bin/:
-        create: true
         glob: true
         exclude: [ .local/bin/fzf-repo ]
         path: .local/bin/*
     ~/.local/share/direnv:
         path: .local/share/direnv
     ~/.local/share/man/man1/:
-        create: true
         glob: true
         path: .local/share/man/man1/*
     ~/.local/share/nvim/site/pack:
-        create: true
         path: .config/vim/pack
     ~/.local/share/gnupg/gpg-agent.conf:
-        create: true
         path: .local/share/gnupg/gpg-agent.conf
     ~/.ssh/:
-        create: true
         glob: true
         path: .ssh/*
     .git/hooks:
-        create: true
         relative: true
         path: ../meta/git/hooks
     .envrc:
