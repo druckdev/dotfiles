@@ -1,8 +1,8 @@
 #!/bin/sh
 
-# An example hook script to verify what is about to be pushed.  Called by "git
-# push" after it has checked the remote status, but before anything has been
-# pushed.  If this script exits with a non-zero status nothing will be pushed.
+# A hook script to verify what is about to be pushed.  Called by "git push"
+# after it has checked the remote status, but before anything has been pushed.
+# If this script exits with a non-zero status nothing will be pushed.
 #
 # This hook is called with the following parameters:
 #
@@ -16,8 +16,10 @@
 #
 #   <local ref> <local oid> <remote ref> <remote oid>
 #
-# This sample shows how to prevent push of commits where the log message starts
-# with "WIP" (work in progress).
+# To enable this hook, save or link this file at `.git/hooks/pre-push`.
+#
+# This prevents pushing of commits where the log message starts with "WIP" (work
+# in progress) or "{fixup,squash}!" (Autosquash, see git-rebase(1)).
 
 remote="$1"
 url="$2"
@@ -40,11 +42,14 @@ do
 			range="$remote_oid..$local_oid"
 		fi
 
-		# Check for WIP commit
-		commit=$(git rev-list -n 1 --grep '^WIP' "$range")
-		if test -n "$commit"
+		# Check for WIP or auto{squash,fixup} commit
+		pattern='^(WIP|(fixup|squash)!)'
+
+		commits="$(git rev-list -E --oneline --grep "$pattern" "$range")"
+		if test -n "$commits"
 		then
-			echo >&2 "Found WIP commit in $local_ref, not pushing"
+			printf >&2 "$local_ref: Commits in progress:\n%s" "$commits"
+			printf >&2 "Aborting push"
 			exit 1
 		fi
 	fi
