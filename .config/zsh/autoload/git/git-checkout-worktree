@@ -36,7 +36,7 @@ trap '
 	return $errc
 ' INT QUIT TERM EXIT
 
-git worktree add "$WORKTREE_PATH" "$1"
+git worktree add "$WORKTREE_PATH" "$@"
 pushd -q "$WORKTREE_PATH"
 
 "$SHELL" && errc=$? || errc=$?
