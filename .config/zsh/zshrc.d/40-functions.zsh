@@ -20,18 +20,28 @@ bwpwd() {
 	fi
 }
 
-# creates directory and changes into it
+# mkdir wrapper that changes into the created directory if only one was given
 mkcd () {
 	# Create directory
-	mkdir "$@"
-	# shift arguments if mkdir options were used
-	while [[ $# -gt 1 ]]; do
-		shift
+	mkdir "$@" || return
+
+	# Remove flags and their arguments
+	nargs="$#"
+	for ((i = 0; i < nargs; i++)); do
+		if [[ ${1[1]} = '-' ]]; then
+			# When `-m` is given, shift it's MODE argument as well
+			! [[ $1 =~ ^-([^-].*)?m$ ]] || { shift; i+=1 }
+
+			shift
+		else
+			set -- "${@:2}" "$1"
+		fi
 	done
-	if [[ -d "$1" ]]; then
-		cd "$1"
-		pwd
-	fi
+
+	# cd into the created directory if only one was specified
+	[[ $# -eq 1 && -d $1 ]] || return 0
+	cd "$1"
+	pwd
 }
 
 # Encode and decode qr-codes
