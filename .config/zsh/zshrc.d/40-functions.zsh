@@ -28,18 +28,27 @@ mkcd () {
 	# Remove flags and their arguments
 	nargs="$#"
 	for ((i = 0; i < nargs; i++)); do
-		if [[ ${1[1]} = '-' ]]; then
+		if [[ ${1[1]} != '-' || $1 = '-' ]]; then
+			# Skip all non-flags
+			set -- "${@:2}" "$1"
+		else
 			# When `-m` is given, shift it's MODE argument as well
 			! [[ $1 =~ ^-([^-].*)?m$ ]] || { shift; i+=1 }
 
+			# Stop the loop on `--`
+			[[ $1 != '--' ]] || { shift; break }
+
 			shift
-		else
-			set -- "${@:2}" "$1"
 		fi
 	done
 
 	# cd into the created directory if only one was specified
 	[[ $# -eq 1 && -d $1 ]] || return 0
+
+	# append a slash to change into the new directory instead of back to the
+	# last visited one
+	[[ $1 != '-' ]] || 1='-/'
+
 	cd "$1"
 	pwd
 }
