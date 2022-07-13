@@ -148,6 +148,8 @@ fi
 	alias date='env LC_TIME=tk_TM date'
 	# Disable globbing
 	alias zmv='noglob zmv'
+	# Automatically change into new directory (if only one was passed)
+	alias mkdir='mkcd'
 
 # External command depending aliases
 	(( ! $+commands[zathura] )) ||
