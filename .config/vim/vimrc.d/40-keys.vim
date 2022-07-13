@@ -113,6 +113,8 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " Git bindings
 
+nmap <leader>gg :G<CR>
+
 " Insert a commit's subject behind the SHA1 that the cursor is currently on.
 " Mnemonic: "git reference commit"
 " NOTE: This uses `system` and not `:r!` to insert the text directly at the
