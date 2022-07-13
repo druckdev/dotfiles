@@ -10,7 +10,7 @@ else
 	times="$(cat)"
 fi
 times="$(<<<"$times" grep $'\t' | tail -n +2)"
-YEAR="$(tail -2 <<<"$times" | head -1 | grep -Eo "[0-9]{4}" | head -1)"
+YEAR="$(tail -3 <<<"$times" | head -1 | grep -Eo "[0-9]{4}" | head -1)"
 
 sum=0
 
