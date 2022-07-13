@@ -30,6 +30,8 @@
 
 /.config/git/gitk
 
+/.local/share/direnv/allow
+
 # Ignore symlink to meta/envrc in repo root (created in installation)
 /.envrc
 
