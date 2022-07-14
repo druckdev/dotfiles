@@ -23,7 +23,7 @@ bwpwd() {
 # mkdir wrapper that changes into the created directory if only one was given
 mkcd () {
 	# Create directory
-	mkdir "$@" || return
+	command mkdir "$@" || return
 
 	# Remove flags and their arguments
 	nargs="$#"
