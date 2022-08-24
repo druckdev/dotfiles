@@ -203,5 +203,5 @@ nmap Q gqap
 
 " Convert Unix timestamp to human readable
 " Mnemonic: "Unix timestamp convert" with pun to UTC
-nnoremap <leader>utc ciw<C-r>=strftime("%c", @")<CR><Esc>
+nnoremap <leader>utc ciw<C-r>=strftime("%F %T", @")<CR><Esc>
 vnoremap <leader>utc :s/\v(^\|[^0-9])\zs[0-9]{10}\ze([^0-9]\|$)/\=strftime("%c",submatch(0))/g<CR>
