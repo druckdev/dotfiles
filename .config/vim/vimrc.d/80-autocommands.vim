@@ -1,19 +1,4 @@
 " Autocommands """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Highlight trailing whitespaces
-" (https://vim.fandom.com/wiki/Highlight_unwanted_spaces)
-" Create highlight group
-highlight ExtraWhitespace ctermbg=red guibg=red
-" Associate with patter (trailing whitespaces)
-match ExtraWhitespace /\s\+$/
-" apply not only to the first window
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-" Do not match when typing at the end of a line
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-" Reset when leaving insert mode
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-" Clear all matches
-autocmd BufWinLeave * call clearmatches()
-
 " Terminal
 if (has('nvim'))
 	" Disable spellcheck
