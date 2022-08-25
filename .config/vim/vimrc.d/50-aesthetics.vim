@@ -50,3 +50,10 @@ augroup HighlightTrailingWhitespace
 	" first window created after startup (see :help WinNew)
 	au VimEnter,WinNew * call matchadd("TrailingWhitespace", '\s\+\%#\@<!$')
 augroup END
+
+" Highlight non-ASCII characters in the red used by my color scheme "OneDark"
+highlight NonASCIIChars ctermfg=white guifg=white ctermbg=204 guibg=#e06c75
+augroup HighlightNonASCIIChars
+	au!
+	au VimEnter,WinNew * call matchadd("NonASCIIChars", '[^\d0-\d127]')
+augroup END
