@@ -15,5 +15,5 @@ if (exists('+autoread') && &autoread)
 		" command line window
 		silent! checktime
 	endfunc
-	execute timer_start(1000, 'CheckTime', {'repeat': -1})
+	call timer_start(1000, 'CheckTime', {'repeat': -1})
 endif
