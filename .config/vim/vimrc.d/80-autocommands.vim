@@ -2,10 +2,15 @@
 " Terminal
 if (has('nvim'))
 	" Disable spellcheck
-	autocmd TermOpen * setlocal nospell
+	augroup terminal_no_spellcheck
+		au!
+		autocmd TermOpen * setlocal nospell
+	augroup END
 endif
 
 " change cursor shape depending on mode
+augroup cursor_shape_by_mode
+au!
 if (has('nvim'))
 	" Beam when exiting
 	autocmd VimLeave * silent !echo -ne "\e[5 q"
@@ -38,9 +43,13 @@ else
 		autocmd VimLeave * silent !echo -ne "\e[5 q"
 	endif
 endif
+augroup END
 
 " Custom bindings when debugging
-autocmd SourcePost termdebug.vim tnoremap <Esc> <C-\><C-n>
+augroup termdebug_bindings
+	au!
+	autocmd SourcePost termdebug.vim tnoremap <Esc> <C-\><C-n>
+augroup END
 
 " Highlight word under cursor
 augroup highlight_current_word
