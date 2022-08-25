@@ -51,33 +51,6 @@ noremap <leader>[S [S1z=<C-O>
 map <leader>st :set spell=!&spell<CR>
 map <leader>sc :call CycleSpellLang()<CR>
 map <leader>ss :set spelllang=
-" Umlaute and sz in Insert and Command-line mode when spelllang is set to `de`
-augroup spelllang_set
-	au!
-	autocmd OptionSet spelllang silent call NewSpellLang(v:option_new, v:option_old)
-augroup end
-function! NewSpellLang(new_lang, old_lang)
-	let &spellfile = $XDG_DATA_HOME . '/vim/spell/' . a:new_lang . '.utf-8.add'
-
-	let mappings = {
-	\ 'ae': 'ä',
-	\ 'Ae': 'Ä',
-	\ 'oe': 'ö',
-	\ 'Oe': 'Ö',
-	\ 'ue': 'ü',
-	\ 'Ue': 'Ü',
-	\ 'sz': 'ß',
-	\ }
-	if (a:new_lang == 'de')
-		for [key, value] in items(mappings)
-			execute 'map! <buffer>' key value
-		endfor
-	elseif (a:old_lang == 'de')
-		for key in keys(mappings)
-			execute 'unmap! <buffer>' key
-		endfor
-	endif
-endfunction
 
 " Jump through jump table but center
 noremap <Tab> <Tab>zz

@@ -44,6 +44,11 @@ if !isdirectory($XDG_DATA_HOME . '/vim/spell')
 	call mkdir($XDG_DATA_HOME . '/vim/spell', 'p')
 endif
 let &spellfile = $XDG_DATA_HOME . '/vim/spell/' . &spelllang . '.utf-8.add'
+augroup xdg_spellfile
+	au!
+	au OptionSet spelllang let &spellfile =
+				\ $XDG_DATA_HOME . '/vim/spell/' . v:option_new . '.utf-8.add'
+augroup end
 
 set runtimepath-=~/.vim       runtimepath^=$XDG_CONFIG_HOME/vim
 set runtimepath-=~/.vim/after runtimepath+=$XDG_CONFIG_HOME/vim/after
