@@ -115,13 +115,14 @@ endif
 
 if exists('g:loaded_gitgutter')
 	" Add `g` prefix to hunk bindings
-
 	" Mnemonic: "git hunk <add|undo|preview>"
 	nmap <leader>gha <Plug>(GitGutterStageHunk)
-	xmap <leader>gha <Plug>(GitGutterStageHunk)
 	" TODO: nmap <leader>ghs <Plug>(GitGutterStashHunk)
 	nmap <leader>ghu <Plug>(GitGutterUndoHunk)
 	nmap <leader>ghp <Plug>(GitGutterPreviewHunk)
+
+	" StageHunk can be used for single lines. Mnemonic w/o `h`unk
+	xmap <leader>ga <Plug>(GitGutterStageHunk)
 
 	" Add hunk/h version to textobject bindings that use `c` (for `change I
 	" presume?) (e.g. ic -> ih)
