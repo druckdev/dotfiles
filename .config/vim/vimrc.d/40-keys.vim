@@ -135,6 +135,11 @@ if exists('g:loaded_gitgutter')
 	nmap ]h <Plug>(GitGutterNextHunk)
 endif
 
+if (get(g:, 'loaded_fzf'))
+	" git files that `git status` lists
+	nmap <leader>gf :GFiles?<CR>
+endif
+
 " Y should behave like D & C does
 nnoremap Y y$
 
