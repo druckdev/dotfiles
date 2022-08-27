@@ -107,6 +107,9 @@ if exists('g:loaded_fugitive')
 	nmap <leader>gc :G commit<CR>
 	" Move to root of directory
 	nmap <leader>gcd :Gcd<CR>
+	" git blame in scroll bound vertical split (only the commit hashes, see
+	" :help :Git_blame)
+	nmap <leader>gb :G blame<CR>C
 else
 	" Move to root of directory
 	" NOTE: only works if a file is already opened
