@@ -89,8 +89,6 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " Git bindings
 
-nmap <leader>gg :G<CR>
-
 " Insert a commit's subject behind the SHA1 that the cursor is currently on.
 " Mnemonic: "git reference commit"
 " NOTE: This uses `system` and not `:r!` to insert the text directly at the
@@ -103,6 +101,8 @@ nmap <leader>gs :!git stash -- %<CR>
 nmap <leader>gu :!git checkout -- %<CR>
 
 if exists('g:loaded_fugitive')
+	" Interactive `git status`
+	nmap <leader>gg :G<CR>
 	" Using fugitive.vim, start a commit and open the message in a new split
 	nmap <leader>gc :G commit<CR>
 	" Move to root of directory
