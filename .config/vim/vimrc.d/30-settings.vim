@@ -1,6 +1,11 @@
 " Settings """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " hybrid linenumbers
 set number relativenumber
+augroup numbertoggle
+	au!
+	au BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu   | endif
+	au BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
+augroup END
 " no timeout when exiting insert-mode
 " (see https://www.johnhawthorn.com/2012/09/vi-escape-delays/)
 set timeoutlen=1000 ttimeoutlen=0
