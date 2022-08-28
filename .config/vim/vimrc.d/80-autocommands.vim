@@ -52,8 +52,13 @@ augroup termdebug_bindings
 augroup END
 
 " Highlight word under cursor
+function! HighlightCurrentWord()
+	if (expand('<cword>') != '')
+		exec 'match CursorColumn /\V\<' . escape(expand('<cword>'), '/\') . '\>/'
+	endif
+endfunction
 augroup highlight_current_word
 	au!
-	au CursorHold * :exec 'match CursorColumn /\V\<' . escape(expand('<cword>'), '/\') . '\>/'
-	au CursorMoved * :exec 'match'
+	au CursorHold * call HighlightCurrentWord()
+	au CursorMoved * match
 augroup END
