@@ -46,6 +46,14 @@ noremap <leader>[s [s1z=<C-O>
 noremap <leader>]S ]S1z=<C-O>
 noremap <leader>[S [S1z=<C-O>
 
+" Toggle spell language between German and English
+function! CycleSpellLang()
+	if (&spelllang == 'en')
+		set spelllang=de
+	else
+		set spelllang=en
+	endif
+endfunction
 " Toggle spell, cycle and set spelllang
 map <leader>st :set spell=!&spell<CR>
 map <leader>sc :call CycleSpellLang()<CR>
