@@ -15,6 +15,7 @@
 
 	# Implemented as zsh functions or external programs
 	checkout-worktree = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-checkout-worktree\""
+	commit-last-msg = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-commit-last-msg\""
 	filter-repo = !git-filter-repo
 	flog = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/glog\""
 	ssync = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-ssync\""

@@ -393,18 +393,6 @@ cd() {
 	fi
 }
 
-# Commit, but put the last written commit message into the editor buffer.
-# For this it uses .git/COMMIT_EDITMSG but deletes all lines after and including
-# the first comment of the file.
-# Useful for example when the commit-msg hook fails but only slight
-# modifications are needed.
-# Additional arguments (for example `-n` to bypass the hooks) can be passed.
-git-commit-last-msg() {
-	local gitdir
-	gitdir="$(git rev-parse --git-dir)" || return
-	git commit -eF <(sed -n '/^#/q;p' "$gitdir/COMMIT_EDITMSG") "$@"
-}
-
 nvim-man() {
 	# Use nvim only if it exists, there was just one argument passed, that
 	# argument is not an option (e.g. `--version`) and stdout is a terminal.
