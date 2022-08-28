@@ -1,1 +1,1 @@
-git fetch --all
+git fetch --all 0<&- &>/dev/null 3>&- & disown
