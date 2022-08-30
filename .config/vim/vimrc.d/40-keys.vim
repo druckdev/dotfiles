@@ -28,7 +28,6 @@ endif
 if (has('clipboard'))
 	map <leader>y "+y
 	map <leader>Y "+Y
-	map <leader>d "+d
 	map <leader>p "+p
 	map <leader>P "+P
 endif
@@ -148,6 +147,9 @@ endif
 
 " Y should behave like D & C does
 nnoremap Y y$
+
+" Clear line (`cc` but stay in normal mode)
+nmap <leader>dd ^D
 
 " Move lines up and down while correcting the indentation
 " https://vim.fandom.com/wiki/Moving_lines_up_or_down
