@@ -160,7 +160,7 @@ endif
 nnoremap Y y$
 
 " Clear line (`cc` but stay in normal mode)
-nmap <leader>dd ^D
+nmap <leader>dd 0D
 
 " Move lines up and down while correcting the indentation
 " https://vim.fandom.com/wiki/Moving_lines_up_or_down
