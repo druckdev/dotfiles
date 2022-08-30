@@ -75,6 +75,7 @@ if (get(g:, 'loaded_fzf'))
 	" TODO: fix this?
 	if (get(g:, 'loaded_gutentags') || 1)
 		nmap <leader>t :Tags<CR>
+		nmap <leader>bt :BTags<CR>
 	endif
 endif
 
