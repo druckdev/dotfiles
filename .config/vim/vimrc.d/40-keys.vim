@@ -83,6 +83,8 @@ endif
 vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
 vnoremap # y?\V<C-R>=escape(@",'?\')<CR><CR>
 
+nmap <leader>* :Rg <C-R><C-W><CR>
+
 " Select last pasted text in same visual mode as it was selected (v, V, or ^V)
 " Taken from: https://vim.fandom.com/wiki/Selecting_your_pasted_text
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
