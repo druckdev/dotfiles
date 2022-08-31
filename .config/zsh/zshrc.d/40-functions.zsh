@@ -570,3 +570,18 @@ suffix() {
 	# Pass starting points and the name arguments
 	find "${@:$((i+1))}" -name "${(@)names}"
 }
+
+# Find duplicate files
+finddup() {
+	# find all files, filter the ones out with unique size, calculate md5 and
+	# print duplicates
+	find "$@" -type f -exec du '{}' '+' \
+	| awk '{print $2,$1}' \
+	| sort -k2 \
+	| uniq -f1 -D \
+	| awk '{print $1}' \
+	| xargs -d'\n' md5sum \
+	| sort \
+	| uniq -w32 --all-repeated=separate \
+	| awk '{print $2}'
+}
