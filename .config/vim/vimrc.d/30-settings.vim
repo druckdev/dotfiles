@@ -83,6 +83,9 @@ set iskeyword+=-
 set nofixendofline
 " Let the cursor move beyond the EOL when in visual-block mode.
 set virtualedit+=block
+" Do not redraw screen while executing macros, registers and other commands that
+" have not been typed.
+set lazyredraw
 
 if (exists('g:loaded_gitgutter'))
 	" Augment the default `foldtext()` with an indicator whether the folded
