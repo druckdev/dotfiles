@@ -17,3 +17,6 @@ node_modules
 
 # Ignore session file created by obsession-vim
 Session.vim
+
+# Ignore python bytecode cache
+__pycache__
