@@ -401,13 +401,7 @@ nvim-man() {
 		command man -w "$1" >/dev/null || return
 
 		# $MANPAGER would do the trick too but lines would be hard-wrapped.
-		nvim -u NORC +"
-			runtime! plugin/man.vim |
-			Man $1 |
-			only |
-			set scrolloff=999 |
-			normal M
-		"
+		nvim +"Man $1 | only | set scrolloff=999 | normal M"
 	else
 		command man "$@"
 	fi
