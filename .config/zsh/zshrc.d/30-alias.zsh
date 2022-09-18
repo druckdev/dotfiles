@@ -44,7 +44,6 @@ fi
 
 # XDG Base Directory Specification
 	add_flags tmux -f "${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf"
-	add_flags tmsu -D "${XDG_DATA_HOME:-$HOME/.local/share}/tmsu/db"
 	add_flags yarn --use-yarnrc "${XDG_CONFIG_HOME:-$HOME/.config}"/yarn/config
 	add_flags bash --rcfile "${XDG_CONFIG_HOME:-$HOME/.config}"/bash/bashrc
 	add_flags mbsync -c "$XDG_CONFIG_HOME"/isync/mbsyncrc

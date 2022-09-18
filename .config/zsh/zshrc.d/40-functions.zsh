@@ -579,3 +579,28 @@ finddup() {
 	| uniq -w32 --all-repeated=separate \
 	| awk '{print $2}'
 }
+
+# Wrapper around tmsu that searches for .tmsu/db in all parent directories and
+# fallbacks to XDG_DATA_HOME if not found.
+tag() {
+	if (( ! $+commands[tmsu] )); then
+		printf >&2 "tmsu not installed.\n"
+		return 1
+	fi
+
+	local db dir="$PWD" std=".tmsu/db"
+
+	# Go up directories until root to find .tmsu/db
+	until [[ -e $dir/$std || $dir = / ]]; do
+		dir="${dir:h}"
+	done
+	db="$dir/$std"
+
+	# Fallback to XDG_DATA if .tmsu/db was not found in one of the parent dirs.
+	if [[ ! -e $db ]]; then
+		db="${XDG_DATA_HOME:-$HOME/.local/share}"/tmsu/db
+		mkdir -p "${db:h}"
+	fi
+
+	env TMSU_DB="$db" tmsu "$@"
+}
