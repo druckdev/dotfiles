@@ -10,13 +10,13 @@
 compile_flags.txt
 
 # Ignore vscode files
-.vscode
+.vscode/
 
 # Ignore all node_modules
-node_modules
+node_modules/
 
 # Ignore session file created by obsession-vim
 Session.vim
 
 # Ignore python bytecode cache
-__pycache__
+__pycache__/
