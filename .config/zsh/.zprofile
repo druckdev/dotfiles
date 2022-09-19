@@ -95,10 +95,10 @@ if (( $+commands[rg] )); then
 	# Also respect gitignores
 	FZF_DEFAULT_COMMAND="rg --hidden --files -g '!.git'"
 else
-	FZF_DEFAULT_COMMAND="find ."
-	FZF_DEFAULT_COMMAND+=" -name '.git' -prune -o"
-	FZF_DEFAULT_COMMAND+=" -name 'node_modules' -prune -o"
-	FZF_DEFAULT_COMMAND+=" \( -type f -a -print \)"
+	FZF_DEFAULT_COMMAND="find . \("
+		FZF_DEFAULT_COMMAND+=" -name '.git' -o"
+		FZF_DEFAULT_COMMAND+=" -name 'node_modules'"
+	FZF_DEFAULT_COMMAND+=" \) -prune -o -type f -print"
 fi
 export FZF_DEFAULT_COMMAND
 
