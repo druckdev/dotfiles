@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# Translate given text passed via stdin with the help of DeepL. Expects the API
+# token to be passed through the environment variable $DEEPL_API_TOKEN.
+#
+# The output is only the translated text if `jq` is installed, and the json
+# response from DeepL otherwise.
+#
+# Assumes German as source language and English (US) as target language if not
+# specified via the first two arguments.
+#
+# Can be simply used in vim:
+#
+#   :'<,'>!trans
+
+ENDPOINT='https://api-free.deepl.com/v2/translate'
+
+source="${1:-DE}"
+target="${1:-EN-US}"
+
+curl -sS "$ENDPOINT" \
+	-H "Authorization: DeepL-Auth-Key $DEEPL_API_TOKEN" \
+	--data-urlencode "text=$(cat)" \
+	-d "source_lang=$source" \
+	-d "target_lang=$target" \
+| { command -v jq >/dev/null 2>&1 && jq -r '.translations[].text' || cat; }
