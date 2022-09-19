@@ -165,7 +165,7 @@ fi
 	fi
 	if (( $+commands[nvim] )); then
 		alias vim='jobs | grep -q nvim && {fg;:;} || nvim'
-		alias vimdiff='nvim --cmd "set list" -c "set listchars=tab:>·,space:·" -d'
+		alias vimdiff='nvim -d'
 	fi
 	! is_exec vim ||
 		alias vi='vim'
