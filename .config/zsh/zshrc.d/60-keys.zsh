@@ -138,9 +138,10 @@ bindkey -M vicmd '^K' fzf-history-widget
 # \ec (Alt-C) fzf-cd-widget
 # ^R fzf-history-widget
 FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
-FZF_ALT_C_COMMAND="find -L . -mindepth 1 \("
-	FZF_ALT_C_COMMAND+=" -name '.git' -o"
-	FZF_ALT_C_COMMAND+=" -name '__pycache__' -o"
-	FZF_ALT_C_COMMAND+=" -name 'node_modules'"
-FZF_ALT_C_COMMAND+=" \) -prune -o -type d -print"
+# Use the fallback default command when ripgrep is not installed but with
+# directories instead of files.
+FZF_ALT_C_COMMAND="$(
+	zsh -c 'path= . "$ZDOTDIR/.zprofile"; echo "$FZF_DEFAULT_COMMAND"' \
+	| sed 's/-type f/-type d/'
+)"
 comp-source "$ZDOTDIR/plugins/fzf/shell/key-bindings.zsh"
