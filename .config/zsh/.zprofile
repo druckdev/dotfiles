@@ -116,6 +116,9 @@ if (( $+commands[dircolors] )); then
 	fi
 fi
 
+# Source private zprofile
+[[ ! -e "${(%):-%x}.priv" ]] || . "${(%):-%x}.priv"
+
 # Automatically start X on login after boot.
 # Do not use exec so that the zlogout is still read.
 if (( $+commands[startx] )) && [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]]; then
