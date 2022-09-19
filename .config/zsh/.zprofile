@@ -97,6 +97,7 @@ if (( $+commands[rg] )); then
 else
 	FZF_DEFAULT_COMMAND="find . \("
 		FZF_DEFAULT_COMMAND+=" -name '.git' -o"
+		FZF_DEFAULT_COMMAND+=" -name '__pycache__' -o"
 		FZF_DEFAULT_COMMAND+=" -name 'node_modules'"
 	FZF_DEFAULT_COMMAND+=" \) -prune -o -type f -print"
 fi
