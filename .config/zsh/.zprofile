@@ -90,18 +90,20 @@ LESS+="${LESS:+ }--RAW-CONTROL-CHARS"
 LESS+="${LESS:+ }--quit-if-one-screen"
 export LESS
 
+# NOTE: This is used in keys.zsh for the ALT_C widget
+fzf_default_no_rg="find -L . -mindepth 1 \("
+	fzf_default_no_rg+=" -name '.git' -o"
+	fzf_default_no_rg+=" -name '__pycache__' -o"
+	fzf_default_no_rg+=" -name 'node_modules'"
+fzf_default_no_rg+=" \) -prune -o -type f -print"
+fzf_default_no_rg+=" | cut -c3-"
+
 if (( $+commands[rg] )); then
 	# Prune `.git/` and everything ignored by gitignore(5)
 	FZF_DEFAULT_COMMAND="rg -L --hidden --files -g '!.git'"
 else
 	# Fallback to hardcoding the most important paths to prune
-	# NOTE: This version is used in keys.zsh for the ALT_C widget
-	FZF_DEFAULT_COMMAND="find -L . -mindepth 1 \("
-		FZF_DEFAULT_COMMAND+=" -name '.git' -o"
-		FZF_DEFAULT_COMMAND+=" -name '__pycache__' -o"
-		FZF_DEFAULT_COMMAND+=" -name 'node_modules'"
-	FZF_DEFAULT_COMMAND+=" \) -prune -o -type f -print"
-	FZF_DEFAULT_COMMAND+=" | cut -c3-"
+	FZF_DEFAULT_COMMAND="$fzf_default_no_rg"
 fi
 export FZF_DEFAULT_COMMAND
 
