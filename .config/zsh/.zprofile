@@ -96,7 +96,7 @@ if (( $+commands[rg] )); then
 else
 	# Fallback to hardcoding the most important paths to prune
 	# NOTE: This version is used in keys.zsh for the ALT_C widget
-	FZF_DEFAULT_COMMAND="find -L . \("
+	FZF_DEFAULT_COMMAND="find -L . -mindepth 1 \("
 		FZF_DEFAULT_COMMAND+=" -name '.git' -o"
 		FZF_DEFAULT_COMMAND+=" -name '__pycache__' -o"
 		FZF_DEFAULT_COMMAND+=" -name 'node_modules'"
