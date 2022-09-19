@@ -90,11 +90,11 @@ LESS+="${LESS:+ }--RAW-CONTROL-CHARS"
 LESS+="${LESS:+ }--quit-if-one-screen"
 export LESS
 
-# Show also hidden files per default but ignore files in '.git' directories.
 if (( $+commands[rg] )); then
-	# Also respect gitignores
+	# Prune `.git/` and everything ignored by gitignore(5)
 	FZF_DEFAULT_COMMAND="rg --hidden --files -g '!.git'"
 else
+	# Fallback to hardcoding the most important paths to prune
 	FZF_DEFAULT_COMMAND="find . \("
 		FZF_DEFAULT_COMMAND+=" -name '.git' -o"
 		FZF_DEFAULT_COMMAND+=" -name '__pycache__' -o"
