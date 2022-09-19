@@ -92,10 +92,10 @@ export LESS
 
 if (( $+commands[rg] )); then
 	# Prune `.git/` and everything ignored by gitignore(5)
-	FZF_DEFAULT_COMMAND="rg --hidden --files -g '!.git'"
+	FZF_DEFAULT_COMMAND="rg -L --hidden --files -g '!.git'"
 else
 	# Fallback to hardcoding the most important paths to prune
-	FZF_DEFAULT_COMMAND="find . \("
+	FZF_DEFAULT_COMMAND="find -L . \("
 		FZF_DEFAULT_COMMAND+=" -name '.git' -o"
 		FZF_DEFAULT_COMMAND+=" -name '__pycache__' -o"
 		FZF_DEFAULT_COMMAND+=" -name 'node_modules'"
