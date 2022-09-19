@@ -101,6 +101,7 @@ else
 		FZF_DEFAULT_COMMAND+=" -name '__pycache__' -o"
 		FZF_DEFAULT_COMMAND+=" -name 'node_modules'"
 	FZF_DEFAULT_COMMAND+=" \) -prune -o -type f -print"
+	FZF_DEFAULT_COMMAND+=" | cut -c3-"
 fi
 export FZF_DEFAULT_COMMAND
 
