@@ -9,10 +9,8 @@
 #
 # To enable this hook, save this file in ".git/hooks/commit-msg".
 
-die() {
-	printf "$1" >&2
-	exit ${2:-1}
-}
+# Source die()
+. "$HOME"/.local/bin/helpers.sh
 
 subject="$(head -1 "$1")"
 # Ignore "fixup! " and "squash! " prefix' added by `git-commit`
@@ -39,7 +37,7 @@ body="$(
 	          /^[^${git_comment_char/auto/\#}]/p"
 )"
 
-[[ ${#subject} -le 50 ]] || die "Subject too long. (<= 50)\n"
+[[ ${#subject} -le 50 ]] || die "Subject too long. (<= 50)"
 
 # The subject line has to match "${pats[@]}", but to be more verbose different
 # error messages are printed for the different 'levels' of the pattern.
@@ -54,7 +52,7 @@ msg=(
 	"Start subject with a capital letter.\n"
 	"Remove punctuation mark from end.\n"
 )
-[[ ${#msg[@]} -ge ${#pats[@]} ]] || die "Something went wrong internally.\n"
+[[ ${#msg[@]} -ge ${#pats[@]} ]] || die "Something went wrong internally."
 for ((i = 0; i < ${#pats[@]}; i++)); do
 	if ! grep -qE "$(printf "%s" "${pats[@]:0:$i+1}")" <<<"$subject"; then
 		die "${msg[$i]}"
@@ -65,6 +63,6 @@ BKP_IFS="$IFS"
 IFS='
 '
 for line in $body; do
-	[[ ${#line} -le 72 ]] || die "Body lines too long. (<= 72)\n"
+	[[ ${#line} -le 72 ]] || die "Body lines too long. (<= 72)"
 done
 IFS="$BKP_IFS"

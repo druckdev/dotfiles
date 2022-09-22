@@ -1,18 +1,16 @@
 #!/bin/sh
 
-die() {
-	printf "$1" >&2
-	exit ${2:-1}
-}
+# Source die()
+. "$HOME"/.local/bin/helpers.sh
 
 remote="$(git remote -v | grep -m1 "druckdev/dotfiles" | cut -f1)"
 : "${remote:=origin}"
 url="$(git remote get-url "$remote")"
-! printf "$url" | grep -q '^git@' || die "Using ssh already.\n" 0
+! printf "$url" | grep -q '^git@' || die "Using ssh already." 0
 
 host="$(printf "$url" | cut -d/ -f3)"
-grep -q "$host" "$HOME"/.ssh/known_hosts || die "No ssh key for $host found.\n"
+grep -q "$host" "$HOME"/.ssh/known_hosts || die "No ssh key for $host found."
 
 ssh_url="$(printf "$url" | sed 's_^https\?://_git@_;s_/_:_')"
 git remote set-url "$remote" "$ssh_url"
-die "Set $remote remote url to $ssh_url\n" $?
+die "Set $remote remote url to $ssh_url" $?

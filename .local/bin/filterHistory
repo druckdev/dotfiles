@@ -8,14 +8,12 @@
 ##   format of zshs extended history.
 ## An automatic backup is created before deleting that can be used for recovery.
 
-die() {
-	printf "$1" >&2
-	exit ${2:-1}
-}
+# Source die()
+. "$HOME"/.local/bin/helpers.sh
 
-[[ $# -eq 1 ]] || die "Specify a history file.\n"
-[[ -e "$1" ]] || die "File does not exist.\n"
-[[ "$(stat -c '%a' "$1")" = "600" ]] || die "File permissions are off.\n"
+[[ $# -eq 1 ]] || die "Specify a history file."
+[[ -e "$1" ]] || die "File does not exist."
+[[ "$(stat -c '%a' "$1")" = "600" ]] || die "File permissions are off."
 
 # Take a history file per stdin and sort the commands per number of occurrences
 hist-sort() {

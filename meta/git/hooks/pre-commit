@@ -6,10 +6,8 @@
 #
 # To enable this hook, save this file in ".git/hooks/pre-commit".
 
-die() {
-	printf "$1" >&2
-	exit ${2:-1}
-}
+# Source die()
+. "$HOME"/.local/bin/helpers.sh
 
 if git rev-parse --verify HEAD >/dev/null 2>&1; then
 	against=HEAD
@@ -35,8 +33,7 @@ if [ "$allownonascii" != "true" ]; then
 		| wc -c
 	)
 	if [ $num_nonascii != 0 ]; then
-		printf "Rename files to only include ASCII characters.\n" >&2
-		die "Or set hooks.allownonascii to true.\n"
+		die "Rename files with ASCII characters only, or enable hooks.allownonascii"
 	fi
 fi
 
