@@ -100,6 +100,11 @@ function rationalize_dots {
 zle -N rationalize_dots
 bindkey . rationalize_dots
 
+# Keep the normal dot self-insert on Ctrl-. (e.g. for typing `../.local`)
+function default_dot { LBUFFER+=. }
+zle -N default_dot
+bindkey '^N' default_dot
+
 CMDS_ON_ENTER=(ll gs)
 REQUIREMENTS_CMDS_ON_ENTER=(true "git rev-parse")
 function cmd-on-enter {
