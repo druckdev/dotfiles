@@ -85,12 +85,15 @@ bindkey -M vicmd " f" edit-fuzzy-file
 function rationalize_dots {
 	# Rationalize dots at BOL or after a space or slash.
 	if [[ "$LBUFFER" =~ "(^|[ /])\.\./$" ]]; then
+		# ../ + . -> ../../
 		LBUFFER+=../
 	elif [[ "$LBUFFER" =~ "(^|[ /])\.\.$" ]]; then
+		# .. + . -> ../../
 		# NOTE: This scenario occurs only if backspace or `default_dot` was
 		#       used.
 		LBUFFER+=/../
 	elif [[ "$LBUFFER" =~ "(^|[ /])\.$" ]]; then
+		# . + . -> ../
 		LBUFFER+=./
 	else
 		LBUFFER+=.
