@@ -81,6 +81,11 @@ if [[ $OSTYPE != linux-android ]]; then
 	setopt NO_CASE_GLOB
 fi
 
+	# If a pattern for filename generation has no matches, delete the pattern
+	# from the argument list; do not report an error unless all the patterns in
+	# a command have no matches.  Overrides NOMATCH.
+	setopt CSH_NULL_GLOB
+
 	# Treat the `#', `~' and `^' characters as part of patterns for filename
 	# generation, etc.  (An initial unquoted `~' always produces named directory
 	# expansion.)
