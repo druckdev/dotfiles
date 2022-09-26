@@ -24,14 +24,16 @@ if [[ $OSTYPE =~ darwin ]] && (( $+commands[gls] )); then
 	LS_COMMAND=gls
 fi
 
-builtin local non_existing=0
+builtin local non_existing=0 no_flags_from_here=0
 builtin local -a dirs files
 # Pop files and folders from arguments and put them in the corresponding array,
 # keep flags (ls takes flag-arguments behind a '=') and warn when non-existing
 # arguments were passed.
 for arg in "$@"; do
 	shift
-	if [[ ${arg#-} != $arg ]]; then
+	if [[ $arg = '--' ]] && (( ! no_flags_from_here )); then
+		no_flags_from_here=1
+	elif [[ ${arg#-} != $arg ]] && (( ! no_flags_from_here )); then
 		set -- "$@" "$arg"
 	elif [[ -d "$arg" ]]; then
 		dirs+="$arg"
