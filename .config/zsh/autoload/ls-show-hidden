@@ -90,7 +90,7 @@ for dir in ${(@f)dirs}; do
 	fi
 	# If there are multiple items to list, print a newline (if ls was already
 	# executed) followed by the dir-name.
-	! (( ${#dirs} + ${#files} - 1 )) || echo "$separator$dir:"
+	! (( ${#dirs} + ${#files} + ${non_existing} - 1 )) || echo "$separator$dir:"
 	# Print directory. $all_flag has to be unquoted else ls will fail.
 	command $LS_COMMAND "$@" $all_flag -- "$dir"
 	separator="\n"
