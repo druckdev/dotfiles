@@ -14,28 +14,38 @@ builtin emulate -L zsh -o no_glob_dots -o null_glob
 # files should always be listed.
 builtin local LS_SHOW_ALL_DIRS=${LS_SHOW_ALL_DIRS:-"dotfiles|\.config"}
 
+# ANSI escape codes to print in color
+builtin local ansi_bold_red=$'\e[31;1m'
+builtin local ansi_reset=$'\e[m'
+
 builtin local LS_COMMAND=ls
 # Use GNU version if available under MacOS
 if [[ $OSTYPE =~ darwin ]] && (( $+commands[gls] )); then
 	LS_COMMAND=gls
 fi
 
+builtin local non_existing=0
 builtin local -a dirs files
-# Pop files and folders from arguments and put them in the corresponding array.
-# All other arguments are kept.
+# Pop files and folders from arguments and put them in the corresponding array,
+# keep flags (ls takes flag-arguments behind a '=') and warn when non-existing
+# arguments were passed.
 for arg in "$@"; do
 	shift
-	if [[ -d "$arg" ]]; then
+	if [[ ${arg#-} != $arg ]]; then
+		set -- "$@" "$arg"
+	elif [[ -d "$arg" ]]; then
 		dirs+="$arg"
 	elif [[ -e "$arg" ]]; then
 		files+="$arg"
 	else
-		set -- "$@" "$arg"
+		printf >&2 "%s%s: cannot access '%s': No such file or directory%s\n" \
+			"$ansi_bold_red" "$0" "$arg" "$ansi_reset"
+		non_existing=1
 	fi
 done
 
 # Print working directory when only flags were given as arguments.
-if ! (( ${#dirs} + ${#files} )); then
+if ! (( ${#dirs} + ${#files} + $non_existing )); then
 	dirs+=.
 fi
 
