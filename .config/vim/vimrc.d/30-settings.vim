@@ -86,6 +86,8 @@ set virtualedit+=block
 " Do not redraw screen while executing macros, registers and other commands that
 " have not been typed.
 set lazyredraw
+" Visual selection does not include the line break
+set selection=old
 
 if (exists('g:loaded_gitgutter'))
 	" Augment the default `foldtext()` with an indicator whether the folded
