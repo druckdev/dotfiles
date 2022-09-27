@@ -51,9 +51,9 @@ bindkey '^3' pound-insert
 ## Navigation
 bindkey '^[[Z' reverse-menu-complete         # shift-tab
 bindkey '^Q' push-input                      # ctrl-Q
-bindkey '\e[H' beginning-of-line             # home
+bindkey '^[[H' beginning-of-line             # home
 bindkey "$terminfo[khome]" beginning-of-line # home
-bindkey '\e[F' end-of-line                   # end
+bindkey '^[[F' end-of-line                   # end
 bindkey "$terminfo[kend]" end-of-line        # end
 bindkey -v '^?' backward-delete-char         # normal delete not vim-bac...
 bindkey '^[[P' delete-char                   # delete
