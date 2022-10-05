@@ -116,8 +116,7 @@ else
 	fzf_args+=(--preview-window=down)
 fi
 
-# Display an ascii graph of the commits in the above format and pipe that into
-# fzf.
-git log "$formatshort" --graph "$dateshort" --color=always "$@" \
+# Display the commits in the above format and pipe that into fzf.
+git log "$formatshort" "$dateshort" --color=always "$@" \
 | env LESS="$LESS${LESS:+ }-+F" fzf "${fzf_args[@]}"
 return 0
