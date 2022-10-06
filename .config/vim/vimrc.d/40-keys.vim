@@ -105,6 +105,9 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 "       cursor. `subject[:-2]` cuts off the trailing newline.
 nmap <leader>grc :let subject=system('git show -s --format="(\"%s\")" <C-R><C-W>')<CR>ea <C-R>=subject[:-2]<CR><Esc>
 
+" Insert a Signed-off-by trailer
+nmap <leader>gso :r!git config --get user.name<CR>:r!git config --get user.email<CR>I<<ESC>A><ESC>kJISigned-off-by: <ESC>
+
 " Add, stash or checkout the current file
 nmap <leader>ga :!git add -- %<CR>
 nmap <leader>gs :!git stash -- %<CR>
