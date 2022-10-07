@@ -6,6 +6,8 @@
 command -v xrandr &>/dev/null || exit 1
 command -v fzf &>/dev/null || exit 1
 
+fzf_args=( --cycle --select-1 --exit-0 --header )
+
 xrandr_q="$(xrandr -q)"
 
 # Get outputs currently in use as regex matching either one (e.g. `HDMI-0|DP-0`)
@@ -29,7 +31,7 @@ formatted="$(<<<"$xrandr_q" \
 
 # Select all outputs to-use
 selected=( $(<<<"$formatted" \
-	fzf -m --cycle --header "Select outputs" | # select
+	fzf -m "${fzf_args[@]}" "Select outputs" | # select
 	cut -d' ' -f1                              # only output name
 ) )
 # Abort if nothing was selected
@@ -48,7 +50,7 @@ non_selected=( $(<<<"$xrandr_q" \
 # Choose primary
 primary="$(<<<"$formatted" \
 	grep -E "$selected_regex" | # use formatted for more information
-	fzf --cycle --select-1 --header "Select primary" |
+	fzf "${fzf_args[@]}" "Select primary" |
 	cut -d' ' -f1 # name only
 )"
 [[ $primary ]] || exit 1
@@ -73,7 +75,7 @@ for out in "${selected[@]}"; do
 			}
 		}"
 	)"
-	res="$(<<<"$all_res" fzf --cycle --header "Select resolution for $out")"
+	res="$(<<<"$all_res" fzf "${fzf_args[@]}" "Select resolution for $out")"
 	[[ $res ]] || exit 1
 
 	xrandr_cmd+=(--mode "$res")
@@ -94,7 +96,7 @@ for out in "${selected[@]}"; do
 			}
 		}"
 	)"
-	rate="$(<<<"$rates" fzf --cycle --header "Select refresh rate for $out")"
+	rate="$(<<<"$rates" fzf "${fzf_args[@]}" "Select refresh rate for $out")"
 	[[ $rate ]] || exit 1
 	rate="${rate%%[*+]*}" # remove current and preferred mode indicator
 	xrandr_cmd+=(--rate "$rate")
