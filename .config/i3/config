@@ -245,4 +245,5 @@ for_window [class="^$TERMINAL-256color$" title="^fzf-monitor-setup$"] \
 	move position 1 32
 bindsym $mod+m exec \
 	pkill -f fzf-monitor-setup -O 1 \
-	|| $TERMINAL -t fzf-monitor-setup -e ~/.local/bin/monitor-setup
+	|| $TERMINAL -t fzf-monitor-setup -e \
+		sh -c "~/.local/bin/monitor-setup && ~/.config/polybar/launch.sh"
