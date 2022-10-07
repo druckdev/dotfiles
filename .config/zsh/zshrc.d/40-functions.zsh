@@ -488,6 +488,9 @@ psgrep() {
 	# - Set EXTENDED_GLOB for the `b` globbing flag.
 	emulate -L zsh -o extendedglob
 
+	# print column info
+	ps u | head -1
+
 	for arg; do
 		# Substitute the captured first character with itself surrounded by
 		# brackets. The `(#b)` turns on backreferences, storing the match in the
