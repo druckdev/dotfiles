@@ -492,6 +492,12 @@ psgrep() {
 	ps u | head -1
 
 	for arg; do
+		# Pass to grep directly if it looks like a regex
+		if [[ "$arg" =~ '[][$|.*?+\\()^]' ]]; then
+			ps aux | grep -E "$arg"
+			continue
+		fi
+
 		# Substitute the captured first character with itself surrounded by
 		# brackets. The `(#b)` turns on backreferences, storing the match in the
 		# array $match (in this case with only one element).
