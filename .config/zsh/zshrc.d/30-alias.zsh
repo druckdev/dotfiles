@@ -42,6 +42,8 @@ fi
 	# Bulk renaming with (almost) all files and directly modifying the
 	# destination.
 	add_flags qmv -Af destination-only
+	# Match against and list full command line
+	add_flags pgrep --full --list-full
 
 # XDG Base Directory Specification
 	add_flags tmux -f "${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf"
