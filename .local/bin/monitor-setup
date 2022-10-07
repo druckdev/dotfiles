@@ -12,55 +12,65 @@
 command -v xrandr &>/dev/null || exit 1
 command -v fzf &>/dev/null || exit 1
 
-# Grep for all connected outs including their highest resolution,
-# throw away additional information and finally merge the out name and
-# resolution lines separating them with a tab.
-connected_outs="$(
-	xrandr -q \
-	| grep -A1 ' connected' \
-	| sed 's/^[[:space:]]*//' \
-	| grep -Eo "^([^ ]* connected|[0-9]+x[0-9]+)" \
-	| paste -d " " - - \
-	| sed 's/ connected \(.*\)/\t(\1)/'
+xrandr_q="$(xrandr -q)"
+
+# Get outputs currently in use as regex matching either one (e.g. `HDMI-0|DP-0`)
+in_use="$( <<<"$xrandr_q" \
+	tac |                          # Reverse for non-greedy matches
+	sed -En '/\*/,/ connected/p' | # lines from selected config to it's name
+	grep -Po '^.*(?= connected)' | # only the name
+	tr '\n' '|'                    # format into regex
 )"
-[[ -n "$connected_outs" ]] || exit 1
+in_use="${in_use%|}" # remove trailing `|`
 
-# Multi select on connected outs
-selected_outs="$(fzf -m --cycle --header "Select outputs" <<<"$connected_outs")"
-[[ -n "$selected_outs" ]] || exit 1
+# Get all outputs in a table in the form `<name> <res> [*]`
+formatted="$(<<<"$xrandr_q" \
+	grep -wA1 connected |                      # output line and highest res
+	awk '{ print $1 }' |                       # only name and resolution
+	grep -ve -- |                              # remove grep's match separator
+	paste - - |                                # join name and res
+	sed -E "s/($in_use).*/&\t*/" |             # append `*` to all in-use
+	column -t                                  # tabularize
+)"
 
-# Selection of primary out out of the selected ones if there is more than one.
-if [[ $(wc -l <<<"$selected_outs") -gt 1 ]]; then
-	primary_out="$(fzf --cycle --header "Select primary" <<<"$selected_outs")"
-else
-	primary_out="$selected_outs"
-fi
-# Strip trailing resolution
-primary_out="$(cut -d$'\t' -f1 <<<"$primary_out")"
-[[ -n "$primary_out" ]] || exit 1
+# Select all outputs to-use
+selected=( $(<<<"$formatted" \
+	fzf -m --cycle --header "Select outputs" | # select
+	cut -d' ' -f1                              # only output name
+) )
+# Abort if nothing was selected
+(( ${#selected[@]} )) || exit 1
 
-# "Convert" to array and strip trailing resolutions
-# Only done here to display the resolutions in the fzf dialogs.
-typeset -a selected_outs=($(cut -d$'\t' -f1 <<<"$selected_outs"))
-typeset -a connected_outs=($(cut -d$'\t' -f1 <<<"$connected_outs"))
+# Regex to match either one of the selected outputs
+selected_regex="$(<<<"${selected[@]}" tr ' ' '|')"
 
-# Build `xrandr` command
-typeset -a xrandr_command
-xrandr_command+="xrandr"
-for out in "${connected_outs[@]}"; do
-	xrandr_command+=(--output "$out")
+# Gather non-selected outputs
+non_selected=( $(<<<"$xrandr_q" \
+	grep connected |             # list lines with output ({,dis}connected)
+	grep -Ev "$selected_regex" | # filter out selected ones
+	cut -d' ' -f1                # only output name
+) )
 
-	# TODO: Solution with better performance?
-	if printf "%s\n" "${selected_outs[@]}" | grep -qE "^$out$"; then
-		# Current out was selected by user
-		xrandr_command+=(--auto)
-	else
-		xrandr_command+=(--off)
-	fi
+# Choose primary
+primary="$(<<<"$formatted" \
+	grep -E "$selected_regex" | # use formatted for more information
+	fzf --cycle --select-1 --header "Select primary" |
+	cut -d' ' -f1 # name only
+)"
+[[ $primary ]] || exit 1
 
-	[[ "$out" != "$primary_out" ]] || xrandr_command+=(--primary)
+# Build the `xrandr` command
+xrandr_cmd=(xrandr)
+
+for out in "${selected[@]}"; do
+	xrandr_cmd+=(--output "$out" --rotate normal --auto)
+	[[ $out != $primary ]] || xrandr_cmd+=(--primary)
+done
+
+for out in "${non_selected[@]}"; do
+	xrandr_cmd+=(--output "$out" --off)
 done
 
 # Print for debugging purposes and finally execute it
-printf "%s\n" "${xrandr_command[*]}"
-"${xrandr_command[@]}"
+printf "%s\n" "${xrandr_cmd[*]}"
+"${xrandr_cmd[@]}"
