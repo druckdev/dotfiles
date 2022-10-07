@@ -3,8 +3,8 @@
 # monitor setup script using xrandr and fzf to manage multiple monitors and/or
 # set resolutions and refresh rates.
 
-command -v xrandr &>/dev/null || exit 1
-command -v fzf &>/dev/null || exit 1
+command -v xrandr >/dev/null || exit 1
+command -v fzf >/dev/null || exit 1
 
 fzf_args=( --cycle --select-1 --exit-0 --header )
 
