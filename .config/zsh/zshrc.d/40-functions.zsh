@@ -393,20 +393,6 @@ cd() {
 	fi
 }
 
-nvim-man() {
-	# Use nvim only if it exists, there was just one argument passed, that
-	# argument is not an option (e.g. `--version`) and stdout is a terminal.
-	if (( $+commands[nvim] && $# == 1 )) && [[ $1 == ${1#-} && -t 1 ]]; then
-		# Check for existence of man page.
-		command man -w "$1" >/dev/null || return
-
-		# $MANPAGER would do the trick too but lines would be hard-wrapped.
-		nvim +"Man $1 | only | set scrolloff=999 | normal M"
-	else
-		command man "$@"
-	fi
-}
-
 # This is meant for adding a quick fix to a commit.
 # It automatically rebases a given commit (defaults to HEAD), applies the given
 # stash (defaults to last) and finishes the rebase.

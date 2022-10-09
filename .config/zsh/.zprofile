@@ -90,6 +90,10 @@ LESS+="${LESS:+ }--RAW-CONTROL-CHARS"
 LESS+="${LESS:+ }--quit-if-one-screen"
 export LESS
 
+# Use neovim's man plugin as manpager
+(( ! $+commands[nvim] )) || \
+	export MANPAGER='nvim +"Man! | set scrolloff=999 | normal M"'
+
 # NOTE: This is used in keys.zsh for the ALT_C widget
 fzf_default_no_rg="find -L . -mindepth 1 \("
 	fzf_default_no_rg+=" -name '.git' -o"

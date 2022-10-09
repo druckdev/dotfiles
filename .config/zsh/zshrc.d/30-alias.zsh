@@ -174,7 +174,5 @@ fi
 		alias vi='vim'
 	! is_exec vi ||
 		alias v='vi'
-	(( ! $+commands[man] )) ||
-		alias man='nvim-man'
 
 unfunction add_flags is_exec
