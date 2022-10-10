@@ -589,3 +589,29 @@ tag() {
 
 	env TMSU_DB="$db" tmsu "$@"
 }
+
+# Display the help for a given python module/function/etc. Try to guess when
+# something needs an import.
+pyhelp() {
+	local py_exec import_statement
+
+	if (( $+commands[python] )); then
+		py_exec=python
+	elif (( $+commands[python3] )); then
+		py_exec=python3
+	elif (( $+commands[python2] )); then
+		py_exec=python2
+	else
+		print >&2 "Python not installed."
+		return 1
+	fi
+
+	for arg; do
+		import_statement=
+		if [[ $arg =~ '^([^.]*)\.' ]]; then
+			import_statement="import $match[1]; "
+		fi
+
+		$py_exec -c "${import_statement}help($arg)"
+	done
+}
