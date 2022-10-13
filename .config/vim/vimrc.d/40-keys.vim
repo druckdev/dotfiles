@@ -166,16 +166,6 @@ nnoremap Y y$
 " Clear line (`cc` but stay in normal mode)
 nmap <leader>dd 0D
 
-" Move lines up and down while correcting the indentation
-" https://vim.fandom.com/wiki/Moving_lines_up_or_down
-" (Use arrows, as Alt-{j,k} is used by my terminal for scrollback)
-nnoremap <silent> <A-Up> :m .-2<CR>==
-nnoremap <silent> <A-Down> :m .+1<CR>==
-vnoremap <silent> <A-Up> :m '<-2<CR>gv=gv
-vnoremap <silent> <A-Down> :m '>+1<CR>gv=gv
-inoremap <silent> <A-Up> <Esc>:m .-2<CR>==gi
-inoremap <silent> <A-Down> <Esc>:m .+1<CR>==gi
-
 " Fix & command to also use last flags
 nnoremap & :&&<CR>
 xnoremap & :&&<CR>
