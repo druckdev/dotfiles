@@ -11,8 +11,8 @@ red='%{F#f00}'
 green='%{F#0f0}'
 end='%{F-}'
 
-bat="$(cat /sys/class/power_supply/BAT0/capacity)"
-ac="$(cat /sys/class/power_supply/AC/online)"
+bat="$(cat /sys/class/power_supply/BAT0/capacity 2>/dev/null)" || exit
+ac="$(cat /sys/class/power_supply/AC/online 2>/dev/null)"
 declare -a ramp
 ramp=(          )
 

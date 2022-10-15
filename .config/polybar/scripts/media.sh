@@ -1,6 +1,6 @@
 #!/bin/sh
 
-command -v playerctl >/dev/null 2>&1 || { printf "playerctl not found.\n" >&2; exit 1; }
+command -v playerctl >/dev/null 2>&1 || exit 1
 
 metadata="$(playerctl metadata --format '{{status}} {{artist}}' 2>/dev/null)"
 title="$(playerctl metadata --format '{{title}}' 2>/dev/null)"
