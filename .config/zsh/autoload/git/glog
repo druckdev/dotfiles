@@ -75,7 +75,6 @@ elif (( $+commands[xclip] )); then
 fi
 
 local -A binds=(
-	"ctrl-space" "toggle-preview"
 	"ctrl-alt-j" "preview-down"
 	"ctrl-alt-k" "preview-up"
 	# Copy commit hash
@@ -106,12 +105,21 @@ local -a fzf_args=(
 # The preview-window should be placed differently depending on the dimensions of
 # the terminal. It should have at least 152 columns to fit a preview window on
 # the right (12 hash, 50 subject, 80 patch, 10 git graph and fzf ui).
+#
+# ctrl-space should cycle through the preview-window positions, starting with
+# hidden, then not the start position and than back the start position.
 local -a tty_size
 tty_size=(${=$(command stty size 2>/dev/null)})
 if (( ! $? )) && (( $tty_size[2] > 152 )); then
-	fzf_args+=(--preview-window=right)
+	fzf_args+=(
+		--preview-window=right
+		--bind "ctrl-space:change-preview-window(hidden|bottom|right)"
+	)
 else
-	fzf_args+=(--preview-window=down)
+	fzf_args+=(
+		--preview-window=down
+		--bind "ctrl-space:change-preview-window(hidden|right|bottom)"
+	)
 fi
 
 # Display the commits in the above format and pipe that into fzf.
