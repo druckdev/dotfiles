@@ -75,6 +75,7 @@ elif (( $+commands[xclip] )); then
 fi
 
 local -A binds=(
+	# scroll in preview window
 	"ctrl-alt-j" "preview-down"
 	"ctrl-alt-k" "preview-up"
 	# Copy commit hash
@@ -86,8 +87,12 @@ local -A binds=(
 	# Preview stats
 	"ctrl-s" "preview($fzf_preview[stat])"
 	# Preview patch
-	"ctrl-d" "preview($fzf_preview[patch])"
 	"ctrl-p" "preview($fzf_preview[patch])"
+	# faster navigation
+	"home" "first"
+	"end" "last"
+	"ctrl-d" "half-page-down"
+	"ctrl-u" "half-page-up"
 )
 local -a fzf_args=(
 	# Understand ansi color escape sequences.
