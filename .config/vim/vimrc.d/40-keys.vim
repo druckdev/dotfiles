@@ -205,3 +205,6 @@ vnoremap <leader>utc :s/\v(^\|[^0-9])\zs[0-9]{10}\ze([^0-9]\|$)/\=strftime("%F %
 " and ][ fw to next '[', instead of the other way around.
 noremap ]] ][
 noremap ][ ]]
+
+" Strip trailing whitespace
+nnoremap <leader><space> :silent! %s/\v\s+$//<CR>
