@@ -62,3 +62,9 @@ augroup highlight_current_word
 	au CursorHold * call HighlightCurrentWord()
 	au CursorMoved * match
 augroup END
+
+" Do not mark input from stdin as modified
+augroup stdin_not_modified
+	au!
+	au StdinReadPost * set nomodified
+augroup END
