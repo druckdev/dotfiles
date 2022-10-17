@@ -1,0 +1,20 @@
+#!/usr/bin/env zsh
+
+emulate -L zsh -o err_return
+local url branch
+
+# Make sure we're in a repo
+git rev-parse
+
+git remote rename origin upstream
+
+# Assume that the fork is named equally
+url="$(git remote get-url upstream)"
+git remote add origin "git@github.com:druckdev/${url:t}"
+
+git fetch origin
+
+# Change remote tracking branch
+if branch="$(git symbolic-ref HEAD 2>/dev/null)"; then
+	git branch -u origin/"${branch#refs/heads/}"
+fi
