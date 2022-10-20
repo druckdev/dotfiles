@@ -157,9 +157,9 @@ endif
 if (get(g:, 'loaded_fzf'))
 	" git files that `git status` lists
 	nmap <leader>gf :GFiles?<CR>
-	" 'git log' and 'git buffer log'
-	map <leader>gl :Commits<CR>
-	map <leader>gbl :BCommits<CR>
+	" 'git log (log?)' and 'git log buffer '
+	map <leader>gll :Commits<CR>
+	map <leader>glb :BCommits<CR>
 endif
 
 " Y should behave like D & C does
