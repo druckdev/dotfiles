@@ -8,10 +8,15 @@
 	autosquash = autofixup
 
 	branches = track
+	c = commit
 	changes = flog HEAD...FETCH_HEAD
+	co = checkout
+	cow = checkout-worktree
 	fixes = log -1 --pretty=fixes
+	l = log
 	root = rev-parse --show-toplevel
 	signoff = rebase --signoff
+	ss = stash
 
 	# Implemented as zsh functions or external programs
 	checkout-worktree = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-checkout-worktree\""
