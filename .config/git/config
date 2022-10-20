@@ -12,8 +12,10 @@
 	changes = flog HEAD...FETCH_HEAD
 	co = checkout
 	cow = checkout-worktree
+	f = fetch
 	fixes = log -1 --pretty=fixes
 	l = log
+	p = push
 	root = rev-parse --show-toplevel
 	signoff = rebase --signoff
 	ss = stash
