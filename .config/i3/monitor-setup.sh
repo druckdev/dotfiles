@@ -1,5 +1,9 @@
 #!/bin/sh
 
+xrandr --output DP-0 --rotate normal --primary --mode 3440x1440 --rate 144.00 --pos 0x0 --output HDMI-0 --rotate normal --mode 1920x1080 --rate 60.00 --pos 3440x0
+"${XDG_CONFIG_HOME:-$HOME/.config}/polybar/launch.sh" &
+exit
+
 if [ 1 -lt "$(xrandr -q | grep " connected" | wc -l)" ]; then
 	# scale second monitor to 3200x1800 and put to the left
 	xrandr --output eDP1 --auto --pos 0x0 --primary \
@@ -11,5 +15,3 @@ if [ 1 -lt "$(xrandr -q | grep " connected" | wc -l)" ]; then
 else
 	xrandr --output eDP1 --auto --output DP1 --off
 fi
-
-"${XDG_CONFIG_HOME:-$HOME/.config}/polybar/launch.sh" &

@@ -48,22 +48,73 @@ bindkey '^H' run-help
 bindkey '^E' edit-command-line
 bindkey '^S' vi-pound-insert
 
+# libtickit/libtermkey bindings
+bindkey -s '^[[32;2u' ' ' # shift-space -> space
+bindkey -s '^[[127;2u' '^?' # shift-backspace -> backspace
+
 ## Navigation
-bindkey '^[[Z' reverse-menu-complete         # shift-tab
-bindkey '^Q' push-input                      # ctrl-Q
-bindkey '^[[H' beginning-of-line             # home
-bindkey "$terminfo[khome]" beginning-of-line # home
-bindkey '^[[F' end-of-line                   # end
-bindkey "$terminfo[kend]" end-of-line        # end
-bindkey -v '^?' backward-delete-char         # normal delete not vim-bac...
-bindkey '^[[P' delete-char                   # delete
-bindkey '^[[3~' delete-char                  # delete
-bindkey '^[[1;5D' backward-word              # ctrl-left
-bindkey '^[[1;5C' forward-word               # ctrl-right
-bindkey '^W' backward-kill-word              # ctrl-W
-bindkey '^H' backward-kill-word              # ctrl-backspace
-bindkey '^[[3;5~' kill-word                  # ctrl-delete
-bindkey "$terminfo[kmous]" kill-word         # ctrl-delete
+bindkey "$terminfo[kcbt]" reverse-menu-complete  # shift-tab
+bindkey "$terminfo[khome]" vi-beginning-of-line  # home
+bindkey "$terminfo[kend]" vi-end-of-line         # end
+bindkey "$terminfo[kbs]" vi-backward-delete-char # backspace
+bindkey "$terminfo[kdch1]" vi-delete-char        # delete
+bindkey '^[[127;5u' vi-backward-kill-word        # ctrl-backspace
+bindkey '^W' vi-backward-kill-word               # ctrl-W
+bindkey '^[[1;5D' vi-backward-word               # ctrl-left
+bindkey '^[[1;5C' vi-forward-word                # ctrl-right
+bindkey '^[[3;5~' vi-kill-word                   # ctrl-delete
+bindkey '^Q' push-input                          # ctrl-Q
+
+# cd-{rotate,backward,forward} are copied from:
+# https://github.com/romkatv/zsh4humans/tree/421937693f3772c99c4bdd881ac904e5e9f
+# Specifically taken from fn/-z4h-{rotate,redraw-prompt,init-zle}. cd-rotate is
+# a "flat" version (i.e. other function bodies copied inline) and adjusted to my
+# needs.
+function cd-rotate() {
+	while (( $#dirstack )) && ! pushd -q $1 &>/dev/null; do
+		popd -q $1
+	done
+
+	# redraw prompt ----
+	# hide cursor
+	! (( $+terminfo[civis] && $+terminfo[cnorm] )) || [[ ! -t 1 ]] ||
+		echoti civis
+
+	local f
+	for f in chpwd "${chpwd_functions[@]}" precmd "${precmd_functions[@]}"; do
+		[[ "${+functions[$f]}" == 0 ]] || "$f" &>/dev/null || true
+	done
+
+	# zsh-syntax-highlighting
+	typeset -g _ZSH_HIGHLIGHT_PRIOR_BUFFER=
+	typeset -gi _ZSH_HIGHLIGHT_PRIOR_CURSOR=0
+
+	zle .reset-prompt
+	zle -R
+
+	# reset cursor
+	! (( $+terminfo[cnorm] )) || [[ ! -t 1 ]] || echoti cnorm
+	# ----
+
+	(( $#dirstack ))
+}
+
+function cd-backward() {
+	(( ${cd_cycle:=0} != $#dirstack )) || return
+	cd-rotate +1
+	(( cd_cycle++ ))
+}
+zle -N cd-backward
+
+function cd-forward() {
+	(( ${cd_cycle:=0} )) || return
+	cd-rotate -0
+	(( cd_cycle-- ))
+}
+zle -N cd-forward
+
+bindkey '^O' cd-backward
+bindkey '^[[105;5u' cd-forward # ^I
 
 # Open file in EDITOR selected with fzf
 function edit-fuzzy-file {
@@ -114,7 +165,7 @@ bindkey . rationalize_dots
 # Keep the normal dot self-insert on Ctrl-. (e.g. for typing `../.local`)
 function default_dot { LBUFFER+=. }
 zle -N default_dot
-bindkey '^N' default_dot
+bindkey '^[[46;5u' default_dot
 
 CMDS_ON_ENTER=(ll gs)
 REQUIREMENTS_CMDS_ON_ENTER=(true "git rev-parse")

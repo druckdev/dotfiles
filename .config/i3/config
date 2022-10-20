@@ -60,8 +60,6 @@ bindsym $mod+Shift+v split horizontal
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
@@ -230,7 +228,7 @@ for_window [class="^Bitwarden$"] \
 	scratchpad show
 bindsym $mod+Shift+b exec \
 	i3-msg '[class="^Bitwarden$"] scratchpad show' \
-	|| bitwarden
+	|| bitwarden-desktop
 
 for_window [class="^$TERMINAL-256color$" title="^polybar-datetime-calendar$"] \
 	floating enable,    \

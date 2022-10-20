@@ -52,19 +52,27 @@ augroup termdebug_bindings
 augroup END
 
 " Highlight word under cursor
-function! HighlightCurrentWord()
-	if (expand('<cword>') != '')
-		exec 'match CursorColumn /\V\<' . escape(expand('<cword>'), '/\') . '\>/'
-	endif
-endfunction
-augroup highlight_current_word
-	au!
-	au CursorHold * call HighlightCurrentWord()
-	au CursorMoved * match
-augroup END
+" Implemented in coc.nvim.vim?
+" function! HighlightCurrentWord()
+" 	if (expand('<cword>') != '')
+" 		exec 'match CursorColumn /\V\<' . escape(expand('<cword>'), '/\') . '\>/'
+" 	endif
+" endfunction
+" augroup highlight_current_word
+" 	au!
+" 	au CursorHold * call HighlightCurrentWord()
+" 	au CursorMoved * match
+" augroup END
 
 " Do not mark input from stdin as modified
 augroup stdin_not_modified
 	au!
 	au StdinReadPost * set nomodified
 augroup END
+
+" Keep terminal at 90 character most
+" TODO: I only want this for every vertical split
+" augroup soft_wrap_always
+" 	au!
+" 	au VimResized * if &columns > 90 | set columns=90 | endif
+" augroup END

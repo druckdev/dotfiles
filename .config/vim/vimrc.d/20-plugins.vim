@@ -1,6 +1,12 @@
 " Plugins """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Bind own variants, see keys.vim
+let g:tmux_navigator_no_mappings = 1
+
 " Load all plugins in pack/*/start
-packloadall
+for file in split(glob($XDG_CONFIG_HOME . '/vim/pack/plugins/start/*'), '\n')
+	execute 'packadd' substitute(file, '.*/', '', '')
+endfor
 
 " Auto completion
 " needs vim >= 8.1.1719 to support features like popup and text property as well
@@ -28,6 +34,13 @@ if (exists("g:loaded_tmux_navigator"))
 endif
 
 if (get(g:, 'loaded_fzf'))
+	" function! s:build_location_list(lines)
+	" 	call setloclist(winnr(), map(copy(a:lines), '{ "filename": v:val }'))
+	" 	lopen
+	" endfunction
+
+	" let g:fzf_action = { 'ctrl-l': function('s:build_location_list') }
+
 	" Redefine :Rg to include hidden files (except for .git)
 	command! -bang -nargs=* Rg
 	  \ call fzf#vim#grep(

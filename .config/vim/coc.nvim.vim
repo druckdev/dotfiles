@@ -1,5 +1,5 @@
 " Primarly taken from:
-" https://github.com/neoclide/coc.nvim/tree/c3d31ad09d#example-vim-configuration
+" https://github.com/neoclide/coc.nvim/tree/v0.0.82#example-vim-configuration
 
 " TextEdit might fail if hidden is not set.
 set hidden
@@ -8,34 +8,54 @@ set hidden
 set nobackup
 set nowritebackup
 
-" Give more space for displaying messages.
-set cmdheight=2
-
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-if has("patch-8.1.1564")
-	" Recently vim can merge signcolumn and number column into one
-	set signcolumn=number
-else
-	set signcolumn=yes
-endif
+set signcolumn=yes
+
+"Use <C-n> and <C-p> for navigate completion list like built in completion.
+inoremap <silent><expr> <C-n> coc#pum#visible() ? coc#pum#next(1) : "\<C-n>"
+inoremap <silent><expr> <C-p> coc#pum#visible() ? coc#pum#prev(1) : "\<C-n>"
+
+" When no item was inserted yet, the first tab should insert the first item.
+" `timer_start` is used to delay the execution to insert in the real buffer as
+" far as I understand, otherwise vim will complain with 'E565: Not allowed to
+" change text or change window'. It is the same method used by coc.nvim (e.g. in
+" coc#pum#next).
+function! CocPumNext(n)
+	if coc#pum#info()['inserted']
+		return coc#pum#next(a:n)
+	else
+		call timer_start(10, { -> coc#pum#select(0,1,0) })
+		return "\<Ignore>"
+	endif
+endfunction
+" When no item was inserted yet, the first shift-tab should select and insert
+" the last item. See note about timer_start above.
+function! CocPumPrev(n)
+	let l:info = coc#pum#info()
+	if l:info['inserted']
+		return coc#pum#prev(a:n)
+	else
+		call timer_start(10, { -> coc#pum#select(l:info['size'] - 1,1,0) })
+		return "\<Ignore>"
+	endif
+endfunction
+
+" Returns true if the cursor is at the beginning of the line or behind
+" whitespace.
+function! CheckBackspace() abort
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-	\ pumvisible() ? "\<C-n>" :
-	\ <SID>check_back_space() ? "\<TAB>" :
+inoremap <silent><expr> <Tab>
+	\ coc#pum#visible() ? CocPumNext(1) :
+	\ CheckBackspace() ? "\<Tab>" :
 	\ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-	let col = col('.') - 1
-	return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+inoremap <expr> <S-Tab> coc#pum#visible() ? CocPumPrev(1) : "\<S-Tab>"
 
 " Use <c-space> to trigger completion.
 if has('nvim')
@@ -44,14 +64,15 @@ else
 	inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
-if exists('*complete_info')
-	inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-	inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u starts a new undo break, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
@@ -59,14 +80,15 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" Use H ("hover") to show documentation in preview window. Because of scrolloff,
+" I do not really use the H,M,L mappings
+nnoremap <silent> H :call ShowDocumentation()<CR>
 
-function! s:show_documentation()
-	if (index(['vim','help'], &filetype) >= 0)
-		execute 'h '.expand('<cword>')
+function! ShowDocumentation()
+	if CocAction('hasProvider', 'hover')
+		call CocActionAsync('doHover')
 	else
-		call CocAction('doHover')
+		call feedkeys('K', 'in')
 	endif
 endfunction
 
@@ -98,5 +120,47 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
 
+" Run the Code Lens action on the current line.
+nmap <leader>rcl  <Plug>(coc-codelens-action)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap io <Plug>(coc-classobj-i)
+omap io <Plug>(coc-classobj-i)
+xmap ao <Plug>(coc-classobj-a)
+omap ao <Plug>(coc-classobj-a)
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+	nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+	nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+	inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+	inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+	vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+	vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
+" Use CTRL-S for selections ranges.
+" Requires 'textDocument/selectionRange' support of language server.
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
 " Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
+command! -nargs=0 Format :call CocActionAsync('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call   CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call   CocActionAsync('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline=%f\ %y%h%w%m%r%=
+set statusline+=%{coc#status()}%{get(b:,'coc_current_function','')}
+set statusline+=\ \ %l,%c%V\ %P

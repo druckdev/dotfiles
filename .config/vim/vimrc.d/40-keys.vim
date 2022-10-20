@@ -187,7 +187,8 @@ inoremap ( ()<C-G>U<Left>
 " break undo sequence with every space and newline, making insert mode changes
 " revertible in smaller chunks
 inoremap <Space> <C-G>u<Space>
-inoremap <CR> <C-G>u<CR>
+" Done by coc:
+" inoremap <CR> <C-G>u<CR>
 
 " Open the manpage in the WORD under cursor
 nnoremap gm :Man <C-r><C-a><CR>
@@ -195,6 +196,13 @@ xnoremap gm :Man <C-r><C-a><CR>
 
 " Format the current paragraph
 nmap Q gqap
+
+" Treat wrapped lines as normal lines
+nmap j gj
+nmap k gk
+nmap 0 g0
+nmap ^ g^
+nmap $ g$
 
 " Convert Unix timestamp to human readable
 " Mnemonic: "Unix timestamp convert" with pun to UTC
@@ -208,3 +216,14 @@ noremap ][ ]]
 
 " Strip trailing whitespace
 nnoremap <leader><space> :silent! %s/\v\s+$//<CR>
+
+" Own variant of vim-tmux-navigator's mappings that allow the use in other modes
+" than normal. <C-U> (c_CTRL-U) is used to delete the '<,'> marks that are added
+" automatically, as otherwise vim will throw 'E481: No range allowed'.
+if get(g:, "loaded_tmux_navigator")
+  noremap <silent> <c-h> :<C-U>TmuxNavigateLeft<cr>
+  noremap <silent> <c-j> :<C-U>TmuxNavigateDown<cr>
+  noremap <silent> <c-k> :<C-U>TmuxNavigateUp<cr>
+  noremap <silent> <c-l> :<C-U>TmuxNavigateRight<cr>
+  noremap <silent> <c-\> :<C-U>TmuxNavigatePrevious<cr>
+endif

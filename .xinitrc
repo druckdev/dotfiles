@@ -34,11 +34,13 @@ unset {sys,user}{resources,modmap,xinitrcd}
 # Key repeat rate
 xset r rate 400 35
 
-touchpad="DLL082A:01 06CB:76AF Touchpad"
-xinput set-prop "$touchpad" "libinput Tapping Enabled" 1
-xinput set-prop "$touchpad" "libinput Natural Scrolling Enabled" 1
-xinput set-prop "$touchpad" "libinput Accel Speed" 0.45
-unset touchpad
+if command -v xinput >/dev/null 2>&1; then
+	touchpad="DLL082A:01 06CB:76AF Touchpad"
+	xinput set-prop "$touchpad" "libinput Tapping Enabled" 1
+	xinput set-prop "$touchpad" "libinput Natural Scrolling Enabled" 1
+	xinput set-prop "$touchpad" "libinput Accel Speed" 0.45
+	unset touchpad
+fi
 
 # Muted at startup
 amixer -q -D pulse sset Master mute
