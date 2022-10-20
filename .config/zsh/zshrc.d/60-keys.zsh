@@ -49,21 +49,17 @@ bindkey '^E' edit-command-line
 bindkey '^S' vi-pound-insert
 
 ## Navigation
-bindkey '^[[Z' reverse-menu-complete            # shift-tab
-bindkey '^Q' push-input                         # ctrl-Q
-bindkey '^[[H' vi-beginning-of-line             # home
-bindkey "$terminfo[khome]" vi-beginning-of-line # home
-bindkey '^[[F' vi-end-of-line                   # end
-bindkey "$terminfo[kend]" vi-end-of-line        # end
-bindkey '^?' vi-backward-delete-char            # backspace
-bindkey '^[[P' vi-delete-char                   # delete
-bindkey '^[[3~' vi-delete-char                  # delete
-bindkey '^[[1;5D' vi-backward-word              # ctrl-left
-bindkey '^[[1;5C' vi-forward-word               # ctrl-right
-bindkey '^W' vi-backward-kill-word              # ctrl-W
-bindkey '^H' vi-backward-kill-word              # ctrl-backspace
-bindkey '^[[3;5~' vi-kill-word                  # ctrl-delete
-bindkey "$terminfo[kmous]" vi-kill-word         # ctrl-delete
+bindkey "$terminfo[kcbt]" reverse-menu-complete  # shift-tab
+bindkey "$terminfo[khome]" vi-beginning-of-line  # home
+bindkey "$terminfo[kend]" vi-end-of-line         # end
+bindkey "$terminfo[kbs]" vi-backward-delete-char # backspace
+bindkey "$terminfo[kdch1]" vi-delete-char        # delete
+bindkey '^[[127;5u' vi-backward-kill-word        # ctrl-backspace
+bindkey '^W' vi-backward-kill-word               # ctrl-W
+bindkey '^[[1;5D' vi-backward-word               # ctrl-left
+bindkey '^[[1;5C' vi-forward-word                # ctrl-right
+bindkey '^[[3;5~' vi-kill-word                   # ctrl-delete
+bindkey '^Q' push-input                          # ctrl-Q
 
 # Open file in EDITOR selected with fzf
 function edit-fuzzy-file {
