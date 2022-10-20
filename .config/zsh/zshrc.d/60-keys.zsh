@@ -70,6 +70,58 @@ bindkey '^[[1;5C' vi-forward-word                # ctrl-right
 bindkey '^[[3;5~' vi-kill-word                   # ctrl-delete
 bindkey '^Q' push-input                          # ctrl-Q
 
+# cd-{rotate,backward,forward} are copied from:
+# https://github.com/romkatv/zsh4humans/tree/421937693f3772c99c4bdd881ac904e5e9f
+# Specifically taken from fn/-z4h-{rotate,redraw-prompt,init-zle}. cd-rotate is
+# a "flat" version (i.e. other function bodies copied inline) and adjusted to my
+# needs.
+function cd-rotate() {
+	while (( $#dirstack )) && ! pushd -q $1 &>/dev/null; do
+		popd -q $1
+	done
+
+	# redraw prompt ----
+	# hide cursor
+	! (( $+terminfo[civis] && $+terminfo[cnorm] )) || [[ ! -t 1 ]] ||
+		echoti civis
+
+	local f
+	for f in chpwd "${chpwd_functions[@]}" precmd "${precmd_functions[@]}"; do
+		[[ "${+functions[$f]}" == 0 ]] || "$f" &>/dev/null || true
+	done
+
+	# zsh-syntax-highlighting
+	typeset -g _ZSH_HIGHLIGHT_PRIOR_BUFFER=
+	typeset -gi _ZSH_HIGHLIGHT_PRIOR_CURSOR=0
+
+	zle .reset-prompt
+	zle -R
+
+	# reset cursor
+	! (( $+terminfo[cnorm] )) || [[ ! -t 1 ]] || echoti cnorm
+	# ----
+
+	(( $#dirstack ))
+}
+
+function cd-backward() {
+	(( ${cd_cycle:=0} != $#dirstack )) || return
+	cd-rotate +1
+	(( cd_cycle++ ))
+}
+zle -N cd-backward
+
+function cd-forward() {
+	(( ${cd_cycle:=0} )) || return
+	cd-rotate -0
+	(( cd_cycle-- ))
+}
+zle -N cd-forward
+
+# cycle through `dirs` with ^o and ^i similar to the jumplist in vim
+bindkey '^O' cd-backward
+bindkey '^[[105;5u' cd-forward # ^I
+
 # Open file in EDITOR selected with fzf
 function edit-fuzzy-file {
 	local fzf_fallback="find . -type f"
