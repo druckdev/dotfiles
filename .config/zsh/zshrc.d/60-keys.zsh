@@ -48,6 +48,15 @@ bindkey '^H' run-help
 bindkey '^E' edit-command-line
 bindkey '^S' vi-pound-insert
 
+# 'Fixed terminal input sequences'
+#
+# https://www.leonerd.org.uk/hacks/fixterms/
+# https://www.leonerd.org.uk/code/libtermkey/
+
+# shift-{,back}space should behave like without shift
+bindkey -s '^[[32;2u' ' ' # shift-space -> space
+bindkey -s '^[[127;2u' '^?' # shift-backspace -> backspace
+
 ## Navigation
 bindkey "$terminfo[kcbt]" reverse-menu-complete  # shift-tab
 bindkey "$terminfo[khome]" vi-beginning-of-line  # home
