@@ -1,6 +1,11 @@
 " Plugins """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Load all plugins in pack/*/start
-packloadall
+
+" Source all plugins in XDG_CONFIG_HOME instead of waiting for after the vimrc
+" was sourced.
+" NOTE: packloadall somehow breaks :Man in neovim 0.8.0
+for file in split(glob($XDG_CONFIG_HOME . '/vim/pack/plugins/start/*'), '\n')
+	execute 'packadd' substitute(file, '.*/', '', '')
+endfor
 
 " Auto completion
 " needs vim >= 8.1.1719 to support features like popup and text property as well
