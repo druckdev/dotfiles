@@ -80,6 +80,6 @@
         path: .ssh/*
     .git/hooks:
         relative: true
-        path: ../meta/git/hooks
+        path: meta/git/hooks
     .envrc:
         path: meta/envrc
