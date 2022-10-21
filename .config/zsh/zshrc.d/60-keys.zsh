@@ -53,9 +53,10 @@ bindkey '^S' vi-pound-insert
 # https://www.leonerd.org.uk/hacks/fixterms/
 # https://www.leonerd.org.uk/code/libtermkey/
 
-# shift-{,back}space should behave like without shift
-bindkey -s '^[[32;2u' ' ' # shift-space -> space
-bindkey -s '^[[127;2u' '^?' # shift-backspace -> backspace
+# some shift-<key> combinations should behave like without shift
+bindkey -s '^[[32;2u' ' ' # shift-space
+bindkey -s '^[[127;2u' '^?' # shift-backspace
+bindkey -s '^[[13;2u' '^M' # shift-return
 
 ## Navigation
 bindkey "$terminfo[kcbt]" reverse-menu-complete  # shift-tab
