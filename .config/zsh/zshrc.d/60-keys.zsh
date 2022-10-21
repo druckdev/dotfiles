@@ -60,12 +60,12 @@ bindkey -s '^[[13;2u' '^M' # shift-return
 
 ## Navigation
 bindkey "$terminfo[kcbt]" reverse-menu-complete  # shift-tab
-bindkey "$terminfo[khome]" vi-beginning-of-line  # home
-bindkey "$terminfo[kend]" vi-end-of-line         # end
-bindkey "$terminfo[kbs]" vi-backward-delete-char # backspace
-bindkey "$terminfo[kdch1]" vi-delete-char        # delete
-bindkey '^[[127;5u' vi-backward-kill-word        # ctrl-backspace
-bindkey '^W' vi-backward-kill-word               # ctrl-W
+bindkey "$terminfo[khome]" beginning-of-line     # home
+bindkey "$terminfo[kend]" end-of-line            # end
+bindkey "$terminfo[kbs]" backward-delete-char    # backspace
+bindkey "$terminfo[kdch1]" delete-char           # delete
+bindkey '^[[127;5u' backward-kill-word           # ctrl-backspace
+bindkey '^W' backward-kill-word                  # ctrl-W
 bindkey '^[[1;5D' vi-backward-word               # ctrl-left
 bindkey '^[[1;5C' vi-forward-word                # ctrl-right
 bindkey '^[[3;5~' vi-kill-word                   # ctrl-delete
