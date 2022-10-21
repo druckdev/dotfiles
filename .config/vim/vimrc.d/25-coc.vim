@@ -13,19 +13,46 @@ set signcolumn=yes
 inoremap <silent><expr> <C-n> coc#pum#visible() ? coc#pum#next(1) : "\<C-n>"
 inoremap <silent><expr> <C-p> coc#pum#visible() ? coc#pum#prev(1) : "\<C-n>"
 
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-	\ coc#pum#visible() ? coc#pum#next(1):
-	\ CheckBackspace() ? "\<Tab>" :
-	\ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+" When no item was inserted yet, the first tab should insert the first item.
+" `timer_start` is used to delay the execution to insert in the real buffer as
+" far as I understand, otherwise vim will complain with 'E565: Not allowed to
+" change text or change window'. It is the same method used by coc.nvim (e.g. in
+" coc#pum#next).
+function! CocPumNext(n)
+	if coc#pum#info()['inserted']
+		return coc#pum#next(a:n)
+	else
+		call timer_start(10, { -> coc#pum#select(0,1,0) })
+		return "\<Ignore>"
+	endif
+endfunction
+" When no item was inserted yet, the first shift-tab should select and insert
+" the last item. See note about timer_start above.
+function! CocPumPrev(n)
+	let l:info = coc#pum#info()
+	if l:info['inserted']
+		return coc#pum#prev(a:n)
+	else
+		call timer_start(10, { -> coc#pum#select(l:info['size'] - 1,1,0) })
+		return "\<Ignore>"
+	endif
+endfunction
 
+" Returns true if the cursor is at the beginning of the line or behind
+" whitespace.
 function! CheckBackspace() abort
 	let col = col('.') - 1
 	return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <Tab>
+	\ coc#pum#visible() ? CocPumNext(1) :
+	\ CheckBackspace() ? "\<Tab>" :
+	\ coc#refresh()
+inoremap <expr> <S-Tab> coc#pum#visible() ? CocPumPrev(1) : "\<S-Tab>"
 
 " Use <c-space> to trigger completion.
 if has('nvim')
