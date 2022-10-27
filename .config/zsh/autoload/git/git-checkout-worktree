@@ -30,13 +30,19 @@ local REPO_NAME WORKTREE_PATH
 REPO_NAME="${$(git rev-parse --show-toplevel):t}"
 WORKTREE_PATH="$(mktemp -d -p "" "worktree.XXX.$REPO_NAME.${1//\//_}")"
 
+git worktree add "$WORKTREE_PATH" "$@" || ret=$?
+
+if (( ret )); then
+	rmdir "$WORKTREE_PATH"
+	return $ret
+fi
+
 trap '
 	errc=$?
 	<&2 printf "Exiting abnormally. Check and possibly remove '$WORKTREE_PATH' manually.\n"
 	return $errc
 ' INT QUIT TERM EXIT
 
-git worktree add "$WORKTREE_PATH" "$@"
 pushd -q "$WORKTREE_PATH"
 
 "$SHELL" && errc=$? || errc=$?
