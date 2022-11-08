@@ -65,6 +65,7 @@ fi
 	alias gc='git commit'
 	alias gcd='cd "$(git rev-parse --show-toplevel)"'
 	alias gch='git checkout'
+	alias gco='git checkout'
 	alias gd='git diff'
 	alias gds='git diff --staged'
 	alias gf='git fetch'
