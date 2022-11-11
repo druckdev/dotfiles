@@ -68,6 +68,7 @@ fi
 	alias gd='git diff'
 	alias gds='git diff --staged'
 	alias gf='git fetch'
+	alias gha='git add -p'
 	alias gl='glog'
 	alias gll='glog --graph'
 	alias gl{ll,ogg}='glog --graph --branches --remotes'
