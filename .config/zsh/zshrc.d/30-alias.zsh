@@ -34,7 +34,6 @@ fi
 	add_flags mv -i
 	add_flags rm -I
 	add_flags mkdir -p
-	add_flags less -N
 	add_flags lsblk -o NAME,LABEL,FSTYPE,SIZE,FSAVAIL,MOUNTPOINT
 	add_flags feh -.
 	# Use multiple jobs when making
