@@ -2,14 +2,21 @@
 # Inspired by:
 # https://github.com/cramermarius/rofi-menus/blob/master/scripts/powermenu.sh
 
+# Make this script work on systems with and without full systemd (e.g. elogind)
+if command -v systemctl &>/dev/null; then
+	controller=systemctl
+else
+	controller=loginctl
+fi
+
 # entries with associated commands
 declare -A entries
 entries=(
 	[lock]="xset s activate"
 	[logout]="i3-msg exit"
-	[reboot]="loginctl reboot"
-	[shutdown]="loginctl poweroff"
-	[suspend]="loginctl suspend"
+	[reboot]="$controller reboot"
+	[shutdown]="$controller poweroff"
+	[suspend]="$controller suspend"
 	[suspend (scheduled)]="scheduled_suspend"
 )
 
