@@ -88,6 +88,12 @@ set virtualedit+=block
 set lazyredraw
 " Visual selection does not include the line break
 set selection=old
+" Wrap lines at chars in 'breakat' rather than at last character.
+set linebreak
+" Wrapped lines should have the same amount of indentation
+set breakindent
+" Put `\ ` before wrapped lines
+let &showbreak = '\ '
 
 if (exists('g:loaded_gitgutter'))
 	" Augment the default `foldtext()` with an indicator whether the folded
