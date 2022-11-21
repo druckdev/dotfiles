@@ -70,6 +70,25 @@ augroup highlight_current_word
 	au CursorMovedI * call HighlightCurrentWord()
 augroup END
 
+" When switching focus to another window, keep the cursor location highlighted.
+function! HighlightOldCursorPos()
+	let w:cursor_pos_match_id = matchaddpos(
+		\ 'TermCursor',
+		\ [getcurpos()[1:2]])
+endfunction
+function! ClearOldCursorPos()
+	if exists('w:cursor_pos_match_id')
+		echo 'foo'
+		call matchdelete(w:cursor_pos_match_id)
+		unlet w:cursor_pos_match_id
+	endif
+endfunction
+augroup highlight_old_cursor_pos
+	au!
+	au WinLeave * call HighlightOldCursorPos()
+	au WinEnter * call ClearOldCursorPos()
+augroup END
+
 " Do not mark input from stdin as modified
 augroup stdin_not_modified
 	au!
