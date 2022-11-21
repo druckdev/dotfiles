@@ -53,7 +53,21 @@ augroup END
 
 " Highlight non-ASCII characters in the red used by my color scheme "OneDark"
 highlight NonASCIIChars ctermfg=white guifg=white ctermbg=204 guibg=#e06c75
+" Do not highlight 'Umlaute', if the spelllang is set to German.
+function! HighlightNonASCIIChars()
+	if exists('w:non_ascii_match_id')
+		call matchdelete(w:non_ascii_match_id)
+	endif
+	if (&spelllang == 'de')
+		let w:non_ascii_match_id = matchadd("NonASCIIChars", '[^\d0-\d127äöüß]')
+	else
+		let w:non_ascii_match_id = matchadd("NonASCIIChars", '[^\d0-\d127]')
+	endif
+endfunction
+" Create the highlight when entering a new window, and update it if spelllang
+" changes
 augroup HighlightNonASCIIChars
 	au!
-	au VimEnter,WinNew * call matchadd("NonASCIIChars", '[^\d0-\d127]')
+	au OptionSet spelllang call HighlightNonASCIIChars()
+	au VimEnter,WinNew * call HighlightNonASCIIChars()
 augroup END
