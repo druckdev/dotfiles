@@ -53,14 +53,18 @@ augroup END
 
 " Highlight word under cursor
 function! HighlightCurrentWord()
+	if exists('w:cword_match_id')
+		call matchdelete(w:cword_match_id)
+		unlet w:cword_match_id
+	endif
 	if (expand('<cword>') != '')
-		exec 'match CursorColumn /\V\<' . escape(expand('<cword>'), '/\') . '\>/'
+		let w:cword_match_id = matchadd('CursorColumn',
+			\ '\V\<' . escape(expand('<cword>'), '/\') . '\>')
 	endif
 endfunction
 augroup highlight_current_word
 	au!
-	au CursorHold * call HighlightCurrentWord()
-	au CursorMoved * match
+	au CursorMoved * call HighlightCurrentWord()
 augroup END
 
 " Do not mark input from stdin as modified
