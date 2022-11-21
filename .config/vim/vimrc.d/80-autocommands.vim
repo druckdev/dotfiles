@@ -87,6 +87,11 @@ augroup highlight_old_cursor_pos
 	au!
 	au WinLeave * call HighlightOldCursorPos()
 	au WinEnter * call ClearOldCursorPos()
+
+	" TODO: WinLeave is not triggered when entering command line mode and
+	"       CmdlineEnter is triggered **after** entering
+	" nnoremap : :call HighlightOldCursorPos()<CR>:
+	" au CmdlineLeave * call ClearOldCursorPos()
 augroup END
 
 " Do not mark input from stdin as modified
