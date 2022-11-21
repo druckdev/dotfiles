@@ -58,8 +58,10 @@ function! HighlightCurrentWord()
 		unlet w:cword_match_id
 	endif
 	if (expand('<cword>') != '')
-		let w:cword_match_id = matchadd('CursorColumn',
-			\ '\V\<' . escape(expand('<cword>'), '/\') . '\>')
+		let w:cword_match_id = matchadd(
+			\ 'CursorColumn',
+			\ '\V\<' . escape(expand('<cword>'), '/\') . '\>',
+			\ -1)
 	endif
 endfunction
 augroup highlight_current_word
