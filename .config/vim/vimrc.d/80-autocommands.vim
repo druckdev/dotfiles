@@ -67,6 +67,7 @@ endfunction
 augroup highlight_current_word
 	au!
 	au CursorMoved * call HighlightCurrentWord()
+	au CursorMovedI * call HighlightCurrentWord()
 augroup END
 
 " Do not mark input from stdin as modified
