@@ -1,0 +1,20 @@
+#!/bin/sh
+#!/usr/bin/zsh
+
+# Sets up origin so that it fetches over https but pushes over ssh. This way
+# unlocking the ssh key is only needed when really necessary.
+
+GIT="git"
+
+origin="$($GIT remote -v | grep -Po '(?<=^origin\t).*(?= \(fetch\)$)')"
+
+if [ "${origin##https://}" = "$origin" ]; then
+	https_origin="${origin##*@}"
+	https_origin="https://${https_origin/://}"
+	$GIT remote set-url origin "$https_origin"
+	$GIT remote set-url --push origin "$origin"
+else
+	ssh_origin="${origin##https://}"
+	ssh_origin="git@${ssh_origin/\//:}"
+	$GIT remote set-url --push origin "$ssh_origin"
+fi

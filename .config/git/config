@@ -19,12 +19,14 @@
 	root = rev-parse --show-toplevel
 	signoff = rebase --signoff
 	ss = stash
+	ssh-and-https = https-and-ssh
 
 	# Implemented as zsh functions or external programs
 	checkout-worktree = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-checkout-worktree\""
 	commit-last-msg = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-commit-last-msg\""
 	filter-repo = !git-filter-repo
 	flog = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/glog\""
+	https-and-ssh  = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-https-and-ssh\""
 	make-fork = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-make-fork\""
 	ssync = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-ssync\""
 	submodule-rm = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-submodule-rm\""
