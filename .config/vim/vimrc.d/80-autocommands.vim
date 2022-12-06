@@ -60,6 +60,7 @@ function! HighlightCurrentWord()
 	if exists('w:cword_match_id')
 		call matchdelete(w:cword_match_id)
 		unlet w:cword_match_id
+		unlet w:old_cword
 	endif
 	if (expand('<cword>') != '')
 		let w:old_cword = expand('<cword>')
