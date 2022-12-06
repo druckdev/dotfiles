@@ -53,11 +53,16 @@ augroup END
 
 " Highlight word under cursor
 function! HighlightCurrentWord()
+	if exists('w:old_cword') && w:old_cword == expand('<cword>')
+		" Do not delete and readd the match if on the same word
+		return
+	endif
 	if exists('w:cword_match_id')
 		call matchdelete(w:cword_match_id)
 		unlet w:cword_match_id
 	endif
 	if (expand('<cword>') != '')
+		let w:old_cword = expand('<cword>')
 		let w:cword_match_id = matchadd(
 			\ 'CursorColumn',
 			\ '\V\<' . escape(expand('<cword>'), '/\') . '\>',
