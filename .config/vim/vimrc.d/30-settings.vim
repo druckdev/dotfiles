@@ -66,6 +66,9 @@ endif
 " Show whitespace characters
 set list
 set listchars=tab:>·
+" Do no wrap lines, but show a visual indicator that the lines continues
+set nowrap
+set listchars+=extends:>
 " Keep current line away from top/bottom borders of the buffer when scrolling
 set scrolloff=15
 " Enable mouse
