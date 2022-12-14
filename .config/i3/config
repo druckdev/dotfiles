@@ -247,7 +247,8 @@ for_window [class="^$TERMINAL-256color$" title="^polybar-wlan$"] \
 bindsym $mod+c exec ~/.config/polybar/scripts/calendar.sh -t &
 
 # screenshots
-bindsym --release Print exec cd ~/pics/screens/ && scrot -s -f
+bindsym --release Print exec cd ~/pics/screens/ && scrot
+bindsym --release Shift+Print exec cd ~/pics/screens/ && scrot -s -f
 
 # Zoom links in private browser
 bindsym $mod+z exec ~/.local/bin/zoom-links
