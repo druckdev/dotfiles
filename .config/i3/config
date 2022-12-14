@@ -247,9 +247,11 @@ for_window [class="^$TERMINAL-256color$" title="^polybar-wlan$"] \
 bindsym $mod+c exec ~/.config/polybar/scripts/calendar.sh -t &
 
 # screenshots
-bindsym --release Print exec cd ~/pics/screens/ && scrot -sf
+bindsym --release Print exec cd ~/pics/screens/ && scrot -s -f
+
 # Zoom links in private browser
 bindsym $mod+z exec ~/.local/bin/zoom-links
+
 # Monitor selection with fzf
 for_window [class="^$TERMINAL-256color$" title="^fzf-monitor-setup$"] \
 	floating enable,    \
