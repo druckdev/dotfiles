@@ -198,6 +198,19 @@ xnoremap gm :Man <C-r><C-a><CR>
 " Format the current paragraph
 nmap Q gqap
 
+" Swap movement mappings that act on display lines with the real ones, making it
+" easier to navigate long wrapped lines.
+noremap j gj
+noremap k gk
+noremap 0 g0
+noremap ^ g^
+noremap $ g$
+noremap gj j
+noremap gk k
+noremap g0 0
+noremap g^ ^
+noremap g$ $
+
 " Convert Unix timestamp to human readable
 " Mnemonic: "Unix timestamp convert" with pun to UTC
 nnoremap <leader>utc ciw<C-r>=strftime("%F %T", @")<CR><Esc>
