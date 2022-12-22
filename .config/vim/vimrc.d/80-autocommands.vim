@@ -52,16 +52,24 @@ augroup termdebug_bindings
 augroup END
 
 " Highlight word under cursor
-function! HighlightCurrentWord()
-	if exists('w:old_cword') && w:old_cword == expand('<cword>')
-		" Do not delete and readd the match if on the same word
-		return
-	endif
+function! ClearHighlights()
 	if exists('w:cword_match_id')
 		call matchdelete(w:cword_match_id)
 		unlet w:cword_match_id
 		unlet w:old_cword
 	endif
+	if exists('w:visual_match_id')
+		call matchdelete(w:visual_match_id)
+		unlet w:visual_match_id
+	endif
+endfunction
+
+function! HighlightCurrentWord()
+	if exists('w:old_cword') && w:old_cword == expand('<cword>')
+		" Do not delete and readd the match if on the same word
+		return
+	endif
+	call ClearHighlights()
 	if (expand('<cword>') != '')
 		let w:old_cword = expand('<cword>')
 		let w:cword_match_id = matchadd(
@@ -70,9 +78,29 @@ function! HighlightCurrentWord()
 			\ -1)
 	endif
 endfunction
+
+function! HighlightVisualSel()
+	call ClearHighlights()
+
+	let l:old_reg = getreg('"')
+	let l:old_regtype = getregtype('"')
+	norm ygv
+
+	let w:visual_match_id = matchadd(
+		\ 'CursorColumn',
+		\ '\V' . escape(@", '\'),
+		\ -1)
+
+	call setreg('"', l:old_reg, l:old_regtype)
+endfunction
+
 augroup highlight_current_word
 	au!
-	au CursorMoved * call HighlightCurrentWord()
+	au CursorMoved * if mode() == 'n' |
+	               \     call HighlightCurrentWord() |
+	               \ else |
+	               \     call HighlightVisualSel() |
+	               \ endif
 	au CursorMovedI * call HighlightCurrentWord()
 augroup END
 
