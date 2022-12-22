@@ -1,0 +1,21 @@
+#!/bin/sh
+# Get the current working directories of all running SHELLs.
+
+# The `pgrep` line can be replaced with following code block (resulting in two
+# while-loops) if only child processes of certain programs (e.g. terminal and
+# tmux instances) should be matched.
+#
+#     pgrep --full "^($TERMINAL|tmux)( |$)" \
+#     	| cut -d' ' -f1 \
+#     	| while read -r line; do
+#     		pgrep -P "$line"
+#     	done \
+
+# NOTE: when using the full path not all shell instances are matched
+pgrep "$(basename $SHELL)" \
+	| cut -d' ' -f1 \
+	| while read -r line; do
+		pwdx "$line" 2>/dev/null
+	done \
+	| cut -d' ' -f2- \
+	| sort -u
