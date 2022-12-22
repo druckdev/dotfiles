@@ -84,7 +84,6 @@ function! HighlightOldCursorPos()
 endfunction
 function! ClearOldCursorPos()
 	if exists('w:cursor_pos_match_id')
-		echo 'foo'
 		call matchdelete(w:cursor_pos_match_id)
 		unlet w:cursor_pos_match_id
 	endif
