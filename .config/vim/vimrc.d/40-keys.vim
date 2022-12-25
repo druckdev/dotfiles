@@ -223,3 +223,8 @@ noremap ][ ]]
 
 " Strip trailing whitespace
 nnoremap <leader><space> :silent! %s/\v\s+$//<CR>
+
+" Keep selection when changing the indentation in visual mode
+vnoremap > >gv
+vnoremap < <gv
+vnoremap = =gv
