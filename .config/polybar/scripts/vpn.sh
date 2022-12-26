@@ -1,6 +1,6 @@
 #!/bin/sh
 
-connection="$(nmcli con show --active | awk '$3 ~ /^(vpn|tun)$/ { print $1 }')"
+connection="$(nmcli con show --active | awk '$3 ~ /^(vpn|tun|wireguard)$/ { print $1 }')"
 if [ -n "$connection" ]; then
 	echo "VPN: $connection"
 	exit 0
