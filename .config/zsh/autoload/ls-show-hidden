@@ -35,9 +35,9 @@ for arg in "$@"; do
 		no_flags_from_here=1
 	elif [[ ${arg#-} != $arg ]] && (( ! no_flags_from_here )); then
 		set -- "$@" "$arg"
-	elif [[ -d "$arg" ]]; then
+	elif [[ -d $arg ]]; then
 		dirs+="$arg"
-	elif [[ -e "$arg" || -L "$arg" ]]; then
+	elif [[ -e $arg || -L $arg ]]; then
 		files+="$arg"
 	else
 		printf >&2 "%s%s: cannot access '%s': No such file or directory%s\n" \
@@ -63,7 +63,7 @@ all_opts=("$@")
 empty=("")
 set -- "${(@)${(@)all_opts//--*}:|empty}"
 while getopts d flag 2>/dev/null; do
-	[[ "$flag" = "d" ]] || continue
+	[[ $flag = "d" ]] || continue
 	command $LS_COMMAND "$all_opts[@]" -- "$files[@]" "$dirs[@]"
 	return
 done
@@ -87,7 +87,7 @@ for dir in ${(@f)dirs}; do
 	content=( "$dir"/* )
 	# If the directory contains no visible files or it matches a pattern, then
 	# show hidden files when listing
-	if (( ! $#content )) || [[ "${dir:A}" =~ "${LS_SHOW_ALL_DIRS:-^$}" ]]; then
+	if (( ! $#content )) || [[ ${dir:A} =~ ${LS_SHOW_ALL_DIRS:-^$} ]]; then
 		all_flag="-A"
 	else
 		all_flag=
