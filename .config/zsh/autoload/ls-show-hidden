@@ -49,6 +49,8 @@ done
 # Print working directory when only flags were given as arguments.
 if ! (( $#dirs + $#files + $non_existing )); then
 	dirs+=.
+elif ! (( $#dirs + $#files )); then
+	return 2
 fi
 
 # Just pass everything to ls when the -d flag is given since then the -A flag
