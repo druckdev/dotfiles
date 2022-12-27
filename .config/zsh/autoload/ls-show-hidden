@@ -47,7 +47,7 @@ for arg in "$@"; do
 done
 
 # Print working directory when only flags were given as arguments.
-if ! (( ${#dirs} + ${#files} + $non_existing )); then
+if ! (( $#dirs + $#files + $non_existing )); then
 	dirs+=.
 fi
 
@@ -62,18 +62,18 @@ empty=("")
 set -- "${(@)${(@)all_opts//--*}:|empty}"
 while getopts d flag 2>/dev/null; do
 	[[ "$flag" = "d" ]] || continue
-	command $LS_COMMAND "${all_opts[@]}" -- "${files[@]}" "${dirs[@]}"
+	command $LS_COMMAND "$all_opts[@]" -- "$files[@]" "$dirs[@]"
 	return
 done
 # Restore options.
-set -- "${all_opts[@]}"
+set -- "$all_opts[@]"
 unset all_opts empty
 
 builtin local separator=""
 
 # Print files.
-if (( ${#files} )); then
-	command $LS_COMMAND "$@" -- "${files[@]}"
+if (( $#files )); then
+	command $LS_COMMAND "$@" -- "$files[@]"
 	# Print a newline between files and folder segment.
 	separator="\n"
 fi
@@ -85,14 +85,14 @@ for dir in ${(@f)dirs}; do
 	content=( "$dir"/* )
 	# If the directory contains no visible files or it matches a pattern, then
 	# show hidden files when listing
-	if (( ! ${#content} )) || [[ "${dir:A}" =~ "${LS_SHOW_ALL_DIRS:-^$}" ]]; then
+	if (( ! $#content )) || [[ "${dir:A}" =~ "${LS_SHOW_ALL_DIRS:-^$}" ]]; then
 		all_flag="-A"
 	else
 		all_flag=
 	fi
 	# If there are multiple items to list, print a newline (if ls was already
 	# executed) followed by the dir-name.
-	! (( ${#dirs} + ${#files} + ${non_existing} - 1 )) || echo "$separator$dir:"
+	! (( $#dirs + $#files + $non_existing - 1 )) || echo "$separator$dir:"
 	# Print directory. $all_flag has to be unquoted else ls will fail.
 	command $LS_COMMAND "$@" $all_flag -- "$dir"
 	separator="\n"
