@@ -37,7 +37,7 @@ for arg in "$@"; do
 		set -- "$@" "$arg"
 	elif [[ -d "$arg" ]]; then
 		dirs+="$arg"
-	elif [[ -e "$arg" ]]; then
+	elif [[ -e "$arg" || -L "$arg" ]]; then
 		files+="$arg"
 	else
 		printf >&2 "%s%s: cannot access '%s': No such file or directory%s\n" \
