@@ -200,16 +200,35 @@ nmap Q gqap
 
 " Swap movement mappings that act on display lines with the real ones, making it
 " easier to navigate long wrapped lines.
-noremap j gj
-noremap k gk
-noremap 0 g0
-noremap ^ g^
-noremap $ g$
-noremap gj j
-noremap gk k
-noremap g0 0
-noremap g^ ^
-noremap g$ $
+function! MapWrapMovement()
+	if &wrap
+		noremap j gj
+		noremap k gk
+		noremap 0 g0
+		noremap ^ g^
+		noremap $ g$
+		noremap gj j
+		noremap gk k
+		noremap g0 0
+		noremap g^ ^
+		noremap g$ $
+	else
+		noremap j j
+		noremap k k
+		noremap 0 0
+		noremap ^ ^
+		noremap $ $
+		noremap gj gj
+		noremap gk gk
+		noremap g0 g0
+		noremap g^ g^
+		noremap g$ g$
+	endif
+endfunction
+augroup WrapMovementMappings
+	au!
+	au OptionSet wrap call MapWrapMovement()
+augroup END
 
 " Convert Unix timestamp to human readable
 " Mnemonic: "Unix timestamp convert" with pun to UTC
