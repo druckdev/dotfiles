@@ -243,6 +243,9 @@ noremap ][ ]]
 " Strip trailing whitespace
 nnoremap <leader><space> :silent! %s/\v\s+$//<CR>
 
+" Convert double quotes to single
+nnoremap <leader>" :silent! %s/"/'/g<CR>
+
 " Keep selection when changing the indentation in visual mode
 vnoremap > >gv
 vnoremap < <gv
