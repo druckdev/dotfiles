@@ -58,12 +58,15 @@ function! HighlightNonASCIIChars()
 	if exists('w:non_ascii_match_id')
 		call matchdelete(w:non_ascii_match_id)
 	endif
+
 	let l:ignore_chars = '\d0-\d127'
-	if (&spelllang == 'de')
+	if (match(&spelllang, '\v(^|,)de($|,)') != -1)
 		let l:ignore_chars ..= 'äöüß'
-	elseif (&spelllang == 'fr')
+	endif
+	if (match(&spelllang, '\v(^|,)fr($|,)') != -1)
 		let l:ignore_chars ..= 'àâæçèéêëîïôùûüœÀÂÆÇÈÉÊËÎÏÔÙÛÜŒ'
 	endif
+
 	let w:non_ascii_match_id = matchadd('NonASCIIChars',
 	                                  \ '[^' .. l:ignore_chars .. ']')
 endfunction
