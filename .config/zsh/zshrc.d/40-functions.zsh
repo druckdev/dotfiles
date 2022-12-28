@@ -558,7 +558,7 @@ finddup() {
 	#       -u` handles
 	# TODO: Use cksum to calculate faster CRC with custom awk solution to print
 	#       duplicates, as `uniq -w32` breaks through the different CRC lengths.
-	find "$@" -type f -exec du '{}' '+' \
+	find "$@" -type f -exec du -b '{}' '+' \
 	| sort \
 	| awk '{ if (!_[$1]) { _[$1] = $0 } else { print _[$1]; print $0; } }' \
 	| sort -u \
