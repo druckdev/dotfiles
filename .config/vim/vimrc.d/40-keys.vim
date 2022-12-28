@@ -244,9 +244,10 @@ noremap ][ ]]
 nnoremap <leader><space> :silent! %s/\v\s+$//<CR>
 vnoremap <leader><space> :<C-u>silent! '<,'>s/\v\s+$//<CR>
 
-" Convert double quotes to single
-nnoremap <leader>" :silent! %s/"/'/g<CR>
-vnoremap <leader>" :<C-u>silent! '<,'>s/"/'/g<CR>
+" Convert double quotes to single. Convert only pairs to lower the false
+" positive rate.
+nnoremap <leader>" :silent! %s/\v"([^"]*)"/'\1'/g<CR>
+vnoremap <leader>" :<C-u>silent! '<,'>s/\v"([^"]*)"/'\1'/g<CR>
 
 " Keep selection when changing the indentation in visual mode
 vnoremap > >gv
