@@ -554,15 +554,17 @@ suffix() {
 finddup() {
 	# find all files, filter the ones out with unique size, calculate md5 and
 	# print duplicates
+	# TODO: Fix duplicate lines output in the awk script that currently `sort
+	#       -u` handles
 	find "$@" -type f -exec du '{}' '+' \
-	| awk '{print $2,$1}' \
-	| sort -k2 \
-	| uniq -f1 -D \
-	| awk '{print $1}' \
+	| sort \
+	| awk '{ if (!_[$1]) { _[$1] = $0 } else { print _[$1]; print $0; } }' \
+	| sort -u \
+	| cut -d$'\t' -f2- \
 	| xargs -d'\n' md5sum \
 	| sort \
 	| uniq -w32 --all-repeated=separate \
-	| awk '{print $2}'
+	| cut -d' ' -f3-
 }
 
 # Wrapper around tmsu that searches for .tmsu/db in all parent directories and
