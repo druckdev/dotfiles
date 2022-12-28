@@ -61,7 +61,7 @@ function! HighlightNonASCIIChars()
 
 	let l:ignore_chars = '\d0-\d127'
 	if (match(&spelllang, '\v(^|,)de($|,)') != -1)
-		let l:ignore_chars ..= 'äöüß'
+		let l:ignore_chars ..= 'äöüßÄÖÜ'
 	endif
 	if (match(&spelllang, '\v(^|,)fr($|,)') != -1)
 		let l:ignore_chars ..= 'àâæçèéêëîïôùûüœÀÂÆÇÈÉÊËÎÏÔÙÛÜŒ'
