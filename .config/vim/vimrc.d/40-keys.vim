@@ -198,8 +198,8 @@ xnoremap gm :Man <C-r><C-a><CR>
 " Format the current paragraph
 nmap Q gqap
 
-" Swap movement mappings that act on display lines with the real ones, making it
-" easier to navigate long wrapped lines.
+" Swap movement mappings that act on display lines with the normal ones, making
+" it easier to navigate long wrapped lines.
 function! MapWrapMovement()
 	if &wrap
 		noremap j gj
