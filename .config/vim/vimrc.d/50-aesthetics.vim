@@ -53,7 +53,7 @@ augroup END
 
 " Highlight non-ASCII characters in the red used by my color scheme "OneDark"
 highlight NonASCIIChars ctermfg=white guifg=white ctermbg=204 guibg=#e06c75
-" Do not highlight 'Umlaute', if the spelllang is set to German.
+" Do not highlight special characters that are valid in the respective spelllang
 function! HighlightNonASCIIChars()
 	if exists('w:non_ascii_match_id')
 		call matchdelete(w:non_ascii_match_id)
@@ -61,6 +61,8 @@ function! HighlightNonASCIIChars()
 	let l:ignore_chars = '\d0-\d127'
 	if (&spelllang == 'de')
 		let l:ignore_chars ..= 'äöüß'
+	elseif (&spelllang == 'fr')
+		let l:ignore_chars ..= 'àâæçèéêëîïôùûüœÀÂÆÇÈÉÊËÎÏÔÙÛÜŒ'
 	endif
 	let w:non_ascii_match_id = matchadd('NonASCIIChars',
 	                                  \ '[^' .. l:ignore_chars .. ']')
