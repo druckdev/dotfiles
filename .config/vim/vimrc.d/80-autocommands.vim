@@ -84,7 +84,7 @@ function! HighlightVisualSel()
 
 	let l:old_reg = getreg('"')
 	let l:old_regtype = getregtype('"')
-	norm ygv
+	silent! norm ygv
 
 	let w:visual_match_id = matchadd(
 		\ 'CursorColumn',
