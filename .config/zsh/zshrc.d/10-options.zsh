@@ -67,19 +67,18 @@
 
 # Expansion and Globbing #######################################################
 
-# Do not unset CHASE_GLOB under android as then globbing with absolute paths
-# breaks as the PWD is often in a path with subdirectories that are owned by
-# root and not world-readable (e.g. /data/data/).
-# I *believe* this is the reason for it.
-if [[ $OSTYPE != linux-android ]]; then
 	# Make globbing (filename generation) sensitive to case.  Note that other
 	# uses of patterns are always sensitive to case.  If the option is unset,
 	# the presence of any character which is special to filename generation will
 	# cause case-insensitive matching.  For example, cvs(/) can match the
 	# directory CVS owing to the presence of the globbing flag (unless the
 	# option BARE_GLOB_QUAL is unset).
-	setopt NO_CASE_GLOB
-fi
+	#
+	# NOTE: Do not unset CHASE_GLOB under android as then globbing with absolute
+	# paths breaks as the PWD is often in a path with subdirectories that are
+	# owned by root and not world-readable (e.g. /data/data/). I *believe* this
+	# is the reason for it.
+	setopt CASE_GLOB
 
 	# If a pattern for filename generation has no matches, delete the pattern
 	# from the argument list; do not report an error unless all the patterns in
