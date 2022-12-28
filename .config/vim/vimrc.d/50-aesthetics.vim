@@ -58,11 +58,12 @@ function! HighlightNonASCIIChars()
 	if exists('w:non_ascii_match_id')
 		call matchdelete(w:non_ascii_match_id)
 	endif
+	let l:ignore_chars = '\d0-\d127'
 	if (&spelllang == 'de')
-		let w:non_ascii_match_id = matchadd("NonASCIIChars", '[^\d0-\d127äöüß]')
-	else
-		let w:non_ascii_match_id = matchadd("NonASCIIChars", '[^\d0-\d127]')
+		let l:ignore_chars ..= 'äöüß'
 	endif
+	let w:non_ascii_match_id = matchadd('NonASCIIChars',
+	                                  \ '[^' .. l:ignore_chars .. ']')
 endfunction
 " Create the highlight when entering a new window, and update it if spelllang
 " changes
