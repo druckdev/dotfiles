@@ -119,8 +119,10 @@ nmap <leader>gu :!git checkout -- %<CR>
 if exists('g:loaded_fugitive')
 	" Interactive `git status`
 	nmap <leader>gg :G<CR>
-	" Using fugitive.vim, start a commit and open the message in a new split
-	nmap <leader>gc :G commit<CR>
+	" Start a commit and open the message in a split
+	nmap <leader>gcc :G commit<CR>
+	" Amend the current commit and open the message in a split
+	nmap <leader>gca :G commit --amend<CR>
 	" Move to root of directory
 	nmap <leader>gcd :Gcd<CR>
 	" git blame in scroll bound vertical split (only the commit hashes, see
