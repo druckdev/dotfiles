@@ -179,7 +179,7 @@ REQUIREMENTS_CMDS_ON_ENTER=(true "git rev-parse")
 function cmd-on-enter {
 	if [[ -z $BUFFER ]]; then
 		# Overwrite BUFFER and default to ll
-		BUFFER="${CMDS_ON_ENTER[${cmd_on_enter_idx:=1}]}"
+		BUFFER=" ${CMDS_ON_ENTER[${cmd_on_enter_idx:=1}]}"
 
 		# Cycle through ll and git status
 		local idx=$cmd_on_enter_idx
