@@ -91,6 +91,9 @@ endif
 vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
 vnoremap # y?\V<C-R>=escape(@",'?\')<CR><CR>
 
+" Search inside visual selection
+noremap <leader>v/ /\%V
+
 " Extended `*`. Starts vim search (without jump) and ripgrep search for cword
 nmap <leader>* :let @/ = '\<' . expand('<cword>') . '\>' <bar>
              \  set hlsearch <bar>
