@@ -20,3 +20,6 @@ Session.vim
 
 # Ignore python bytecode cache
 __pycache__/
+
+# Ignore python virtual environment
+/venv/
