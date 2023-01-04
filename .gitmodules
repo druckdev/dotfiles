@@ -37,7 +37,7 @@
 	url = https://github.com/tmux-plugins/tpm
 [submodule "vim-tmux-navigator"]
 	path = .local/share/tmux/plugins/vim-tmux-navigator
-	url = https://github.com/christoomey/vim-tmux-navigator
+	url = https://github.com/druckdev/vim-tmux-navigator
 
 # vim
 [submodule "Colorizer"]
