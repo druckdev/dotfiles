@@ -97,6 +97,8 @@ set linebreak
 set breakindent
 " Put `\ ` before wrapped lines
 let &showbreak = '\ '
+" Replace concealable characters
+set conceallevel=1
 
 if (exists('g:loaded_gitgutter'))
 	" Augment the default `foldtext()` with an indicator whether the folded
