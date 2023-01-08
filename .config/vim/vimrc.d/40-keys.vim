@@ -202,6 +202,7 @@ xnoremap gm :Man <C-r><C-a><CR>
 
 " Format the current paragraph, while keeping the cursor position
 nmap Q gwap
+imap <C-q> <C-o>Q
 
 " Swap movement mappings that act on display lines with the normal ones, making
 " it easier to navigate long wrapped lines.
