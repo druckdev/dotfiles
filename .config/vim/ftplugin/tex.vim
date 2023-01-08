@@ -4,6 +4,9 @@ set wrap
 let g:tex_flavor = "latex"
 let g:vimtex_compiler_progname = 'nvr'
 
+" Close the quickfix window after a cursor movement
+let g:vimtex_quickfix_autoclose_after_keystrokes = 1
+
 " Setup latexmk and make callback possible with synctex
 " (Click into PDF to land in code)
 let g:vimtex_compiler_latexmk = {
