@@ -619,3 +619,14 @@ pyhelp() {
 		$py_exec -c "${import_statement}help($arg)"
 	done
 }
+
+# A small wrapper that tries to prevent an overwrite of an existing file when
+# forgetting to specify the destination-file.
+pdfunite() {
+	if [[ -e "$@[-1]" ]]; then
+		print >&2 "Destination-file exists already!"
+		return 2
+	fi
+
+	command "$@"
+}
