@@ -177,7 +177,7 @@ bindkey '^[[46;5u' default_dot
 CMDS_ON_ENTER=(ll gs)
 REQUIREMENTS_CMDS_ON_ENTER=(true "git rev-parse")
 function cmd-on-enter {
-	if [[ -z $BUFFER ]]; then
+	if [[ -z "${PREBUFFER}${BUFFER}" ]]; then
 		# Overwrite BUFFER and default to ll
 		BUFFER=" ${CMDS_ON_ENTER[${cmd_on_enter_idx:=1}]}"
 
