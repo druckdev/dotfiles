@@ -5,6 +5,12 @@
 # sort the entries by the commits date and time to see the most recent changed
 # files/folders at the bottom.
 
+# Execute normal ls when not in git repo
+if ! git rev-parse 2>/dev/null; then
+	ls -1p --color=auto "$@"
+	return
+fi
+
 local color_set
 [ -t 1 ] && color_set=always || color_set=never
 
