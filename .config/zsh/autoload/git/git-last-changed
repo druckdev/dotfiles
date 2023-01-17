@@ -22,4 +22,9 @@ ls -1p --color="$color_set" "$@" \
 done \
 | sort -r -t$'\t' -k2,2 \
 | column -s$'\t' -t \
-| cut -c -"$COLUMNS"
+| env COLUMNS="$COLUMNS" awk \
+	'{
+		sanit = gensub(/\033\[[0-9;]*m/, "", "g", $0);
+		trunc_len = ENVIRON["COLUMNS"] + length($0) - length(sanit) - 3;
+		print gensub("^(.{" trunc_len "}).{4,}$", "\\1...", "g")
+	}'
