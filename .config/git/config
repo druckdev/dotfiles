@@ -4,8 +4,8 @@
 [alias]
 	# Automatically fixup/squash marked commits without opening the
 	# git-rebase-todo
-	autofixup = -c sequence.editor=/bin/true rebase -i --autosquash
-	autosquash = autofixup
+	autosquash = -c sequence.editor=/bin/true rebase -i --autosquash
+	autofixup= autosquash
 
 	branches = track
 	c = commit
