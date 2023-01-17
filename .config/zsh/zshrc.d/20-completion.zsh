@@ -52,6 +52,7 @@ _git-checkout-worktree() { _git-checkout }
 _git-commit-last-msg() { _git-commit }
 
 compdef _git-log glog
+# TODO: simple for loop for autoload/git/git-*
 compdef _git-checkout-worktree git-checkout-worktree
 compdef _git-commit-last-msg git-commit-last-msg
 
