@@ -7,7 +7,8 @@
 
 ls -1 "$@" \
 | while read -r line; do
-	git_info="$(git log -1 --format=$'%ci\t%s' "$line")"
+	sanitized_line="$(sed 's/\x1b[^m]*m//g' <<<"$line")"
+	git_info="$(git log -1 --format=$'%ci\t%s' "$sanitized_line")"
 	printf "%s\t%s\n" "$line" "$git_info"
 done \
 | sort -r -t$'\t' -k2,2 \
