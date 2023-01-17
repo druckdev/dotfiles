@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+#
+# List all files and directories but include the latest commits date and
+# subject, similar to the file browser in web-UIs of services like GitHub. Also
+# sort the entries by the commits date and time to see the most recent changed
+# files/folders at the bottom.
+
+ls -1 "$@" \
+| while read -r line; do
+	git_info="$(git log -1 --format=$'%ci\t%s' "$line")"
+	printf "%s\t%s\n" "$line" "$git_info"
+done \
+| sort -r -t$'\t' -k2,2 \
+| column -s$'\t' -t \
+| cut -c -"$COLUMNS"
