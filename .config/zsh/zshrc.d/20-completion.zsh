@@ -44,11 +44,18 @@ compdef nvim-man=man
 #       Generate completion debug trace:
 #       <C-x>?
 
-# git
+# Define completion functions instead of directly linking (e.g. `compdef
+# _git-rebase git-signoff`) so that the completion works for the shell functions
+# **as well** as git aliases (i.e. `git-signoff` and `git signoff`).
+_git-checkout-worktree() { _git-checkout }
+_git-commit-last-msg() { _git-commit }
+_git-signoff() { _git-rebase }
+
 compdef _git-log glog
-compdef _git-checkout git-checkout-worktree
-compdef _git-commit git-commit-last-msg
-compdef _git-rebase git-signoff
+compdef _git-checkout-worktree git-checkout-worktree
+compdef _git-commit-last-msg git-commit-last-msg
+compdef _git-signoff git-signoff
+
 # Run git's completion once to avoid a `command not found` error when using the
 # completion functions on other programs without having completed something for
 # git before in the same session.
