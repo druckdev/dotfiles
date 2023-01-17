@@ -5,7 +5,10 @@
 # sort the entries by the commits date and time to see the most recent changed
 # files/folders at the bottom.
 
-ls -1 "$@" \
+local color_set
+[ -t 1 ] && color_set=always || color_set=never
+
+ls -1p --color="$color_set" "$@" \
 | while read -r line; do
 	sanitized_line="$(sed 's/\x1b[^m]*m//g' <<<"$line")"
 	git_info="$(git log -1 --format=$'%ci\t%s' "$sanitized_line")"
