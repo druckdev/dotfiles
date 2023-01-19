@@ -67,6 +67,10 @@ function! HighlightNonASCIIChars()
 		let l:ignore_chars ..= 'àâæçèéêëîïôœùûüÿÀÂÆÇÈÉÊËÎÏÔŒÙÛÜŸ'
 	endif
 
+	if exists('w:ignore_non_ascii_chars')
+		let l:ignore_chars ..= w:ignore_non_ascii_chars
+	endif
+
 	let w:non_ascii_match_id = matchadd('NonASCIIChars',
 	                                  \ '[^' .. l:ignore_chars .. ']')
 endfunction
