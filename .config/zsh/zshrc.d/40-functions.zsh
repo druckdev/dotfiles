@@ -633,5 +633,5 @@ pdfunite() {
 
 # List pids of processes that use an open file
 psofof() {
-	lsof "$@" | tail -n +2 | awk '{ print $2 }'
+	lsof "$@" | tail -n +2 | awk '{ print $2 }' | sort -u
 }
