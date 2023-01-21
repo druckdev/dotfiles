@@ -61,6 +61,7 @@ fi
 	alias ga='git add'
 	alias gap='git add -p'
 	alias gc='git commit'
+	alias gca='git commit --amend'
 	alias gcd='cd "$(git rev-parse --show-toplevel)"'
 	alias gch='git checkout'
 	alias gcl='git commit-last-msg'
