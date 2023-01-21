@@ -6,7 +6,7 @@
 
 GIT="git"
 
-origin="$($GIT remote -v | grep -Po '(?<=^origin\t).*(?= \(fetch\)$)')"
+origin="$($GIT remote get-url origin)"
 
 if [ "${origin##https://}" = "$origin" ]; then
 	https_origin="${origin##*@}"
