@@ -259,3 +259,6 @@ vnoremap <leader>" :<C-u>silent! '<,'>s/\v"([^"]*)"/'\1'/g<CR>
 vnoremap > >gv
 vnoremap < <gv
 vnoremap = =gv
+
+" Center search results
+noremap n zzn
