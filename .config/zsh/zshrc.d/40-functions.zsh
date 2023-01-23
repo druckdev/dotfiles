@@ -628,7 +628,7 @@ pdfunite() {
 		return 2
 	fi
 
-	command "$@"
+	command pdfunite "$@"
 }
 
 # List pids of processes that use an open file
