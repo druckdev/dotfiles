@@ -10,6 +10,8 @@ user_pref("browser.newtabpage.activity-stream.section.highlights.includeVisited"
 user_pref("browser.newtabpage.pinned", "[]");
 user_pref("browser.shell.checkDefaultBrowser", true);
 user_pref("browser.startup.page", 3);
+user_pref("browser.tabs.insertAfterCurrent", true);
+user_pref("browser.tabs.insertRelatedAfterCurrent", true);
 user_pref("browser.urlbar.placeholderName", "DuckDuckGo");
 user_pref("datareporting.healthreport.uploadEnabled", false);
 user_pref("devtools.theme", "dark");
