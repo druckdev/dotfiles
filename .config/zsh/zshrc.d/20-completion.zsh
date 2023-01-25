@@ -50,11 +50,9 @@ compdef nvim-man=man
 # and `git cow`).
 _git-checkout-worktree() { _git-checkout }
 _git-commit-last-msg() { _git-commit }
+_git-https-and-ssh() { __git_remotes }
 
 compdef _git-log glog
-# TODO: simple for loop for autoload/git/git-*
-compdef _git-checkout-worktree git-checkout-worktree
-compdef _git-commit-last-msg git-commit-last-msg
 
 # Run git's completion once to avoid a `command not found` error when using the
 # completion functions on other programs without having completed something for
