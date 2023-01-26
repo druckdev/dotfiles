@@ -5,3 +5,5 @@ envrc() {
 
 # Run in background
 envrc 0<&- &>/dev/null 3>&- & disown
+
+# vim: ft=sh
