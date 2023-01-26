@@ -1,1 +1,7 @@
-git fetch --all 0<&- &>/dev/null 3>&- & disown
+envrc() {
+	nvim -es <<<"helptags ALL"
+	git fetch --all
+}
+
+# Run in background
+envrc 0<&- &>/dev/null 3>&- & disown
