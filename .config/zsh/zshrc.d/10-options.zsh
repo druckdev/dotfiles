@@ -39,6 +39,15 @@
 	# started. Otherwise it stays there and completion is done from both ends.
 	setopt COMPLETE_IN_WORD
 
+	# When the current word has a glob pattern, do not insert all the words
+	# resulting from the expansion but generate matches as for completion and
+	# cycle through them like MENU_COMPLETE. The matches are generated as if a
+	# `*' was added to the end of the word, or inserted at the cursor when
+	# COMPLETE_IN_WORD is set. This actually uses pattern matching, not
+	# globbing, so it works not only for files but for any completion, such as
+	# options, user names, etc.
+	setopt GLOB_COMPLETE
+
 	# This option works when AUTO_LIST or BASH_AUTO_LIST is also set.  If there
 	# is an unambiguous prefix to insert on the command line, that is done
 	# without a completion list being displayed; in other words, auto-listing
