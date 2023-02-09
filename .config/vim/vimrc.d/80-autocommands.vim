@@ -104,10 +104,10 @@ augroup highlight_current_word
 	au CursorMovedI * call HighlightCurrentWord()
 augroup END
 
-" When switching focus to another window, keep the cursor location highlighted.
+" When switching focus to another window, keep the cursor location underlined.
 function! HighlightOldCursorPos()
 	let w:cursor_pos_match_id = matchaddpos(
-		\ 'TermCursor',
+		\ 'Underlined',
 		\ [getcurpos()[1:2]])
 endfunction
 function! ClearOldCursorPos()
