@@ -57,6 +57,7 @@ read -r -d '' <<EOT
 EOT
 fzf_preview[patch]="$fzf_preview[construct] { $REPLY"
 # Get file arguments after (and including) `--` and wrap each in double quotes
+# TODO: Display `...` behind patch-stat if the patch touched more files
 fzf_preview[files_only]="$fzf_preview[patch] ${(@)${@:${@[(ei)--]}}/(#m)*/\"$MATCH\"}"
 
 if (( $+commands[diff-so-fancy] )); then
