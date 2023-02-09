@@ -356,7 +356,7 @@ mvln() {
 		return 1
 	fi
 
-	reg=0
+	local file reg=0
 	for file in "${@[1,-2]}"; do
 		# If the target is a directory, `file` will end up in it
 		# NOTE: We need absolute paths here for executions like `$0 foo/bar .`
