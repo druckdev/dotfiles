@@ -358,15 +358,13 @@ mvln() {
 
 	local file reg=0
 	for file in "${@[1,-2]}"; do
-		# If the target is a directory, `file` will end up in it
 		# NOTE: We need absolute paths here for executions like `$0 foo/bar .`
 		# TODO: When do we want/can we use relative links? Only when file is in
 		# current dir?
-		if [[ -d ${@[-1]} ]]; then
-			target="${@[-1]:A}/$(basename "$file")"
-		else
-			target="${@[-1]:A}"
-		fi
+		target="${@[-1]:A}"
+		# If the target is a directory, `file` will end up in it
+		[[ ! -d ${@[-1]} ]] || target+="/$file:t"
+
 		if ! command mv -i "$file" "${@[-1]}"; then
 			reg=1
 			continue
