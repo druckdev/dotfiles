@@ -56,9 +56,16 @@ read -r -d '' <<EOT
 	git show "${(j:%n:)format}" "$date" --color=always --patch-with-stat "\$out"
 EOT
 fzf_preview[patch]="$fzf_preview[construct] { $REPLY"
-(( ! $+commands[diff-so-fancy] )) ||
+# Get file arguments after (and including) `--` and wrap each in double quotes
+fzf_preview[files_only]="$fzf_preview[patch] ${(@)${@:${@[(ei)--]}}/(#m)*/\"$MATCH\"}"
+
+if (( $+commands[diff-so-fancy] )); then
 	fzf_preview[patch]+=" | diff-so-fancy --color=always"
+	fzf_preview[files_only]+=" | diff-so-fancy --color=always"
+fi
+
 fzf_preview[patch]+="; }"
+fzf_preview[files_only]+="; }"
 
 read -r -d '' <<EOT
 	git show "${(j:%n:)format}" "$date" --color=always --stat "\$out"
@@ -88,6 +95,8 @@ local -A binds=(
 	"ctrl-s" "preview($fzf_preview[stat])"
 	# Preview patch
 	"ctrl-p" "preview($fzf_preview[patch])"
+	# Files only
+	"ctrl-f" "preview($fzf_preview[files_only])"
 	# faster navigation
 	"home" "first"
 	"end" "last"
@@ -100,7 +109,7 @@ local -a fzf_args=(
 	# Expand the binds array in the format "key1:value1,key2:value2".
 	"--bind" "${(@kj:,:)binds/(#m)*/$MATCH:$binds[$MATCH]}"
 	# Execute git show on the commit as preview.
-	"--preview" "$fzf_preview[patch]"
+	"--preview" "$fzf_preview[files_only]"
 	# Reverse the layout so that the newest commit is at the top.
 	"--reverse"
 	# Do not sort when typing to maintain the sorting by date.
