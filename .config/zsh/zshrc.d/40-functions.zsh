@@ -340,7 +340,7 @@ if (( $+commands[trash] )); then
 	}
 fi
 
-# Move one or more file(s) but keep a symlink to the new location.
+# Move one or more file(s) but keep a relative symlink to the new location.
 mvln() {
 	if (( # < 2 )); then
 		printf "$0: missing file operand\n"
@@ -358,10 +358,7 @@ mvln() {
 
 	local file reg=0
 	for file in "${@[1,-2]}"; do
-		# NOTE: We need absolute paths here for executions like `$0 foo/bar .`
-		# TODO: When do we want/can we use relative links? Only when file is in
-		# current dir?
-		target="${@[-1]:A}"
+		target="${@[-1]}"
 		# If the target is a directory, `file` will end up in it
 		[[ ! -d ${@[-1]} ]] || target+="/$file:t"
 
@@ -371,7 +368,7 @@ mvln() {
 		fi
 
 		# NOTE: `ln` does not like trailing slashes on the last argument
-		ln -s "$target" "${file%/}"
+		ln -sr "$target" "${file%/}"
 	done
 
 	return $reg
