@@ -104,6 +104,11 @@ local -A binds=(
 	"ctrl-d" "half-page-down"
 	"ctrl-u" "half-page-up"
 )
+
+# TODO: Make the --preview argument dependent of --stat flag (i.e.
+#       fzf_preview[stat] in this case). It does not really make sense to pass
+#       it to `git log` but can be an indicator for the preview function
+
 local -a fzf_args=(
 	# Understand ansi color escape sequences.
 	"--ansi"
