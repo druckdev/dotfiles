@@ -262,6 +262,10 @@ vnoremap = =gv
 
 " Center search results
 noremap n nzz
+cnoremap <expr> <CR> "<CR>" .
+	\ (getcmdtype() == '/' \|\| getcmdtype() == '?'
+		\ ? "zz"
+		\ : "")
 
 " Switch to lower/upper case
 nnoremap <leader><C-U> gUl
