@@ -48,7 +48,7 @@ else
 	nmap cW dWi
 endif
 " Highlight current line
-"set cursorline
+set cursorline
 " Show ruler at column behind &textwidth
 set colorcolumn=+1
 " Show menu for possible matches when using command-line completing.
