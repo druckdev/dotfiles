@@ -30,6 +30,7 @@ local REPO_NAME WORKTREE_PATH
 REPO_NAME="${$(git rev-parse --show-toplevel):t}"
 WORKTREE_PATH="$(mktemp -d -p "" "worktree.XXX.$REPO_NAME.${1//\//_}")"
 
+local ret=0
 git worktree add "$WORKTREE_PATH" "$@" || ret=$?
 
 if (( ret )); then
