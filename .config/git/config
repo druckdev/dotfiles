@@ -27,7 +27,7 @@
 	filter-repo = !git-filter-repo
 	flog = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/glog\""
 	https-and-ssh  = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-https-and-ssh\""
-	last-changed  = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-last-changed\""
+	last-changed  = "!cd \"$GIT_PREFIX\"; \"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-last-changed\""
 	make-fork = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-make-fork\""
 	ssync = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-ssync\""
 	submodule-rm = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-submodule-rm\""
