@@ -3,4 +3,4 @@
 setlocal formatoptions+=aw
 
 " Turn on line-wrapping
-set wrap
+setlocal wrap

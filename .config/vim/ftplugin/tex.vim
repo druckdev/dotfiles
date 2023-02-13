@@ -1,5 +1,5 @@
 " Turn on line-wrapping
-set wrap
+setlocal wrap
 
 let g:tex_flavor = "latex"
 let g:vimtex_compiler_progname = 'nvr'
