@@ -16,7 +16,7 @@ local color_set
 
 ls -1p --color="$color_set" "$@" \
 | while read -r line; do
-	sanitized_line="$(sed 's/\x1b[^m]*m//g' <<<"$line")"
+	sanitized_line="$(sed 's/\x1b\[[^m]*m//g' <<<"$line")"
 	git_info="$(git log -1 --format=$'%ci\t%s' "$sanitized_line")"
 	printf "%s\t%s\n" "$line" "$git_info"
 done \
@@ -24,7 +24,7 @@ done \
 | column -s$'\t' -t \
 | env COLUMNS="$COLUMNS" awk \
 	'{
-		sanit = gensub(/\033\[[0-9;]*m/, "", "g", $0);
+		sanit = gensub(/\x1b\[[^m]*m/, "", "g", $0);
 		trunc_len = ENVIRON["COLUMNS"] + length($0) - length(sanit) - 3;
 		print gensub("^(.{" trunc_len "}).{4,}$", "\\1...", "g")
 	}'
