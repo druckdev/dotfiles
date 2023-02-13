@@ -261,7 +261,7 @@ vnoremap < <gv
 vnoremap = =gv
 
 " Center search results
-noremap n zzn
+noremap n nzz
 
 " Switch to lower/upper case
 nnoremap <leader><C-U> gUl
