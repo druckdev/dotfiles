@@ -91,13 +91,13 @@ endif
 vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
 vnoremap # y?\V<C-R>=escape(@",'?\')<CR><CR>
 
-" Search inside visual selection
-noremap <leader>v/ /\%V
-
 " Extended `*`. Starts vim search (without jump) and ripgrep search for cword
 nmap <leader>* :let @/ = '\<' . expand('<cword>') . '\>' <bar>
              \  set hlsearch <bar>
              \  Rg \b<C-R>=expand('<cword>')<CR>\b<CR>
+
+" Search inside visual selection
+noremap <leader>v/ /\%V
 
 " Select last pasted text in same visual mode as it was selected (v, V, or ^V)
 " Taken from: https://vim.fandom.com/wiki/Selecting_your_pasted_text
