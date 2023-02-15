@@ -271,6 +271,7 @@ vnoremap = =gv
 
 " Center search results
 noremap n nzz
+noremap N Nzz
 cnoremap <expr> <CR> "<CR>" .
 	\ (getcmdtype() == '/' \|\| getcmdtype() == '?'
 		\ ? "zz"
