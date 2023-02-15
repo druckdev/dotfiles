@@ -87,9 +87,18 @@ if (get(g:, 'loaded_fzf'))
 endif
 
 " Search for selected text.
-" Taken from https://vim.fandom.com/wiki/Search_for_visually_selected_text
-vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
-vnoremap # y?\V<C-R>=escape(@",'?\')<CR><CR>
+" Modified from https://vim.fandom.com/wiki/Search_for_visually_selected_text
+function! GetVisualSelection()
+	let l:old_reg = getreg('"')
+	let l:old_regtype = getregtype('"')
+	norm y
+	let l:sel = getreg('"')
+	call setreg('"', l:old_reg, l:old_regtype)
+	return l:sel
+endfunction
+
+vnoremap * /\V<C-R>=escape(GetVisualSelection(),'/\')<CR><CR>
+vnoremap # ?\V<C-R>=escape(GetVisualSelection(),'?\')<CR><CR>
 
 " Extended `*`. Starts vim search (without jump) and ripgrep search for cword
 nmap <leader>* :let @/ = '\<' . expand('<cword>') . '\>' <bar>
