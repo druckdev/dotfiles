@@ -110,6 +110,7 @@ vmap <leader>* :<C-U>let @/ = "\\V<C-R>=escape(escape(GetVisualSelection(), '\')
 
 " Search inside visual selection
 noremap <leader>v/ /\%V
+vmap <leader>/ <Esc><leader>v/
 
 " Select last pasted text in same visual mode as it was selected (v, V, or ^V)
 " Taken from: https://vim.fandom.com/wiki/Selecting_your_pasted_text
