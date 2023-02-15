@@ -33,7 +33,8 @@ if (has('clipboard'))
 endif
 
 " Ctrl-Backspace should delete words in insert mode and on command-line.
-noremap! <C-H> <C-W>
+noremap! <C-BS> <C-W>
+map! <C-H> <C-BS>
 
 " Correct word with best/first suggestion.
 noremap <leader>c 1z=
