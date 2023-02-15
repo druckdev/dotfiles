@@ -97,8 +97,8 @@ function! GetVisualSelection()
 	return l:sel
 endfunction
 
-vnoremap * /\V<C-R>=escape(GetVisualSelection(),'/\')<CR><CR>
-vnoremap # ?\V<C-R>=escape(GetVisualSelection(),'?\')<CR><CR>
+vmap * /\V<C-R>=escape(GetVisualSelection(),'/\')<CR><CR>
+vmap # ?\V<C-R>=escape(GetVisualSelection(),'?\')<CR><CR>
 
 " Extended `*`. Starts vim search (without jump) and ripgrep search for cword
 nmap <leader>* :let @/ = '\<' . expand('<cword>') . '\>' <bar>
