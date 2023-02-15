@@ -91,7 +91,7 @@ endif
 function! GetVisualSelection()
 	let l:old_reg = getreg('"')
 	let l:old_regtype = getregtype('"')
-	norm y
+	norm gvy
 	let l:sel = getreg('"')
 	call setreg('"', l:old_reg, l:old_regtype)
 	return l:sel
@@ -100,10 +100,13 @@ endfunction
 vmap * /\V<C-R>=escape(GetVisualSelection(),'/\')<CR><CR>
 vmap # ?\V<C-R>=escape(GetVisualSelection(),'?\')<CR><CR>
 
-" Extended `*`. Starts vim search (without jump) and ripgrep search for cword
+" Extended `*`. Starts vim search (without jump) and ripgrep
 nmap <leader>* :let @/ = '\<' . expand('<cword>') . '\>' <bar>
              \  set hlsearch <bar>
              \  Rg \b<C-R>=expand('<cword>')<CR>\b<CR>
+vmap <leader>* :<C-U>let @/ = "\\V<C-R>=escape(escape(GetVisualSelection(), '\'), '"\')<CR>" <bar>
+             \  set hlsearch <bar>
+             \  Rg <C-R>=escape(GetVisualSelection(), '.\[]<bar>*+?{}^$()')<CR><CR>
 
 " Search inside visual selection
 noremap <leader>v/ /\%V
