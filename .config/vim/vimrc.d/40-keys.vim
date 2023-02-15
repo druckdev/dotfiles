@@ -287,3 +287,57 @@ nnoremap <leader><C-U> gUl
 vnoremap <leader><C-U> gU
 nnoremap <leader><C-L> gul
 vnoremap <leader><C-L> gu
+
+" Expand visual selection over all directly following lines in the given
+" direction that contain the current selection at the same position.
+"
+" Example:
+" ```
+"  - TODO: ...
+"  - TODO: ...
+"  - TODO: ...
+" ```
+"
+" In visual block one can select `TODO: ` on the first line and then call
+" `ExpandVisualSelection(1)` which results in a block selection that spans over
+" all other TODOs as well.
+function! ExpandVisualSelection(direction)
+	let l:sel = escape(GetVisualSelection(), '\')
+	normal gv
+
+	" Move the cursor onto the side of the selection that points in the
+	" direction of the expansion.
+	let l:swap_ends = 0
+	if (
+			\ (getpos('.') == getpos("'>") && a:direction < 0) ||
+			\ (getpos('.') == getpos("'<") && a:direction > 0)
+	\)
+		normal o
+		let l:swap_ends = 1
+	endif
+
+	if (a:direction < 0)
+		" Because of the greedy nature of search(), we cannot use the same
+		" regex/approach as when searching forwards, as it will only ever match
+		" the preceding line.
+		while (
+				\ (line('.') - 1) &&
+				\ match(getline(line('.') - 1), '\%'.col("'<").'c'.l:sel) != -1
+		\)
+			call cursor(line('.') - 1, col("'<"))
+		endwhile
+	elseif (a:direction > 0)
+		let l:pat = '\v%#(.*\n.*%' . col("'<") . 'c\V' . l:sel . '\)\*'
+		call search(l:pat, 'e')
+	else
+		" TODO: expand in both directions
+	endif
+
+	" Reset cursor column
+	if (l:swap_ends && mode() == "\<C-V>")
+		normal O
+	endif
+endfunction
+
+vmap <silent> <leader>j :<C-U>call ExpandVisualSelection(1)<CR>
+vmap <silent> <leader>k :<C-U>call ExpandVisualSelection(-1)<CR>
