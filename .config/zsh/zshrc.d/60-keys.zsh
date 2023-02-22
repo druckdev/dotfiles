@@ -201,6 +201,15 @@ zle -N cmd-on-enter
 bindkey "^M" cmd-on-enter
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(cmd-on-enter)
 
+# Fuzzy PWD selector of all open shells
+function go-shcwd {
+	dir="$(shcwd | fzf)"
+	[[ -z $dir ]] || pushd -q "$dir"
+	redraw-prompt
+}
+zle -N go-shcwd
+bindkey '^G' go-shcwd
+
 ## History
 # Ctrl-Up
 bindkey '^[[1;5A' fzf-history-widget
