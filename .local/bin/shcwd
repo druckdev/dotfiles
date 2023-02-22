@@ -18,4 +18,4 @@ pgrep "$(basename $SHELL)" \
 		pwdx "$line" 2>/dev/null
 	done \
 	| cut -d' ' -f2- \
-	| sort -u
+	| sort -ur
