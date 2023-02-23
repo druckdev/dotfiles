@@ -203,7 +203,7 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(cmd-on-enter)
 
 # Fuzzy PWD selector of all open shells
 function go-shcwd {
-	dir="$(shcwd | grep -vF "$PWD" | fzf)"
+	dir="$(shcwd | grep -vFx "$PWD" | fzf)"
 	[[ -z $dir ]] || pushd -q "$dir"
 	redraw-prompt
 }
