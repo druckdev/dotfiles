@@ -168,9 +168,9 @@ if exists('g:loaded_gitgutter')
 	omap ah <Plug>(GitGutterTextObjectOuterPending)
 	xmap ih <Plug>(GitGutterTextObjectInnerVisual)
 	xmap ah <Plug>(GitGutterTextObjectOuterVisual)
-	" Same for hunk navigation bindings
-	nmap [h <Plug>(GitGutterPrevHunk)
-	nmap ]h <Plug>(GitGutterNextHunk)
+	" Same for hunk navigation bindings + center line
+	nmap [h <Plug>(GitGutterPrevHunk)zz
+	nmap ]h <Plug>(GitGutterNextHunk)zz
 endif
 
 if (get(g:, 'loaded_fzf'))
