@@ -210,6 +210,14 @@ function go-shcwd {
 zle -N go-shcwd
 bindkey '^G' go-shcwd
 
+# move one directory up on ^U (mnemonic: 'Up')
+function cd-up {
+	pushd -q ..
+	redraw-prompt
+}
+zle -N cd-up
+bindkey '^U' cd-up
+
 ## History
 # Ctrl-Up
 bindkey '^[[1;5A' fzf-history-widget
