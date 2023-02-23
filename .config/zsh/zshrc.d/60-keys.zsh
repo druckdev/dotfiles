@@ -71,17 +71,10 @@ bindkey '^[[1;5C' vi-forward-word                # ctrl-right
 bindkey '^[[3;5~' vi-kill-word                   # ctrl-delete
 bindkey '^Q' push-input                          # ctrl-Q
 
-# cd-{rotate,backward,forward} are copied from:
+# cd-{rotate,backward,forward} and redraw-prompt are partially modified copies
+# from (Specifically see fn/-z4h-{rotate,redraw-prompt,init-zle}):
 # https://github.com/romkatv/zsh4humans/tree/421937693f3772c99c4bdd881ac904e5e9f
-# Specifically taken from fn/-z4h-{rotate,redraw-prompt,init-zle}. cd-rotate is
-# a "flat" version (i.e. other function bodies copied inline) and adjusted to my
-# needs.
-function cd-rotate() {
-	while (( $#dirstack )) && ! pushd -q $1 &>/dev/null; do
-		popd -q $1
-	done
-
-	# redraw prompt ----
+function redraw-prompt {
 	# hide cursor
 	! (( $+terminfo[civis] && $+terminfo[cnorm] )) || [[ ! -t 1 ]] ||
 		echoti civis
@@ -100,7 +93,14 @@ function cd-rotate() {
 
 	# reset cursor
 	! (( $+terminfo[cnorm] )) || [[ ! -t 1 ]] || echoti cnorm
-	# ----
+}
+
+function cd-rotate() {
+	while (( $#dirstack )) && ! pushd -q $1 &>/dev/null; do
+		popd -q $1
+	done
+
+	redraw-prompt
 
 	(( $#dirstack ))
 }
