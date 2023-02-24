@@ -64,6 +64,7 @@
 	# disbaled for now, as not compatible with git v2.37. See:
 	# https://github.com/so-fancy/diff-so-fancy/issues/437
 	# diffFilter = diff-so-fancy --patch
+	# Might need a `sudo cpan Term::ReadKey`
 	singleKey = true
 [log]
 	follow = true
