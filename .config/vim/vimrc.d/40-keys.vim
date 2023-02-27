@@ -9,8 +9,8 @@ nnoremap <silent> <Esc> :nohlsearch<CR><Esc>
 
 " Split view navigation
 " Create new panes
-nnoremap <C-w>N :vsplit<CR>
-nnoremap <C-w>n :split<CR>
+nnoremap <C-w>N <Cmd>vsplit<CR>
+nnoremap <C-w>n <Cmd>split<CR>
 
 " Substitute command
 if (exists('+inccommand') && &inccommand != '')
@@ -56,8 +56,8 @@ function! CycleSpellLang()
 	endif
 endfunction
 " Toggle spell, cycle and set spelllang
-map <leader>st :set spell=!&spell<CR>
-map <leader>sc :call CycleSpellLang()<CR>
+map <leader>st <Cmd>set spell=!&spell<CR>
+map <leader>sc <Cmd>call CycleSpellLang()<CR>
 map <leader>ss :set spelllang=
 
 " Jump through jump table but center
@@ -71,19 +71,19 @@ if (has('nvim'))
 	nmap <leader><CR> :split +terminal<CR>i
 	nmap <leader>v<CR> :vsplit +terminal<CR>i
 elseif (has('terminal'))
-	nmap <leader><CR> :terminal<CR>
+	nmap <leader><CR> <Cmd>terminal<CR>
 endif
 
 " Plugin specific bindings
 if (get(g:, 'loaded_fzf'))
-	nmap <leader>f :Files<CR>
-	nmap <leader>j :Lines<CR>
-	nmap <leader>/ :Lines<CR>
-	nmap <leader>h :Helptags<CR>
+	nmap <leader>f <Cmd>Files<CR>
+	nmap <leader>j <Cmd>Lines<CR>
+	nmap <leader>/ <Cmd>Lines<CR>
+	nmap <leader>h <Cmd>Helptags<CR>
 	" TODO: fix this?
 	if (get(g:, 'loaded_gutentags') || 1)
-		nmap <leader>t :Tags<CR>
-		nmap <leader>bt :BTags<CR>
+		nmap <leader>t <Cmd>Tags<CR>
+		nmap <leader>bt <Cmd>BTags<CR>
 	endif
 endif
 
@@ -129,26 +129,26 @@ nmap <leader>grc :let subject=system('git show -s --format="(\"%s\")" <C-R><C-W>
 nmap <leader>gso :r!git config --get user.name<CR>:r!git config --get user.email<CR>I<<ESC>A><ESC>kJISigned-off-by: <ESC>
 
 " Add, stash or checkout the current file
-nmap <leader>ga :!git add -- %<CR>
-nmap <leader>gs :!git stash -- %<CR>
-nmap <leader>gu :!git checkout -- %<CR>
+nmap <leader>ga <Cmd>!git add -- %<CR>
+nmap <leader>gs <Cmd>!git stash -- %<CR>
+nmap <leader>gu <Cmd>!git checkout -- %<CR>
 
 if exists('g:loaded_fugitive')
 	" Interactive `git status`
-	nmap <leader>gg :G<CR>
+	nmap <leader>gg <Cmd>G<CR>
 	" Start a commit and open the message in a split
-	nmap <leader>gcc :G commit<CR>
+	nmap <leader>gcc <Cmd>G commit<CR>
 	" Amend the current commit and open the message in a split
-	nmap <leader>gca :G commit --amend<CR>
+	nmap <leader>gca <Cmd>G commit --amend<CR>
 	" Move to root of directory
-	nmap <leader>gcd :Gcd<CR>
+	nmap <leader>gcd <Cmd>Gcd<CR>
 	" git blame in scroll bound vertical split (only the commit hashes, see
 	" :help :Git_blame)
 	nmap <leader>gb :G blame<CR>C
 else
 	" Move to root of directory
 	" NOTE: only works if a file is already opened
-	nnoremap <leader>gcd :cd %:h <Bar> cd `git rev-parse --show-toplevel`<CR>
+	nnoremap <leader>gcd <Cmd>cd %:h <Bar> cd `git rev-parse --show-toplevel`<CR>
 endif
 
 if exists('g:loaded_gitgutter')
@@ -175,10 +175,10 @@ endif
 
 if (get(g:, 'loaded_fzf'))
 	" git files that `git status` lists
-	nmap <leader>gf :GFiles?<CR>
+	nmap <leader>gf <Cmd>GFiles?<CR>
 	" 'git log (log?)' and 'git log buffer '
-	map <leader>gll :Commits<CR>
-	map <leader>glb :BCommits<CR>
+	map <leader>gll <Cmd>Commits<CR>
+	map <leader>glb <Cmd>BCommits<CR>
 endif
 
 " Y should behave like D & C does
@@ -188,8 +188,8 @@ nnoremap Y y$
 nmap <leader>dd 0D
 
 " Fix & command to also use last flags
-nnoremap & :&&<CR>
-xnoremap & :&&<CR>
+nnoremap & <Cmd>&&<CR>
+xnoremap & <Cmd>&&<CR>
 
 " see :help i_ctrl-g_u
 " Do not break undo sequence when using the arrow keys or home and end in insert
@@ -253,7 +253,7 @@ augroup END
 " Convert Unix timestamp to human readable
 " Mnemonic: "Unix timestamp convert" with pun to UTC
 nnoremap <leader>utc ciw<C-r>=strftime("%F %T", @")<CR><Esc>
-vnoremap <leader>utc :s/\v(^\|[^0-9])\zs[0-9]{10}\ze([^0-9]\|$)/\=strftime("%F %T",submatch(0))/g<CR>
+vnoremap <leader>utc <Cmd>s/\v(^\|[^0-9])\zs[0-9]{10}\ze([^0-9]\|$)/\=strftime("%F %T",submatch(0))/g<CR>
 
 " Match the behaviour of [[ and []. ]] forward to next '}' in the first column
 " and ][ fw to next '[', instead of the other way around.
@@ -261,13 +261,13 @@ noremap ]] ][
 noremap ][ ]]
 
 " Strip trailing whitespace
-nnoremap <leader><space> :silent! %s/\v\s+$//<CR>
-vnoremap <leader><space> :<C-u>silent! '<,'>s/\v\s+$//<CR>
+nnoremap <leader><space> <Cmd>silent! %s/\v\s+$//<CR>
+vnoremap <leader><space> <Cmd><C-u>silent! '<,'>s/\v\s+$//<CR>
 
 " Convert double quotes to single. Convert only pairs to lower the false
 " positive rate.
-nnoremap <leader>" :silent! %s/\v"([^"]*)"/'\1'/g<CR>
-vnoremap <leader>" :<C-u>silent! '<,'>s/\v"([^"]*)"/'\1'/g<CR>
+nnoremap <leader>" <Cmd>silent! %s/\v"([^"]*)"/'\1'/g<CR>
+vnoremap <leader>" <Cmd><C-u>silent! '<,'>s/\v"([^"]*)"/'\1'/g<CR>
 
 " Keep selection when changing the indentation in visual mode
 vnoremap > >gv
@@ -339,5 +339,5 @@ function! ExpandVisualSelection(direction)
 	endif
 endfunction
 
-vmap <silent> <leader>j :<C-U>call ExpandVisualSelection(1)<CR>
-vmap <silent> <leader>k :<C-U>call ExpandVisualSelection(-1)<CR>
+vmap <silent> <leader>j <Cmd>call ExpandVisualSelection(1)<CR>
+vmap <silent> <leader>k <Cmd>call ExpandVisualSelection(-1)<CR>
