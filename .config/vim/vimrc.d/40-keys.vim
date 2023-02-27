@@ -56,7 +56,7 @@ function! CycleSpellLang()
 	endif
 endfunction
 " Toggle spell, cycle and set spelllang
-map <leader>st <Cmd>set spell=!&spell<CR>
+map <leader>st <Cmd>set spell!<CR>
 map <leader>sc <Cmd>call CycleSpellLang()<CR>
 map <leader>ss :set spelllang=
 
