@@ -526,11 +526,7 @@ suffix() {
 		return 1
 	fi
 
-	local i=1
-	for arg; do
-		[[ $arg != "--" ]] || break
-		: "$((i++))"
-	done
+	local i=${@[(ei)--]}
 	# NOTE: if "--" is not included in $@, i will be greater than $#, and no
 	# starting point is passed to `find`, which then defaults to `.`.
 
