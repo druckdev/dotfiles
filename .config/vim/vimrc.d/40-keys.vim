@@ -275,6 +275,7 @@ vnoremap < <gv
 vnoremap = =gv
 
 " Center search results
+" TODO: this hides the search result indicator (i.e. [5/10])
 noremap n nzz
 noremap N Nzz
 cnoremap <expr> <CR> "<CR>" .
