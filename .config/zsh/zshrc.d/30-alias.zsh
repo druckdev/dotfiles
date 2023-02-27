@@ -171,6 +171,8 @@ fi
 		alias bin='xxd -b -c4 | cut -d" " -f2-5'
 	fi
 	if (( $+commands[nvim] )); then
+		# TODO: keep exit code of fg, Add files (if args exist) to running vim
+		#       session in a new tab or split
 		alias vim='jobs | grep -q nvim && {fg;:;} || nvim'
 		alias vimdiff='nvim -d'
 	fi
