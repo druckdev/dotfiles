@@ -262,12 +262,12 @@ noremap ][ ]]
 
 " Strip trailing whitespace
 nnoremap <leader><space> <Cmd>silent! %s/\v\s+$//<CR>
-vnoremap <leader><space> <Cmd><C-u>silent! '<,'>s/\v\s+$//<CR>
+vnoremap <leader><space> <Cmd>silent! '<,'>s/\v\s+$//<CR>
 
 " Convert double quotes to single. Convert only pairs to lower the false
 " positive rate.
 nnoremap <leader>" <Cmd>silent! %s/\v"([^"]*)"/'\1'/g<CR>
-vnoremap <leader>" <Cmd><C-u>silent! '<,'>s/\v"([^"]*)"/'\1'/g<CR>
+vnoremap <leader>" <Cmd>silent! '<,'>s/\v"([^"]*)"/'\1'/g<CR>
 
 " Keep selection when changing the indentation in visual mode
 vnoremap > >gv
