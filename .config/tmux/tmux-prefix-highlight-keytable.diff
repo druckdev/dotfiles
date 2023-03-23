@@ -1,0 +1,67 @@
+diff --git a/prefix_highlight.tmux b/prefix_highlight.tmux
+index f214afc8916e..ea4303823c86 100755
+--- a/prefix_highlight.tmux
++++ b/prefix_highlight.tmux
+@@ -12,8 +12,11 @@ output_prefix='@prefix_highlight_output_prefix'
+ output_suffix='@prefix_highlight_output_suffix'
+ show_copy_config='@prefix_highlight_show_copy_mode'
+ show_sync_config='@prefix_highlight_show_sync_mode'
++show_keytable_config='@prefix_highlight_show_keytable'
+ copy_attr_config='@prefix_highlight_copy_mode_attr'
+ sync_attr_config='@prefix_highlight_sync_mode_attr'
++keytable_attr_config='@prefix_highlight_keytable_attr'
++keytable='@prefix_highlight_keytable'
+ prefix_prompt='@prefix_highlight_prefix_prompt'
+ copy_prompt='@prefix_highlight_copy_prompt'
+ sync_prompt='@prefix_highlight_sync_prompt'
+@@ -41,6 +44,7 @@ default_fg='colour231'
+ default_bg='colour04'
+ default_copy_attr='fg=default,bg=yellow'
+ default_sync_attr='fg=default,bg=yellow'
++default_keytable_attr='fg=default,bg=yellow'
+ default_empty_attr='fg=default,bg=default'
+ default_prefix_prompt=$(tmux_option prefix | tr "[:lower:]" "[:upper:]" | sed 's/C-/\^/')
+ default_copy_prompt='Copy'
+@@ -53,10 +57,13 @@ main() {
+         bg_color=$(tmux_option "$bg_color_config" "$default_bg") \
+         show_copy_mode=$(tmux_option "$show_copy_config" "off") \
+         show_sync_mode=$(tmux_option "$show_sync_config" "off") \
++        show_keytable=$(tmux_option "$show_keytable_config" "off")
+         output_prefix=$(tmux_option "$output_prefix" " ") \
+         output_suffix=$(tmux_option "$output_suffix" " ") \
+         copy_attr=$(tmux_option "$copy_attr_config" "$default_copy_attr") \
+         sync_attr=$(tmux_option "$sync_attr_config" "$default_sync_attr") \
++        keytable_attr=$(tmux_option "$keytable_attr_config" "$default_keytable_attr") \
++        keytable=$(tmux_option "$keytable" "")
+         prefix_prompt=$(tmux_option "$prefix_prompt" "$default_prefix_prompt") \
+         copy_prompt=$(tmux_option "$copy_prompt" "$default_copy_prompt") \
+         sync_prompt=$(tmux_option "$sync_prompt" "$default_sync_prompt") \
+@@ -73,6 +80,9 @@ main() {
+     local -r sync_highlight="$(format_style "${sync_attr:+default,$sync_attr}")"
+     local -r sync_mode="$sync_highlight$output_prefix$sync_prompt$output_suffix"
+ 
++    local -r keytable_highlight="$(format_style "${keytable_attr:+default,$keytable_attr}")"
++    local -r keytable_mode="$keytable_highlight$output_prefix#{client_key_table}$output_suffix"
++
+     local -r empty_highlight="$(format_style "${empty_attr:+default,$empty_attr}")"
+     if [[ "on" = "$empty_has_affixes" ]]; then
+         local -r empty_mode="$empty_highlight$output_prefix$empty_prompt$output_suffix"
+@@ -80,6 +90,8 @@ main() {
+         local -r empty_mode="$empty_highlight$empty_prompt"
+     fi
+ 
++    # if [[ "on" = "$show_keytable" ]]; then
++    #    local -r fallback="#{?#{==:#{client_key_table},$keytable},$keytable_mode,$empty_mode}"
+     if [[ "on" = "$show_copy_mode" ]]; then
+         if [[ "on" = "$show_sync_mode" ]]; then
+             local -r fallback="#{?pane_in_mode,$copy_mode,#{?synchronize-panes,$sync_mode,$empty_mode}}"
+@@ -92,7 +104,8 @@ main() {
+         local -r fallback="$empty_mode"
+     fi
+ 
+-    local -r highlight="#{?client_prefix,$prefix_mode,$fallback}#[default]"
++    # local -r highlight="#{?client_prefix,$fallback,$prefix_mode}#[default]"
++    local -r highlight="#{?#{==:#{client_key_table},$keytable},$keytable_mode,#{?client_prefix,$prefix_mode,$fallback}}#[default]"
+ 
+     local -r status_left_value="$(tmux_option "status-left")"
+     tmux set-option -gq "status-left" "${status_left_value/$place_holder/$highlight}"

@@ -530,6 +530,7 @@ suffix() {
 	# NOTE: if "--" is not included in $@, i will be greater than $#, and no
 	# starting point is passed to `find`, which then defaults to `.`.
 
+	# TODO: Support included double quotes (see `(q)`)
 	local -a names
 	# Take everything before "--" and quote special characters
 	names=( "${(@q)@:1:$((i-1))}" )

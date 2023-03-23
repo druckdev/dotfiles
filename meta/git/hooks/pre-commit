@@ -42,6 +42,7 @@ if ! git diff-index --check --cached $against --; then
 	die
 fi
 
+# TODO: broken?
 # Check that added symlinks are not broken
 git diff --staged --name-only --diff-filter=AR $against \
 | {

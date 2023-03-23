@@ -24,6 +24,11 @@ which would be overridden are first packed into an archive for backup (see
 [meta/archive][9]) and then dotbot places symlinks in the appropriate places for
 the different files and folders in this repository.
 
+The scripts and configuration files depend on following programs/packages:
+
+ - fzf (is installed manually)
+ - moreutils (pee, sponge, ...)
+
 To start the installation run:
 
 ```sh

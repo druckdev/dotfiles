@@ -38,6 +38,7 @@ if (( ret )); then
 	return $ret
 fi
 
+# TODO: Use return trap. see AVM PR
 trap '
 	errc=$?
 	<&2 printf "Exiting abnormally. Check and possibly remove '$WORKTREE_PATH' manually.\n"
