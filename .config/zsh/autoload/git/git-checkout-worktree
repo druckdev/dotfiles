@@ -27,7 +27,9 @@
 emulate -L zsh -o err_return -o no_unset
 
 local REPO_NAME WORKTREE_PATH
-REPO_NAME="${$(git rev-parse --show-toplevel):t}"
+# Use the folder name of the main working tree to make calls from another
+# temporary working tree possible
+REPO_NAME="${${${$(git rev-parse --git-dir):A}%%/.git*}:t}"
 WORKTREE_PATH="$(mktemp -d -p "" "worktree.XXX.$REPO_NAME.${1//\//_}")"
 
 local errc ret=0
