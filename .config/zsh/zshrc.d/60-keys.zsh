@@ -229,7 +229,7 @@ bindkey -M vicmd '^K' fzf-history-widget
 # \ec (Alt-C) fzf-cd-widget
 # ^R fzf-history-widget
 # TODO: ^R should insert the history line in BUFFER to differ from ctrl-up
-FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND}"
+FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND} 2>/dev/null"
 # Use the fallback default command when ripgrep is not installed but with
 # directories instead of files.
 FZF_ALT_C_COMMAND="${fzf_default_no_rg/-type f/-type d}"
