@@ -67,6 +67,9 @@ label-urgent = %name%
 label-urgent-background = ${colors.alert}
 label-urgent-padding = ${self.label-focused-padding}
 
+; click on mode to reset to default
+label-mode = %{A1:i3-msg mode default:}%mode%%{A}
+
 ;#################################################
 
 [module/pulseaudio]
