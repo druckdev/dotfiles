@@ -55,6 +55,9 @@ fi
 	alias -g no1='>/dev/null'
 	alias -g no2='2>/dev/null'
 	alias -g noO='&>/dev/null'
+	# Manually trigger alias expansion for the next word
+	# Taken from https://unix.stackexchange.com/a/433849
+	alias -g '$= '
 
 # Git
 	alias g='git'
