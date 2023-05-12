@@ -61,8 +61,9 @@ map <leader>sc <Cmd>call CycleSpellLang()<CR>
 map <leader>ss :set spelllang=
 
 " Jump through jump table but center while still respecting 'foldopen'
-noremap <expr> <Tab> '<Tab>' . (match(&fdo, 'mark') > -1 ? 'zv' : '') . 'zz'
+noremap <expr> <C-I> '<C-I>' . (match(&fdo, 'mark') > -1 ? 'zv' : '') . 'zz'
 noremap <expr> <C-O> '<C-O>' . (match(&fdo, 'mark') > -1 ? 'zv' : '') . 'zz'
+nmap <Tab> <C-I>
 nmap <S-Tab> <C-O>
 
 " Terminal
