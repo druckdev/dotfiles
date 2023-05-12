@@ -61,8 +61,8 @@ map <leader>sc <Cmd>call CycleSpellLang()<CR>
 map <leader>ss :set spelllang=
 
 " Jump through jump table but center
-noremap <Tab> <Tab>zz
-noremap <C-O> <C-O>zz
+noremap <Tab> <Tab>zvzz
+noremap <C-O> <C-O>zvzz
 nmap <S-Tab> <C-O>
 
 " Terminal
@@ -276,11 +276,11 @@ vnoremap = =gv
 
 " Center search results
 " TODO: this hides the search result indicator (i.e. [5/10])
-noremap n nzz
-noremap N Nzz
+noremap n nzvzz
+noremap N Nzvzz
 cnoremap <expr> <CR> "<CR>" .
 	\ (getcmdtype() == '/' \|\| getcmdtype() == '?'
-		\ ? "zz"
+		\ ? "zvzz"
 		\ : "")
 
 " Switch to lower/upper case
