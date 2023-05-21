@@ -276,9 +276,21 @@ vnoremap < <gv
 vnoremap = =gv
 
 " Center search results while still respecting 'foldopen'
-" TODO: this hides the search result indicator (i.e. [5/10])
-noremap <expr> n 'n'. (match(&fdo, 'search') > -1 ? 'zv' : '') .'zz'
-noremap <expr> N 'N'. (match(&fdo, 'search') > -1 ? 'zv' : '') .'zz'
+" TODO: This does not trigger hlsearch
+function! s:CenterNext(count, command)
+	let l:foldopen = match(&foldopen, 'search') > -1 ? 'zv' : ''
+
+        " Search count (i.e. [5/10]) will not display with 'lazyredraw'
+	let l:lazyredraw_bkp = &lazyredraw
+	set nolazyredraw
+
+	execute 'normal! ' .. a:count .. a:command .. l:foldopen .. 'zz'
+
+	let &lazyredraw = l:lazyredraw_bkp
+endfunction
+map n <Cmd>call <SID>CenterNext(v:count1, 'n')<CR>
+map N <Cmd>call <SID>CenterNext(v:count1, 'N')<CR>
+
 cnoremap <expr> <CR> "<CR>" .
 	\ (getcmdtype() == '/' \|\| getcmdtype() == '?'
 		\ ? (match(&fdo, 'search') > -1 ? 'zv' : '') . "zz"
