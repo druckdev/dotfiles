@@ -78,6 +78,7 @@ fi
 	alias {gll,glg}='glog --graph'
 	alias {glll,glla,glga,glag,glogg}='glog --graph --branches --remotes'
 	alias gp='git push'
+	alias gpf='git push --force-with-lease'
 	alias gpull='git pull'
 	alias gpush='git push'
 	alias gr='git rebase'
