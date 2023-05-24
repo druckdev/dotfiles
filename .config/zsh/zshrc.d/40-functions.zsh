@@ -641,6 +641,10 @@ diffcmds() {
 	fi
 
 	local i=${@[(ei)--]}
+	if (( i >= # )); then
+		printf >&2 "Usage: $0 <template> -- arg...\n"
+		return 1
+	fi
 
 	local cmdline="vimdiff"
 	for arg in "${@:$((i+1))}"; do
