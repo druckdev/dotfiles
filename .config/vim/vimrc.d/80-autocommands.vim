@@ -132,9 +132,3 @@ augroup stdin_not_modified
 	au!
 	au StdinReadPost * set nomodified
 augroup END
-
-" Start in insert mode when opening a new file that does not exist yet
-augroup newfile_insert
-	au!
-	autocmd BufNewFile * startinsert
-augroup END
