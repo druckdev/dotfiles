@@ -626,3 +626,25 @@ pdfunite() {
 psofof() {
 	lsof "$@" | tail -n +2 | awk '{ print $2 }' | sort -u
 }
+
+# vimdiff the output of multiple commands following the same pattern.
+#
+# Example:
+# diffcmds utk %% layout-table-full -- file1 file2
+#
+# would be equivalent to:
+# vimdiff =(utk file1 layout-table-full) =(utk file2 layout-table-full)
+diffcmds() {
+	if (( ! $+commands[vimdiff] )); then
+		printf >&2 "vimdiff not installed\n"
+		return 1
+	fi
+
+	local i=${@[(ei)--]}
+
+	local cmdline="vimdiff"
+	for arg in "${@:$((i+1))}"; do
+		cmdline+=" =(${${@:1:$((i-1))}//\%\%/$arg})"
+	done
+	eval "${=cmdline}"
+}
