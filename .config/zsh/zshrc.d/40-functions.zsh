@@ -646,6 +646,12 @@ diffcmds() {
 		return 1
 	fi
 
+	# Append arguments at the back if no `%%` was passed
+	if [[ ! "${@:1:$((i-1))}" =~ '%%' ]]; then
+		set -- "${@:1:$((i-1))}" "%%" "${@:$i}"
+		let i++
+	fi
+
 	local cmdline="vimdiff"
 	for arg in "${@:$((i+1))}"; do
 		cmdline+=" =(${${@:1:$((i-1))}//\%\%/$arg})"
