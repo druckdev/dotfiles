@@ -4,7 +4,7 @@
 # Children of HOME
 for dir in "$HOME"/[^.]*(/); do
 	[[ ! ${dir:t} =~ " " ]] || continue
-	hash -d ${dir:t}="$dir"
+	hash -d -- ${dir:t}="$dir"
 done
 
 # Children of documents
