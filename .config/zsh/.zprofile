@@ -112,6 +112,8 @@ else
 fi
 export FZF_DEFAULT_COMMAND
 
+export FZF_DEFAULT_OPTS='--track'
+
 # Setup LS_COLORS
 if (( $+commands[dircolors] )); then
 	if [[ -e "$XDG_CONFIG_HOME"/dircolors/dircolors ]]; then
