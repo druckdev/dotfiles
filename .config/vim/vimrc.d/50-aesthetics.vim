@@ -51,6 +51,11 @@ augroup HighlightTrailingWhitespace
 	au VimEnter,WinNew * call matchadd("TrailingWhitespace", '\s\+\%#\@<!$')
 augroup END
 
+let g:spl_special_chars = {
+	\ 'de': 'äöüßÄÖÜ',
+	\ 'fr': 'àâæçèéêëîïôœùûüÿÀÂÆÇÈÉÊËÎÏÔŒÙÛÜŸ',
+\ }
+
 " Highlight non-ASCII characters in the red used by my color scheme "OneDark"
 highlight NonASCIIChars ctermfg=white guifg=white ctermbg=204 guibg=#e06c75
 " Do not highlight special characters that are valid in the respective spelllang
@@ -60,12 +65,11 @@ function! HighlightNonASCIIChars()
 	endif
 
 	let l:ignore_chars = '\d0-\d127'
-	if (&spelllang =~ '\v(^|,)de($|,)')
-		let l:ignore_chars ..= 'äöüßÄÖÜ'
-	endif
-	if (&spelllang =~ '\v(^|,)fr($|,)')
-		let l:ignore_chars ..= 'àâæçèéêëîïôœùûüÿÀÂÆÇÈÉÊËÎÏÔŒÙÛÜŸ'
-	endif
+	for l:spl in keys(g:spl_special_chars)
+		if (&spelllang =~ '\v(^|,)' . l:spl . '($|,)')
+			let l:ignore_chars ..= g:spl_special_chars[l:spl]
+		endif
+	endfor
 
 	if exists('w:ignore_non_ascii_chars')
 		let l:ignore_chars ..= w:ignore_non_ascii_chars
