@@ -32,7 +32,7 @@ unset {sys,user}{resources,modmap,xinitrcd}
 # <right-CTRL> acts as <ESC> when pressed alone and shortly.
 # ! command -v xcape || xcape -t 250 -e 'Control_R=Escape'
 # Key repeat rate
-xset r rate 400 35
+xset r rate 300 50
 
 if command -v xinput >/dev/null 2>&1; then
 	touchpad="DLL082A:01 06CB:76AF Touchpad"
