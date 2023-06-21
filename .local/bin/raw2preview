@@ -1,11 +1,20 @@
 #!/usr/bin/env bash
 
 TAGS_TO_TRANSFER=(
+	-Make
+	-Model
+	-ModifyDate
+	-Artist
+	-Copyright
 	-Orientation
 	-CreateDate
 	-ExposureTime
 	-FNumber
 	-ISO
+	-DateTimeOriginal
+	-ShutterSpeedValue
+	-ApertureValue
+	-Flash
 	-FocalLength
 )
 FOLDER="./JPGs"
