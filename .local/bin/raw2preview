@@ -8,10 +8,11 @@ TAGS_TO_TRANSFER=(
 	-ISO
 	-FocalLength
 )
+FOLDER="./JPGs"
 
 extractRAW() {
 	[[ -n "$1" ]] || return
-	prev="./JPGs/${1%.*}.JPG"
+	prev="$FOLDER/${1%.*}.JPG"
 	if [[ ! -e "$prev" ]]; then
 		exiftool -progress \
 		         -b \
@@ -25,7 +26,7 @@ extractRAW() {
 	fi
 }
 
-mkdir -p JPGs
+mkdir -p "$FOLDER"
 for file; do
 	[[ -f $file ]] || continue
 
@@ -35,7 +36,7 @@ for file; do
 		extractRAW "$file"
 
 	elif [[ $mime = image/tiff ]]; then
-		prev="./JPGs/${file%.*}.JPG"
+		prev="$FOLDER/${file%.*}.JPG"
 		[[ -e "$prev" ]] || convert "$file" "$prev"
 
 	elif [[ "$(head -1 "$file")" = "#Geeqie collection" ]]; then
@@ -48,4 +49,4 @@ for file; do
 
 	fi
 done
-rmdir JPGs >/dev/null 2>&1 || true
+rmdir "$FOLDER" >/dev/null 2>&1 || true
