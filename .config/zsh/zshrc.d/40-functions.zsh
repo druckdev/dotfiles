@@ -521,8 +521,13 @@ shellcheck() {
 # `sfx` is given to `find` in the form `-name "*$sfx"`.
 # `path` is given as starting point to `find`, defaulting to `.`.
 suffix() {
-	if (( ! $+commands[find] )); then
-		printf >&2 "find not installed\n"
+	local cmd
+	if (( $+commands[bfs] )); then
+		cmd=bfs
+	elif (( $+commands[find] )); then
+		cmd=find
+	else
+		printf >&2 "Neither bfs nor find installed\n"
 		return 1
 	fi
 
@@ -538,7 +543,7 @@ suffix() {
 	# Join with " -o -name " and then split again using shell parsing
 	names=( "${(@zj: -o -name :)names}" )
 	# Pass starting points and the name arguments
-	find "${@:$((i+1))}" -name "${(@)names}"
+	"$cmd" "${@:$((i+1))}" -name "${(@)names}"
 }
 
 # Find duplicate files
