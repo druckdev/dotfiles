@@ -163,6 +163,8 @@ fi
 	alias zmv='noglob zmv'
 	# List human readable sizes in order
 	alias sizes='du -sch * | sort -h'
+	# Count number of occurrences for every line in stdin
+	alias count='sort | uniq -c | sort -n'
 
 # External command depending aliases
 	(( ! $+commands[zathura] )) ||
