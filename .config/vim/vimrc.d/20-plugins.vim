@@ -33,9 +33,17 @@ endif
 
 if (get(g:, 'loaded_fzf'))
 	" Redefine :Rg to ignore the .git directory
-	" See fzf.vim/plugin/fzf.vim for the original definition
-	command! -bang -nargs=* Rg
-	  \ call fzf#vim#grep(
-	  \   'rg --column --line-number --no-heading --color=always --smart-case -g "!.git" -- '.shellescape(<q-args>), 1,
-	  \   fzf#vim#with_preview(), <bang>0)
+	let s:rg_desc = nvim_get_commands({})['Rg']
+	if s:rg_desc['definition'] !~ " -g '!.git' "
+		let s:rg_definition = substitute(s:rg_desc['definition'], ' -- ',
+		                               \ " -g '!.git' -- ", '')
+		" See :h command-attributes
+		" TODO: what is complete_arg?
+		let s:opts = filter(copy(s:rg_desc),
+			\ {key, val -> -1 < index(['nargs', 'complete', 'range', 'count',
+			                         \ 'addr', 'bang', 'bar', 'register',
+			                         \ 'keepscript'], key)
+			\ })
+		call nvim_create_user_command('Rg', s:rg_definition, s:opts)
+	endif
 endif
