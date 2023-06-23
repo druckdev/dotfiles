@@ -668,6 +668,24 @@ diffcmds() {
 		let i++
 	fi
 
+	# Just execute the command without *diff if there is only one argument
+	if (( i + 1 == # )); then
+		eval "${(q@)${@:1:$((i-1))}//\%\%/${@[$#]}}"
+		return
+	fi
+
+	# Fallback or abort if more than 2 arguments were supplied to `diff`
+	if [[ $cmd = diff ]] && (( # - i > 2 )); then
+		printf >&2 "Too many arguments for diff."
+		if (( $+commands[vimdiff] )); then
+			printf >&2 " Using vimdiff.\n"
+			cmd=vimdiff
+		else
+			printf >&2 "\n"
+			return 1
+		fi
+	fi
+
 	# NOTE: `=()` is necessary since vimdiff is seeking the file. See zshexpn(1)
 	[[ $cmd = vimdiff ]] && ps_sub='=(' || ps_sub='<('
 
