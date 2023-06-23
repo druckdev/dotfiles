@@ -1,10 +1,20 @@
 # Use system clipboard for selection.
 set selection-clipboard "clipboard"
 
-# Dark colors
+# Dark colors and transparency
 set default-bg "rgba(25, 25, 25, 0.5)"
+set statusbar-bg "rgba(25, 25, 25, 0.5)"
 set notification-bg "#000000"
 set notification-fg "#FFFFFF"
+
+# Show statusbar and vertical scrollbar
+set guioptions "sv"
+
+# Increase the vertical scroll step size
+set scroll-step 100
+
+# Short $HOME with a tilde in file path
+set statusbar-home-tilde true
 
 # Invert colors per default. Toggle with `i`
 map i recolor
