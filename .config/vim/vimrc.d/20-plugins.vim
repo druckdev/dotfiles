@@ -32,9 +32,10 @@ if (exists("g:loaded_tmux_navigator"))
 endif
 
 if (get(g:, 'loaded_fzf'))
-	" Redefine :Rg to include hidden files (except for .git)
+	" Redefine :Rg to ignore the .git directory
+	" See fzf.vim/plugin/fzf.vim for the original definition
 	command! -bang -nargs=* Rg
 	  \ call fzf#vim#grep(
-	  \   'rg --column --line-number --no-heading --color=always --smart-case --hidden -g "!.git" -- '.shellescape(<q-args>), 1,
+	  \   'rg --column --line-number --no-heading --color=always --smart-case -g "!.git" -- '.shellescape(<q-args>), 1,
 	  \   fzf#vim#with_preview(), <bang>0)
 endif

@@ -20,6 +20,7 @@ export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME"/jupyter
 export PYLINTHOME="${XDG_CACHE_HOME}"/pylint
 export PYTHONSTARTUP="${XDG_CONFIG_HOME}"/python/pythonrc
 export MBSYNCRC="$XDG_CONFIG_HOME"/isync/mbsyncrc
+export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME"/ripgrep/config
 
 export HISTFILE="$XDG_DATA_HOME"/bash/history
 export LESSHISTFILE=/dev/null
@@ -106,7 +107,7 @@ export FZF_DEFAULT_COMMAND_NO_RG
 
 if (( $+commands[rg] )); then
 	# Prune `.git/` and everything ignored by gitignore(5)
-	FZF_DEFAULT_COMMAND="rg -L --hidden --files -g '!.git'"
+	FZF_DEFAULT_COMMAND="rg -L --files -g '!.git'"
 else
 	# Fallback to hardcoding the most important paths to prune
 	FZF_DEFAULT_COMMAND="$FZF_DEFAULT_COMMAND_NO_RG"
