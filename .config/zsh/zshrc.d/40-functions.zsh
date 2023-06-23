@@ -661,7 +661,7 @@ diffcmds() {
 		return 1
 	fi
 
-	# Append arguments at the back if no `%%` was passed
+	# Place arguments at the back if no position was supplied with `%%`
 	if [[ ! "${@:1:$((i-1))}" =~ '%%' ]]; then
 		set -- "${@:1:$((i-1))}" "%%" "${@:$i}"
 		let i++
