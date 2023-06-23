@@ -232,5 +232,5 @@ bindkey -M vicmd '^K' fzf-history-widget
 FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND} 2>/dev/null"
 # Use the fallback default command when ripgrep is not installed but with
 # directories instead of files.
-FZF_ALT_C_COMMAND="${FZF_DEFAULT_COMMAND_NO_RG/-type f/-type d}"
+FZF_ALT_C_COMMAND="${FZF_DEFAULT_COMMAND_FALLBACK/-type f/-type d}"
 comp-source "$ZDOTDIR/plugins/fzf/shell/key-bindings.zsh"

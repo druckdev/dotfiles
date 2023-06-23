@@ -97,20 +97,22 @@ export LESS
 	export MANPAGER='nvim +"Man! | set scrolloff=999 | normal M"'
 
 # NOTE: This is used in keys.zsh for the ALT_C widget
-FZF_DEFAULT_COMMAND_NO_RG="find -L . -mindepth 1 \("
-	FZF_DEFAULT_COMMAND_NO_RG+=" -name '.git' -o"
-	FZF_DEFAULT_COMMAND_NO_RG+=" -name '__pycache__' -o"
-	FZF_DEFAULT_COMMAND_NO_RG+=" -name 'node_modules'"
-FZF_DEFAULT_COMMAND_NO_RG+=" \) -prune -o -type f -print"
-FZF_DEFAULT_COMMAND_NO_RG+=" | cut -c3-"
-export FZF_DEFAULT_COMMAND_NO_RG
+FZF_DEFAULT_COMMAND_FALLBACK="find -L . -mindepth 1 \("
+	FZF_DEFAULT_COMMAND_FALLBACK+=" -name '.git' -o"
+	FZF_DEFAULT_COMMAND_FALLBACK+=" -name '__pycache__' -o"
+	FZF_DEFAULT_COMMAND_FALLBACK+=" -name 'node_modules'"
+FZF_DEFAULT_COMMAND_FALLBACK+=" \) -prune -o -type f -print"
+FZF_DEFAULT_COMMAND_FALLBACK+=" | cut -c3-"
+export FZF_DEFAULT_COMMAND_FALLBACK
 
-if (( $+commands[rg] )); then
-	# Ignore gitignore(5)d files, see also $XDG_CONFIG_HOME/git/ignore
+# Ignore gitignore(5)d files, see also $XDG_CONFIG_HOME/git/ignore
+if (( $+commands[fd] )); then
+	FZF_DEFAULT_COMMAND="fd -L --hidden --type f"
+elif (( $+commands[rg] )); then
 	FZF_DEFAULT_COMMAND="rg -L --files"
 else
 	# Fallback to hardcoding the most important paths to prune
-	FZF_DEFAULT_COMMAND="$FZF_DEFAULT_COMMAND_NO_RG"
+	FZF_DEFAULT_COMMAND="$FZF_DEFAULT_COMMAND_FALLBACK"
 fi
 export FZF_DEFAULT_COMMAND
 
