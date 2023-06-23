@@ -641,6 +641,8 @@ psofof() {
 # would be equivalent to:
 # vimdiff =(utk file1 layout-table-full) =(utk file2 layout-table-full)
 diffcmds() {
+	# TODO: Support own arguments for example to switch the placeholder or the
+	#       diffcmd
 	local cmd i arg ps_sub
 	local -a cmdline
 
