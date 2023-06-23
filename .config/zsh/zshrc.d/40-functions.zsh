@@ -654,7 +654,8 @@ diffcmds() {
 		return 1
 	fi
 
-	i=${@[(ei)--]}
+	# Get index of last `--` occurrence
+	i=$(( # - ${${(aO)@}[(ei)--]} + 1 ))
 	if (( i >= # || i < 2 )); then
 		printf >&2 "%s\n" "Usage: $0 CMD [ARG...] [%%] [ARG...] -- ARG..."
 		return 1
