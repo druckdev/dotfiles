@@ -96,19 +96,20 @@ export LESS
 	export MANPAGER='nvim +"Man! | set scrolloff=999 | normal M"'
 
 # NOTE: This is used in keys.zsh for the ALT_C widget
-fzf_default_no_rg="find -L . -mindepth 1 \("
-	fzf_default_no_rg+=" -name '.git' -o"
-	fzf_default_no_rg+=" -name '__pycache__' -o"
-	fzf_default_no_rg+=" -name 'node_modules'"
-fzf_default_no_rg+=" \) -prune -o -type f -print"
-fzf_default_no_rg+=" | cut -c3-"
+FZF_DEFAULT_COMMAND_NO_RG="find -L . -mindepth 1 \("
+	FZF_DEFAULT_COMMAND_NO_RG+=" -name '.git' -o"
+	FZF_DEFAULT_COMMAND_NO_RG+=" -name '__pycache__' -o"
+	FZF_DEFAULT_COMMAND_NO_RG+=" -name 'node_modules'"
+FZF_DEFAULT_COMMAND_NO_RG+=" \) -prune -o -type f -print"
+FZF_DEFAULT_COMMAND_NO_RG+=" | cut -c3-"
+export FZF_DEFAULT_COMMAND_NO_RG
 
 if (( $+commands[rg] )); then
 	# Prune `.git/` and everything ignored by gitignore(5)
 	FZF_DEFAULT_COMMAND="rg -L --hidden --files -g '!.git'"
 else
 	# Fallback to hardcoding the most important paths to prune
-	FZF_DEFAULT_COMMAND="$fzf_default_no_rg"
+	FZF_DEFAULT_COMMAND="$FZF_DEFAULT_COMMAND_NO_RG"
 fi
 export FZF_DEFAULT_COMMAND
 
