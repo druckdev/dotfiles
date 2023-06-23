@@ -641,7 +641,8 @@ psofof() {
 # would be equivalent to:
 # vimdiff =(utk file1 layout-table-full) =(utk file2 layout-table-full)
 diffcmds() {
-	local cmd cmdline i arg
+	local cmd i arg
+	local -a cmdline
 
 	if (( $+commands[vimdiff] && ! $+commands[diff] )); then
 		cmd=vimdiff
@@ -667,9 +668,9 @@ diffcmds() {
 		let i++
 	fi
 
-	cmdline="$cmd"
+	cmdline=("$cmd")
 	for arg in "${@:$((i+1))}"; do
-		cmdline+=" =(${${@:1:$((i-1))}//\%\%/$arg})"
+		cmdline+=("=(" "${(@)${@:1:$((i-1))}//\%\%/$arg}" ")")
 	done
-	eval "${=cmdline}"
+	eval "$cmdline[@]"
 }
