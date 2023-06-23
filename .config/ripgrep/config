@@ -1,1 +1,3 @@
 --hidden
+# Print file path as a prefix
+--no-heading
