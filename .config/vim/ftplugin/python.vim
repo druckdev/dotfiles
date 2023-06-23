@@ -4,8 +4,8 @@ setlocal shiftwidth=0
 setlocal expandtab
 " Delete all 4 spaces when pressing backspace
 setlocal smarttab
-" PEP-8 wants 79 as maximum line length
-setlocal textwidth=79
+" Use black's default
+setlocal textwidth=88
 " Lines with equal indent form a fold
 setlocal foldmethod=indent
 " Open all folds after they were closed automatically by foldmethod=indent
