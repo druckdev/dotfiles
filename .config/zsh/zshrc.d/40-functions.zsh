@@ -670,7 +670,7 @@ diffcmds() {
 
 	cmdline=("$cmd")
 	for arg in "${@:$((i+1))}"; do
-		cmdline+=("=(" "${(@)${@:1:$((i-1))}//\%\%/$arg}" ")")
+		cmdline+=("=(" "${(q@)${@:1:$((i-1))}//\%\%/$arg}" ")")
 	done
 	eval "$cmdline[@]"
 }
