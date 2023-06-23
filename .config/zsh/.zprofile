@@ -114,7 +114,16 @@ else
 fi
 export FZF_DEFAULT_COMMAND
 
-export FZF_DEFAULT_OPTS='--track'
+typeset -A fzf_opts=(
+	esc    cancel
+	home   first
+	end    last
+	ctrl-d half-page-down
+	ctrl-u half-page-up
+)
+FZF_DEFAULT_OPTS="--track"
+FZF_DEFAULT_OPTS+=" --bind ${(@*kj:,:)fzf_opts/(#m)*/$MATCH:$fzf_opts[$MATCH]}"
+export FZF_DEFAULT_OPTS
 
 # Setup LS_COLORS
 if (( $+commands[dircolors] )); then
