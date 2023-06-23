@@ -632,7 +632,8 @@ psofof() {
 	lsof "$@" | tail -n +2 | awk '{ print $2 }' | sort -u
 }
 
-# vimdiff the output of multiple commands following the same pattern.
+# diff the output of multiple commands following the same pattern.
+# Uses vimdiff if it is installed and EDITOR or VISUAL are matching `vi`.
 #
 # Example:
 # diffcmds utk %% layout-table-full -- file1 file2
@@ -640,12 +641,20 @@ psofof() {
 # would be equivalent to:
 # vimdiff =(utk file1 layout-table-full) =(utk file2 layout-table-full)
 diffcmds() {
-	if (( ! $+commands[vimdiff] )); then
-		printf >&2 "vimdiff not installed\n"
+	local cmd cmdline i arg
+
+	if (( $+commands[vimdiff] && ! $+commands[diff] )); then
+		cmd=vimdiff
+	elif (( $+commands[diff] && ! $+commands[vimdiff] )); then
+		cmd=diff
+	elif (( $+commands[diff] && $+commands[vimdiff] )); then
+		[[ $EDITOR =~ vi || $VISUAL =~ vi ]] && cmd=vimdiff || cmd=diff
+	else
+		printf >&2 "Neither diff nor vimdiff installed\n"
 		return 1
 	fi
 
-	local i=${@[(ei)--]}
+	i=${@[(ei)--]}
 	if (( i >= # || i < 2 )); then
 		printf >&2 "%s\n" "Usage: $0 CMD [ARG...] [%%] [ARG...] -- ARG..."
 		return 1
@@ -657,7 +666,7 @@ diffcmds() {
 		let i++
 	fi
 
-	local cmdline="vimdiff"
+	cmdline="$cmd"
 	for arg in "${@:$((i+1))}"; do
 		cmdline+=" =(${${@:1:$((i-1))}//\%\%/$arg})"
 	done
