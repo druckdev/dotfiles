@@ -33,10 +33,14 @@ endif
 
 if (get(g:, 'loaded_fzf'))
 	" Redefine :Rg to ignore the .git directory
-	let s:rg_to_add = " -g '!.git' "
+	let s:rg_to_add = " -g ['\"]!.git['\"] "
 	let s:rg_desc = get(nvim_get_commands({}), 'Rg', {})
 
 	if get(s:rg_desc, 'definition', s:rg_to_add) !~ s:rg_to_add
+		" Adjust quotes depending on the definition
+		let s:rg_quote = s:rg_desc['definition'] =~ '^[^(]*("' ? "'" : '"'
+		let s:rg_to_add = substitute(s:rg_to_add, "\\V['\"]", s:rg_quote, 'g')
+
 		let s:rg_definition = substitute(s:rg_desc['definition'], ' -- ',
 		                               \ s:rg_to_add .. '-- ', '')
 		" See :h command-attributes
