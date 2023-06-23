@@ -30,26 +30,3 @@ if (exists("g:loaded_tmux_navigator"))
 	" Disable tmux navigator when zooming the Vim pane
 	let g:tmux_navigator_disable_when_zoomed = 1
 endif
-
-if (get(g:, 'loaded_fzf'))
-	" Redefine :Rg to ignore the .git directory
-	let s:rg_to_add = " -g ['\"]!.git['\"] "
-	let s:rg_desc = get(nvim_get_commands({}), 'Rg', {})
-
-	if get(s:rg_desc, 'definition', s:rg_to_add) !~ s:rg_to_add
-		" Adjust quotes depending on the definition
-		let s:rg_quote = s:rg_desc['definition'] =~ '^[^(]*("' ? "'" : '"'
-		let s:rg_to_add = substitute(s:rg_to_add, "\\V['\"]", s:rg_quote, 'g')
-
-		let s:rg_definition = substitute(s:rg_desc['definition'], ' -- ',
-		                               \ s:rg_to_add .. '-- ', '')
-		" See :h command-attributes
-		" TODO: what is complete_arg?
-		let s:opts = filter(copy(s:rg_desc),
-			\ {key, val -> -1 < index(['nargs', 'complete', 'range', 'count',
-			                         \ 'addr', 'bang', 'bar', 'register',
-			                         \ 'keepscript'], key)
-			\ })
-		call nvim_create_user_command('Rg', s:rg_definition, s:opts)
-	endif
-endif

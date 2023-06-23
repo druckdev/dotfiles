@@ -1,3 +1,6 @@
+# Ignore .git directory (mostly for tools like rg and fd)
+/.git
+
 # Ignore all compiled zsh-files
 *.zwc
 

@@ -106,8 +106,8 @@ FZF_DEFAULT_COMMAND_NO_RG+=" | cut -c3-"
 export FZF_DEFAULT_COMMAND_NO_RG
 
 if (( $+commands[rg] )); then
-	# Prune `.git/` and everything ignored by gitignore(5)
-	FZF_DEFAULT_COMMAND="rg -L --files -g '!.git'"
+	# Ignore gitignore(5)d files, see also $XDG_CONFIG_HOME/git/ignore
+	FZF_DEFAULT_COMMAND="rg -L --files"
 else
 	# Fallback to hardcoding the most important paths to prune
 	FZF_DEFAULT_COMMAND="$FZF_DEFAULT_COMMAND_NO_RG"
