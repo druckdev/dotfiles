@@ -647,7 +647,7 @@ diffcmds() {
 
 	local i=${@[(ei)--]}
 	if (( i >= # )); then
-		printf >&2 "Usage: $0 <template> -- arg...\n"
+		printf >&2 "%s\n" "Usage: $0 CMD [ARG...] [%%] [ARG...] -- ARG..."
 		return 1
 	fi
 
