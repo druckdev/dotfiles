@@ -641,7 +641,7 @@ psofof() {
 # would be equivalent to:
 # vimdiff =(utk file1 layout-table-full) =(utk file2 layout-table-full)
 diffcmds() {
-	local cmd i arg
+	local cmd i arg ps_sub
 	local -a cmdline
 
 	if (( $+commands[vimdiff] && ! $+commands[diff] )); then
@@ -668,9 +668,13 @@ diffcmds() {
 		let i++
 	fi
 
+	# NOTE: `=()` is necessary since vimdiff is seeking the file. See zshexpn(1)
+	[[ $cmd = vimdiff ]] && ps_sub='=(' || ps_sub='<('
+
+	# Substitute placeholder and wrap in process substitution
 	cmdline=("$cmd")
 	for arg in "${@:$((i+1))}"; do
-		cmdline+=("=(" "${(q@)${@:1:$((i-1))}//\%\%/$arg}" ")")
+		cmdline+=("$ps_sub" "${(q@)${@:1:$((i-1))}//\%\%/$arg}" ")")
 	done
 	eval "$cmdline[@]"
 }
