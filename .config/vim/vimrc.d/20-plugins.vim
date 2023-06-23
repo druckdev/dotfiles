@@ -33,10 +33,12 @@ endif
 
 if (get(g:, 'loaded_fzf'))
 	" Redefine :Rg to ignore the .git directory
-	let s:rg_desc = nvim_get_commands({})['Rg']
-	if s:rg_desc['definition'] !~ " -g '!.git' "
+	let s:rg_to_add = " -g '!.git' "
+	let s:rg_desc = get(nvim_get_commands({}), 'Rg', {})
+
+	if get(s:rg_desc, 'definition', s:rg_to_add) !~ s:rg_to_add
 		let s:rg_definition = substitute(s:rg_desc['definition'], ' -- ',
-		                               \ " -g '!.git' -- ", '')
+		                               \ s:rg_to_add .. '-- ', '')
 		" See :h command-attributes
 		" TODO: what is complete_arg?
 		let s:opts = filter(copy(s:rg_desc),
