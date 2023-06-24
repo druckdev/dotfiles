@@ -29,4 +29,3 @@ set recolor-reverse-video true
 
 # vimtex
 set synctex true
-set synctex-editor-command "nvr --remote +%{line} %{input}"
