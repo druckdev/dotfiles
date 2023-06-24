@@ -1,31 +1,16 @@
 " Turn on line-wrapping
 setlocal wrap
 
-let g:tex_flavor = "latex"
-let g:vimtex_compiler_progname = 'nvr'
-
 " Close the quickfix window after a cursor movement
 let g:vimtex_quickfix_autoclose_after_keystrokes = 1
 
-" Setup latexmk and make callback possible with synctex
-" (Click into PDF to land in code)
+" Put all files into tex_build/
 let g:vimtex_compiler_latexmk = {
-\	'aux_dir' : 'tex_build',
-\	'out_dir' : 'tex_build',
-\	'callback' : 1,
-\	'continuous' : 1,
-\	'executable' : 'latexmk',
-\	'hooks' : [],
-\	'options' : [
-\		'-verbose',
-\		'-file-line-error',
-\		'-synctex=1',
-\		'-interaction=nonstopmode',
-\		'-shell-escape',
-\	],
-\}
+	\ 'aux_dir': 'tex_build',
+	\ 'out_dir': 'tex_build',
+\ }
 
-" synctex needs to be activated in zathurarc as well
+" Use zathura for vim-like bindings and synctex support
+" NOTE: Check zathurarc(5) if synctex is activated
 let g:vimtex_context_pdf_viewer='zathura'
-let g:vimtex_view_general_viewer = 'zathura'
 let g:vimtex_view_method='zathura'
