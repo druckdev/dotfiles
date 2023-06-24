@@ -94,19 +94,12 @@ local -A binds=(
 	"ctrl-y" "execute@$fzf_copy_command@"
 	# Open preview "fullscreen"
 	"enter" "execute@$fzf_preview[patch] | command less -R@"
-	# Clear query if not empty, abort otherwise
-	"esc" "cancel"
 	# Preview stats
 	"ctrl-s" "preview($fzf_preview[stat])"
 	# Preview patch
 	"ctrl-p" "preview($fzf_preview[patch])"
 	# Files only
 	"ctrl-f" "preview($fzf_preview[files_only])"
-	# faster navigation
-	"home" "first"
-	"end" "last"
-	"ctrl-d" "half-page-down"
-	"ctrl-u" "half-page-up"
 )
 
 # TODO: Make the --preview argument dependent of --stat flag (i.e.

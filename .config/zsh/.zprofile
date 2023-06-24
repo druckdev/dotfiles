@@ -117,7 +117,9 @@ fi
 export FZF_DEFAULT_COMMAND
 
 typeset -A fzf_opts=(
+	# Clear query if not empty, abort otherwise
 	esc    cancel
+	# Better navigation
 	home   first
 	end    last
 	ctrl-d half-page-down
