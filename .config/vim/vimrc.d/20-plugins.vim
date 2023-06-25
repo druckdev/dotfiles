@@ -30,3 +30,8 @@ if (exists("g:loaded_tmux_navigator"))
 	" Disable tmux navigator when zooming the Vim pane
 	let g:tmux_navigator_disable_when_zoomed = 1
 endif
+
+if (get(g:, 'loaded_vimwiki'))
+	" Use vertical box drawing character as separator
+	call vimwiki#vars#set_syntaxlocal('rxTableSep', '│')
+endif
