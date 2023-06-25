@@ -4,6 +4,9 @@ setlocal wrap
 " Close the quickfix window after a cursor movement
 let g:vimtex_quickfix_autoclose_after_keystrokes = 1
 
+" Do not open quickfix window on warnings
+let g:vimtex_quickfix_open_on_warning = 0
+
 " Put all files into tex_build/
 let g:vimtex_compiler_latexmk = {
 	\ 'aux_dir': 'tex_build',
