@@ -16,7 +16,7 @@
 ENDPOINT='https://api-free.deepl.com/v2/translate'
 
 source="${1:-DE}"
-target="${1:-EN-US}"
+target="${2:-EN-US}"
 
 curl -sS "$ENDPOINT" \
 	-H "Authorization: DeepL-Auth-Key $DEEPL_API_TOKEN" \
