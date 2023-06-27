@@ -1,3 +1,4 @@
+" vim: set foldmethod=marker:
 " Keybindings """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Stop highlighting search result when pressing Return
 nnoremap <silent> <Esc> :nohlsearch<CR><Esc>
@@ -358,3 +359,85 @@ endfunction
 
 vmap <silent> <leader>j <Cmd>call ExpandVisualSelection(1)<CR>
 vmap <silent> <leader>k <Cmd>call ExpandVisualSelection(-1)<CR>
+
+function! s:macro_type()
+	if !exists('s:macro_type')
+		let s:macro_type = 0
+	endif
+
+	if !s:macro_type
+		let s:macro_type = 1
+
+		" Disable on InsertLeave
+		au! macro_type InsertLeave * call s:macro_type()
+
+		imap <Space> _
+		imap a A
+		" {{{
+		imap b B
+		imap c C
+		imap d D
+		imap e E
+		imap f F
+		imap g G
+		imap h H
+		imap i I
+		imap j J
+		imap k K
+		imap l L
+		imap m M
+		imap n N
+		imap o O
+		imap p P
+		imap q Q
+		imap r R
+		imap s S
+		imap t T
+		imap u U
+		imap v V
+		imap w W
+		imap x X
+		imap y Y
+		imap z Z
+		" }}}
+	else
+		let s:macro_type = 0
+		au! macro_type
+
+		iunmap <Space>
+		iunmap a
+		" {{{
+		iunmap b
+		iunmap c
+		iunmap d
+		iunmap e
+		iunmap f
+		iunmap g
+		iunmap h
+		iunmap i
+		iunmap j
+		iunmap k
+		iunmap l
+		iunmap m
+		iunmap n
+		iunmap o
+		iunmap p
+		iunmap q
+		iunmap r
+		iunmap s
+		iunmap t
+		iunmap u
+		iunmap v
+		iunmap w
+		iunmap x
+		iunmap y
+		iunmap z
+		" }}}
+	endif
+endfunction
+
+" Type everything uppercase and underscores instead of spaces
+noremap <leader>mac <Cmd>call <sid>macro_type()<CR>i
+augroup macro_type
+	au!
+augroup END
