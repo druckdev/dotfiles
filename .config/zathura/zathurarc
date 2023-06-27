@@ -33,6 +33,12 @@ set recolor-darkcolor "#FFFFFF"
 set recolor-keephue true
 set recolor-reverse-video true
 
+# vim-like fold mappings in index
+map [index] zo navigate-index expand
+map [index] zc navigate-index collapse
+map [index] zR navigate-index expand-all
+map [index] zM navigate-index collapse-all
+
 # Search while typing
 # set incremental-search true
 
