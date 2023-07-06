@@ -672,7 +672,7 @@ diffcmds() {
 
 	# Just execute the command without *diff if there is only one argument
 	if (( i + 1 == # )); then
-		eval "${(q@)${@:1:$((i-1))}//\%\%/${@[$#]}}"
+		eval "${(@)${(q@)${@:1:$((i-1))}//\%\%/${@[$#]}}/#%\\|/|}"
 		return
 	fi
 
@@ -691,10 +691,11 @@ diffcmds() {
 	# NOTE: `=()` is necessary since vimdiff is seeking the file. See zshexpn(1)
 	[[ $cmd = vimdiff ]] && ps_sub='=(' || ps_sub='<('
 
-	# Substitute placeholder and wrap in process substitution
+	# Substitute placeholder, wrap in process substitution and add a layer
+	# of quotation but unquoting single pipes again.
 	cmdline=("$cmd")
 	for arg in "${@:$((i+1))}"; do
-		cmdline+=("$ps_sub" "${(q@)${@:1:$((i-1))}//\%\%/$arg}" ")")
+		cmdline+=("$ps_sub" "${(@)${(q@)${@:1:$((i-1))}//\%\%/$arg}/#%\\|/|}" ")")
 	done
 	eval "$cmdline[@]"
 }
