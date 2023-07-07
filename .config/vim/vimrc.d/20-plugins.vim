@@ -32,6 +32,6 @@ if (exists("g:loaded_tmux_navigator"))
 endif
 
 if (get(g:, 'loaded_vimwiki'))
-	" Use vertical box drawing character as separator
+	" Use vertical box drawing character as table separator
 	call vimwiki#vars#set_syntaxlocal('rxTableSep', '│')
 endif
