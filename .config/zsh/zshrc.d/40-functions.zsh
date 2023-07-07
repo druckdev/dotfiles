@@ -672,6 +672,7 @@ diffcmds() {
 
 	# Just execute the command without *diff if there is only one argument
 	if (( i + 1 == # )); then
+		# TODO: Implement better way to make pipes possible
 		eval "${(@)${(q@)${@:1:$((i-1))}//\%\%/${@[$#]}}/#%\\|/|}"
 		return
 	fi
@@ -695,7 +696,12 @@ diffcmds() {
 	# of quotation but unquoting single pipes again.
 	cmdline=("$cmd")
 	for arg in "${@:$((i+1))}"; do
-		cmdline+=("$ps_sub" "${(@)${(q@)${@:1:$((i-1))}//\%\%/$arg}/#%\\|/|}" ")")
+		# TODO: Implement better way to make pipes possible
+		cmdline+=(
+			"$ps_sub"
+			"${(@)${(q@)${@:1:$((i-1))}//\%\%/$arg}/#%\\|/|}"
+			")"
+		)
 	done
 	eval "$cmdline[@]"
 }
