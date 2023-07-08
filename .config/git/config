@@ -54,7 +54,7 @@
 [fetch]
 	output = compact
 	prune = true
-	pruneTags = true
+	pruneTags = false
 	parallel = 0
 [gpg]
 	program = gpg.loopback
