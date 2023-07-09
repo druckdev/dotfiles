@@ -705,3 +705,16 @@ diffcmds() {
 	done
 	eval "$cmdline[@]"
 }
+
+# Allow to delete current working dir
+rmdir() {
+	emulate -L zsh
+
+	if (( $# == 1 )) && [[ $1 == '.' ]]; then
+		to_del="$PWD"
+		cd ..
+		command rmdir "$to_del"
+	else
+		command rmdir "$@"
+	fi
+}
