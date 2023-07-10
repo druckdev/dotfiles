@@ -47,6 +47,9 @@
 	pager = diff-so-fancy \
 	        | less --tabs=8 --RAW-CONTROL-CHARS --quit-if-one-screen
 [diff]
+	# No rename limit, propagates to merge. and status.renameLimit too
+	renameLimit = 0
+
 	submodule = log
 	tool = nvimdiff
 [difftool "meld"]
