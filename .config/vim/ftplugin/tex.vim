@@ -17,3 +17,6 @@ let g:vimtex_compiler_latexmk = {
 " NOTE: Check zathurarc(5) if synctex is activated
 let g:vimtex_context_pdf_viewer='zathura'
 let g:vimtex_view_method='zathura'
+
+" Escape underscores in macro-type
+let g:macro_type_mappings['<Space>'] = '\_'
