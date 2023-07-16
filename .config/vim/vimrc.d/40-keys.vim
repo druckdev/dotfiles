@@ -399,3 +399,6 @@ noremap <leader>mac <Cmd>call <sid>macro_type()<CR>i
 augroup macro_type
 	au!
 augroup END
+
+" Escape underscores (useful when writing LaTeX)
+vmap <leader>\_ <Cmd>s/\v(^<Bar>[^\\])\zs\ze_/\\/g<CR>
