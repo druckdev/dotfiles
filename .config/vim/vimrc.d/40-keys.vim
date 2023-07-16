@@ -226,28 +226,26 @@ imap <C-q> <C-o>Q
 " Swap movement mappings that act on display lines with the normal ones, making
 " it easier to navigate long wrapped lines.
 function! MapWrapMovement()
+	let l:mappings = {
+		\ 'j':  'gj',
+		\ 'k':  'gk',
+		\ '0':  'g0',
+		\ '^':  'g^',
+		\ '$':  'g$',
+		\ 'gj': 'j',
+		\ 'gk': 'k',
+		\ 'g0': '0',
+		\ 'g^': '^',
+		\ 'g$': '$',
+	\ }
 	if &wrap
-		noremap j gj
-		noremap k gk
-		noremap 0 g0
-		noremap ^ g^
-		noremap $ g$
-		noremap gj j
-		noremap gk k
-		noremap g0 0
-		noremap g^ ^
-		noremap g$ $
+		for [l:from, l:to] in items(l:mappings)
+			execute 'noremap ' .. l:from .. ' ' .. l:to
+		endfor
 	else
-		noremap j j
-		noremap k k
-		noremap 0 0
-		noremap ^ ^
-		noremap $ $
-		noremap gj gj
-		noremap gk gk
-		noremap g0 g0
-		noremap g^ g^
-		noremap g$ g$
+		for l:key in keys(l:mappings)
+			execute 'silent! unmap ' .. l:key
+		endfor
 	endif
 endfunction
 augroup WrapMovementMappings
@@ -360,6 +358,10 @@ endfunction
 vmap <silent> <leader>j <Cmd>call ExpandVisualSelection(1)<CR>
 vmap <silent> <leader>k <Cmd>call ExpandVisualSelection(-1)<CR>
 
+let g:macro_type_mappings = {
+	\ '<Space>': '_',
+\ }
+
 function! s:macro_type()
 	if !exists('s:macro_type')
 		let s:macro_type = 0
@@ -371,68 +373,24 @@ function! s:macro_type()
 		" Disable on InsertLeave
 		au! macro_type InsertLeave * call s:macro_type()
 
-		imap <Space> _
-		imap a A
-		" {{{
-		imap b B
-		imap c C
-		imap d D
-		imap e E
-		imap f F
-		imap g G
-		imap h H
-		imap i I
-		imap j J
-		imap k K
-		imap l L
-		imap m M
-		imap n N
-		imap o O
-		imap p P
-		imap q Q
-		imap r R
-		imap s S
-		imap t T
-		imap u U
-		imap v V
-		imap w W
-		imap x X
-		imap y Y
-		imap z Z
-		" }}}
+		for [l:from, l:to] in items(g:macro_type_mappings)
+			execute 'imap ' .. l:from .. ' ' .. l:to
+		endfor
+
+		for l:key in "abcdefghijklmnopqrstuvwxyz"
+			execute 'imap ' .. l:key .. ' ' .. toupper(l:key)
+		endfor
 	else
 		let s:macro_type = 0
 		au! macro_type
 
-		iunmap <Space>
-		iunmap a
-		" {{{
-		iunmap b
-		iunmap c
-		iunmap d
-		iunmap e
-		iunmap f
-		iunmap g
-		iunmap h
-		iunmap i
-		iunmap j
-		iunmap k
-		iunmap l
-		iunmap m
-		iunmap n
-		iunmap o
-		iunmap p
-		iunmap q
-		iunmap r
-		iunmap s
-		iunmap t
-		iunmap u
-		iunmap v
-		iunmap w
-		iunmap x
-		iunmap y
-		iunmap z
-		" }}}
+		for l:key in keys(g:macro_type_mappings)
+			execute 'iunmap ' .. l:key
+		endfor
+
+		for l:key in "abcdefghijklmnopqrstuvwxyz"
+			execute 'iunmap ' .. l:key
+		endfor
 	endif
 endfunction
 
