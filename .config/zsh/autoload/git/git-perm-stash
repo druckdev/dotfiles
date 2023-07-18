@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh
+
+emulate -L zsh -eu
+
+local REF_LEN DIR idx stash_ref commit_ref
+
+REF_LEN=8
+DIR="$HOME/gitstashes"
+
+git rev-parse
+
+idx="${1:-0}"
+stash_ref="$(git rev-parse stash@{$idx} | cut -c-$REF_LEN)"
+commit_ref="$(git rev-parse HEAD | cut -c-$REF_LEN)"
+
+git stash show -up "$idx" > \
+	"${2:-$DIR}/${PWD//\//__}__${commit_ref}__$stash_ref.diff"

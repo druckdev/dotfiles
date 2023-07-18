@@ -32,6 +32,7 @@
 	ssync = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-ssync\""
 	submodule-rm = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-submodule-rm\""
 	track = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-track\""
+	perm-stash = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-perm-stash\""
 [blame]
 	date = short
 [branch]
