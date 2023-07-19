@@ -9,3 +9,11 @@ if (exists('+autoread') && &autoread)
 	endfunc
 	call timer_start(1000, 'CheckTime', {'repeat': -1})
 endif
+
+function! SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+nmap <leader>sg :call SynStack()<CR>

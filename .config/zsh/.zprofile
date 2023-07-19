@@ -119,21 +119,26 @@ else
 fi
 export FZF_DEFAULT_COMMAND
 
-typeset -A fzf_opts=(
-	# Clear query if not empty, abort otherwise
-	esc    cancel
-	# Better navigation
-	home   first
-	end    last
-	ctrl-d half-page-down
-	ctrl-u half-page-up
-	ctrl-t toggle-track
-	# automatically track but first on backspace
-	# TODO: this does not work as bspace is executed after backward-eof it seems
-	# backward-eof toggle-track
-	# bspace track+backward-delete-char
-)
-FZF_DEFAULT_OPTS=" --bind ${(@*kj:,:)fzf_opts/(#m)*/$MATCH:$fzf_opts[$MATCH]}"
+FZF_DEFAULT_OPTS="$(
+	emulate -L zsh -o extendedglob
+	typeset -A fzf_opts=(
+		# Clear query if not empty, abort otherwise
+		esc    cancel
+		# Better navigation
+		home   first
+		end    last
+		ctrl-d half-page-down
+		ctrl-u half-page-up
+		ctrl-t toggle-track
+		# automatically track but first on backspace
+		# TODO: this does not work as bspace is executed after backward-eof it seems
+		# backward-eof toggle-track
+		# bspace track+backward-delete-char
+	)
+	FZF_DEFAULT_OPTS="--track"
+	FZF_DEFAULT_OPTS+=" --bind ${(@kj:,:)fzf_opts/(#m)*/$MATCH:$fzf_opts[$MATCH]}"
+	printf "%s" "$FZF_DEFAULT_OPTS"
+)"
 export FZF_DEFAULT_OPTS
 
 # Setup LS_COLORS
