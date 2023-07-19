@@ -21,6 +21,7 @@ subject="${subject#squash! }"
 # handled specially (see the different uses of $git_comment_char).
 # NOTE: Only `^` is escaped as $git_comment_char is used in character classes
 #       and thus all other characters are free to use.
+# TODO: Escape `[` too?
 git_comment_char="$(git config --get --default='#' core.commentChar \
                     | sed 's:\^:\\&:g')"
 # git's cut-line to cut off everything behind it (e.g. commit patch with

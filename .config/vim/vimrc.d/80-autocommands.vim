@@ -69,7 +69,7 @@ function! HighlightCurrentWord()
 		let w:cword_match_id = matchadd(
 			\ 'CursorColumn',
 			\ '\V\<' . escape(expand('<cword>'), '/\') . '\>',
-			\ -1)
+			\ -10)
 	endif
 endfunction
 
@@ -89,7 +89,7 @@ function! HighlightVisualSel()
 			\ matchadd(
 				\ 'CursorColumn',
 				\ '\V' . substitute(escape(@", '\'), '\n', '\\n', 'g'),
-				\ -1,
+				\ -10,
 				\ -1,
 				\ {'window': l:win}),
 			\ l:win

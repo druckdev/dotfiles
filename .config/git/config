@@ -1,3 +1,5 @@
+# vim: set ft=gitconfig:
+
 [advice]
 	addIgnoredFile = off
 	detachedHead = off
@@ -27,7 +29,8 @@
 	# Implemented as zsh functions or external programs
 	checkout-worktree = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-checkout-worktree\""
 	commit-last-msg = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-commit-last-msg\""
-	filter-repo = !git-filter-repo
+	find = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-find\""
+	# filter-repo = !git-filter-repo
 	flog = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/glog\""
 	https-and-ssh  = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-https-and-ssh\""
 	last-changed  = "!cd \"$GIT_PREFIX\"; \"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-last-changed\""
@@ -79,6 +82,7 @@
 [merge]
 	log = true
 	suppressDest = *
+	tool = gu-meld
 [pretty]
 	fixes = Fixes: %h (\"%s\")
 [pull]
@@ -89,7 +93,7 @@
 [rebase]
 	autostash = true
 [rerere]
-	enabled = true
+	enabled = false
 [status]
 	submodulesummary = true
 [submodule]

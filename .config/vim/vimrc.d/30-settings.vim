@@ -22,7 +22,7 @@ set timeoutlen=1000 ttimeoutlen=0
 " smart case insensitive search (insens: /copy /Copy\c; sens: /Copy /copy\C)
 set ignorecase smartcase
 " Tab size
-set tabstop=4
+set tabstop=8
 " Shift the same amount as tabstop
 set shiftwidth=0
 " Auto-wrap text and comments; automatically add comment leader when creating
