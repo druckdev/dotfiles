@@ -132,6 +132,9 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " Git bindings
 
+" TODO: <leader>gh[ to jump between **all** hunks across all modified files.
+"       (similar to `add -p`)
+
 " Insert a commit's subject behind the SHA1 that the cursor is currently on.
 " Mnemonic: "git reference commit"
 " NOTE: This uses `system` and not `:r!` to insert the text directly at the
@@ -285,6 +288,11 @@ vnoremap <silent> ][ m':<C-U>exe "normal! gv"<Bar>call search('^\S.*{', "W")<CR>
 noremap ]] ][
 " TODO: fix this with the relaxed mappings by evaluating the current rhs of ]]
 " nmap ][ ]]
+
+" make a pattern case {,in}sensitive
+" TODO: Use Ctrl-leader
+cnoremap <C-G>U \C
+cnoremap <C-G>u \c
 
 " Strip trailing whitespace
 nnoremap <leader><space> <Cmd>silent! %s/\v\s+$//<CR>

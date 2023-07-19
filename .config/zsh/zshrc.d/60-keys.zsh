@@ -69,7 +69,7 @@ bindkey '^[[127;5u' backward-kill-word           # ctrl-backspace
 bindkey '^W' backward-kill-word                  # ctrl-W
 bindkey '^[[1;5D' vi-backward-word               # ctrl-left
 bindkey '^[[1;5C' vi-forward-word                # ctrl-right
-bindkey '^[[3;5~' vi-kill-word                   # ctrl-delete
+bindkey '^[[3;5~' kill-word                      # ctrl-delete
 bindkey '^Q' push-input                          # ctrl-Q
 
 # cd-{rotate,backward,forward} and redraw-prompt are partially modified copies
@@ -175,14 +175,14 @@ function default_dot { LBUFFER+=. }
 zle -N default_dot
 bindkey '^[[46;5u' default_dot
 
-CMDS_ON_ENTER=(ll gs)
-REQUIREMENTS_CMDS_ON_ENTER=(true "git rev-parse")
+CMDS_ON_ENTER=(ll) # gs)
+REQUIREMENTS_CMDS_ON_ENTER=(true) # "git rev-parse")
 function cmd-on-enter {
 	if [[ -z "${PREBUFFER}${BUFFER}" ]]; then
-		# Overwrite BUFFER and default to ll
+		# Overwrite BUFFER and default to first element
 		BUFFER=" ${CMDS_ON_ENTER[${cmd_on_enter_idx:=1}]}"
 
-		# Cycle through ll and git status
+		# Cycle through options
 		local idx=$cmd_on_enter_idx
 		idx=$((idx < $#CMDS_ON_ENTER ? idx + 1 : 1))
 		until

@@ -1,0 +1,12 @@
+# vim: filetype=neomuttrc
+source /usr/local/share/mutt-wizard/mutt-wizard.muttrc
+source ~/.config/neomutt/accounts.rc
+
+# Shorter date-time format with two digit year and no seconds or timezone
+set date_format='%y-%m-%d %R'
+# Full RFC 3339 like date in replies
+set attribution='On %[%F %T %z], %f wrote:'
+
+# sort in threads with the most recent message at the top
+set sort=reverse-threads
+set sort_aux=last-date-sent
