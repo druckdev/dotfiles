@@ -58,9 +58,13 @@ function! ClearHighlights()
 		unlet w:cword_match_id
 		unlet w:old_cword
 	endif
-	if exists('w:visual_match_id')
-		call matchdelete(w:visual_match_id)
-		unlet w:visual_match_id
+	if exists('w:visual_match_ids')
+		for l:pairs in w:visual_match_ids
+			let l:id = l:pairs[0]
+			let l:win = l:pairs[1]
+			call matchdelete(l:id, l:win)
+		endfor
+		unlet w:visual_match_ids
 	endif
 endfunction
 
@@ -86,15 +90,25 @@ function! HighlightVisualSel()
 	let l:old_regtype = getregtype('"')
 	silent! norm ygv
 
-	let w:visual_match_id = matchadd(
-		\ 'CursorColumn',
-		\ '\V' . escape(@", '\'),
-		\ -1)
+	let w:visual_match_ids = []
+
+	" Add match to all windows containing the current buffer
+	for l:win in win_findbuf(bufnr())
+		let w:visual_match_ids += [[
+			\ matchadd(
+				\ 'CursorColumn',
+				\ '\V' . escape(@", '\'),
+				\ -1,
+				\ -1,
+				\ {'window': l:win}),
+			\ l:win
+		\ ]]
+	endfor
 
 	call setreg('"', l:old_reg, l:old_regtype)
 endfunction
 
-augroup highlight_current_word
+augroup highlight_current
 	au!
 	au CursorMoved * if mode() == 'n' |
 	               \     call HighlightCurrentWord() |
@@ -102,6 +116,7 @@ augroup highlight_current_word
 	               \     call HighlightVisualSel() |
 	               \ endif
 	au CursorMovedI * call HighlightCurrentWord()
+	au WinLeave * call ClearHighlights()
 augroup END
 
 " When switching focus to another window, keep the cursor location underlined.
