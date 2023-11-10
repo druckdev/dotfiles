@@ -124,9 +124,9 @@ typeset -A fzf_opts=(
 	end    last
 	ctrl-d half-page-down
 	ctrl-u half-page-up
+	ctrl-t toggle-track
 )
-FZF_DEFAULT_OPTS="--track"
-FZF_DEFAULT_OPTS+=" --bind ${(@*kj:,:)fzf_opts/(#m)*/$MATCH:$fzf_opts[$MATCH]}"
+FZF_DEFAULT_OPTS=" --bind ${(@*kj:,:)fzf_opts/(#m)*/$MATCH:$fzf_opts[$MATCH]}"
 export FZF_DEFAULT_OPTS
 
 # Setup LS_COLORS
