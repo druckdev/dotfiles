@@ -207,16 +207,26 @@ function shcwd-fzf {
 	| grep -vFx "$PWD" \
 	| FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse
 	                    --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS" \
-		$(__fzfcmd) +m
+		$(__fzfcmd) "$@"
 }
 
 function go-shcwd {
-	dir="$(shcwd-fzf)"
+	dir="$(shcwd-fzf +m)"
 	[[ -z $dir ]] || pushd -q "$dir"
 	redraw-prompt
 }
 zle -N go-shcwd
 bindkey '^G' go-shcwd
+
+function insert-shcwd {
+	dir="$(shcwd-fzf --multi)"
+	# (q) escapes newlines as $'\n'
+	[[ -z $dir ]] || LBUFFER+="${${(q)dir}//\$\'\\n\'/ }"
+	redraw-prompt
+}
+zle -N insert-shcwd
+# Ctrl-Shift-G
+bindkey '^[[71;6u' insert-shcwd
 
 # move one directory up on ^U (mnemonic: 'Up')
 function cd-up {
