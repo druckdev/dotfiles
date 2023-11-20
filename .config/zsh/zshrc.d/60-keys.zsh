@@ -202,8 +202,16 @@ bindkey "^M" cmd-on-enter
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(cmd-on-enter)
 
 # Fuzzy PWD selector of all open shells
+function shcwd-fzf {
+	shcwd \
+	| grep -vFx "$PWD" \
+	| FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse
+	                    --bind=ctrl-z:ignore $FZF_DEFAULT_OPTS" \
+		$(__fzfcmd) +m
+}
+
 function go-shcwd {
-	dir="$(shcwd | grep -vFx "$PWD" | fzf)"
+	dir="$(shcwd-fzf)"
 	[[ -z $dir ]] || pushd -q "$dir"
 	redraw-prompt
 }
