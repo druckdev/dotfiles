@@ -24,10 +24,10 @@ fi
 
 # Most recent semester folder
 if (( $+nameddirs[uni] )); then
-	# Use the first match in ~uni/[0-9][0-9]-{So,Wi}Se sorted in descending
+	# Use the first match in ~uni/[0-9][0-9]-{s,w}s sorted in descending
 	# numeric order (most recent semester). The echo is necessary as else
 	# filename generation will include the wise= and nothing is matched.
 	# TODO!
-	hash -d sose="$(echo ~uni/[0-9][0-9]-SoSe(NnOn[1]))"
-	hash -d wise="$(echo ~uni/[0-9][0-9]-WiSe(NnOn[1]))"
+	hash -d sose="$(echo ~uni/[0-9][0-9]ss(NnOn[1]))"
+	hash -d wise="$(echo ~uni/[0-9][0-9]ws(NnOn[1]))"
 fi
