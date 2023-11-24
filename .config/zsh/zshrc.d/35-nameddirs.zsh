@@ -30,4 +30,6 @@ if (( $+nameddirs[uni] )); then
 	# TODO!
 	hash -d sose="$(echo ~uni/[0-9][0-9]ss(NnOn[1]))"
 	hash -d wise="$(echo ~uni/[0-9][0-9]ws(NnOn[1]))"
+	hash -d ss="$nameddirs[sose]"
+	hash -d ws="$nameddirs[wise]"
 fi
