@@ -340,8 +340,16 @@ if (( $+commands[trash] )); then
 	}
 fi
 
-# Move one or more file(s) but keep a symlink to the new location.
+# Move one or more file(s) but keep a symlink to the new location. Pass `-r` to
+# create a relative symlink.
+# TODO: suppot `--` argument
 mvln() {
+	local flags='-s'
+	if [[ $1 = '-r' ]]; then
+		flags+='r'
+		shift
+	fi
+
 	if (( # < 2 )); then
 		printf "$0: missing file operand\n"
 		return 1
