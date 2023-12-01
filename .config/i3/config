@@ -178,9 +178,9 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 5
 # Volume controls
 # See: https://faq.i3wm.org/question/125/how-to-change-the-systems-volume.1.html
 bindsym XF86AudioRaiseVolume exec --no-startup-id \
-	amixer -q -D pulse sset Master 5%+ unmute
+	amixer -q -D pulse sset Master 5%+
 bindsym XF86AudioLowerVolume exec --no-startup-id \
-	amixer -q -D pulse sset Master 5%- unmute
+	amixer -q -D pulse sset Master 5%-
 bindsym XF86AudioMute exec --no-startup-id \
 	amixer -q -D pulse sset Master toggle-mute
 
