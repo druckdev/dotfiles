@@ -1,4 +1,5 @@
-HISTFILESIZE=100000
+# TODO: Why was zsh_history truncated?
+HISTFILESIZE=999999999
 
 if [[ ! -d "${XDG_DATA_HOME:-$HOME/.local/share}"/bash ]]; then
 	mkdir -p "${XDG_DATA_HOME:-$HOME/.local/share}"/bash
