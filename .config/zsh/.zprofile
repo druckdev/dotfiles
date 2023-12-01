@@ -48,7 +48,7 @@ if [[ $OSTYPE =~ darwin && ! $PATH =~ "/Library/Apple/usr/bin" ]]; then
 	export PATH="${PATH:+$PATH:}/Library/Apple/usr/bin"
 fi
 
-export ZETTELKASTEN_NOTES="$HOME/docs"
+export ZETTELKASTEN_NOTES="$HOME/docs/notes"
 
 # Locale settings as $LANG
 [[ ! -e "$XDG_CONFIG_HOME/locale.conf" ]] || . "$XDG_CONFIG_HOME/locale.conf"
