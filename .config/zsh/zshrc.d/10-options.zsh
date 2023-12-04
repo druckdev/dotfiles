@@ -142,11 +142,6 @@
 	# history list.
 	setopt HIST_REDUCE_BLANKS
 
-	# Whenever the user enters a line with history expansion, don't execute the
-	# line directly; instead, perform history expansion and reload the line into
-	# the editing buffer.
-	setopt HIST_VERIFY
-
 	# This option works like APPEND_HISTORY except that new history lines are
 	# added to the $HISTFILE incrementally (as soon as they are entered), rather
 	# than waiting until the shell exits.  The file will still be periodically
