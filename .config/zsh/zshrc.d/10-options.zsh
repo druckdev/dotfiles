@@ -8,6 +8,12 @@
 	# Make cd push the old directory onto the directory stack.
 	setopt AUTO_PUSHD
 
+	# If the argument to a cd command (or an implied cd with the AUTO_CD option
+	# set) is not a directory, and does not begin with a slash, try to expand
+	# the expression as if it were preceded by a `~' (see the section `Filename
+	# Expansion').
+	setopt CDABLE_VARS
+
 	# Resolve symbolic links to their true values when changing directory.  This
 	# also has the effect of CHASE_DOTS, i.e. a `..' path segment will be
 	# treated as referring to the physical parent, even if the preceding path

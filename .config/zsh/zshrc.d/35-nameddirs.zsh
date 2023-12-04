@@ -2,24 +2,23 @@
 ## Created: 2021-07-21
 
 # Children of HOME
-for dir in "$HOME"/[^.]*(/); do
-	[[ ! ${dir:t} =~ " " ]] || continue
-	hash -d -- ${dir:t}="$dir"
-done
+# for dir in "$HOME"/[^.]*(/); do
+# 	[[ ! ${dir:t} =~ " " ]] || continue
+# 	hash -d -- ${dir:t}="$dir"
+# done
 
 # Children of documents
-hash="$(xdg-user-dir DOCUMENTS 2>/dev/null || echo docs)"
-hash="$(basename "$hash")"
-if (( $+nameddirs[$hash] )); then
-	hash -d cheat=~$hash/cheat_sheets
-	hash -d uni=~$hash/uni
-	hash -d work=~$hash/work
+docs="$(xdg-user-dir DOCUMENTS 2>/dev/null)"
+if [[ -e $docs ]]; then
+	hash -d cheat="$docs"/cheat_sheets
+	hash -d uni="$docs"/uni
+	hash -d work="$docs"/work
 fi
 unset hash
 
 # Dotfiles
-if (( $+nameddirs[projs] )); then
-	hash -d dot{,s}=~projs/dotfiles
+if [[ -e ~/projs ]]; then
+	hash -d dot{,s}=~/projs/dotfiles
 fi
 
 # Most recent semester folder
