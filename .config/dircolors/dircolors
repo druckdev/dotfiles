@@ -122,6 +122,7 @@ EXEC    01;92
 *.svgz  01;95
 *.mng   01;95
 *.pcx   01;95
+*.webp  01;95
 
  ## Videos
 *.mov   01;95
