@@ -48,6 +48,11 @@ OTHER_WRITABLE 42
 STICKY  37;44
 EXEC    01;92
 
+## README
+*README     01;91
+*README.txt 01;91
+*README.md  01;91
+
 ## Archives
 *.tar   01;93
 *.tgz   01;93
