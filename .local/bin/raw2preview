@@ -46,7 +46,13 @@ for file; do
 
 	elif [[ $mime = image/tiff ]]; then
 		prev="$FOLDER/${file%.*}.JPG"
-		[[ -e "$prev" ]] || convert "$file" "$prev"
+		if [[ ! -e "$prev" ]]; then
+			convert "$file" "$prev"
+			exiftool -overwrite_original \
+			         -tagsFromFile="$file" \
+			         "${TAGS_TO_TRANSFER[@]}" \
+			         "$prev"
+		fi
 
 	elif [[ "$(head -1 "$file")" = "#Geeqie collection" ]]; then
 		while read line; do
