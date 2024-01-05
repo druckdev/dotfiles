@@ -3,6 +3,12 @@ envrc() {
 	git fetch --all
 }
 
+# Stop configuring when in eduraom, you have probably other stuff to do!
+if nmcli con show --active | grep -q eduroam; then
+	parent_shell=$(ps -eo ppid= -q $PPID)
+	[ -z "$parent_shell" ] || kill -KILL $parent_shell
+fi
+
 # Run in background
 envrc 0<&- &>/dev/null 3>&- & disown
 
