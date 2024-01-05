@@ -1,13 +1,13 @@
 # Ignore .git directory (mostly for tools like rg and fd)
-/.git
+.git
 
 # Ignore all compiled zsh-files
 *.zwc
 
 # Ignore ctags
-/tags
-/tags.lock
-/tags.temp
+tags
+tags.lock
+tags.temp
 
 # clangd
 compile_flags.txt
@@ -25,7 +25,7 @@ Session.vim
 __pycache__/
 
 # Ignore python virtual environment
-/venv/
+venv/
 
 # Ignore latex build folder
 tex_build/
