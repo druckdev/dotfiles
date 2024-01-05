@@ -35,7 +35,7 @@ fi
 	add_flags rm -I
 	add_flags mkdir -p
 	add_flags lsblk -o NAME,LABEL,FSTYPE,SIZE,FSAVAIL,MOUNTPOINT
-	add_flags feh -.
+	add_flags feh --scale-down --image-bg "'#898e8c'"
 	# Use multiple jobs when making
 	add_flags make -j
 	# Bulk renaming with (almost) all files and directly modifying the
