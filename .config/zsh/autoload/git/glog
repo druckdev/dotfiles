@@ -5,6 +5,9 @@
 ## A TUI for git-log using fzf.
 ## Displays git-log in fzf and git-show as preview command for each commit.
 
+# TODO: preview breaks when files were passed but they were renamed and have a
+# different name at the point of this commit
+
 # extendedglob is necessary for the expansion of the binds array
 emulate -L zsh -o extendedglob
 

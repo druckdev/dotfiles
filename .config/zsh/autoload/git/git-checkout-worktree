@@ -23,6 +23,11 @@
 #
 #   Same for rebase (as `git rebase dev feature` switches to `feature`):
 #   % git-checkout-worktree feature <<<"git rebase dev"
+#
+#
+# TODO: The git alias version seems to break with the same arguments that the
+#       zsh native one works with.
+# TODO: Supplying a flag like --no-checkout breaks the naming of the worktree
 
 emulate -L zsh -o err_return -o no_unset
 

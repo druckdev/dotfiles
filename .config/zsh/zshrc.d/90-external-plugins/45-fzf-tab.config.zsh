@@ -18,8 +18,10 @@ zstyle ":fzf-tab:complete:(${(j:|:)file_commands}):options" fzf-preview
 unset {file,dir}_prev_cmd preview_cmd file_commands
 
 # Preview variables
-# TODO: Only works with exported values as this is executed in a subshell. Is
-#       there a way around this? I fear not...
+# TODO: Only works with exported values as this is executed in a subshell
+#       One could execute this beforehand:
+#
+#       eval "$(typeset + | awk '{print "export " $NF}')"
 zstyle ':fzf-tab:complete:-parameter-:*' fzf-preview 'typeset -p1 "$word"'
 
 # Move down after selecting and yank with ctrl-y

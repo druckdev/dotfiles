@@ -184,6 +184,8 @@ if (get(g:, 'loaded_fzf'))
 	" 'git log (log?)' and 'git log buffer '
 	map <leader>gll <Cmd>Commits<CR>
 	map <leader>glb <Cmd>BCommits<CR>
+	" TODO: <leader>glb should restrict the log to all staged files when called
+	" in .git/COMMIT_EDITMSG, maybe with an ftplugin?
 endif
 
 " Y should behave like D & C does
@@ -290,6 +292,7 @@ function! s:CenterNext(count, command)
 
 	let &lazyredraw = l:lazyredraw_bkp
 endfunction
+" TODO: does not rehighlight search results
 map n <Cmd>call <SID>CenterNext(v:count1, 'n')<CR>
 map N <Cmd>call <SID>CenterNext(v:count1, 'N')<CR>
 
@@ -402,3 +405,6 @@ augroup END
 
 " Escape underscores (useful when writing LaTeX)
 vmap <leader>\_ <Cmd>s/\v(^<Bar>[^\\])\zs\ze_/\\/g<CR>
+
+" TODO: make `gf` open absolute paths relative to PWD if possible
+"

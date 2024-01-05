@@ -3,6 +3,8 @@
 ## Created: 2020-09-13
 ##
 ## Completely remove a git submodule.
+#
+# TODO: Fix for nested submodules
 
 local toplevel
 

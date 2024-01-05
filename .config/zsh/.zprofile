@@ -128,6 +128,10 @@ typeset -A fzf_opts=(
 	ctrl-d half-page-down
 	ctrl-u half-page-up
 	ctrl-t toggle-track
+	# automatically track but first on backspace
+	# TODO: this does not work as bspace is executed after backward-eof it seems
+	# backward-eof toggle-track
+	# bspace track+backward-delete-char
 )
 FZF_DEFAULT_OPTS=" --bind ${(@*kj:,:)fzf_opts/(#m)*/$MATCH:$fzf_opts[$MATCH]}"
 export FZF_DEFAULT_OPTS
