@@ -1,12 +1,22 @@
 #!/usr/bin/env zsh
 
-# Commit, but put the last written commit message into the editor buffer.
-# For this it uses .git/COMMIT_EDITMSG but deletes all lines after and including
-# the first comment of the file.
+# Commit, but put the last written commit message into the editor buffer. For
+# this it uses .git/COMMIT_EDITMSG but deletes all commented lines and
+# everything from the cut line on (i.e. `-- >8 --`). All arguments are passed to
+# git-commit.
+#
 # Useful for example when the commit-msg hook fails but only slight
-# modifications are needed.
-# Additional arguments (for example `-n` to bypass the hooks) can be passed.
+# modifications are needed. For example, just run:
+#
+#     git-commit-last-msg --no-verify --no-edit
 
-local gitdir
+local gitdir cut_line cchar
+cut_line='------------------------ >8 ------------------------'
+
 gitdir="$(git rev-parse --git-dir)" || return
-git commit -eF <(sed -n '/^#/q;p' "$gitdir/COMMIT_EDITMSG") "$@"
+
+cchar="$(git config --get --default='#' core.commentchar)"
+# only ^ needs escaping because of the character class used
+cchar="${cchar//^/\\^}"
+
+git commit -eF <(sed -n "/$cut_line/q; /^[$cchar]/!p" "$gitdir/COMMIT_EDITMSG") "$@"
