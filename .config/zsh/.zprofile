@@ -110,9 +110,9 @@ export FZF_DEFAULT_COMMAND_FALLBACK
 
 # Ignore gitignore(5)d files, see also $XDG_CONFIG_HOME/git/ignore
 if (( $+commands[fd] )); then
-	FZF_DEFAULT_COMMAND="fd -L --hidden --type f"
+	FZF_DEFAULT_COMMAND="fd -L --hidden --type f --no-require-git"
 elif (( $+commands[rg] )); then
-	FZF_DEFAULT_COMMAND="rg -L --hidden --files"
+	FZF_DEFAULT_COMMAND="rg -L --hidden --files --no-require-git"
 else
 	# Fallback to hardcoding the most important paths to prune
 	FZF_DEFAULT_COMMAND="$FZF_DEFAULT_COMMAND_FALLBACK"
