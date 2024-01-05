@@ -560,18 +560,25 @@ suffix() {
 # Find duplicate files
 finddup() {
 	# find all files, filter the ones out with unique size, calculate md5 and
-	# print duplicates
-	# TODO: Fix duplicate lines output in the awk script that currently `sort
-	#       -u` handles
+	# print duplicates. Assumes that no file contains tab characters in their
+	# name.
+	#
 	# TODO: Use cksum to calculate faster CRC with custom awk solution to print
 	#       duplicates, as `uniq -w32` breaks through the different CRC lengths.
+	# TODO: The second sort call could be optimized in some way, since we
+	#       already grouped files with the same size. Instead of resorting the
+	#       whole thing, we only need to check if the files with the same size
+	#       have the same hash. Just removing the sort call does almost the
+	#       trick just breaks for groups of files with the same size where same
+	#       checksums are not behind each other.
+
 	find "$@" -type f -exec du -b '{}' '+' \
-	| sort \
-	| awk '{ if (!_[$1]) { _[$1] = $0 } else { print _[$1]; print $0; } }' \
-	| sort -u \
-	| cut -d$'\t' -f2- \
+	| awk -F'\t' '{print $2"\t"$1}' \
+	| sort --field-separator=$'\t' -nk2 \
+	| uniq -f1 -D \
+	| cut -d$'\t' -f1 \
 	| xargs -d'\n' md5sum \
-	| sort \
+	| sort -k1,1 \
 	| uniq -w32 --all-repeated=separate \
 	| cut -d' ' -f3-
 }
