@@ -27,5 +27,6 @@ __pycache__/
 # Ignore python virtual environment
 venv/
 
-# Ignore latex build folder
+# Ignore build directories
+build/
 tex_build/
