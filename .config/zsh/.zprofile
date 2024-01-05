@@ -112,7 +112,7 @@ export FZF_DEFAULT_COMMAND_FALLBACK
 if (( $+commands[fd] )); then
 	FZF_DEFAULT_COMMAND="fd -L --hidden --type f"
 elif (( $+commands[rg] )); then
-	FZF_DEFAULT_COMMAND="rg -L --files"
+	FZF_DEFAULT_COMMAND="rg -L --hidden --files"
 else
 	# Fallback to hardcoding the most important paths to prune
 	FZF_DEFAULT_COMMAND="$FZF_DEFAULT_COMMAND_FALLBACK"
