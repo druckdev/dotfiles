@@ -379,7 +379,7 @@ mvln() {
 		fi
 
 		# NOTE: `ln` does not like trailing slashes on the last argument
-		ln -s "$target" "${file%/}"
+		ln "$flags" "$target" "${file%/}"
 	done
 
 	return $reg
