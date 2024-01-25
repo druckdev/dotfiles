@@ -68,6 +68,7 @@ fi
 	alias gcd='cd "$(git rev-parse --show-toplevel)"'
 	alias gch='git checkout'
 	alias gcl='git commit-last-msg'
+	alias gclm='git commit-last-msg'
 	alias gco='git checkout'
 	alias gcow='git checkout-worktree'
 	alias gd='git diff'
