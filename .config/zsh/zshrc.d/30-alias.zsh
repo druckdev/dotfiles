@@ -58,6 +58,8 @@ fi
 	# Manually trigger alias expansion for the next word
 	# Taken from https://unix.stackexchange.com/a/433849
 	alias -g '$= '
+	# Don't clutter scrollback with help pages
+	alias -g -- '--help'='--help | less'
 
 # Git
 	alias g='git'
