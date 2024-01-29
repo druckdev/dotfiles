@@ -16,7 +16,9 @@
 	f = fetch
 	fixes = log -1 --pretty=fixes
 	l = log
+	last-msg = commit-last-msg
 	p = push
+	recommit = commit-last-msg --no-edit
 	root = rev-parse --show-toplevel
 	signoff = rebase --signoff
 	ss = stash
