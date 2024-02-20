@@ -1,7 +1,7 @@
 " vim: set foldmethod=marker:
 " Keybindings """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Stop highlighting search result when pressing Return
-nnoremap <silent> <Esc> :nohlsearch<CR><Esc>
+" Clear all kinds of highlights when pressing Escape in normal mode
+nnoremap <silent> <Esc> :nohlsearch <bar> call ClearHighlights()<CR><Esc>
 
 " Indentation jump
 " https://vim.fandom.com/wiki/Move_to_next/previous_line_with_same_indentation
