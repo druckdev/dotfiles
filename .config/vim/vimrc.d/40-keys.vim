@@ -13,6 +13,10 @@ nnoremap <silent> <Esc> :nohlsearch <bar> call ClearHighlights()<CR><Esc>
 nnoremap <C-w>N <Cmd>vsplit<CR>
 nnoremap <C-w>n <Cmd>split<CR>
 
+" Open file under cursor in split
+nnoremap <C-w>gf <Cmd>split<CR>gf
+nnoremap <C-w>gF <Cmd>split<CR>gF
+
 " Substitute command
 if (exists('+inccommand') && &inccommand != '')
 	nnoremap S :%s/
