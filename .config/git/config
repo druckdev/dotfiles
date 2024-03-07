@@ -53,6 +53,7 @@
 [diff]
 	# Color moved lines differently
 	colorMoved = default
+	colorMovedWS = ignore-all-space
 	# No rename limit, propagates to merge. and status.renameLimit too
 	renameLimit = 0
 
