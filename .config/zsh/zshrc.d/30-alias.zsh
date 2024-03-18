@@ -123,7 +123,6 @@ fi
 	alias rd='rmdir'
 	alias md='mkdir -p'
 	alias o='xdg-open'
-	alias :{q,Q}='exit'
 	alias pdf2t{e,}xt='pdftotext'
 	alias battery='cat /sys/class/power_supply/BAT0/capacity'
 	alias loadhist='fc -RI'
