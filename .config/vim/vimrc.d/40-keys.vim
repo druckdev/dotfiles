@@ -13,9 +13,13 @@ nnoremap <silent> <Esc> :nohlsearch <bar> call ClearHighlights()<CR><Esc>
 nnoremap <C-w>N <Cmd>vsplit<CR>
 nnoremap <C-w>n <Cmd>split<CR>
 
-" Open file under cursor in split
-nnoremap <C-w>gf <Cmd>split<CR>gf
-nnoremap <C-w>gF <Cmd>split<CR>gF
+" My brain expects <C-w>{gf,gF} to open in a split, not a tab.
+" Swap the mappings for tab and split.
+nnoremap <C-w>gf <C-w>f
+nnoremap <C-w>gF <C-w>F
+nnoremap <C-w>f <C-w>gf
+nnoremap <C-w><C-f> <C-w>gf
+nnoremap <C-w>F <C-w>gF
 
 " Substitute command
 if (exists('+inccommand') && &inccommand != '')
