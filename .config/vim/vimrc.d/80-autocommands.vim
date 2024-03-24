@@ -123,7 +123,8 @@ augroup highlight_current
 	               \ endif
 	au CursorMovedI * call HighlightCurrentWord()
 	au WinLeave * call ClearHighlights()
-	au ModeChanged [vV\x16]*:* call ClearHighlights(s:CLEAR_HIGHS_VISUAL)
+	au ModeChanged [vV\x16]*:* call ClearHighlights(s:CLEAR_HIGHS_VISUAL) | call HighlightCurrentWord()
+	au ModeChanged *:[vV\x16]* call ClearHighlights(s:CLEAR_HIGHS_CWORD) | call HighlightVisualSel()
 augroup END
 
 " When switching focus to another window, keep the cursor location underlined.
