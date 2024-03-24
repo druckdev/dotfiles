@@ -664,15 +664,19 @@ diffcmds() {
 	# TODO: Support own arguments for example to switch the placeholder or the
 	#       diffcmd
 	# TODO: Find better way to dequote pipes. (e.g. `%|` to use a pipe?)
-	local cmd i arg ps_sub
-	local -a cmdline
+	local diff_cmd i arg ps_sub
+	local -a template args final_cmd
 
 	if (( $+commands[vimdiff] && ! $+commands[diff] )); then
 		cmd=vimdiff
 	elif (( $+commands[diff] && ! $+commands[vimdiff] )); then
 		cmd=diff
 	elif (( $+commands[diff] && $+commands[vimdiff] )); then
-		[[ $EDITOR =~ vi || $VISUAL =~ vi ]] && cmd=vimdiff || cmd=diff
+		if [[ $EDITOR =~ vi || $VISUAL =~ vi ]]; then
+			diff_cmd=vimdiff
+		else
+			diff_cmd=diff
+		fi
 	else
 		printf >&2 "Neither diff nor vimdiff installed\n"
 		return 1
@@ -685,27 +689,27 @@ diffcmds() {
 		return 1
 	fi
 
-	# Place arguments at the back if no position was supplied with `%%`
-	if [[ ! "${@:1:$((i-1))}" =~ '%%' ]]; then
-		set -- "${@:1:$((i-1))}" "%%" "${@:$i}"
-		let i++
-	fi
+	# Split and quote special characters
+	template=("${(q@)@:1:$((i-1))}")
+	args=("${(q@)@:$((i+1))}")
+	# Unquote standalone pipes
+	template=("${(@)template/#%\\|/|}")
 
-	# Quote special characters but unquote standalone pipes before `--`
-	set -- "${(@)${(q@)@:1:$((i-1))}/#%\\|/|}" "${(q@)@:$i}"
+	# Place arguments at the back if no position was supplied with `%%`
+	[[ "$template[@]" =~ '%%' ]] || template+='%%'
 
 	# Just execute the command without *diff if there is only one argument
 	if (( i + 1 == # )); then
-		eval "${(@)${@:1:$((i-1))}//\%\%/$@[$#]}"
+		eval "${(@)template//\%\%/$args[-1]}"
 		return
 	fi
 
 	# Fallback or abort if more than 2 arguments were supplied to `diff`
-	if [[ $cmd = diff ]] && (( # - i > 2 )); then
+	if [[ $diff_cmd = diff ]] && (( $#args > 2 )); then
 		printf >&2 "Too many arguments for diff."
 		if (( $+commands[vimdiff] )); then
 			printf >&2 " Using vimdiff.\n"
-			cmd=vimdiff
+			diff_cmd=vimdiff
 		else
 			printf >&2 "\n"
 			return 1
@@ -713,18 +717,18 @@ diffcmds() {
 	fi
 
 	# NOTE: `=()` is necessary since vimdiff is seeking the file. See zshexpn(1)
-	[[ $cmd = vimdiff ]] && ps_sub='=(' || ps_sub='<('
+	[[ $diff_cmd = vimdiff ]] && ps_sub='=(' || ps_sub='<('
 
-	cmdline=("$cmd")
-	for arg in "${@:$((i+1))}"; do
+	final_cmd=("$diff_cmd")
+	for arg in "$args[@]"; do
 		# Substitute placeholder and wrap in process substitution
-		cmdline+=(
+		final_cmd+=(
 			"$ps_sub"
-			"${(@)${@:1:$((i-1))}//\%\%/$arg}"
+			"${(@)template//\%\%/$arg}"
 			")"
 		)
 	done
-	eval "$cmdline[@]"
+	eval "$final_cmd[@]"
 }
 
 # Allow to delete current working dir
