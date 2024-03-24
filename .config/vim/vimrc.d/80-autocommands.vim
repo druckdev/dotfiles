@@ -97,7 +97,7 @@ function! HighlightVisualSel()
 		let w:visual_match_ids += [[
 			\ matchadd(
 				\ 'CursorColumn',
-				\ '\V' . escape(@", '\'),
+				\ '\V' . substitute(escape(@", '\'), '\n', '\\n', 'g'),
 				\ -1,
 				\ -1,
 				\ {'window': l:win}),
