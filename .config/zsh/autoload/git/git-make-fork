@@ -11,6 +11,7 @@ git remote rename origin upstream
 # Assume that the fork is named equally
 url="$(git remote get-url upstream)"
 git remote add origin "git@github.com:druckdev/${url:t}"
+git https-and-ssh
 
 git fetch origin
 
