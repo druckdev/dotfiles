@@ -1,4 +1,10 @@
 " Autocommands """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Bitfield for highlight_current augroup
+const s:CLEAR_HIGHS_CWORD = 1
+const s:CLEAR_HIGHS_VISUAL = 2
+const s:CLEAR_HIGHS_ALL = 3
+
 " Terminal
 if (has('nvim'))
 	" Disable spellcheck
@@ -52,13 +58,13 @@ augroup termdebug_bindings
 augroup END
 
 " Highlight word under cursor
-function! ClearHighlights()
-	if exists('w:cword_match_id')
+function! ClearHighlights(what = s:CLEAR_HIGHS_ALL)
+	if and(a:what, s:CLEAR_HIGHS_CWORD) && exists('w:cword_match_id')
 		call matchdelete(w:cword_match_id)
 		unlet w:cword_match_id
 		unlet w:old_cword
 	endif
-	if exists('w:visual_match_ids')
+	if and(a:what, s:CLEAR_HIGHS_VISUAL) && exists('w:visual_match_ids')
 		for l:pairs in w:visual_match_ids
 			let l:id = l:pairs[0]
 			let l:win = l:pairs[1]
@@ -117,6 +123,7 @@ augroup highlight_current
 	               \ endif
 	au CursorMovedI * call HighlightCurrentWord()
 	au WinLeave * call ClearHighlights()
+	au ModeChanged [vV\x16]*:* call ClearHighlights(s:CLEAR_HIGHS_VISUAL)
 augroup END
 
 " When switching focus to another window, keep the cursor location underlined.
