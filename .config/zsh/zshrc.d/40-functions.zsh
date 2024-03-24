@@ -693,10 +693,9 @@ diffcmds() {
 
 	# Just execute the command without *diff if there is only one argument
 	if (( i + 1 == # )); then
-		# Quote special characters, replace %% with the only argument and
-		# unquote pipes in arguments that consist of only the quoted pipe
-		# character.
-		eval "${(@)${(q@)${@:1:$((i-1))}//\%\%/${@[$#]}}/#%\\|/|}"
+		# Quote special characters, unquote standalone pipes and replace %% with
+		# the only argument
+		eval "${(@)${(@)${(q@)@:1:$((i-1))}/#%\\|/|}//\%\%/${(q)@[$#]}}"
 		return
 	fi
 
@@ -717,11 +716,11 @@ diffcmds() {
 
 	cmdline=("$cmd")
 	for arg in "${@:$((i+1))}"; do
-		# Substitute placeholder, wrap in process substitution and add a layer
-		# of quotation but unquoting single pipes again.
+		# Add a layer of quotation but unquoting standalone pipes again,
+		# substitute placeholder and finally wrap in process substitution
 		cmdline+=(
 			"$ps_sub"
-			"${(@)${(q@)${@:1:$((i-1))}//\%\%/$arg}/#%\\|/|}"
+			"${(@)${(@)${(q@)@:1:$((i-1))}/#%\\|/|}//\%\%/${(q)arg}}"
 			")"
 		)
 	done
