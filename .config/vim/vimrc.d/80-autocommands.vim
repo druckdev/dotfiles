@@ -57,23 +57,7 @@ augroup termdebug_bindings
 	autocmd SourcePost termdebug.vim tnoremap <Esc> <C-\><C-n>
 augroup END
 
-" Highlight word under cursor
-function! ClearHighlights(what = s:CLEAR_HIGHS_ALL)
-	if and(a:what, s:CLEAR_HIGHS_CWORD) && exists('w:cword_match_id')
-		call matchdelete(w:cword_match_id)
-		unlet w:cword_match_id
-		unlet w:old_cword
-	endif
-	if and(a:what, s:CLEAR_HIGHS_VISUAL) && exists('w:visual_match_ids')
-		for l:pairs in w:visual_match_ids
-			let l:id = l:pairs[0]
-			let l:win = l:pairs[1]
-			call matchdelete(l:id, l:win)
-		endfor
-		unlet w:visual_match_ids
-	endif
-endfunction
-
+" Highlight word under cursor in other places
 function! HighlightCurrentWord()
 	if exists('w:old_cword') && w:old_cword == expand('<cword>')
 		" Do not delete and readd the match if on the same word
@@ -89,6 +73,7 @@ function! HighlightCurrentWord()
 	endif
 endfunction
 
+" Highlight visual selection in other places
 function! HighlightVisualSel()
 	call ClearHighlights()
 
@@ -112,6 +97,23 @@ function! HighlightVisualSel()
 	endfor
 
 	call setreg('"', l:old_reg, l:old_regtype)
+endfunction
+
+" Clear the highlights of <cword> and visual selection
+function! ClearHighlights(what = s:CLEAR_HIGHS_ALL)
+	if and(a:what, s:CLEAR_HIGHS_CWORD) && exists('w:cword_match_id')
+		call matchdelete(w:cword_match_id)
+		unlet w:cword_match_id
+		unlet w:old_cword
+	endif
+	if and(a:what, s:CLEAR_HIGHS_VISUAL) && exists('w:visual_match_ids')
+		for l:pairs in w:visual_match_ids
+			let l:id = l:pairs[0]
+			let l:win = l:pairs[1]
+			call matchdelete(l:id, l:win)
+		endfor
+		unlet w:visual_match_ids
+	endif
 endfunction
 
 augroup highlight_current
