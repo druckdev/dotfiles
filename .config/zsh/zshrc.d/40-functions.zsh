@@ -689,9 +689,10 @@ diffcmds() {
 		return 1
 	fi
 
-	# Split and quote special characters
-	template=("${(q@)@:1:$((i-1))}")
-	args=("${(q@)@:$((i+1))}")
+	# Quote special characters and split into arrays
+	set -- "${(q@)@}"
+	template=("${@:1:$((i-1))}")
+	args=("${@:$((i+1))}")
 	# Unquote standalone pipes
 	template=("${(@)template/#%\\|/|}")
 
