@@ -652,15 +652,18 @@ psofof() {
 
 # diff the output of multiple commands following the same pattern.
 # Uses vimdiff if it is installed and EDITOR or VISUAL are matching `vi`.
+# Pipelines can be executed by quoting the pipes.
 #
 # Example:
-# diffcmds utk %% layout-table-full -- file1 file2
+# diffcmds cat -n %% '|' head -- file1 file2
 #
 # would be equivalent to:
-# vimdiff =(utk file1 layout-table-full) =(utk file2 layout-table-full)
+# vimdiff =(cat -n file1 | head) =(cat -n file2 | head)
+#
 diffcmds() {
 	# TODO: Support own arguments for example to switch the placeholder or the
 	#       diffcmd
+	# TODO: Find better way to dequote pipes. (e.g. `%|` to use a pipe?)
 	local cmd i arg ps_sub
 	local -a cmdline
 
@@ -690,7 +693,9 @@ diffcmds() {
 
 	# Just execute the command without *diff if there is only one argument
 	if (( i + 1 == # )); then
-		# TODO: Implement better way to make pipes possible
+		# Quote special characters, replace %% with the only argument and
+		# unquote pipes in arguments that consist of only the quoted pipe
+		# character.
 		eval "${(@)${(q@)${@:1:$((i-1))}//\%\%/${@[$#]}}/#%\\|/|}"
 		return
 	fi
@@ -710,11 +715,10 @@ diffcmds() {
 	# NOTE: `=()` is necessary since vimdiff is seeking the file. See zshexpn(1)
 	[[ $cmd = vimdiff ]] && ps_sub='=(' || ps_sub='<('
 
-	# Substitute placeholder, wrap in process substitution and add a layer
-	# of quotation but unquoting single pipes again.
 	cmdline=("$cmd")
 	for arg in "${@:$((i+1))}"; do
-		# TODO: Implement better way to make pipes possible
+		# Substitute placeholder, wrap in process substitution and add a layer
+		# of quotation but unquoting single pipes again.
 		cmdline+=(
 			"$ps_sub"
 			"${(@)${(q@)${@:1:$((i-1))}//\%\%/$arg}/#%\\|/|}"
