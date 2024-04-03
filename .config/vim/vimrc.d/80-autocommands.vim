@@ -61,12 +61,18 @@ augroup END
 
 " Highlight word under cursor in other places
 function! HighlightCurrentWord()
+	if exists('w:disable_highlight_cword')
+		return
+	endif
+
 	let l:cword = expand('<cword>')
 	if exists('w:old_cword') && w:old_cword == l:cword
 		" Do not delete and readd the match if on the same word
 		return
 	endif
+
 	call ClearHighlights()
+
 	if (l:cword != '')
 		let w:old_cword = l:cword
 		let w:cword_match_id = matchadd(
@@ -78,6 +84,10 @@ endfunction
 
 " Highlight visual selection in other places
 function! HighlightVisualSel()
+	if exists('w:disable_highlight_visual_sel')
+		return
+	endif
+
 	call ClearHighlights()
 
 	let l:old_reg = getreg('"')
