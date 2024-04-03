@@ -61,16 +61,17 @@ augroup END
 
 " Highlight word under cursor in other places
 function! HighlightCurrentWord()
-	if exists('w:old_cword') && w:old_cword == expand('<cword>')
+	let l:cword = expand('<cword>')
+	if exists('w:old_cword') && w:old_cword == l:cword
 		" Do not delete and readd the match if on the same word
 		return
 	endif
 	call ClearHighlights()
-	if (expand('<cword>') != '')
-		let w:old_cword = expand('<cword>')
+	if (l:cword != '')
+		let w:old_cword = l:cword
 		let w:cword_match_id = matchadd(
 			\ 'CursorColumn',
-			\ '\V\<' . escape(expand('<cword>'), '/\') . '\>',
+			\ '\V\<' . escape(l:cword, '/\') . '\>',
 			\ -1)
 	endif
 endfunction
