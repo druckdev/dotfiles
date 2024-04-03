@@ -1,9 +1,11 @@
 " Autocommands """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Bitfield for highlight_current augroup
-const s:CLEAR_HIGHS_CWORD = 1
-const s:CLEAR_HIGHS_VISUAL = 2
-const s:CLEAR_HIGHS_ALL = 3
+if !exists('s:CLEAR_HIGHS_ALL')
+	const s:CLEAR_HIGHS_CWORD = 1
+	const s:CLEAR_HIGHS_VISUAL = 2
+	const s:CLEAR_HIGHS_ALL = 3
+endif
 
 " Terminal
 if (has('nvim'))
