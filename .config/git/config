@@ -44,6 +44,8 @@
 [color "status"]
 	added = 076
 	untracked = 014
+[column]
+	ui = auto,row,dense
 [commit]
 	gpgsign = true
 	verbose = true
