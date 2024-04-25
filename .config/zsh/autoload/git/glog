@@ -29,9 +29,9 @@ local -a format=(
 	'--pretty=format:%C(yellow)'     # newline created by this eaten by %-
 	'%-Commit:      %H%C(auto)'      # yellow commit hash
 	'             %D%Cblue'          # auto colored ref names (if any)
-	'Author:      %aN %aE%Cred'      # blue author mail
+	'Author:      %aN <%aE>%Cred'    # blue author mail
 	'AuthorDate:  %ad%Cblue'         # red author date
-	'Commit:      %cN %cE%Cred'      # blue commiter mail
+	'Commit:      %cN <%cE>%Cred'    # blue commiter mail
 	'CommitDate:  %cd%Cblue'         # red commit date
 	'Signer:      %GS%Cgreen'        # signer name
 	'Key (%G?):     %GK'             # pgp key used to sign
