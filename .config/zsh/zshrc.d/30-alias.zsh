@@ -162,7 +162,7 @@ fi
 		)" gpg'
 	# Use a reasonable time format
 	alias date='env LC_TIME=tk_TM date'
-	# Disable globbing
+	# Globbing is annoying when using zmv
 	alias zmv='noglob zmv'
 	# List human readable sizes in order
 	alias sizes='du -sch * | sort -h'
