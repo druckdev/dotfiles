@@ -118,6 +118,7 @@ fi
 	alias la='ls -A'
 	alias l='ls -lh --time-style=long-iso'
 	alias ll='l -A'
+	alias lsd='ls -d *(/)'
 	alias cd..='cd ..'
 	alias cl='() { cd "$@" && ls }'
 	alias rd='rmdir'
