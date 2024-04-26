@@ -75,6 +75,8 @@
         path: .config/vim/pack
     ~/.local/share/gnupg/gpg-agent.conf:
         path: .local/share/gnupg/gpg-agent.conf
+    ~/.local/share/vim/spell/en.utf-8.add:
+        path: .local/share/vim/spell/en.utf-8.add
     ~/.ssh/:
         glob: true
         path: .ssh/*
