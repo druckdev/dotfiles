@@ -87,7 +87,7 @@ fi
 	alias cd..='cd ..'
 	alias cl='() { cd "$@" && ls }'
 	alias rd='rmdir'
-	alias md='mkdir -p'
+	alias md='mkdir'
 	alias o='xdg-open'
 	alias pdf2t{e,}xt='pdftotext'
 	alias battery='cat /sys/class/power_supply/BAT0/capacity'
@@ -127,12 +127,14 @@ fi
 		)" gpg'
 	# Use a reasonable time format
 	alias date='env LC_TIME=tk_TM date'
-	# Globbing is annoying when using zmv
-	alias zmv='noglob zmv'
 	# List human readable sizes in order
 	alias sizes='du -sch * | sort -h'
 	# Count number of occurrences for every line in stdin
 	alias count='sort | uniq -c | sort -n'
+
+# Precommand modifiers
+	alias mkdir='nocorrect mkdir'
+	alias zmv='noglob zmv'
 
 # Helper functions for this file. Are `unfunction`ed at the end.
 	is_exec() {
