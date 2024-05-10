@@ -1,18 +1,6 @@
 ## Author:  druckdev
 ## Created: 2019-01-16
 
-# Helper functions for this file. Are `unfunction`ed at the end.
-	is_exec() {
-		(( $# > 0 )) || return 1
-		(( $+commands[$1] || $+aliases[$1] || $+functions[$1] ))
-	}
-
-	add_flags() {
-		(( $# >= 2 )) || (( $+commands[$1])) || return 0
-
-		alias "$1"="${aliases[$1]:-$1} ${*[2,-1]}"
-	}
-
 # Create aliases for coreutils versions of commands under OSX.
 # NOTE: This should come before any other alias definitions of these commands as
 #       otherwise this block would overwrite them.
@@ -25,30 +13,6 @@ if [[ $OSTYPE =~ darwin && -e /usr/local/Cellar/coreutils ]]; then
 	done
 	unset f no_gnu_file
 fi
-
-# Default flags
-	(( ! $+functions[ls-show-hidden] )) ||
-		alias ls='ls-show-hidden --color=auto --group-directories-first -p -v'
-	add_flags grep --color=auto --exclude-dir=.git --exclude=tags
-	add_flags cp -i
-	add_flags mv -i
-	add_flags rm -I
-	add_flags mkdir -p
-	add_flags lsblk -o NAME,LABEL,FSTYPE,SIZE,FSAVAIL,MOUNTPOINT
-	add_flags feh --scale-down --image-bg "'#898e8c'"
-	# Use multiple jobs when making
-	add_flags make -j
-	# Bulk renaming with (almost) all files and directly modifying the
-	# destination.
-	add_flags qmv -Af destination-only
-	# Match against and list full command line
-	add_flags pgrep --full --list-full
-
-# XDG Base Directory Specification
-	add_flags tmux -f "${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf"
-	add_flags yarn --use-yarnrc "${XDG_CONFIG_HOME:-$HOME/.config}"/yarn/config
-	add_flags bash --rcfile "${XDG_CONFIG_HOME:-$HOME/.config}"/bash/bashrc
-	add_flags mbsync -c "$XDG_CONFIG_HOME"/isync/mbsyncrc
 
 # Global
 	alias -g G='| grep'
@@ -115,6 +79,7 @@ fi
 	unset SETCLIP_PREFIX
 
 # Save keystrokes and my memory
+	(( ! $+functions[ls-show-hidden] )) || alias ls='ls-show-hidden'
 	alias la='ls -A'
 	alias l='ls -lh --time-style=long-iso'
 	alias ll='l -A'
@@ -169,6 +134,18 @@ fi
 	# Count number of occurrences for every line in stdin
 	alias count='sort | uniq -c | sort -n'
 
+# Helper functions for this file. Are `unfunction`ed at the end.
+	is_exec() {
+		(( $# > 0 )) || return 1
+		(( $+commands[$1] || $+aliases[$1] || $+functions[$1] ))
+	}
+
+	add_flags() {
+		(( $# >= 2 )) || (( $+commands[$1])) || return 0
+
+		alias "$1"="${aliases[$1]:-$1} ${*[2,-1]}"
+	}
+
 # External command depending aliases
 	(( ! $+commands[zathura] )) ||
 		alias pdf='zathura --fork &>/dev/null'
@@ -190,5 +167,28 @@ fi
 		alias vi='vim'
 	! is_exec vi ||
 		alias v='vi'
+
+# Default flags
+	add_flags ls --color=auto --group-directories-first -p -v
+	add_flags grep --color=auto --exclude-dir=.git --exclude=tags
+	add_flags cp -i
+	add_flags mv -i
+	add_flags rm -I
+	add_flags mkdir -p
+	add_flags lsblk -o NAME,LABEL,FSTYPE,SIZE,FSAVAIL,MOUNTPOINT
+	add_flags feh --scale-down --image-bg "'#898e8c'"
+	# Use multiple jobs when making
+	add_flags make -j
+	# Bulk renaming with (almost) all files and directly modifying the
+	# destination.
+	add_flags qmv -Af destination-only
+	# Match against and list full command line
+	add_flags pgrep --full --list-full
+
+# XDG Base Directory Specification
+	add_flags tmux -f "${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf"
+	add_flags yarn --use-yarnrc "${XDG_CONFIG_HOME:-$HOME/.config}"/yarn/config
+	add_flags bash --rcfile "${XDG_CONFIG_HOME:-$HOME/.config}"/bash/bashrc
+	add_flags mbsync -c "$XDG_CONFIG_HOME"/isync/mbsyncrc
 
 unfunction add_flags is_exec
