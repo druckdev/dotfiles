@@ -175,7 +175,10 @@ fi
 	add_flags grep --color=auto --exclude-dir=.git --exclude=tags
 	add_flags cp -i
 	add_flags mv -i
-	add_flags rm -I
+	# Only add flags if rm is not aliased to a different command (e.g. trash).
+	# NOTE: This also works if rm is not yet aliased.
+	(( ${${aliases[rm]}[(ei)rm]} > ${#${aliases[rm]}} )) ||
+		add_flags rm -I
 	add_flags mkdir -p
 	add_flags lsblk -o NAME,LABEL,FSTYPE,SIZE,FSAVAIL,MOUNTPOINT
 	add_flags feh --scale-down --image-bg "'#898e8c'"
