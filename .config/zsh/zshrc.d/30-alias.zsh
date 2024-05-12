@@ -177,6 +177,8 @@ fi
 	add_flags mv -i
 	# Only add flags if rm is not aliased to a different command (e.g. trash).
 	# NOTE: This also works if rm is not yet aliased.
+	# TODO: This breaks for a single word alias containing the substring `rm`,
+	#       as then there is no word splitting anymore.
 	(( ${${aliases[rm]}[(ei)rm]} > ${#${aliases[rm]}} )) ||
 		add_flags rm -I
 	add_flags mkdir -p
