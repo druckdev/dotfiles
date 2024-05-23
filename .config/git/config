@@ -45,7 +45,7 @@
 	added = 076
 	untracked = 014
 [column]
-	ui = auto,row,dense
+	ui = auto,column,dense
 [commit]
 	gpgsign = true
 	verbose = true
