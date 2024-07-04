@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# Support repeatable motions when yanking from tmux's copy-mode.
+#
+# See also the `bind -T copy-mode-vi i ...` binding in tmux.conf
+# (83945840b832 ("tmux: Rudimentary vim's text object simulation"))
+
 get_var() {
 	tmux display-message -p "#{$1}"
 }
