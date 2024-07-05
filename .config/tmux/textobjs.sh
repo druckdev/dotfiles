@@ -48,10 +48,8 @@ case "$motion" in
 		scroll_pos="$(get_var scroll_position)"
 		hist_size="$(get_var history_size)"
 		cursor_y="$(get_var copy_cursor_y)"
-		scroll_upper="$(get_var scroll_region_upper)"
 		# don't move down if we're at the very first paragraph
-		if [ "$scroll_pos" -lt "$hist_size" ] \
-			|| [ "$cursor_y" -gt "$scroll_upper" ]
+		if [ "$scroll_pos" -lt "$hist_size" ] || [ "$cursor_y" -gt 0 ]
 		then
 			tmux send -X cursor-down
 		fi
@@ -62,9 +60,11 @@ case "$motion" in
 
 		scroll_pos="$(get_var scroll_position)"
 		cursor_y="$(get_var copy_cursor_y)"
-		scroll_lower="$(get_var scroll_region_lower)"
+		pane_height="$(get_var pane_height)"
+		: "$((pane_height -= 1))"
 		# don't move up if we're at the very last paragraph
-		if [ "$scroll_pos" -gt 0 ] || [ "$cursor_y" -lt "$scroll_lower" ]; then
+		if [ "$scroll_pos" -gt 0 ] || [ "$cursor_y" -lt "$pane_height" ]
+		then
 			tmux send -X cursor-up
 		fi
 
