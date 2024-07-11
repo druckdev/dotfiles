@@ -25,10 +25,8 @@ set ignorecase smartcase
 set tabstop=4
 " Shift the same amount as tabstop
 set shiftwidth=0
-" Auto-wrap text and comments; automatically add comment leader when creating
-" new lines and delete it when joining; do not break already too long lines;
-" allow formatting with gq. Recognize numbered lists when formatting.
-set formatoptions=tcroqljn
+" Control how vim formats paragraphs. See :h fo-table
+set formatoptions=tcro/qlnj
 " Autoindent new lines
 set autoindent
 " Copy structure of the existing lines indent when autoindenting a new line
