@@ -49,7 +49,7 @@ fi
 	alias gpf='git push --force-with-lease --force-if-includes'
 	alias gpull='git pull'
 	alias gpush='git push'
-	alias gr='git rebase'
+	alias gr='git reset'
 	alias grc='git rebase --continue'
 	alias grcia='git rebase --committer-date-is-author-date'
 	alias gri='git rebase -i'
