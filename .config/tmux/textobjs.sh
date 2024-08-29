@@ -31,6 +31,12 @@ case "$motion" in
 		copy_x="$(get_var copy_cursor_x)"
 		: "$((copy_x += 1))"
 		copy_line="$(get_var copy_cursor_line)"
+
+		# Do nothing if the cursor sits on a space
+		# TODO: Do the same for other non-word characters
+		char_curr="$(printf %s "$copy_line" | cut -c$((copy_x + 1)))"
+		[ "$char_curr" != " " ] || return 0
+
 		copy_line_post="$(printf %s "$copy_line" | cut -c"${copy_x}"-)"
 		copy_line_pre="$(printf %s "$copy_line" | cut -c-"${copy_x}")"
 		copy_word="$(get_var copy_cursor_word)"
@@ -51,6 +57,10 @@ case "$motion" in
 	W)
 		copy_x="$(get_var copy_cursor_x)"
 		copy_line="$(get_var copy_cursor_line)"
+
+		# Do nothing if the cursor sits on the space
+		char_curr="$(printf %s "$copy_line" | cut -c$((copy_x + 1)))"
+		[ "$char_curr" != " " ] || return 0
 
 		# NOTE: cut will print an error on index 0
 		char_pre="$(printf %s "$copy_line" | cut -c"$copy_x" 2>/dev/null)"
