@@ -26,19 +26,51 @@ fi
 # get motion
 motion="$(command_prompt "(operator-pending)")"
 
-# TODO: Breaks when on the beginning or end of the object (except paragraphs)
 case "$motion" in
 	w)
+		copy_x="$(get_var copy_cursor_x)"
+		: "$((copy_x += 1))"
+		copy_line="$(get_var copy_cursor_line)"
+		copy_line_post="$(printf %s "$copy_line" | cut -c"${copy_x}"-)"
+		copy_line_pre="$(printf %s "$copy_line" | cut -c-"${copy_x}")"
+		copy_word="$(get_var copy_cursor_word)"
+
 		# send "boe"
-		tmux send -X previous-word
-		tmux send -X other-end
-		tmux send -X next-word-end
+		if [ "${copy_line_post#"$copy_word"}" = "$copy_line_post" ];
+		then
+			# not on beginning of word
+			tmux send -X previous-word
+			tmux send -X other-end
+		fi
+		if [ "${copy_line_pre%"$copy_word"}" = "$copy_line_pre" ];
+		then
+			# not on end of word
+			tmux send -X next-word-end
+		fi
 		;;
 	W)
+		copy_x="$(get_var copy_cursor_x)"
+		copy_line="$(get_var copy_cursor_line)"
+
+		# NOTE: cut will print an error on index 0
+		char_pre="$(printf %s "$copy_line" | cut -c"$copy_x" 2>/dev/null)"
+		char_post="$(printf %s "$copy_line" | cut -c$((copy_x + 2)))"
+
+		# default to a space if the cursor is at the beginning or end of
+		# the line
+		: "${char_pre:= }"
+		: "${char_post:= }"
+
 		# send "BoE"
-		tmux send -X previous-space
-		tmux send -X other-end
-		tmux send -X next-space-end
+		if [ "$char_pre" != " " ]; then
+			# not on beginning of WORD
+			tmux send -X previous-space
+			tmux send -X other-end
+		fi
+		if [ "$char_post" != " " ]; then
+			# not on end of WORD
+			tmux send -X next-space-end
+		fi
 		;;
 	p)
 		# send "{j0o}k$"
@@ -70,6 +102,7 @@ case "$motion" in
 
 		tmux send -X end-of-line
 		;;
+	# TODO: These two fail when the cursor sits on the quote
 	\")
 		tmux send -X jump-to-backward '"'
 		tmux send -X other-end
