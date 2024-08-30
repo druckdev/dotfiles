@@ -28,6 +28,7 @@ motion="$(command_prompt "(operator-pending)")"
 
 case "$motion" in
 	w)
+		# TODO: fix for non-ascii symbols
 		copy_x="$(get_var copy_cursor_x)"
 		: "$((copy_x += 1))"
 		copy_line="$(get_var copy_cursor_line)"
