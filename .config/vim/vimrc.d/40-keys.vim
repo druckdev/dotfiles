@@ -274,13 +274,15 @@ vnoremap <leader>utc <Cmd>s/\v(^\|[^0-9])\zs[0-9]{10}\ze([^0-9]\|$)/\=strftime("
 " TODO: [count] sections? (see :h [[)
 nnoremap <silent> [[ m':call search('^\S.*{', "bW")<CR>
 vnoremap <silent> [[ m':<C-U>exe "normal! gv"<Bar>call search('^\S.*{', "bW")<CR>
-nnoremap <silent> ]] m':call search('^\S.*{', "W")<CR>
-vnoremap <silent> ]] m':<C-U>exe "normal! gv"<Bar>call search('^\S.*{', "W")<CR>
+" map ]] here and remap ][ down below for better modularization
+nnoremap <silent> ][ m':call search('^\S.*{', "W")<CR>
+vnoremap <silent> ][ m':<C-U>exe "normal! gv"<Bar>call search('^\S.*{', "W")<CR>
 
 " Match the behaviour of [[ and []. ]] forward to next '}' in the first column
 " and ][ fw to next '[', instead of the other way around.
 noremap ]] ][
-noremap ][ ]]
+" TODO: fix this with the relaxed mappings by evaluating the current rhs of ]]
+" nmap ][ ]]
 
 " Strip trailing whitespace
 nnoremap <leader><space> <Cmd>silent! %s/\v\s+$//<CR>
