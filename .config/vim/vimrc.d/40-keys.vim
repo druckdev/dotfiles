@@ -268,6 +268,15 @@ augroup END
 nnoremap <leader>utc ciw<C-r>=strftime("%F %T", @")<CR><Esc>
 vnoremap <leader>utc <Cmd>s/\v(^\|[^0-9])\zs[0-9]{10}\ze([^0-9]\|$)/\=strftime("%F %T",submatch(0))/g<CR>
 
+" Relax mappings that jump to opening braces on first column: Just make sure
+" they are on an unindented line. This is useful for files that use a different
+" coding style guide than the kernel and similar.
+" TODO: [count] sections? (see :h [[)
+nnoremap <silent> [[ m':call search('^\S.*{', "bW")<CR>
+vnoremap <silent> [[ m':<C-U>exe "normal! gv"<Bar>call search('^\S.*{', "bW")<CR>
+nnoremap <silent> ]] m':call search('^\S.*{', "W")<CR>
+vnoremap <silent> ]] m':<C-U>exe "normal! gv"<Bar>call search('^\S.*{', "W")<CR>
+
 " Match the behaviour of [[ and []. ]] forward to next '}' in the first column
 " and ][ fw to next '[', instead of the other way around.
 noremap ]] ][
