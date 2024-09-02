@@ -113,7 +113,7 @@ case "$motion" in
 
 		tmux send -X end-of-line
 		;;
-	# TODO: These two fail when the cursor sits on the quote
+	# TODO: All following break when the cursor sits on the start or end
 	\")
 		tmux send -X jump-to-backward '"'
 		tmux send -X other-end
@@ -123,5 +123,31 @@ case "$motion" in
 		tmux send -X jump-to-backward "'"
 		tmux send -X other-end
 		tmux send -X jump-to-forward "'"
+		;;
+	\`)
+		tmux send -X jump-to-backward '`'
+		tmux send -X other-end
+		tmux send -X jump-to-forward '`'
+		;;
+	'[|]')
+		tmux send -X jump-to-backward '['
+		tmux send -X other-end
+		tmux send -X jump-to-forward ']'
+		;;
+	'b|(|)')
+		tmux send -X jump-to-backward '('
+		tmux send -X other-end
+		tmux send -X jump-to-forward ')'
+		;;
+	'<|>')
+		tmux send -X jump-to-backward '<'
+		tmux send -X other-end
+		tmux send -X jump-to-forward '>'
+		;;
+	'B|{|}')
+		# TODO: make this work over multiple lines
+		tmux send -X jump-to-backward '{'
+		tmux send -X other-end
+		tmux send -X jump-to-forward '}'
 		;;
 esac
