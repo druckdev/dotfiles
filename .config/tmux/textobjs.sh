@@ -28,18 +28,17 @@ motion="$(command_prompt "(operator-pending)")"
 
 case "$motion" in
 	w)
-		# TODO: fix for non-ascii symbols
 		copy_x="$(get_var copy_cursor_x)"
-		: "$((copy_x += 1))"
 		copy_line="$(get_var copy_cursor_line)"
 
 		# Do nothing if the cursor sits on a space
 		# TODO: Do the same for other non-word characters
-		char_curr="$(printf %s "$copy_line" | cut -c$((copy_x + 1)))"
+		# NOTE: Using grep here, as cut does not support UTF-8
+		char_curr="$(printf %s "$copy_line" | grep -Po "^.{$copy_x}\\K.")"
 		[ "$char_curr" != " " ] || return 0
 
-		copy_line_post="$(printf %s "$copy_line" | cut -c"${copy_x}"-)"
-		copy_line_pre="$(printf %s "$copy_line" | cut -c-"${copy_x}")"
+		copy_line_post="$(printf %s "$copy_line" | grep -Po "^.{$copy_x}\\K.*")"
+		copy_line_pre="$(printf %s "$copy_line" | grep -Po "^..{$copy_x}")"
 		copy_word="$(get_var copy_cursor_word)"
 
 		# send "boe"
@@ -60,12 +59,11 @@ case "$motion" in
 		copy_line="$(get_var copy_cursor_line)"
 
 		# Do nothing if the cursor sits on the space
-		char_curr="$(printf %s "$copy_line" | cut -c$((copy_x + 1)))"
+		char_curr="$(printf %s "$copy_line" | grep -Po "^.{$copy_x}\\K.")"
 		[ "$char_curr" != " " ] || return 0
 
-		# NOTE: cut will print an error on index 0
-		char_pre="$(printf %s "$copy_line" | cut -c"$copy_x" 2>/dev/null)"
-		char_post="$(printf %s "$copy_line" | cut -c$((copy_x + 2)))"
+		char_pre="$(printf %s "$copy_line" | grep -Po "^.{$((copy_x - 1))}\\K.")"
+		char_post="$(printf %s "$copy_line" | grep -Po "^..{$copy_x}\\K.")"
 
 		# default to a space if the cursor is at the beginning or end of
 		# the line
