@@ -31,6 +31,7 @@ set --
 
 case "$motion" in
 	w)
+		# TODO: merge all get_var calls
 		copy_x="$(get_var copy_cursor_x)"
 		copy_line="$(get_var copy_cursor_line)"
 
