@@ -60,7 +60,7 @@ noremap <leader>[S [S1z=<C-O>
 function! CycleSpellLang()
 	if (&spelllang == 'en')
 		setl spelllang=de
-	else
+	elseif (&spelllang == 'de')
 		setl spelllang=en
 	endif
 endfunction
