@@ -39,6 +39,9 @@ if (get(g:, 'loaded_fzf'))
 	\ }
 	" Use a theme for bat in the preview that somewhat resembles onedark
 	let $BAT_THEME='TwoDark'
+
+	" Increase size of fzf window
+	let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.9 } }
 endif
 
 " Highlight trailing whitespaces
