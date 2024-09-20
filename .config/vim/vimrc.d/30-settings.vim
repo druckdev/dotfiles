@@ -100,6 +100,8 @@ set virtualedit+=block
 set lazyredraw
 " Visual selection does not include the line break
 set selection=old
+" Only one global status line
+set laststatus=3
 " Wrap lines at chars in 'breakat' rather than at last character.
 set linebreak
 " Wrapped lines should have the same amount of indentation
