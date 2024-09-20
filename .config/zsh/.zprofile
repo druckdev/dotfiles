@@ -45,6 +45,9 @@ fi
 if [[ ! "$PATH" =~ "$HOME/\.local/bin" ]]; then
 	export PATH="$HOME/.local/bin${PATH:+:$PATH}"
 fi
+if [[ ! $PATH =~ "$HOME/\.local/share/npm/bin" ]]; then
+	export PATH="${PATH:+$PATH:}$HOME/.local/share/npm/bin"
+fi
 if [[ $OSTYPE =~ darwin && ! $PATH =~ "/Library/Apple/usr/bin" ]]; then
 	export PATH="${PATH:+$PATH:}/Library/Apple/usr/bin"
 fi
