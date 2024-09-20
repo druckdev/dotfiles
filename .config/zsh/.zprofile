@@ -1,6 +1,7 @@
 # vim: ft=zsh
 
 # Less clutter in $HOME by enforcing the XDG Base Directory specification.
+: ${XDG_STATE_HOME:=$HOME/.local/state}
 : ${XDG_CONFIG_HOME:=$HOME/.config}
 : ${XDG_CACHE_HOME:=$HOME/.cache}
 : ${XDG_DATA_HOME:=$HOME/.local/share}
