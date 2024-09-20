@@ -268,6 +268,8 @@ augroup END
 nnoremap <leader>utc ciw<C-r>=strftime("%F %T", @")<CR><Esc>
 vnoremap <leader>utc <Cmd>s/\v(^\|[^0-9])\zs[0-9]{10}\ze([^0-9]\|$)/\=strftime("%F %T",submatch(0))/g<CR>
 
+" TODO: <leader>sec that uses the `duration` alias from zsh
+
 " Relax mappings that jump to opening braces on first column: Just make sure
 " they are on an unindented line. This is useful for files that use a different
 " coding style guide than the kernel and similar.

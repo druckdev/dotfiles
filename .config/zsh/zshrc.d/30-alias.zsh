@@ -131,6 +131,12 @@ fi
 	alias sizes='du -sch * | sort -h'
 	# Count number of occurrences for every line in stdin
 	alias count='sort | uniq -c | sort -n'
+	# Inspired by https://stackoverflow.com/a/54541337
+	#     > echo 1747502 | duration
+	#     20d 5h 25m 2s
+	#
+	# TODO: do not print values if they are zero
+	alias duration="dc -e '?60~r60~r24~rn[d ]nn[h ]nn[m ]nn[s]p'"
 
 # Precommand modifiers
 	alias mkdir='nocorrect mkdir'
