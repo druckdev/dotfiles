@@ -46,6 +46,7 @@ zle -N zle-line-finish
 
 bindkey '^H' run-help
 bindkey '^E' edit-command-line
+bindkey -M vicmd "^E" edit-command-line
 bindkey '^S' vi-pound-insert
 
 # 'Fixed terminal input sequences'
