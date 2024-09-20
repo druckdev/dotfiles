@@ -78,6 +78,13 @@ ramp-volume-0 = 奔
 ramp-volume-1 = 墳
 ramp-volume-2 = 
 
+; Use PA_VOLUME_UI_MAX (~153%) if true, or PA_VOLUME_NORM (100%) if false
+use-ui-max = false
+
+; Reverses the increment/decrement on scroll event. Set this to true if you are
+; using natural scrolling option on your touchpad.
+reverse-scroll = true
+
 ;#################################################
 
 [module/xbacklight]
