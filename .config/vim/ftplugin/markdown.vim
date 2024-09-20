@@ -6,7 +6,7 @@ setlocal formatoptions+=aw
 setlocal wrap
 
 " Fold by sections
-function MdSectionFold()
+function! MdSectionFold()
 	let depth = len(matchstr(getline(v:lnum), '^#*'))
 	return depth ? ">" . depth : "="
 endfunction
