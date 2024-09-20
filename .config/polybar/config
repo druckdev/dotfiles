@@ -71,11 +71,9 @@ label-mode = %{A1:i3-msg mode default:}%mode%%{A}
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume = <ramp-volume>  <label-volume>
-format-muted  = <label-muted> (<label-volume>)
-label-volume  = %percentage%%
+format-volume = "<ramp-volume>  <label-volume> "
+format-muted  =  <label-muted> (<label-volume>)
 label-muted   = 婢
-
 ramp-volume-0 = 奔
 ramp-volume-1 = 墳
 ramp-volume-2 = 
