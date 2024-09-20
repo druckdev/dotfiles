@@ -87,6 +87,7 @@
 [log]
 	follow = true
 [merge]
+	conflictstyle = diff3
 	log = true
 	suppressDest = *
 [pretty]
