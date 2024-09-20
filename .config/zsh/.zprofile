@@ -140,10 +140,9 @@ typeset -A fzf_opts=(
 	ctrl-d half-page-down
 	ctrl-u half-page-up
 	ctrl-t toggle-track
-	# automatically track but first on backspace
-	# TODO: this does not work as bspace is executed after backward-eof it seems
-	# backward-eof toggle-track
-	# bspace track+backward-delete-char
+	# Keep the current line selected while deleting the query
+	bspace       track-current+backward-delete-char
+	backward-eof untrack-current
 )
 FZF_DEFAULT_OPTS=" --bind ${(@*kj:,:)fzf_opts/(#m)*/$MATCH:$fzf_opts[$MATCH]}"
 FZF_DEFAULT_OPTS+=" --highlight-line"
