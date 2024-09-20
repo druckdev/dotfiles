@@ -116,13 +116,20 @@ export FZF_DEFAULT_COMMAND_FALLBACK
 # Ignore gitignore(5)d files, see also $XDG_CONFIG_HOME/git/ignore
 if (( $+commands[fd] )); then
 	FZF_DEFAULT_COMMAND="fd -L --hidden --type f --no-require-git"
+	FZF_ALT_C_COMMAND="${FZF_DEFAULT_COMMAND/-type f/-type d}"
 elif (( $+commands[rg] )); then
 	FZF_DEFAULT_COMMAND="rg -L --hidden --files --no-require-git"
+	FZF_ALT_C_COMMAND="${FZF_DEFAULT_COMMAND_FALLBACK/-type f/-type d}"
 else
 	# Fallback to hardcoding the most important paths to prune
 	FZF_DEFAULT_COMMAND="$FZF_DEFAULT_COMMAND_FALLBACK"
+	FZF_ALT_C_COMMAND="${FZF_DEFAULT_COMMAND_FALLBACK/-type f/-type d}"
 fi
 export FZF_DEFAULT_COMMAND
+
+if (( $+commands[bfs] )); then
+	FZF_ALT_C_COMMAND="${${FZF_DEFAULT_COMMAND_FALLBACK/-type f/-type d}/#find/bfs}"
+fi
 
 typeset -A fzf_opts=(
 	# Clear query if not empty, abort otherwise

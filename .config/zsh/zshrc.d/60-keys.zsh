@@ -248,7 +248,6 @@ bindkey -M vicmd '^K' fzf-history-widget
 # ^R fzf-history-widget
 # TODO: ^R should insert the history line in BUFFER to differ from ctrl-up
 FZF_CTRL_T_COMMAND="${FZF_DEFAULT_COMMAND} 2>/dev/null"
-# Use the fallback default command when ripgrep is not installed but with
-# directories instead of files.
-FZF_ALT_C_COMMAND="${FZF_DEFAULT_COMMAND_FALLBACK/-type f/-type d}"
+
+# See .zprofile for FZF_ALT_C_COMMAND
 comp-source "$ZDOTDIR/plugins/fzf/shell/key-bindings.zsh"
