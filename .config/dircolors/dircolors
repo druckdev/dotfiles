@@ -56,6 +56,10 @@ EXEC    01;92
 *TODO.txt   01;91
 *TODO.md    01;91
 
+# Development environment
+*Session.vim 00;33
+*.envrc 00;33
+
 ## Archives
 *.tar   01;93
 *.tgz   01;93
