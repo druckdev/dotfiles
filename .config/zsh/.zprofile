@@ -109,6 +109,7 @@ FZF_DEFAULT_COMMAND_FALLBACK="find -L . -mindepth 1 \("
 	FZF_DEFAULT_COMMAND_FALLBACK+=" -name 'tex_build' -o"
 	FZF_DEFAULT_COMMAND_FALLBACK+=" -name 'node_modules'"
 FZF_DEFAULT_COMMAND_FALLBACK+=" \) -prune -o -type f -print"
+FZF_DEFAULT_COMMAND_FALLBACK+=" 2>/dev/null"
 FZF_DEFAULT_COMMAND_FALLBACK+=" | cut -c3-"
 export FZF_DEFAULT_COMMAND_FALLBACK
 
