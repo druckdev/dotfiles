@@ -22,11 +22,7 @@ module-margin-right = 2
 
 modules-left = i3 pulseaudio xbacklight battery-custom
 modules-center = datetime
-modules-right = media vpn wlan powermenu
-
-tray-position = ${env:TRAY_POS:right}
-tray-detached = false
-tray-scale = 1.0
+modules-right = media vpn wlan powermenu tray
 
 font-0 = MesloLGS NF:style=Regular:size=18;4
 ; used for the dots in module/powermenu
@@ -170,3 +166,5 @@ click-left = ${env:POLYBAR_BLUETOOTH_CLICK_LEFT}
 type = custom/text
 content = ${env:POLYBAR_POWERMENU}
 
+[module/tray]
+type = internal/tray

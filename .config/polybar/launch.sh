@@ -23,8 +23,6 @@ if ! pgrep -ax polybar >/dev/null 2>&1; then
 	# launch Polybar on every monitor
 	# https://github.com/polybar/polybar/issues/763
 	while read m; do
-		export TRAY_POS=none
-		[[ "${m%(primary)}" == "$m" ]] || export TRAY_POS=right
 		export MONITOR="${m%%:*}"
 		polybar --reload -c "$BASE_DIR/config" main &
 	done <<<$(polybar --list-monitors)
