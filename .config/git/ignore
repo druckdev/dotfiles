@@ -21,8 +21,9 @@ node_modules/
 # Ignore session file created by obsession-vim
 Session.vim
 
-# Ignore python bytecode cache
+# Ignore python related cache
 __pycache__/
+.ipynb_checkpoints/
 
 # Ignore python virtual environment
 venv/
