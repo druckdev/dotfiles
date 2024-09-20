@@ -6,3 +6,10 @@ if vimwiki#vars#get_syntaxlocal('rxTableSep') !~ '[\d0-\d127]'
 	" Update after changes
 	call HighlightNonASCIIChars()
 endif
+
+" Fold by sections
+function! MdSectionFold()
+	let depth = len(matchstr(getline(v:lnum), '^#*'))
+	return depth ? ">" . depth : "="
+endfunction
+setlocal foldmethod=expr foldexpr=MdSectionFold()
