@@ -146,6 +146,7 @@ typeset -A fzf_opts=(
 	# bspace track+backward-delete-char
 )
 FZF_DEFAULT_OPTS=" --bind ${(@*kj:,:)fzf_opts/(#m)*/$MATCH:$fzf_opts[$MATCH]}"
+FZF_DEFAULT_OPTS+=" --highlight-line"
 export FZF_DEFAULT_OPTS
 
 # Setup LS_COLORS
