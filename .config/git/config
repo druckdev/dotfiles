@@ -28,7 +28,7 @@
 	checkout-worktree = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-checkout-worktree\""
 	commit-last-msg = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-commit-last-msg\""
 	filter-repo = !git-filter-repo
-	flog = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/glog\""
+	glog = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/glog\""
 	https-and-ssh  = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-https-and-ssh\""
 	last-changed  = "!cd \"$GIT_PREFIX\"; \"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-last-changed\""
 	make-fork = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-make-fork\""
