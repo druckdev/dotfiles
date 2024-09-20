@@ -169,7 +169,7 @@ click-left = ${env:POLYBAR_BLUETOOTH_CLICK_LEFT}
 
 [module/powermenu]
 type = custom/text
-content = ${env:POLYBAR_POWERMENU}
+format = ${env:POLYBAR_POWERMENU}
 
 [module/tray]
 type = internal/tray
