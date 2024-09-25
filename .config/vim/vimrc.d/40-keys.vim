@@ -274,11 +274,11 @@ vnoremap <leader>utc <Cmd>s/\v(^\|[^0-9])\zs[0-9]{10}\ze([^0-9]\|$)/\=strftime("
 " they are on an unindented line. This is useful for files that use a different
 " coding style guide than the kernel and similar.
 " TODO: [count] sections? (see :h [[)
-nnoremap <silent> [[ m':call search('^\S.*{', "bW")<CR>
-vnoremap <silent> [[ m':<C-U>exe "normal! gv"<Bar>call search('^\S.*{', "bW")<CR>
+nnoremap <silent> [[ m':call search('\v^(\S.*)?\{', "bW")<CR>
+vnoremap <silent> [[ m':<C-U>exe "normal! gv"<Bar>call search('\v^(\S.*)?\{', "bW")<CR>
 " map ]] here and remap ][ down below for better modularization
-nnoremap <silent> ][ m':call search('^\S.*{', "W")<CR>
-vnoremap <silent> ][ m':<C-U>exe "normal! gv"<Bar>call search('^\S.*{', "W")<CR>
+nnoremap <silent> ][ m':call search('\v^(\S.*)?\{', "W")<CR>
+vnoremap <silent> ][ m':<C-U>exe "normal! gv"<Bar>call search('\v^(\S.*)?\{', "W")<CR>
 
 " Match the behaviour of [[ and []. ]] forward to next '}' in the first column
 " and ][ fw to next '[', instead of the other way around.
