@@ -94,6 +94,11 @@ function! HighlightVisualSel()
 	let l:old_regtype = getregtype('"')
 	silent! norm ygv
 
+	if @" == ""
+		" Abort when visual mode stated on an empty line
+		return
+	endif
+
 	let w:visual_match_ids = []
 
 	" Add match to all windows containing the current buffer
