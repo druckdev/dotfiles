@@ -276,7 +276,7 @@ vnoremap <leader>utc <Cmd>s/\v(^\|[^0-9])\zs[0-9]{10}\ze([^0-9]\|$)/\=strftime("
 " TODO: [count] sections? (see :h [[)
 nnoremap <silent> [[ m':call search('\v^(\S.*)?\{', "bW")<CR>
 vnoremap <silent> [[ m':<C-U>exe "normal! gv"<Bar>call search('\v^(\S.*)?\{', "bW")<CR>
-" map ]] here and remap ][ down below for better modularization
+" TODO: map ]] here and remap ][ down below for better modularization
 nnoremap <silent> ][ m':call search('\v^(\S.*)?\{', "W")<CR>
 vnoremap <silent> ][ m':<C-U>exe "normal! gv"<Bar>call search('\v^(\S.*)?\{', "W")<CR>
 
