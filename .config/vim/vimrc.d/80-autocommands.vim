@@ -129,6 +129,7 @@ function! ClearHighlights(what = s:CLEAR_HIGHS_ALL)
 	endif
 endfunction
 
+" TODO: this disables the display of the size of the selection (:h 'showcmd')
 augroup highlight_current
 	au!
 	au CursorMoved * if mode() == 'n' |
