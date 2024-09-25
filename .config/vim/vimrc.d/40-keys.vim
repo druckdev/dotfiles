@@ -301,7 +301,6 @@ vnoremap < <gv
 vnoremap = =gv
 
 " Center search results while still respecting 'foldopen'
-" TODO: This does not trigger hlsearch
 function! s:CenterNext(count, command)
 	let l:foldopen = match(&foldopen, 'search') > -1 ? 'zv' : ''
 
@@ -313,9 +312,10 @@ function! s:CenterNext(count, command)
 
 	let &lazyredraw = l:lazyredraw_bkp
 endfunction
-" TODO: does not rehighlight search results
-map n <Cmd>call <SID>CenterNext(v:count1, 'n')<CR>
-map N <Cmd>call <SID>CenterNext(v:count1, 'N')<CR>
+" NOTE: v:hlsearch's value is restored when returning from a function and thus
+"       needs to be set here (see :h function-search-undo)
+map n <Cmd>call <SID>CenterNext(v:count1, 'n') <Bar> let v:hlsearch = 1<CR>
+map N <Cmd>call <SID>CenterNext(v:count1, 'N') <Bar> let v:hlsearch = 1<CR>
 
 cnoremap <expr> <CR> "<CR>" .
 	\ (getcmdtype() == '/' \|\| getcmdtype() == '?'
