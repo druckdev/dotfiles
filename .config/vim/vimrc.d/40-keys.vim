@@ -41,6 +41,10 @@ if (has('clipboard'))
 	map <leader>P "+P
 endif
 
+" Do not move the cursor to the start of the selection after a yank
+" https://stackoverflow.com/a/3806664/20927629
+vmap y ygv<Esc>
+
 " Ctrl-Backspace should delete words in insert mode and on command-line.
 noremap! <C-BS> <C-W>
 map! <C-H> <C-BS>
