@@ -92,7 +92,12 @@ function! HighlightVisualSel()
 
 	let l:old_reg = getreg('"')
 	let l:old_regtype = getregtype('"')
-	silent! norm ygv
+	" NOTE: The yank needs to be silent to mute the 'n lines yanked'
+	" message. But the `silent` leads to the disappearance of the selection
+	" size indicator (:h 'showcmd'), thus `y` and `gv` need to be executed
+	" in separate normal mode commands.
+	silent normal y
+	normal gv
 
 	if @" == ""
 		" Abort when visual mode stated on an empty line
@@ -134,7 +139,6 @@ function! ClearHighlights(what = s:CLEAR_HIGHS_ALL)
 	endif
 endfunction
 
-" TODO: this disables the display of the size of the selection (:h 'showcmd')
 augroup highlight_current
 	au!
 	au CursorMoved * if mode() == 'n' |
