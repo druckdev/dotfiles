@@ -144,7 +144,13 @@ typeset -A fzf_keys=(
 	bspace       track-current+backward-delete-char
 	backward-eof untrack-current
 )
-FZF_DEFAULT_OPTS=" --bind ${(@*kj:,:)fzf_keys/(#m)*/$MATCH:$fzf_keys[$MATCH]}"
+# NOTE: Use a subshell to temporarily enable EXTENDED_GLOB needed by the (#m)
+# globbing flag, since the (*) parameter expansion flag was "only" introduced in
+# zsh-5.8.1.2-test
+FZF_DEFAULT_OPTS="$(
+	emulate -L zsh -o extendedglob
+	printf " --bind %s" "${(@kj:,:)fzf_keys/(#m)*/$MATCH:$fzf_keys[$MATCH]}"
+)"
 unset fzf_keys
 
 FZF_DEFAULT_OPTS+=" --highlight-line"
