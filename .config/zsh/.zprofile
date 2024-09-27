@@ -145,6 +145,8 @@ typeset -A fzf_keys=(
 	backward-eof untrack-current
 )
 FZF_DEFAULT_OPTS=" --bind ${(@*kj:,:)fzf_keys/(#m)*/$MATCH:$fzf_keys[$MATCH]}"
+unset fzf_keys
+
 FZF_DEFAULT_OPTS+=" --highlight-line"
 export FZF_DEFAULT_OPTS
 
