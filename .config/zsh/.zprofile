@@ -131,7 +131,7 @@ if (( $+commands[bfs] )); then
 	FZF_ALT_C_COMMAND="${${FZF_DEFAULT_COMMAND_FALLBACK/-type f/-type d}/#find/bfs}"
 fi
 
-typeset -A fzf_opts=(
+typeset -A fzf_keys=(
 	# Clear query if not empty, abort otherwise
 	esc    cancel
 	# Better navigation
@@ -144,7 +144,7 @@ typeset -A fzf_opts=(
 	bspace       track-current+backward-delete-char
 	backward-eof untrack-current
 )
-FZF_DEFAULT_OPTS=" --bind ${(@*kj:,:)fzf_opts/(#m)*/$MATCH:$fzf_opts[$MATCH]}"
+FZF_DEFAULT_OPTS=" --bind ${(@*kj:,:)fzf_keys/(#m)*/$MATCH:$fzf_keys[$MATCH]}"
 FZF_DEFAULT_OPTS+=" --highlight-line"
 export FZF_DEFAULT_OPTS
 
