@@ -41,7 +41,7 @@ body="$(
 if [[ ${#subject} -gt 60 ]]; then
 	die "Subject too long. (<= 60)"
 elif [[ ${#subject} -gt 50 ]]; then
-	>&2 printf "%s: Subject exceeds recommendation of 50 characters!\n" "$0"
+	>&2 printf "%s: Subject exceeds recommendation of 50 characters!\n\n" "$0"
 fi
 
 # The subject line has to match "${pats[@]}", but to be more verbose different
