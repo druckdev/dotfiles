@@ -10,7 +10,8 @@
 # To enable this hook, save this file in ".git/hooks/commit-msg".
 
 # Source die()
-. "$HOME"/.local/bin/helpers.sh
+repo_root="$(git rev-parse --show-toplevel)"
+. "$repo_root"/.local/bin/helpers.sh
 
 subject="$(head -1 "$1")"
 # Ignore "fixup! " and "squash! " prefix' added by `git-commit`
