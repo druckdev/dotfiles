@@ -1,8 +1,11 @@
 ## spl file can be manually updated with :mkspell! en.utf-8.add.spl en.utf-8.add
 ## Keep comments behind double hashes (see :h spellfile-cleanup)
 contentwise
+endianness
+globbing
 indescriptive
 overread
 timestamp
 toggleable
 undescriptive
+zsh
