@@ -13,6 +13,9 @@ if (has('nvim'))
 	augroup terminal_no_spellcheck
 		au!
 		autocmd TermOpen * setlocal nospell
+		" Do not highlight trailing whitespace in terminal windows
+		autocmd TermOpen * silent! call
+			\ matchdelete(filter(getmatches(), 'v:val["group"] == "TrailingWhitespace"')[0]["id"])
 	augroup END
 endif
 
