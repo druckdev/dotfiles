@@ -163,7 +163,7 @@ if exists('g:loaded_fugitive')
 	" :help :Git_blame)
 	nmap <leader>gb :G blame<CR>C
 else
-	" Move to root of directory
+	" Move to root of repository
 	" NOTE: only works if a file is already opened
 	nnoremap <leader>gcd <Cmd>cd %:h <Bar> cd `git rev-parse --show-toplevel`<CR>
 endif
