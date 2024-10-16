@@ -7,3 +7,9 @@ setlocal spell spelllang=en
 " Disable gutentags as it seems to regenerate the entire tags file when editing
 " git-commits...
 let g:gutentags_enabled = 0
+
+" Red highlight of overflow should come at 60 chars, not 50.
+" TODO: highlight chars >50, but <60 in yellow, see
+"       /usr/share/nvim/runtime/syntax/gitcommit.vim
+" (see a376ff7b784c ("hooks:commit-msg: Relax subject length limit to 60"))
+"let g:gitcommit_summary_length = 60
