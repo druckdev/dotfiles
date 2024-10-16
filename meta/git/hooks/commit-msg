@@ -37,7 +37,11 @@ body="$(
 	          /^[^${git_comment_char/auto/\#}]/p"
 )"
 
-[[ ${#subject} -le 50 ]] || die "Subject too long. (<= 50)"
+if [[ ${#subject} -gt 60 ]]; then
+	die "Subject too long. (<= 60)"
+elif [[ ${#subject} -gt 50 ]]; then
+	>&2 printf "%s: Subject exceeds recommendation of 50 characters!\n" "$0"
+fi
 
 # The subject line has to match "${pats[@]}", but to be more verbose different
 # error messages are printed for the different 'levels' of the pattern.
