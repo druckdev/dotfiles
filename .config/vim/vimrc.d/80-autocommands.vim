@@ -78,7 +78,11 @@ endfunction
 
 function! _HighlightCurrentWord(timer_id)
 	" TODO: there is probably some kind of race condition here
-	unlet w:cword_timer_id
+	" NOTE: w:cword_timer_id can be unset when switching from a window that is
+	" currently in visual mode as then the ModeChanged event is triggered.
+	if exists('w:cword_timer_id')
+		unlet w:cword_timer_id
+	endif
 
 	let l:cword = expand('<cword>')
 	if exists('w:old_cword') && w:old_cword == l:cword
