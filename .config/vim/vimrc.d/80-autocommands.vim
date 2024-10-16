@@ -59,6 +59,7 @@ augroup END
 " Custom bindings when debugging
 augroup termdebug_bindings
 	au!
+	" Go to normal mode with <Esc> like usually
 	autocmd SourcePost termdebug.vim tnoremap <Esc> <C-\><C-n>
 augroup END
 

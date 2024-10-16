@@ -118,15 +118,10 @@ if (exists('g:loaded_gitgutter'))
 endif
 
 " Netrw
-
 " Use tree style listing
 let g:netrw_liststyle=3
 
 
 " TermDebug
-
 " Have source view to the side of the splits of debugger and program
-augroup termdebug_settings
-	au!
-	autocmd SourcePost termdebug.vim let g:termdebug_wide = 1
-augroup end
+let g:termdebug_wide = 1
