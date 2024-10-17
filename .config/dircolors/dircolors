@@ -49,12 +49,13 @@ STICKY  37;44
 EXEC    01;92
 
 ## README & TODO
-*README     01;91
-*README.txt 01;91
-*README.md  01;91
-*TODO       01;91
-*TODO.txt   01;91
-*TODO.md    01;91
+*README          01;91
+*README.txt      01;91
+*README.md       01;91
+*README.wiki.md  01;91
+*TODO            01;91
+*TODO.txt        01;91
+*TODO.md         01;91
 
 # Development environment
 *Session.vim 00;33
