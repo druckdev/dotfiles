@@ -16,4 +16,4 @@ let g:gutentags_enabled = 0
 
 " When aborting a commit I usually use :cq which I can't when committing through
 " fugitive. Abbreviate it to something that works.
-cabbrev cq %d <Bar> x
+cabbrev <buffer> cq %d <Bar> x
