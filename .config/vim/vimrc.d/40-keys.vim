@@ -140,6 +140,7 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 " Mnemonic: "git reference commit"
 " NOTE: This uses `system` and not `:r!` to insert the text directly at the
 "       cursor. `subject[:-2]` cuts off the trailing newline.
+" TODO: print error message but insert nothing on git error
 nmap <leader>grc :let subject=system('git show -s --format="(\"%s\")" <C-R><C-W>')<CR>viw<Esc>a <C-R>=subject[:-2]<CR><Esc>
 
 " Insert a Signed-off-by trailer
