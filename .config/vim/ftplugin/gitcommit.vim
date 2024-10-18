@@ -13,3 +13,7 @@ let g:gutentags_enabled = 0
 "       /usr/share/nvim/runtime/syntax/gitcommit.vim
 " (see a376ff7b784c ("hooks:commit-msg: Relax subject length limit to 60"))
 "let g:gitcommit_summary_length = 60
+
+" When aborting a commit I usually use :cq which I can't when committing through
+" fugitive. Abbreviate it to something that works.
+cabbrev cq %d <Bar> x
