@@ -386,6 +386,12 @@ endfunction
 
 vmap <silent> <leader>j <Cmd>call ExpandVisualSelection(1)<CR>
 vmap <silent> <leader>k <Cmd>call ExpandVisualSelection(-1)<CR>
+" TODO: Also map h and l that expand the visual selection over a range of lines
+"       as far as all the lines are identical
+"
+"       In the above example with a visual block selection including only the
+"       dashes: <leader>l would now expand the selection to also include the
+"       `TODO: ` after (or more if `...` continues to be the same on all lines)
 
 let g:macro_type_mappings = {
 	\ '<Space>': '_',
