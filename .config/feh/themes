@@ -1,0 +1,11 @@
+# feh theme configuration file (see feh(1))
+#
+# > .config/feh/themes allows the naming of option groups, called themes. It
+# > takes entries of the form "<theme> <options>...", where <theme> is the name
+# > of the entry and <options> are the options which will be applied when the
+# > theme is used.
+#
+# Themes can be be passed with the `-T, --theme` flag or set via the program
+# name (e.g. with symlinks). By default feh will look for a "feh" theme.
+
+feh --scale-down --image-bg '#898e8c'
