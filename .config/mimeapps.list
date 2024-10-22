@@ -1,0 +1,16 @@
+[Added Associations]
+application/json=nvim.desktop
+application/yaml=nvim.desktop
+
+[Default Applications]
+application/json=nvim.desktop
+application/pdf=org.pwmt.zathura-pdf-poppler.desktop;
+application/yaml=nvim.desktop
+audio/flac=mpv.desktop;
+audio/mpeg=mpv.desktop;
+image/jpeg=feh.desktop;
+image/png=feh.desktop;
+inode/directory=ranger.desktop;
+text/markdown=nvim.desktop;
+text/plain=nvim.desktop;
+video/mp4=mpv.desktop;
