@@ -51,6 +51,12 @@ fi
 if [[ $OSTYPE =~ darwin && ! $PATH =~ "/Library/Apple/usr/bin" ]]; then
 	export PATH="${PATH:+$PATH:}/Library/Apple/usr/bin"
 fi
+if [[ $GOPATH && -e $GOPATH && ! $PATH =~ $GOPATH/bin ]]; then
+	export PATH="${PATH:+$PATH:}$GOPATH/bin"
+fi
+if [[ -d /usr/bin/vendor_perl/ && ! $PATH =~ /usr/bin/vendor_perl/ ]]; then
+	export PATH="${PATH:+$PATH:}/usr/bin/vendor_perl"
+fi
 
 export ZETTELKASTEN_NOTES="$HOME/docs/notes"
 
