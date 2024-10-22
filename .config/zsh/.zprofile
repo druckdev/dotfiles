@@ -64,6 +64,11 @@ if (( $+commands[ssh-agent] )) && [[ ! $SSH_AGENT_PID ]]; then
 	LAUNCHED_SSH_AGENT=1
 fi
 
+# Terminal
+if (( $+commands[st] )); then
+	export TERMINAL=st
+fi
+
 # Editor
 if (( $+commands[nvim] )); then
 	export EDITOR=nvim
