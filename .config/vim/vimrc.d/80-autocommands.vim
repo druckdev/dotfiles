@@ -171,7 +171,11 @@ augroup highlight_current
 	au CursorMovedI * call HighlightCurrentWord()
 	au WinLeave * call ClearHighlights()
 	au ModeChanged [vV\x16]*:* call ClearHighlights(s:CLEAR_HIGHS_VISUAL) | call HighlightCurrentWord()
-	au ModeChanged *:[vV\x16]* call ClearHighlights(s:CLEAR_HIGHS_CWORD) | call HighlightVisualSel()
+	" NOTE: HighlightVisualSel is not called here as I rarely need one-character
+	"       highlighting and I can work around by moving back and forth once.
+	" TODO: are there situation where ModeChanged is triggered and the selection
+	"       is immediately longer than one char without triggering CursorMoved?
+	au ModeChanged *:[vV\x16]* call ClearHighlights(s:CLEAR_HIGHS_CWORD)
 augroup END
 
 " When switching focus to another window, keep the cursor location underlined.
