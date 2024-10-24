@@ -7,5 +7,7 @@ if (exists('+autoread') && &autoread)
 		" command line window
 		silent! checktime
 	endfunc
-	call timer_start(1000, 'CheckTime', {'repeat': -1})
+	if (!exists('g:checktime_timer'))
+		let g:checktime_timer = timer_start(1000, 'CheckTime', {'repeat': -1})
+	endif
 endif
