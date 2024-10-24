@@ -163,6 +163,8 @@ endfunction
 
 augroup highlight_current
 	au!
+	" TODO: `viw` when on the last character of the word does not trigger
+	"       CursorMoved, but the selection changes
 	au CursorMoved * if mode() == 'n' |
 	               \     call HighlightCurrentWord() |
 	               \ else |
