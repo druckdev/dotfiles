@@ -74,7 +74,7 @@ function! HighlightCurrentWord()
 		return
 	endif
 
-	call ClearHighlights()
+	call ClearHighlights(s:CLEAR_HIGHS_CWORD)
 
 	" Delay the highlight by 100ms so that not every word is highlighted
 	" while moving the cursor fast. (This kind of simulates a CursorHold
@@ -110,7 +110,7 @@ function! HighlightVisualSel()
 		return
 	endif
 
-	call ClearHighlights()
+	call ClearHighlights(s:CLEAR_HIGHS_VISUAL)
 
 	let l:old_reg = getreg('"')
 	let l:old_regtype = getregtype('"')
