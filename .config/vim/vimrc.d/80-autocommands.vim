@@ -69,13 +69,19 @@ function! HighlightCurrentWord()
 		return
 	endif
 
+	if exists('w:old_cword') && w:old_cword == expand('<cword>')
+		" Nothing to do if we're still on the same word
+		return
+	endif
+
+	call ClearHighlights()
+
 	" Delay the highlight by 100ms so that not every word is highlighted
 	" while moving the cursor fast. (This kind of simulates a CursorHold
 	" event with a custom time)
 	if exists('w:cword_timer_id')
 		" Abort the already running timer and its callback
 		call timer_stop(w:cword_timer_id)
-		call ClearHighlights(s:CLEAR_HIGHS_CWORD)
 	endif
 	let w:cword_timer_id = timer_start(100, "_HighlightCurrentWord")
 endfunction
@@ -89,13 +95,6 @@ function! _HighlightCurrentWord(timer_id)
 	endif
 
 	let l:cword = expand('<cword>')
-	if exists('w:old_cword') && w:old_cword == l:cword
-		" Do not delete and readd the match if on the same word
-		return
-	endif
-
-	call ClearHighlights()
-
 	if (l:cword != '')
 		let w:old_cword = l:cword
 		let w:cword_match_id = matchadd(
