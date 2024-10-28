@@ -110,7 +110,8 @@ set breakindent
 let &showbreak = '\ '
 " Replace concealable characters
 set conceallevel=1
-
+" Do not automatically open folds when searching
+set foldopen-=search
 if (exists('g:loaded_gitgutter'))
 	" Augment the default `foldtext()` with an indicator whether the folded
 	" lines have been changed.
