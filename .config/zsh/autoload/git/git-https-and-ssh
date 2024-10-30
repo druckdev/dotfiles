@@ -1,5 +1,4 @@
 #!/bin/sh
-#!/usr/bin/zsh
 
 # Sets up given remote (or origin) so that it fetches over https but pushes over
 # ssh. This way unlocking the ssh key is only needed when really necessary.
@@ -10,12 +9,12 @@ remote="${1:-origin}"
 url="$($GIT remote get-url "$remote")"
 
 if [ "${url##https://}" = "$url" ]; then
-	https_url="${url##*@}"
-	https_url="https://${https_url/://}"
+	https_url="https://${url##*@}"
+	https_url="${https_url%%:*}/${https_url#*:}"
 	$GIT remote set-url "$remote" "$https_url"
 	$GIT remote set-url --push "$remote" "$url"
 else
-	ssh_url="${url##https://}"
-	ssh_url="git@${ssh_url/\//:}"
+	ssh_url="git@${url#https://}"
+	ssh_url="${ssh_url%%/*}:${ssh_url#*/}"
 	$GIT remote set-url --push "$remote" "$ssh_url"
 fi
