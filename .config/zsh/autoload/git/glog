@@ -67,13 +67,12 @@ fzf_preview[patch]="$fzf_preview[construct] { $REPLY"
 #       for preview)
 fzf_preview[files_only]="$fzf_preview[patch] ${(@)${@:${@[(ei)--]}}/(#m)*/\"$MATCH\"}"
 
-if (( $+commands[diff-so-fancy] )); then
-	fzf_preview[patch]+=" | diff-so-fancy --color=always"
-	fzf_preview[files_only]+=" | diff-so-fancy --color=always"
-fi
-
-fzf_preview[patch]+="; }"
-fzf_preview[files_only]+="; }"
+# Use git's pager in the preview window (and with it any special highlighting
+# tool, such as diff-so-fancy)
+local pager
+pager="$(git config --get --default="" core.pager)"
+fzf_preview[patch]+="${pager:+ | }$pager; }"
+fzf_preview[files_only]+="${pager:+ | }$pager; }"
 
 read -r -d '' <<EOT
 	git show "${(j:%n:)format}" "$date" --color=always --stat "\$out"
