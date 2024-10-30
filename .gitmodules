@@ -43,6 +43,9 @@
 [submodule "Colorizer"]
 	path = .local/share/vim/pack/plugins/opt/Colorizer
 	url = https://github.com/chrisbra/Colorizer
+[submodule "NrrwRgn"]
+	path = .local/share/vim/pack/plugins/opt/NrrwRgn
+	url = http://github.com/chrisbra/NrrwRgn
 [submodule "arm-syntax-vim"]
 	path = .local/share/vim/pack/plugins/opt/arm-syntax-vim
 	url = https://github.com/ARM9/arm-syntax-vim
