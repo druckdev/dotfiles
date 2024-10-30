@@ -95,7 +95,9 @@ local -A binds=(
 	# Copy commit hash
 	"ctrl-y" "execute@$fzf_copy_command@"
 	# Open preview "fullscreen"
-	"enter" "execute@$fzf_preview[patch] | command less -R@"
+	# NOTE: `-+F` is there to negate a possible --quit-if-one-screen
+	# TODO: This assumes less to be used in core.pager
+	"enter" "execute@$fzf_preview[patch] | $pager -+F@"
 	# Preview stats
 	"ctrl-s" "preview($fzf_preview[stat])"
 	# Preview patch
