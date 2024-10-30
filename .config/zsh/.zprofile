@@ -96,6 +96,7 @@ export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 
+unset LESS
 # Enable mouse wheel support
 LESS+="${LESS:+ }--mouse --wheel-lines=3"
 # Display ANSI color escape sequences
