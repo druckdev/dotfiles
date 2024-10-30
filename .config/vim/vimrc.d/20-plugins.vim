@@ -35,3 +35,9 @@ if (get(g:, 'loaded_vimwiki'))
 	" Use vertical box drawing character as table separator
 	call vimwiki#vars#set_syntaxlocal('rxTableSep', '│')
 endif
+
+if exists("g:loaded_nrrw_rgn")
+	" Open narrow window above or to the left of the current window (default
+	" is topleft). See :h aboveleft etc.
+	let g:nrrw_topbot_leftright = 'aboveleft'
+endif
