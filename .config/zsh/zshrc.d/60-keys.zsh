@@ -159,13 +159,9 @@ function rationalize_dots {
 		return
 	fi
 
-	# NOTE: This is a hack to fix the (z) expansion flag if the path is the only
-	#       word in LBUFFER, as then [:-1] treats the expansion as a scalar and
-	#       returns the last character (i.e. always `/`).
-	local lbuffer_words="x $LBUFFER"
 	# Print currently typed path as absolute path with "collapsed"/reversed
 	# filename expansion.
-	zle -M "${(D)${(z)lbuffer_words}[-1]:a}"
+	zle -M "${(D)${(Az)LBUFFER}[-1]:a}"
 }
 zle -N rationalize_dots
 bindkey . rationalize_dots
