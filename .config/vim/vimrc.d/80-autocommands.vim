@@ -112,6 +112,21 @@ function! HighlightVisualSel()
 
 	call ClearHighlights(s:CLEAR_HIGHS_VISUAL)
 
+	" Delay the highlight by 100ms so that not every selection is highlighted
+	" while moving the cursor fast. (This kind of simulates a CursorHold
+	" event with a custom time)
+	if exists('w:selection_timer_id')
+		" Abort the already running timer and its callback
+		call timer_stop(w:selection_timer_id)
+	endif
+	let w:selection_timer_id = timer_start(100, "_HighlightVisualSel")
+endfunction
+
+function! _HighlightVisualSel(timer)
+	if exists('w:selection_timer_id')
+		unlet w:selection_timer_id
+	endif
+
 	let l:old_reg = getreg('"')
 	let l:old_regtype = getregtype('"')
 	" NOTE: The yank needs to be silent to mute the 'n lines yanked'
@@ -157,13 +172,19 @@ function! ClearHighlights(what = s:CLEAR_HIGHS_ALL)
 			unlet w:cword_timer_id
 		endif
 	endif
-	if and(a:what, s:CLEAR_HIGHS_VISUAL) && exists('w:visual_match_ids')
-		for l:pairs in w:visual_match_ids
-			let l:id = l:pairs[0]
-			let l:win = l:pairs[1]
-			call matchdelete(l:id, l:win)
-		endfor
-		unlet w:visual_match_ids
+	if and(a:what, s:CLEAR_HIGHS_VISUAL)
+		if exists('w:visual_match_ids')
+			for l:pairs in w:visual_match_ids
+				let l:id = l:pairs[0]
+				let l:win = l:pairs[1]
+				call matchdelete(l:id, l:win)
+			endfor
+			unlet w:visual_match_ids
+		endif
+		if exists('w:selection_timer_id')
+			call timer_stop(w:selection_timer_id)
+			unlet w:selection_timer_id
+		endif
 	endif
 endfunction
 
