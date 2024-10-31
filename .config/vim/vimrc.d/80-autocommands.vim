@@ -64,7 +64,7 @@ augroup termdebug_bindings
 augroup END
 
 " Highlight word under cursor in other places
-function! HighlightCurrentWord()
+function! s:highlight_cword()
 	if exists('w:disable_highlight_cword')
 		return
 	endif
@@ -75,15 +75,15 @@ function! HighlightCurrentWord()
 	endif
 
 	" Clear previous highlight and kill the possibly already running timer
-	call ClearHighlights(s:CLEAR_HIGHS_CWORD)
+	call s:clear_highlights(s:CLEAR_HIGHS_CWORD)
 
 	" Delay the highlight by 100ms so that not every word is highlighted
 	" while moving the cursor fast. (This kind of simulates a CursorHold
 	" event with a custom time)
-	let w:cword_timer_id = timer_start(100, "_HighlightCurrentWord")
+	let w:cword_timer_id = timer_start(100, "s:_highlight_cword")
 endfunction
 
-function! _HighlightCurrentWord(timer_id)
+function! s:_highlight_cword(timer_id)
 	unlet w:cword_timer_id
 
 	let l:cword = expand('<cword>')
@@ -97,21 +97,21 @@ function! _HighlightCurrentWord(timer_id)
 endfunction
 
 " Highlight visual selection in other places
-function! HighlightVisualSel()
+function! s:highlight_selection()
 	if exists('w:disable_highlight_visual_sel')
 		return
 	endif
 
 	" Clear previous highlight and kill the possibly already running timer
-	call ClearHighlights(s:CLEAR_HIGHS_VISUAL)
+	call s:clear_highlights(s:CLEAR_HIGHS_VISUAL)
 
 	" Delay the highlight by 100ms so that not every selection is highlighted
 	" while moving the cursor fast. (This kind of simulates a CursorHold
 	" event with a custom time)
-	let w:selection_timer_id = timer_start(100, "_HighlightVisualSel")
+	let w:selection_timer_id = timer_start(100, "s:_highlight_selection")
 endfunction
 
-function! _HighlightVisualSel(timer)
+function! s:_highlight_selection(timer)
 	unlet w:selection_timer_id
 
 	let l:old_reg = getreg('"')
@@ -149,7 +149,7 @@ function! _HighlightVisualSel(timer)
 endfunction
 
 " Clear the highlights of <cword> and visual selection
-function! ClearHighlights(what = s:CLEAR_HIGHS_ALL)
+function! s:clear_highlights(what = s:CLEAR_HIGHS_ALL)
 	if and(a:what, s:CLEAR_HIGHS_CWORD)
 		if exists('w:cword_match_id')
 			call matchdelete(w:cword_match_id)
@@ -182,28 +182,28 @@ augroup highlight_current
 	" TODO: `viw` when on the last character of the word does not trigger
 	"       CursorMoved, but the selection changes
 	au CursorMoved * if mode() == 'n' |
-	               \     call HighlightCurrentWord() |
+	               \     call s:highlight_cword() |
 	               \ else |
-	               \     call HighlightVisualSel() |
+	               \     call s:highlight_selection() |
 	               \ endif
-	au CursorMovedI * call HighlightCurrentWord()
-	au WinLeave * call ClearHighlights()
-	au ModeChanged [vV\x16]*:* call ClearHighlights(s:CLEAR_HIGHS_VISUAL) | call HighlightCurrentWord()
-	" NOTE: HighlightVisualSel is not called when entering non-linewise visual
+	au CursorMovedI * call s:highlight_cword()
+	au WinLeave * call s:clear_highlights()
+	au ModeChanged [vV\x16]*:* call s:clear_highlights(s:CLEAR_HIGHS_VISUAL) | call s:highlight_cword()
+	" NOTE: s:highlight_selection is not called when entering non-linewise visual
 	"       mode as I rarely need one-character highlighting and I can work
 	"       around by moving back and forth once.
 	" TODO: Fix for other ways of entering with a longer selection
-	au ModeChanged *:[v\x16]* call ClearHighlights(s:CLEAR_HIGHS_CWORD)
-	au ModeChanged *:V call ClearHighlights(s:CLEAR_HIGHS_CWORD) | call HighlightVisualSel()
+	au ModeChanged *:[v\x16]* call s:clear_highlights(s:CLEAR_HIGHS_CWORD)
+	au ModeChanged *:V call s:clear_highlights(s:CLEAR_HIGHS_CWORD) | call s:highlight_selection()
 augroup END
 
 " When switching focus to another window, keep the cursor location underlined.
-function! HighlightOldCursorPos()
+function! s:highlight_old_cursor_pos()
 	let w:cursor_pos_match_id = matchaddpos(
 		\ 'Underlined',
 		\ [getcurpos()[1:2]])
 endfunction
-function! ClearOldCursorPos()
+function! s:clear_old_cursor_pos()
 	if exists('w:cursor_pos_match_id')
 		call matchdelete(w:cursor_pos_match_id)
 		unlet w:cursor_pos_match_id
@@ -211,13 +211,13 @@ function! ClearOldCursorPos()
 endfunction
 augroup highlight_old_cursor_pos
 	au!
-	au WinLeave * call HighlightOldCursorPos()
-	au WinEnter * call ClearOldCursorPos()
+	au WinLeave * call s:highlight_old_cursor_pos()
+	au WinEnter * call s:clear_old_cursor_pos()
 
 	" TODO: WinLeave is not triggered when entering command line mode and
 	"       CmdlineEnter is triggered **after** entering
-	" nnoremap : :call HighlightOldCursorPos()<CR>:
-	" au CmdlineLeave * call ClearOldCursorPos()
+	" nnoremap : :call s:highlight_old_cursor_pos()<CR>:
+	" au CmdlineLeave * call s:clear_old_cursor_pos()
 augroup END
 
 " Do not mark input from stdin as modified
