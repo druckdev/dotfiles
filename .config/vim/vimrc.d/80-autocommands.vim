@@ -69,30 +69,22 @@ function! HighlightCurrentWord()
 		return
 	endif
 
-	if exists('w:old_cword') && w:old_cword == expand('<cword>')
+	if get(w:, 'old_cword', '') == expand('<cword>')
 		" Nothing to do if we're still on the same word
 		return
 	endif
 
+	" Clear previous highlight and kill the possibly already running timer
 	call ClearHighlights(s:CLEAR_HIGHS_CWORD)
 
 	" Delay the highlight by 100ms so that not every word is highlighted
 	" while moving the cursor fast. (This kind of simulates a CursorHold
 	" event with a custom time)
-	if exists('w:cword_timer_id')
-		" Abort the already running timer and its callback
-		call timer_stop(w:cword_timer_id)
-	endif
 	let w:cword_timer_id = timer_start(100, "_HighlightCurrentWord")
 endfunction
 
 function! _HighlightCurrentWord(timer_id)
-	" TODO: there is probably some kind of race condition here
-	" NOTE: w:cword_timer_id can be unset when switching from a window that is
-	" currently in visual mode as then the ModeChanged event is triggered.
-	if exists('w:cword_timer_id')
-		unlet w:cword_timer_id
-	endif
+	unlet w:cword_timer_id
 
 	let l:cword = expand('<cword>')
 	if (l:cword != '')
@@ -110,22 +102,17 @@ function! HighlightVisualSel()
 		return
 	endif
 
+	" Clear previous highlight and kill the possibly already running timer
 	call ClearHighlights(s:CLEAR_HIGHS_VISUAL)
 
 	" Delay the highlight by 100ms so that not every selection is highlighted
 	" while moving the cursor fast. (This kind of simulates a CursorHold
 	" event with a custom time)
-	if exists('w:selection_timer_id')
-		" Abort the already running timer and its callback
-		call timer_stop(w:selection_timer_id)
-	endif
 	let w:selection_timer_id = timer_start(100, "_HighlightVisualSel")
 endfunction
 
 function! _HighlightVisualSel(timer)
-	if exists('w:selection_timer_id')
-		unlet w:selection_timer_id
-	endif
+	unlet w:selection_timer_id
 
 	let l:old_reg = getreg('"')
 	let l:old_regtype = getregtype('"')
@@ -144,11 +131,13 @@ function! _HighlightVisualSel(timer)
 	let w:visual_match_ids = []
 
 	" Add match to all windows containing the current buffer
+	" NOTE: \%V\@! prevents the pattern from matching the current selection. As
+	"       it is highlighted already this would be superfluous and inefficient.
 	for l:win in win_findbuf(bufnr())
 		let w:visual_match_ids += [[
 			\ matchadd(
 				\ 'CursorColumn',
-				\ '\V' . substitute(escape(@", '\'), '\n', '\\n', 'g'),
+				\ '\V\%V\@!' . substitute(escape(@", '\'), '\n', '\\n', 'g'),
 				\ -1,
 				\ -1,
 				\ {'window': l:win}),
