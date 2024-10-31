@@ -146,10 +146,16 @@ endfunction
 
 " Clear the highlights of <cword> and visual selection
 function! ClearHighlights(what = s:CLEAR_HIGHS_ALL)
-	if and(a:what, s:CLEAR_HIGHS_CWORD) && exists('w:cword_match_id')
-		call matchdelete(w:cword_match_id)
-		unlet w:cword_match_id
-		unlet w:old_cword
+	if and(a:what, s:CLEAR_HIGHS_CWORD)
+		if exists('w:cword_match_id')
+			call matchdelete(w:cword_match_id)
+			unlet w:cword_match_id
+			unlet w:old_cword
+		endif
+		if exists('w:cword_timer_id')
+			call timer_stop(w:cword_timer_id)
+			unlet w:cword_timer_id
+		endif
 	endif
 	if and(a:what, s:CLEAR_HIGHS_VISUAL) && exists('w:visual_match_ids')
 		for l:pairs in w:visual_match_ids
