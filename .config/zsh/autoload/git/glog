@@ -137,6 +137,8 @@ local -a fzf_args=(
 	"--reverse"
 	# Do not sort when typing to maintain the sorting by date.
 	"--no-sort"
+	# Highlight the whole current line similar to vim's 'cursorline
+	"--highlight-line"
 )
 
 # The preview-window should be placed differently depending on the dimensions of
