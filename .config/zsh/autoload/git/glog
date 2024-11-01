@@ -104,6 +104,7 @@ local -A binds=(
 	"ctrl-p" "change-preview($fzf_preview[patch])"
 	# Files only
 	"ctrl-f" "change-preview($fzf_preview[files_only])"
+	# For ctrl-space see below
 )
 
 # TODO: Make the --preview argument dependent of --stat flag (i.e.
@@ -115,6 +116,10 @@ local -a fzf_args=(
 	"--ansi"
 	# Expand the binds array in the format "key1:value1,key2:value2".
 	"--bind" "${(@kj:,:)binds/(#m)*/$MATCH:$binds[$MATCH]}"
+	# Display key-bindings in a sticky header
+	"--header" "enter: fullscreen, ctrl-y: copy, ctrl-space: move preview, ctrl-[spf]: preview stats/full/files"
+	# Keep header above prompt line
+	"--header-first"
 	# Execute git show on the commit as preview.
 	"--preview" "$fzf_preview[files_only]"
 	# Reverse the layout so that the newest commit is at the top.
