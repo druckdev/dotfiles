@@ -24,23 +24,23 @@ git rev-parse || return
 # abbreviated commit hash (yellow), title and ref names
 local formatshort='--pretty=format:%C(yellow)%h %Creset%s%C(auto)%d'
 # Verbose format for the preview window on the right
-# This array is stitched together with newlines later
 local -a format=(
-	'--pretty=format:%C(yellow)'     # newline created by this eaten by %-
-	'%-Commit:      %H%C(auto)'      # yellow commit hash
-	'             %D%Cblue'          # auto colored ref names (if any)
-	'Author:      %aN <%aE>%Cred'    # blue author mail
-	'AuthorDate:  %ad%Cblue'         # red author date
-	'Commit:      %cN <%cE>%Cred'    # blue commiter mail
-	'CommitDate:  %cd%Cblue'         # red commit date
-	'Signer:      %GS%Cgreen'        # signer name
-	'Key (%G?):     %GK'             # pgp key used to sign
-	'%Creset%C(bold)'                # empty line
-	'    %s%Creset'                  # bold white subject
-	''                               # newline
-	'%-b'                            # body
-	''                               # newline
+	'--pretty=format:'
+	'%C(yellow)' 'Commit:      '   '%H'        '%n' # commit hash
+	'%C(auto)'   '             '   '%D'        '%n' # ref names (if any)
+	'%C(blue)'   'Author:      '   '%aN <%aE>' '%n' # author mail
+	'%C(red)'    'AuthorDate:  '   '%ad'       '%n' # author date
+	'%C(blue)'   'Commit:      '   '%cN <%cE>' '%n' # commiter mail
+	'%C(red)'    'CommitDate:  '   '%cd'       '%n' # commit date
+	'%C(blue)'   'Signer:      '   '%GS'       '%n' # signer name
+	'%C(green)'  'Key (%G?):     ' '%GK'       '%n' # pgp key used to sign
+	                                           '%n'
+	'%C(reset)%C(bold)' '    %s%C(reset)'      '%n' # subject
+	                                           '%n'
+	'%-b'                                           # body
+	                                           '%n'
 )
+format="${(j::)format}"
 
 # Ignore the graph part at the beginning, then capture the commit hash and throw
 # away the rest of the line.
@@ -56,7 +56,7 @@ EOT
 fzf_preview[construct]="$REPLY"
 
 read -r -d '' <<EOT
-	git show "${(j:%n:)format}" "$date" --color=always --patch-with-stat "\$out"
+	git show "$format" "$date" --color=always --patch-with-stat "\$out"
 EOT
 fzf_preview[patch]="$fzf_preview[construct] { $REPLY"
 # Get file arguments after (and including) `--` and wrap each in double quotes
@@ -75,7 +75,7 @@ fzf_preview[patch]+="${pager:+ | }$pager; }"
 fzf_preview[files_only]+="${pager:+ | }$pager; }"
 
 read -r -d '' <<EOT
-	git show "${(j:%n:)format}" "$date" --color=always --stat "\$out"
+	git show "$format" "$date" --color=always --stat "\$out"
 EOT
 fzf_preview[stat]="$fzf_preview[construct] { $REPLY; }"
 
