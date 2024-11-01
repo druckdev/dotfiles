@@ -89,6 +89,17 @@ elif (( $+commands[xclip] )); then
 fi
 
 local -A binds=(
+	# See fzf_keys in .zprofile
+	"esc"    "cancel"
+	"home"   "first"
+	"end"    "last"
+	"ctrl-d" "half-page-down"
+	"ctrl-u" "half-page-up"
+	"ctrl-t" "toggle-track"
+	# Keep the current line selected while deleting the query
+	"bspace"       "track-current+backward-delete-char"
+	"backward-eof" "untrack-current"
+
 	# scroll in preview window
 	"ctrl-alt-j" "preview-down"
 	"ctrl-alt-k" "preview-up"
