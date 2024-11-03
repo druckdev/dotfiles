@@ -155,6 +155,9 @@ typeset -A fzf_keys=(
 	# Keep the current line selected while deleting the query
 	bspace       track-current+backward-delete-char
 	backward-eof untrack-current
+	# Faster preview scrolling (see also --wheel-lines in LESS)
+	preview-scroll-up preview-up+preview-up+preview-up
+	preview-scroll-down preview-down+preview-down+preview-down
 )
 # NOTE: Use a subshell to temporarily enable EXTENDED_GLOB needed by the (#m)
 # globbing flag, since the (*) parameter expansion flag was "only" introduced in
