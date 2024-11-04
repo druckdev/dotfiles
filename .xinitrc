@@ -51,7 +51,7 @@ compositor="${XDG_CONFIG_HOME:-$HOME/.config}"/compositor/launch.sh
 unset compositor
 
 # Wallpaper
-wallpaper="$HOME"/pics/wallpapers/wallpaper
+wallpaper="$HOME"/media/pics/wallpapers/wallpaper
 ! command -v feh >/dev/null 2>&1 || feh --bg-scale --no-fehbg "$wallpaper"
 unset wallpaper
 
