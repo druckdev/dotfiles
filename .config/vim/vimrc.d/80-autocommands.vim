@@ -123,8 +123,8 @@ function! s:_highlight_selection(timer)
 	silent normal y
 	normal gv
 
-	if @" == ""
-		" Abort when visual mode stated on an empty line
+	if @" == "" || @" == "\n"
+		" Abort when visual mode started on an empty line
 		return
 	endif
 
