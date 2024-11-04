@@ -110,6 +110,10 @@ function! s:highlight_selection()
 	" Kill the possibly already running timer
 	if exists('w:selection_timer_id')
 		call timer_stop(w:selection_timer_id)
+		" Make sure that the old selection is deleted soon-ish
+		if exists("w:visual_match_ids") && !exists("w:selection_clear_timer_id")
+			let w:selection_clear_timer_id = timer_start(150, 's:clear_visual_timer')
+		endif
 	endif
 
 	" Delay the highlight by 100ms so that not every selection is highlighted
@@ -120,6 +124,11 @@ endfunction
 
 function! s:_highlight_selection(timer)
 	unlet w:selection_timer_id
+
+	if exists("w:selection_clear_timer_id")
+		call timer_stop(w:selection_clear_timer_id)
+		unlet w:selection_clear_timer_id
+	endif
 
 	let l:old_reg = getreg('"')
 	let l:old_regtype = getregtype('"')
@@ -187,6 +196,11 @@ function! s:clear_highlights(what = s:CLEAR_HIGHS_ALL)
 			unlet w:visual_match_ids
 		endif
 	endif
+endfunction
+
+function! s:clear_visual_timer(timer)
+	unlet w:selection_clear_timer_id
+	call s:clear_highlights(s:CLEAR_HIGHS_VISUAL)
 endfunction
 
 augroup highlight_current
