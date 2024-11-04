@@ -39,6 +39,14 @@ map [index] zc navigate-index collapse
 map [index] zR navigate-index expand-all
 map [index] zM navigate-index collapse-all
 
+# Recoloring should also work in presentation mode
+map [presentation] i recolor
+# Navigate with vim bindings in presentation mode
+map [presentation] h navigate previous
+map [presentation] k navigate previous
+map [presentation] j navigate next
+map [presentation] l navigate next
+
 # Search while typing
 # set incremental-search true
 
