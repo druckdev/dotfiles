@@ -84,6 +84,11 @@ function! s:highlight_cword()
 endfunction
 
 function! s:_highlight_cword(timer_id)
+	" TODO: this should never exist, but sometimes it does. How? To reproduce:
+	"       Select something and then <leader>nr.
+	if exists('w:cword_match_id')
+		return
+	endif
 	unlet w:cword_timer_id
 
 	let l:cword = expand('<cword>')
@@ -160,26 +165,26 @@ endfunction
 " Clear the highlights of <cword> and visual selection
 function! s:clear_highlights(what = s:CLEAR_HIGHS_ALL)
 	if and(a:what, s:CLEAR_HIGHS_CWORD)
+		if exists('w:cword_timer_id')
+			call timer_stop(w:cword_timer_id)
+			unlet w:cword_timer_id
+		endif
 		if exists('w:cword_match_id')
 			call matchdelete(w:cword_match_id)
 			unlet w:cword_match_id
 			unlet w:old_cword
 		endif
-		if exists('w:cword_timer_id')
-			call timer_stop(w:cword_timer_id)
-			unlet w:cword_timer_id
-		endif
 	endif
 	if and(a:what, s:CLEAR_HIGHS_VISUAL)
+		if exists('w:selection_timer_id')
+			call timer_stop(w:selection_timer_id)
+			unlet w:selection_timer_id
+		endif
 		if exists('w:visual_match_ids')
 			for [l:win, l:id] in items(w:visual_match_ids)
 				call matchdelete(l:id, l:win)
 			endfor
 			unlet w:visual_match_ids
-		endif
-		if exists('w:selection_timer_id')
-			call timer_stop(w:selection_timer_id)
-			unlet w:selection_timer_id
 		endif
 	endif
 endfunction
