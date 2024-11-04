@@ -7,11 +7,11 @@ set statusbar-bg "rgba(25, 25, 25, 0.5)"
 set notification-bg "#000000"
 set notification-fg "#FFFFFF"
 
-# Change the greenish accent color (#9FBC00) to bright yellow
-set completion-highlight-bg "#FCE94F"
-set inputbar-fg "#FCE94F"
-set highlight-color "#FCE94F"
-set index-active-bg "#FCE94F"
+# Change the greenish accent color (#9FBC00) to bright yellow (#FCE94F)
+set completion-highlight-bg "rgba(252, 233, 79, 0.5)"
+set inputbar-fg "rgba(252, 233, 79, 1)"
+set highlight-color "rgba(252, 233, 79, 0.5)"
+set index-active-bg "rgba(252, 233, 79, 0.5)"
 
 # Set the foreground to something that can be read on highlight-color
 set highlight-fg "#000000"
