@@ -102,8 +102,10 @@ function! s:highlight_selection()
 		return
 	endif
 
-	" Clear previous highlight and kill the possibly already running timer
-	call s:clear_highlights(s:CLEAR_HIGHS_VISUAL)
+	" Kill the possibly already running timer
+	if exists('w:selection_timer_id')
+		call timer_stop(w:selection_timer_id)
+	endif
 
 	" Delay the highlight by 100ms so that not every selection is highlighted
 	" while moving the cursor fast. (This kind of simulates a CursorHold
@@ -128,21 +130,28 @@ function! s:_highlight_selection(timer)
 		return
 	endif
 
-	let w:visual_match_ids = []
+	if !exists('w:visual_match_ids')
+		let w:visual_match_ids = {}
+	endif
 
 	" Add match to all windows containing the current buffer
-	" NOTE: \%V\@! prevents the pattern from matching the current selection. As
-	"       it is highlighted already this would be superfluous and inefficient.
+	" NOTE: This does not delete the matches for windows that do not exist
+	"       anymore, but I don't think that this is an issue and
+	"       clear_highlights deletes them later on mode change.
 	for l:win in win_findbuf(bufnr())
-		let w:visual_match_ids += [[
+		if exists("w:visual_match_ids[l:win]")
+			call matchdelete(w:visual_match_ids[l:win], l:win)
+		endif
+		" NOTE: \%V\@! prevents the pattern from matching the current selection.
+		"       As it is highlighted already this would be superfluous and
+		"       inefficient.
+		let w:visual_match_ids[l:win] =
 			\ matchadd(
 				\ 'CursorColumn',
 				\ '\V\%V\@!' . substitute(escape(@", '\'), '\n', '\\n', 'g'),
 				\ -1,
 				\ -1,
-				\ {'window': l:win}),
-			\ l:win
-		\ ]]
+				\ {'window': l:win})
 	endfor
 
 	call setreg('"', l:old_reg, l:old_regtype)
@@ -163,9 +172,7 @@ function! s:clear_highlights(what = s:CLEAR_HIGHS_ALL)
 	endif
 	if and(a:what, s:CLEAR_HIGHS_VISUAL)
 		if exists('w:visual_match_ids')
-			for l:pairs in w:visual_match_ids
-				let l:id = l:pairs[0]
-				let l:win = l:pairs[1]
+			for [l:win, l:id] in items(w:visual_match_ids)
 				call matchdelete(l:id, l:win)
 			endfor
 			unlet w:visual_match_ids
