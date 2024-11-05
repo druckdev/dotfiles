@@ -27,8 +27,15 @@ if (( $+nameddirs[uni] )); then
 	# numeric order (most recent semester). The echo is necessary as else
 	# filename generation will include the wise= and nothing is matched.
 	# TODO!
-	hash -d sose="$(echo ~uni/[0-9][0-9]ss(NnOn[1]))"
-	hash -d wise="$(echo ~uni/[0-9][0-9]ws(NnOn[1]))"
-	hash -d ss="$nameddirs[sose]"
-	hash -d ws="$nameddirs[wise]"
+	dir="$(echo ~uni/[0-9][0-9]ss(NnOn[1]))"
+	if [[ $dir ]]; then
+		hash -d sose="$dir"
+		hash -d ss="$nameddirs[sose]"
+	fi
+	dir="$(echo ~uni/[0-9][0-9]ws(NnOn[1]))"
+	if [[ $dir ]]; then
+		hash -d wise="$dir"
+		hash -d ws="$nameddirs[wise]"
+	fi
+	unset dir
 fi
