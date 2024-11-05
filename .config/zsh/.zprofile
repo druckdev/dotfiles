@@ -60,6 +60,22 @@ fi
 
 export ZETTELKASTEN_NOTES="$HOME/docs/notes"
 
+# Cuda
+if [[ -d /opt/cuda/bin && ! $PATH =~ /opt/cuda/bin ]]; then
+	export PATH="${PATH:+$PATH:}/opt/cuda/bin"
+fi
+if [[ -d /opt/cuda/nsight_compute && ! $PATH =~ /opt/cuda/nsight_compute ]]; then
+	export PATH="${PATH:+$PATH:}/opt/cuda/nsight_compute"
+fi
+if [[ -d /opt/cuda/nsight_systems/bin && ! $PATH =~ /opt/cuda/nsight_systems/bin ]]; then
+	export PATH="${PATH:+$PATH:}/opt/cuda/nsight_systems/bin"
+fi
+export CUDA_PATH=/opt/cuda
+# Set the default host compiler for nvcc. This will need to be switched back
+# and forth between the latest and previous GCC version, whatever nvcc
+# currently supports.
+export NVCC_CCBIN='/usr/bin/g++-13'
+
 # Locale settings as $LANG
 [[ ! -e "$XDG_CONFIG_HOME/locale.conf" ]] || . "$XDG_CONFIG_HOME/locale.conf"
 
