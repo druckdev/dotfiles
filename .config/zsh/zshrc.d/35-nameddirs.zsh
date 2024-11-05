@@ -14,7 +14,7 @@ if [[ -e $docs ]]; then
 	hash -d uni="$docs"/uni
 	hash -d work="$docs"/work
 fi
-unset hash
+unset docs
 
 # Dotfiles
 if [[ -e ~/projs ]]; then
