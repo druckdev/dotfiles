@@ -79,7 +79,7 @@ set wrap
 " When wrap is off, show a visual indicator that the lines continues
 set listchars+=extends:>
 " Keep current line away from top/bottom borders of the buffer when scrolling
-set scrolloff=15
+set scrolloff=5
 " Enable mouse
 set mouse=a
 " Disable pesky swap file warnings
