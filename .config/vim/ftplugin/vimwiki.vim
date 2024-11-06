@@ -13,3 +13,11 @@ function! MdSectionFold()
 	return depth ? ">" . depth : "="
 endfunction
 setlocal foldmethod=expr foldexpr=MdSectionFold()
+
+inoremap <silent><buffer><expr> <Tab>
+	\ coc#pum#visible() ? CocPumNext(1) :
+	\ CheckBackspace() ? "<Plug>VimwikiTableNextCell" :
+	\ coc#refresh()
+inoremap <silent><buffer><expr> <S-Tab>
+	\ coc#pum#visible() ? CocPumPrev(1) :
+	\ "<Plug>VimwikiTablePrevCell"
