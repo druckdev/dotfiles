@@ -11,7 +11,7 @@ set signcolumn=yes
 
 "Use <C-n> and <C-p> for navigate completion list like built in completion.
 inoremap <silent><expr> <C-n> coc#pum#visible() ? coc#pum#next(1) : "\<C-n>"
-inoremap <silent><expr> <C-p> coc#pum#visible() ? coc#pum#prev(1) : "\<C-n>"
+inoremap <silent><expr> <C-p> coc#pum#visible() ? coc#pum#prev(1) : "\<C-p>"
 
 " When no item was inserted yet, the first tab should insert the first item.
 " `timer_start` is used to delay the execution to insert in the real buffer as
