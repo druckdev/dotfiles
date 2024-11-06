@@ -89,3 +89,16 @@ augroup HighlightNonASCIIChars
 	au OptionSet spelllang call HighlightNonASCIIChars()
 	au VimEnter,WinNew * call HighlightNonASCIIChars()
 augroup END
+
+" Helpful for debugging syntax highlighting. Taken from:
+" https://jordanelver.co.uk/blog/2015/05/27/working-with-vim-colorschemes/
+"
+" Also useful (List all groups):
+" :so $VIMRUNTIME/syntax/hitest.vim
+nmap <leader>sp :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
