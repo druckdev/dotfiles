@@ -69,7 +69,7 @@ bindkey '^[[127;5u' backward-kill-word           # ctrl-backspace
 bindkey '^W' backward-kill-word                  # ctrl-W
 bindkey '^[[1;5D' vi-backward-word               # ctrl-left
 bindkey '^[[1;5C' vi-forward-word                # ctrl-right
-bindkey '^[[3;5~' vi-kill-word                   # ctrl-delete
+bindkey '^[[3;5~' kill-word                      # ctrl-delete
 bindkey '^Q' push-input                          # ctrl-Q
 
 # cd-{rotate,backward,forward} and redraw-prompt are partially modified copies
