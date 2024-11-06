@@ -80,7 +80,7 @@ function! s:highlight_cword()
 	" Delay the highlight by 100ms so that not every word is highlighted
 	" while moving the cursor fast. (This kind of simulates a CursorHold
 	" event with a custom time)
-	let w:cword_timer_id = timer_start(100, "s:_highlight_cword")
+	let w:cword_timer_id = timer_start(100, function("s:_highlight_cword"))
 endfunction
 
 function! s:_highlight_cword(timer_id)
@@ -112,14 +112,14 @@ function! s:highlight_selection()
 		call timer_stop(w:selection_timer_id)
 		" Make sure that the old selection is deleted soon-ish
 		if exists("w:visual_match_ids") && !exists("w:selection_clear_timer_id")
-			let w:selection_clear_timer_id = timer_start(150, 's:clear_visual_timer')
+			let w:selection_clear_timer_id = timer_start(150, function('s:clear_visual_timer'))
 		endif
 	endif
 
 	" Delay the highlight by 100ms so that not every selection is highlighted
 	" while moving the cursor fast. (This kind of simulates a CursorHold
 	" event with a custom time)
-	let w:selection_timer_id = timer_start(100, "s:_highlight_selection")
+	let w:selection_timer_id = timer_start(100, function("s:_highlight_selection"))
 endfunction
 
 function! s:_highlight_selection(timer)
