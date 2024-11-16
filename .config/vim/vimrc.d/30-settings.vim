@@ -31,6 +31,10 @@ set formatoptions=tcro/qlnj
 set autoindent
 " Copy structure of the existing lines indent when autoindenting a new line
 set copyindent
+" Enables C program indenting
+set cindent
+" Preserve as much of the indentation as possible when changing it
+set preserveindent
 " Keep lines under 80 characters.
 set textwidth=80
 " Do not insert two spaces before a new sentence when formatting
