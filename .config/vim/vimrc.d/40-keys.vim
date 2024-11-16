@@ -300,9 +300,58 @@ vnoremap <leader><space> <Cmd>silent! '<,'>s/\v\s+$//<CR>
 nnoremap <leader>" <Cmd>silent! %s/\v"([^"]*)"/'\1'/g<CR>
 vnoremap <leader>" <Cmd>silent! '<,'>s/\v"([^"]*)"/'\1'/g<CR>
 
-" Keep selection when changing the indentation in visual mode
-vnoremap > >gv
-vnoremap < <gv
+" Better™ >> and <<. When using tabs for indentation and spaces for alignment,
+" vim's behaviour is pretty disappointing since it will convert the indentation
+" to a series of tabs followed by spaces. 'preserveindent' changes that, but
+" adds the tabs at the end of the indentation, which does not make sense for
+" aligned text as it will then have indentation consisting of tabs, spaces and
+" again tabs.
+"
+" This tries to improve this by overriding >> and << to simply add or remove a
+" tab (or spaces if 'expandtab' is set) at the beginning of the line. It also
+" keeps the cursor on the same character and uses the normal-mode count like the
+" visual one instead of targeting multiple lines since I always use visual mode
+" for that (and it makes the function usable from normal and visual mode).
+function! s:indent(count, left, visual)
+	" NOTE: the \t should be unescaped/in double quotes for strdisplaywidth
+	let l:indentation = &expandtab ? repeat(' ', shiftwidth()) : "\t"
+	" Count changes the level not the number of lines
+	let l:indentation = repeat(l:indentation, a:count + 1)
+
+	" save current cursor position
+	let l:line = line('.')
+	let l:col = virtcol('.')
+	let l:line_len = len(getline(l:line))
+
+	let l:off = strdisplaywidth(l:indentation)
+	if !a:left
+		let l:col += l:off
+		let l:substitute = 's/^/' .. l:indentation .. '/'
+	else
+		let l:col -= l:off
+		let l:substitute = 's/^' .. l:indentation .. '//'
+	endif
+	let l:substitute = (a:visual ? "'<,'>" : '') .. l:substitute
+
+	" Remove or add indentation at the beginning of the line
+	execute l:substitute
+
+	" Reset cursor position
+	if a:visual
+		" the cursor jumps to the last line that changed - reset it
+		execute ':' .. l:line
+	endif
+	if l:line_len != len(getline(l:line))
+		" Only change column if the current line changed
+		execute 'normal' l:col .. '|'
+	endif
+endfunction
+
+nmap >> <Cmd>call <SID>indent(v:count, v:false, v:false)<CR>
+nmap << <Cmd>call <SID>indent(v:count, v:true, v:false)<CR>
+" Also keep(s) selection after changing the indentation in visual mode
+vmap > <Cmd>call <SID>indent(v:count, v:false, v:true)<CR>
+vmap < <Cmd>call <SID>indent(v:count, v:true, v:true)<CR>
 vnoremap = =gv
 
 " Center search results while still respecting 'foldopen'
