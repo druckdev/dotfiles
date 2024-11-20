@@ -131,8 +131,13 @@ zle -N cd-up
 bindkey '^O' cd-backward
 bindkey '^[[105;5u' cd-forward # ^I
 
+# M-{Left,Right}Arrow
+bindkey '^[[1;3D' cd-backward
+bindkey '^[[1;3C' cd-forward
+
 # move one directory up with ^U (mnemonic: 'Up')
 bindkey '^U' cd-up
+bindkey '^[[1;3A' cd-up
 
 # Open file in EDITOR selected with fzf
 function edit-fuzzy-file {
@@ -181,14 +186,14 @@ function default_dot { LBUFFER+=. }
 zle -N default_dot
 bindkey '^[[46;5u' default_dot
 
-CMDS_ON_ENTER=(ll gs)
-REQUIREMENTS_CMDS_ON_ENTER=(true "git rev-parse")
+CMDS_ON_ENTER=(ll) # gs)
+REQUIREMENTS_CMDS_ON_ENTER=(true) # "git rev-parse")
 function cmd-on-enter {
 	if [[ -z "${PREBUFFER}${BUFFER}" ]]; then
-		# Overwrite BUFFER and default to ll
+		# Overwrite BUFFER and default to first element
 		BUFFER=" ${CMDS_ON_ENTER[${cmd_on_enter_idx:=1}]}"
 
-		# Cycle through ll and git status
+		# Cycle through options
 		local idx=$cmd_on_enter_idx
 		idx=$((idx < $#CMDS_ON_ENTER ? idx + 1 : 1))
 		until
@@ -239,6 +244,7 @@ bindkey '^[[71;6u' insert-shcwd
 # Ctrl-Up
 bindkey '^[[1;5A' fzf-history-widget
 # Ctrl-K in normal mode
+# TODO: this does not work in tmux
 bindkey -M vicmd '^K' fzf-history-widget
 
 # Fuzzy finder bindings:
