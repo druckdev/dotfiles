@@ -165,7 +165,7 @@ fi
 # terminal.
 if [ -t 1 ]; then
 	git log "$formatshort" "$dateshort" --color=always "$@" \
-	| env LESS="$LESS${LESS:+ }-+F" fzf "${fzf_args[@]}"
+	| env LESS="$LESS${LESS:+ }-+F" fzf "${fzf_args[@]}" --tiebreak=chunk
 else
 	git log "$formatshort" "$dateshort" --color=always "$@"
 fi

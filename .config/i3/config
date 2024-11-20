@@ -11,7 +11,7 @@ floating_modifier $mod
 default_border pixel 1
 hide_edge_borders smart
 
-set $TERMINAL st
+set $TERMINAL gnome-terminal
 
 # Focus should not follow mouse
 # focus_follows_mouse no
@@ -29,7 +29,7 @@ exec_always --no-startup-id ~/.config/i3/monitor-setup.sh &
 # Keybindins ###################################################################
 
 # Terminal
-bindsym $mod+Return       exec $TERMINAL -d "$(xcwd)"
+bindsym $mod+Return       exec $TERMINAL --working-directory "$(xcwd)"
 bindsym $mod+Shift+Return exec $TERMINAL
 
 # Program launcher
@@ -185,7 +185,7 @@ bindsym XF86AudioMute exec --no-startup-id \
 	amixer -q -D pulse sset Master toggle-mute
 
 # Lock
-bindsym $mod+mod1+l exec xset s activate
+bindsym $mod+Control+l exec xset s activate
 # Start powermenu
 bindsym $mod+p exec ~/.config/rofi/powermenu.sh &
 
