@@ -1,10 +1,6 @@
 " Primarly taken from:
 " https://github.com/neoclide/coc.nvim/tree/v0.0.82#example-vim-configuration
 
-" Some servers have issues with backup files, see #649.
-set nobackup
-set nowritebackup
-
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 set signcolumn=yes

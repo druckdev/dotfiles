@@ -36,7 +36,7 @@
     ],
     "vim.hlsearch": true,
     "workbench.activityBar.visible": false,
-    "workbench.colorTheme": "One Dark Pro",
+    "workbench.colorTheme": "Default Dark+",
     "editor.insertSpaces": false,
     "explorer.autoReveal": false,
     "editor.renderWhitespace": "trailing",
