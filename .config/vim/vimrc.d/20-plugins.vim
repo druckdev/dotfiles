@@ -16,7 +16,7 @@ endfor
 " as nodejs.
 if ((has('patch-8.1.1719') || has('nvim')) && executable('node'))
 	let g:coc_global_extensions =
-		\ ['coc-clangd', 'coc-sh', 'coc-pyright', 'coc-vimtex', 'coc-vimlsp', 'coc-json']
+		\ ['coc-clangd', 'coc-sh', 'coc-pyright', 'coc-vimtex', 'coc-vimlsp', 'coc-json', 'coc-go']
 	packadd coc.nvim
 endif
 

@@ -22,7 +22,7 @@ set timeoutlen=1000 ttimeoutlen=0
 " smart case insensitive search (insens: /copy /Copy\c; sens: /Copy /copy\C)
 set ignorecase smartcase
 " Tab size
-set tabstop=4
+set tabstop=8
 " Shift the same amount as tabstop
 set shiftwidth=0
 " Control how vim formats paragraphs. See :h fo-table
@@ -79,7 +79,7 @@ endif
 set list
 " Display tabs and trailing space characters as well an indicator for long lines
 " when not wrapping
-set listchars=tab:>·,trail:·,extends:>
+set listchars=tab:>·,trail:•,extends:>
 " Wrap lines
 set wrap
 " Keep current line away from top/bottom borders of the buffer when scrolling
@@ -114,6 +114,9 @@ set breakindent
 let &showbreak = '\ '
 " Replace concealable characters
 set conceallevel=1
+" Fix gf for <....h> style includes inside of project's include directory
+" # asdasd
+set path+=include
 " Do not automatically open folds when searching
 set foldopen-=search
 if (exists('g:loaded_gitgutter'))
