@@ -36,6 +36,7 @@ for line in $times; do
 
 	diff=$((end - start))
 	# subtract pauses
+	# what?
 	(( diff <= 32400 )) || : $((diff -= 900))
 	(( diff <= 21600 )) || : $((diff -= 1800))
 
