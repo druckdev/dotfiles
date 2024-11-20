@@ -278,12 +278,12 @@ vnoremap <leader>utc <Cmd>s/\v(^\|[^0-9])\zs[0-9]{10}\ze([^0-9]\|$)/\=strftime("
 " Relax mappings that jump to opening braces on first column: Just make sure
 " they are on an unindented line. This is useful for files that use a different
 " coding style guide than the kernel and similar.
-" TODO: [count] sections? (see :h [[)
-nnoremap <silent> [[ m':call search('\v^(\S.*)?\{', "bW")<CR>
-vnoremap <silent> [[ m':<C-U>exe "normal! gv"<Bar>call search('\v^(\S.*)?\{', "bW")<CR>
+" TODO: support [count]
+" TODO: sections? (see :h [[ and :h section)
+" TODO: exclusive and exclusive-linewise?
+noremap <silent> [[ <Cmd>call search('\v^(\S.*)?\{', 'bsW')<CR>
 " TODO: map ]] here and remap ][ down below for better modularization
-nnoremap <silent> ][ m':call search('\v^(\S.*)?\{', "W")<CR>
-vnoremap <silent> ][ m':<C-U>exe "normal! gv"<Bar>call search('\v^(\S.*)?\{', "W")<CR>
+noremap <silent> ][ <Cmd>call search('\v^(\S.*)?\{', 'sW')<CR>
 
 " Match the behaviour of [[ and []. ]] forward to next '}' in the first column
 " and ][ fw to next '[', instead of the other way around.
