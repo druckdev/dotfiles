@@ -281,9 +281,9 @@ vnoremap <leader>utc <Cmd>s/\v(^\|[^0-9])\zs[0-9]{10}\ze([^0-9]\|$)/\=strftime("
 " TODO: support [count]
 " TODO: sections? (see :h [[ and :h section)
 " TODO: exclusive and exclusive-linewise?
-noremap <silent> [[ <Cmd>call search('\v^(\S.*)?\{', 'bsW')<CR>
+noremap <silent> [[ <Cmd>call search('\v^(\S.*)?\{', 'besW')<CR>
 " TODO: map ]] here and remap ][ down below for better modularization
-noremap <silent> ][ <Cmd>call search('\v^(\S.*)?\{', 'sW')<CR>
+noremap <silent> ][ <Cmd>call search('\v^(\S.*)?\{', 'esW')<CR>
 
 " Match the behaviour of [[ and []. ]] forward to next '}' in the first column
 " and ][ fw to next '[', instead of the other way around.
