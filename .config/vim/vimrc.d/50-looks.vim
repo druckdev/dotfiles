@@ -46,12 +46,21 @@ if (get(g:, 'loaded_fzf'))
 endif
 
 " Highlight trailing whitespaces
-" Pattern taken from https://vim.fandom.com/wiki/Highlight_unwanted_spaces
-highlight TrailingWhitespace ctermbg=red guibg=red
+if match(&listchars, 'trail: \@!') > -1 && match(&listchars, '\vtab:( +)@!') > -1
+	" Use foreground for coloring if tabs and trailing spaces are displayed
+	" as non-space characters
+	highlight TrailingWhitespace ctermfg=red guifg=red
+else
+	" Background otherwise
+	highlight TrailingWhitespace ctermbg=red guibg=red
+endif
 augroup HighlightTrailingWhitespace
 	au!
-	" NOTE: VimEnter is necessary as well as WinNew is not triggered for the
-	" first window created after startup (see :help WinNew)
+	" Pattern taken from
+	" https://vim.fandom.com/wiki/Highlight_unwanted_spaces
+	"
+	" NOTE: VimEnter is necessary as well, since WinNew is not triggered for
+	" the first window created after startup (see :help WinNew)
 	au VimEnter,WinNew * call matchadd("TrailingWhitespace", '\s\+\%#\@<!$')
 augroup END
 

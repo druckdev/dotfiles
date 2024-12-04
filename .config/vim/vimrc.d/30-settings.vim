@@ -77,11 +77,11 @@ if (has('cmdline_info'))
 endif
 " Show whitespace characters
 set list
-set listchars=tab:>·
+" Display tabs and trailing space characters as well an indicator for long lines
+" when not wrapping
+set listchars=tab:>·,trail:·,extends:>
 " Wrap lines
 set wrap
-" When wrap is off, show a visual indicator that the lines continues
-set listchars+=extends:>
 " Keep current line away from top/bottom borders of the buffer when scrolling
 set scrolloff=5
 " Enable mouse
