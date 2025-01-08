@@ -128,7 +128,7 @@ local -a fzf_args=(
 	# Expand the binds array in the format "key1:value1,key2:value2".
 	"--bind" "${(@kj:,:)binds/(#m)*/$MATCH:$binds[$MATCH]}"
 	# Display key-bindings in a sticky header
-	"--header" $'\e[38;5;144menter\e[38;5;59m: fullscreen, \e[38;5;144mctrl-y\e[38;5;59m: copy, \e[38;5;144mctrl-space\e[38;5;59m: move preview, \e[38;5;144mctrl-[spf]\e[38;5;59m: preview stats/full/files'
+	"--header" $'\e[38;5;144menter\e[38;5;59m: fullscreen, \e[38;5;144mctrl-y\e[38;5;59m: copy, \e[38;5;144mctrl-space\e[38;5;59m: move preview, \e[38;5;144mctrl-[spf]\e[38;5;59m: preview stats/patch/files'
 	# Keep header above prompt line
 	"--header-first"
 	# Execute git show on the commit as preview.
