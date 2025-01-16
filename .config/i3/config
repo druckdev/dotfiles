@@ -162,6 +162,8 @@ mode "resize" {
 	bindsym s resize set 1600 900
 	# "fullscreen"
 	bindsym f resize set 3200 1770
+	# "reader" - terminal with vim without line numbers fitting 80 characters
+	bindsym r resize set 1170
 
 	# Move window to center
 	bindsym c move position center
