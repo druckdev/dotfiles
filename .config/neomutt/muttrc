@@ -2,8 +2,8 @@
 source /usr/local/share/mutt-wizard/mutt-wizard.muttrc
 source ~/.config/neomutt/accounts.rc
 
-# Shorter date-time format with two digit year and no seconds or timezone
-set date_format='%y-%m-%d %R'
+# Shorter date-time format without seconds or timezone
+set date_format='%Y-%m-%d %R'
 # Full RFC 3339 like date in replies
 set attribution='On %[%F %T %z], %f wrote:'
 
