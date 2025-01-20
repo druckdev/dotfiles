@@ -7,6 +7,14 @@ set date_format='%Y-%m-%d %R'
 # Full RFC 3339 like date in replies
 set attribution='On %[%F %T %z], %f wrote:'
 
-# sort in threads with the most recent message at the top
+# Sort in threads with the most recent message at the top
 set sort=reverse-threads
 set sort_aux=last-date-sent
+
+# Reply to all by default
+bind index,pager r group-reply
+bind index,pager R reply
+
+# Page movements instead of thread (un-)deleting
+bind index \Cd half-down
+bind index \Cu half-up
