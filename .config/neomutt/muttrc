@@ -18,3 +18,6 @@ bind index,pager R reply
 # Page movements instead of thread (un-)deleting
 bind index \Cd half-down
 bind index \Cu half-up
+
+# Send copy to myself to have my replies in threads (see me alias in accounts)
+my_hdr Bcc: me
