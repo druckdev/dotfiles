@@ -1,5 +1,9 @@
 " Plugins """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Trigger quick-scope highlighting only when needed.
+" NOTE: Has to be defined before loading the plugin
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
 " Source all plugins in XDG_CONFIG_HOME instead of waiting for after the vimrc
 " was sourced.
 " NOTE: packloadall somehow breaks :Man in neovim 0.8.0
