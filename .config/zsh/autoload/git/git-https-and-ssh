@@ -18,3 +18,5 @@ else
 	$GIT remote set-url "$remote" "$https_url"
 	$GIT remote set-url --push "$remote" "$url"
 fi
+
+$GIT remote -v | grep "^$remote"
