@@ -8,13 +8,13 @@ GIT="git"
 remote="${1:-origin}"
 url="$($GIT remote get-url "$remote")"
 
-if [ "${url##https://}" = "$url" ]; then
+if [ "${url##https://}" != "$url" ]; then
+	ssh_url="${url#https://}"
+	ssh_url="git@${ssh_url/\//:}"
+	$GIT remote set-url --push "$remote" "$ssh_url"
+else
 	https_url="${url##*@}"
 	https_url="https://${https_url/:/\/}"
 	$GIT remote set-url "$remote" "$https_url"
 	$GIT remote set-url --push "$remote" "$url"
-else
-	ssh_url="${url#https://}"
-	ssh_url="git@${ssh_url/\//:}"
-	$GIT remote set-url --push "$remote" "$ssh_url"
 fi
