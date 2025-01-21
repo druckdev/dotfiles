@@ -67,6 +67,9 @@
 [submodule "onedark.vim"]
 	path = .local/share/vim/pack/plugins/opt/onedark.vim
 	url = https://github.com/joshdick/onedark.vim
+[submodule "quick-scope"]
+	path = .local/share/vim/pack/plugins/opt/quick-scope
+	url = https://github.com/unblevable/quick-scope
 [submodule "tabular"]
 	path = .local/share/vim/pack/plugins/opt/tabular
 	url = https://github.com/godlygeek/tabular
