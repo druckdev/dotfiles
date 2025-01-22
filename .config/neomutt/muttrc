@@ -5,7 +5,7 @@ source ~/.config/neomutt/accounts.rc
 # Shorter date-time format without seconds or timezone
 set date_format='%Y-%m-%d %R'
 # Full RFC 3339 like date in replies
-set attribution='On %[%F %T %z], %f wrote:'
+set attribution='On %[%F] at %[%T %z], %f wrote:'
 
 # Sort in threads with the most recent message at the top
 set sort=reverse-threads
