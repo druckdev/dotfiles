@@ -1,6 +1,6 @@
 # vim: filetype=neomuttrc
 source /usr/local/share/mutt-wizard/mutt-wizard.muttrc
-source ~/.config/neomutt/accounts.rc
+source accounts.muttrc
 
 # Shorter date-time format without seconds or timezone
 set date_format='%Y-%m-%d %R'
