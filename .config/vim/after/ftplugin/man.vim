@@ -31,7 +31,7 @@ normal M
 " meant to reload the manpage through `:edit` after every resize, so that its
 " hard-wrapping adjusts to the new size.
 "
-" This is slightly hacky, but does its job quite well.
+" This is very hacky.
 
 augroup man_resized
 	" The reload has to be delayed slightly, since with an `edit` directly in
@@ -40,17 +40,25 @@ augroup man_resized
 	"       already running timers similar to how it's done in the
 	"       highlight_current group (see autocommands.vim), but this feels
 	"       overkill here.
-	au! WinResized <buffer> call timer_start(10, function("s:edit_delayed"))
+	au! WinResized <buffer> call timer_start(10, function("s:redraw_delayed"))
 augroup END
 
 " The function can't be redefined during the reload of the ftplugin (i.e.
 " triggered by `edit`), since it is currently executing (i.e. `edit`):
 "
-"     E127: Cannot redefine function <SNR>94_edit_delayed: It is in use
+"     E127: Cannot redefine function <SNR>94_redraw_delayed: It is in use
 "
-if !exists("*s:edit_delayed")
-	function s:edit_delayed(timer_id)
+if !exists("*s:redraw_delayed")
+	function s:redraw_delayed(timer_id)
+		" Try to keep the position as close as possible, since edit will move to
+		" the start of the file
+		" TODO: this should be more accurate
+		" TODO: is position the right way? maybe use content for orientation?
+		"       depending on the wrapping, the same location will be at
+		"       different percentages
+		let l:curr_percent = 100 * line('.') / line('$')
 		edit
+		exe  'normal ' .. l:curr_percent .. '%'
 	endfunction
 endif
 
