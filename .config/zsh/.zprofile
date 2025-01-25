@@ -126,7 +126,7 @@ export LESS
 
 # Use neovim's man plugin as manpager
 (( ! $+commands[nvim] )) || \
-	export MANPAGER='nvim +"Man! | set scrolloff=999 | normal M"'
+	export MANPAGER="nvim '+Man!'"
 
 # NOTE: This is used in keys.zsh for the ALT_C widget
 FZF_DEFAULT_COMMAND_FALLBACK="find -L . -mindepth 1 \("

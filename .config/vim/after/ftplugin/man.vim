@@ -9,6 +9,13 @@ setlocal nospell
 " wrapped by vim (i.e. almost all of them).
 setlocal signcolumn=no
 
+" Make scrolling easier/more reactive through a big scrolloff
+setlocal scrolloff=999
+
+" Position cursor in the middle when launching so that scrolling down starts
+" immediately
+normal M
+
 " ------------------------------------------------------------------------------
 " From :h :Man:
 "
