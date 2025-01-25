@@ -1,6 +1,7 @@
 " NOTE: The global man ftplugin enables wrapping which I want off (see below),
 "       which is why this needs to be in after/.
 
+" Spelling makes no sense in manpages
 setlocal nospell
 
 " man(1) will assume it can use the full width of the terminal when
