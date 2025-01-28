@@ -3,4 +3,24 @@
 emulate -L zsh -o err_return
 
 git submodule sync --recursive
-git submodule update --init --recursive
+
+if [[ "$1" == "--new" ]]; then
+	# Only checkout new submodules
+
+	local toplevel
+	toplevel="$(git rev-parse --show-toplevel)"
+	cd "$toplevel"
+
+	grep path .gitmodules \
+	| cut -d= -f2 \
+	| sed 's/^\s*//' \
+	| while read -r line; do
+		# keep only empty ones
+		find "$line" -maxdepth 0 -empty
+	done \
+	| while read -r line; do
+		git submodule update --init --recursive -- "$line"
+	done
+else
+	git submodule update --init --recursive
+fi
