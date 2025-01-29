@@ -33,6 +33,9 @@ normal M
 "
 " This is very hacky.
 
+" Only if WinResized is supported
+if has('##WinResized')
+
 augroup man_resized
 	" The reload has to be delayed slightly, since with an `edit` directly in
 	" the autocmd, the buffer will just be cleared? (TODO)
@@ -65,4 +68,6 @@ endif
 " When wrapping is turned on, shrinking the window will momentarily rewrap the
 " lines, messing up the whole buffer. Since this is distracting, turn it off.
 setlocal nowrap
+
+endif " has('##WinResized')
 " ------------------------------------------------------------------------------
