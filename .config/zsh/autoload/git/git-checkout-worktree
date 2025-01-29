@@ -54,12 +54,14 @@ trap '
 pushd -q "$WORKTREE_PATH"
 
 "$SHELL" && errc=$? || errc=$?
+(( !errc )) || echo "shell exited with $errc"
 
 # Restart the shell (forcefully interactive) until the worktree is removed
 until [[ ! -e "$WORKTREE_PATH" ]] || git worktree remove "$WORKTREE_PATH"; do
 	[[ -t 0 ]] ||
 		>&2 printf "Dropping into interactive shell to resolve conflicts\n"
 	"$SHELL" -i && errc=$? || errc=$?
+	(( !errc )) || echo "shell exited with $errc"
 done
 
 # Reset traps and PWD
