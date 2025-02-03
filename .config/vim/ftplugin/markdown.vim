@@ -11,3 +11,5 @@ function! MdSectionFold()
 	return depth ? ">" . depth : "="
 endfunction
 setlocal foldmethod=expr foldexpr=MdSectionFold()
+" Unfold everything when opening
+normal zR
