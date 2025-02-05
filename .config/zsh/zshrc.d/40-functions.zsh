@@ -750,11 +750,12 @@ rmdir() {
 (( ! $+commands[bfs] )) || bfs() {
 	emulate -L zsh
 
-	# Check if arguments were passed that start with a dash
-	if (( $# && ${@[(I)-*]} )); then
-		command bfs "$@"
-	else
+	# Make sure that std{out,err} are associated with a tty and that no
+	# arguments were passed that start with a dash
+	if [[ -t 1 && -t 2 ]] && (( ! $# || ! ${@[(I)-*]} )); then
 		# Only print files and empty directories
 		command bfs "$@" -type f -o -type d -empty
+	else
+		command bfs "$@"
 	fi
 }
