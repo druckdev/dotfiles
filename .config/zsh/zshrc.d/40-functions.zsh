@@ -738,8 +738,8 @@ rmdir() {
 
 	if (( $# == 1 )) && [[ $1 == '.' ]]; then
 		to_del="$PWD"
-		cd ..
-		command rmdir "$to_del"
+		pushd -q ..
+		command rmdir "$to_del" || popd -q
 	else
 		command rmdir "$@"
 	fi
