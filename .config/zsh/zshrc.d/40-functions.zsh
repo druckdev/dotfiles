@@ -744,3 +744,17 @@ rmdir() {
 		command rmdir "$@"
 	fi
 }
+
+# bfs wrapper with condensed output by default (i.e. no directories except if
+# they're empty)
+(( ! $+commands[bfs] )) || bfs() {
+	emulate -L zsh
+
+	# Check if arguments were passed that start with a dash
+	if (( $# && ${@[(I)-*]} )); then
+		command bfs "$@"
+	else
+		# Only print files and empty directories
+		command bfs "$@" -type f -o -type d -empty
+	fi
+}
