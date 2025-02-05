@@ -759,3 +759,20 @@ rmdir() {
 		command bfs "$@"
 	fi
 }
+
+# TODO: bring together with bfs
+# find wrapper with condensed output by default (i.e. no directories except if
+# they're empty)
+(( ! $+commands[find] )) || find() {
+	emulate -L zsh
+
+	# Make sure that std{out,err} are associated with a tty and that no
+	# arguments were passed that start with a dash
+	if [[ -t 1 && -t 2 ]] && (( ! $# || ! ${@[(I)-*]} )); then
+		# Only print files and empty directories (and mark these with a
+		# trailing slash)
+		command find "$@" -type f -print -o -type d -empty -printf "%p/\n"
+	else
+		command find "$@"
+	fi
+}
