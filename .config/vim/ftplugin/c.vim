@@ -1,2 +1,2 @@
 " Exclude `-` in keyword characters
-set iskeyword-=-
+setlocal iskeyword-=-
