@@ -120,7 +120,8 @@ function cd-forward() {
 }
 zle -N cd-forward
 
-# cycle through `dirs` with ^o and ^i similar to the jumplist in vim
+# cycle through `dirs` with ^o and ^i similar to the jumplist in vim.
+# Need AUTO_PUSHD (see options.zsh)
 bindkey '^O' cd-backward
 bindkey '^[[105;5u' cd-forward # ^I
 
