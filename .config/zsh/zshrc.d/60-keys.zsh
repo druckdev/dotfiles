@@ -235,14 +235,6 @@ zle -N insert-shcwd
 # Ctrl-Shift-G
 bindkey '^[[71;6u' insert-shcwd
 
-# move one directory up on ^U (mnemonic: 'Up')
-function cd-up {
-	pushd -q ..
-	redraw-prompt
-}
-zle -N cd-up
-bindkey '^U' cd-up
-
 ## History
 # Ctrl-Up
 bindkey '^[[1;5A' fzf-history-widget
