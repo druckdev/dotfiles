@@ -120,10 +120,19 @@ function cd-forward() {
 }
 zle -N cd-forward
 
+function cd-up {
+	pushd -q ..
+	redraw-prompt
+}
+zle -N cd-up
+
 # cycle through `dirs` with ^o and ^i similar to the jumplist in vim.
 # Need AUTO_PUSHD (see options.zsh)
 bindkey '^O' cd-backward
 bindkey '^[[105;5u' cd-forward # ^I
+
+# move one directory up with ^U (mnemonic: 'Up')
+bindkey '^U' cd-up
 
 # Open file in EDITOR selected with fzf
 function edit-fuzzy-file {
