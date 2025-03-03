@@ -11,6 +11,8 @@ tags.temp
 
 # clangd
 compile_flags.txt
+compile_commands.json
+.cache/
 
 # Ignore vscode files
 .vscode/
