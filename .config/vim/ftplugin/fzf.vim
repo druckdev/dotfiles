@@ -10,6 +10,10 @@ let w:ignore_non_ascii_chars ..= '\u2580-\u259f'
 let w:ignore_non_ascii_chars ..= '\U0001fb70-\U0001fb89'
 " Braille symbols for spinner
 let w:ignore_non_ascii_chars ..= '⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
+" ellipsis and wrap sign for long lines
+let w:ignore_non_ascii_chars ..= '·↳'
+" Line endings
+let w:ignore_non_ascii_chars ..= '␍␊'
 
 " Update after changes
 call HighlightNonASCIIChars()
