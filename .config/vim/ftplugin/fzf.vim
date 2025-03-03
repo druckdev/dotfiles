@@ -1,3 +1,5 @@
+" vim: set ft=vim.fzf:
+
 let w:ignore_non_ascii_chars = get(w:, 'ignore_non_ascii_chars', '')
 
 " Do not highlight Unicode chars used for the TUI
