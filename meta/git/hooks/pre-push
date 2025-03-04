@@ -47,7 +47,7 @@ while read local_ref local_oid remote_ref remote_oid; do
 
 	commits="$(git rev-list -E --oneline --grep "$pattern" "$range")"
 	if [ -n "$commits" ] && ((!is_wip_branch)); then
-		printf >&2 "$local_ref: Commits in progress:\n"
+		printf >&2 "%s: Commits in progress:\n" "$local_ref"
 		printf >&2 "%s\n" "$commits"
 		printf >&2 "Aborting push\n"
 		exit 1
