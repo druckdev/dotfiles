@@ -58,10 +58,6 @@
     ~/.config/:
         glob: true
         path: .config/*
-    ~/.config/:
-        glob: true
-        ignore-missing: true
-        path: .config/.*
     ~/.local/bin/:
         glob: true
         exclude: [ .local/bin/fzf-repo ]
