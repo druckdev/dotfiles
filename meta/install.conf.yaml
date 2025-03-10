@@ -7,9 +7,10 @@
 
 - shell:
     -
-      command: command -v zsh >/dev/null && chsh -s "$(command -v zsh)"
-      description: Changing login shell to zsh
+      command: grep -q "^${USER}:.*:$(command -v zsh)$" /etc/passwd || { command -v zsh >/dev/null && chsh -s "$(command -v zsh)" }
+      description: Changing login shell to zsh [chsh -s "$(command -v zsh)"]
       stdin: true
+      quiet: true
     -
       command: meta/git-remote
       description: Updating git remote to use ssh
