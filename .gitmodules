@@ -52,6 +52,7 @@
 [submodule "coc.nvim"]
 	path = .local/share/vim/pack/plugins/opt/coc.nvim
 	url = https://github.com/neoclide/coc.nvim
+	branch = release
 [submodule "cocci-syntax"]
 	path = .local/share/vim/pack/plugins/opt/cocci-syntax
 	url = https://github.com/ahf/cocci-syntax

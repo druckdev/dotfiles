@@ -30,9 +30,6 @@
       command: cd .config/zsh/plugins/stderred && make
       description: Building stderred
     -
-      command: cd .config/vim/pack/plugins/opt/coc.nvim && yarn install --frozen-lockfile
-      description: Installing coc.nvim
-    -
       command: ! command -v gpg >/dev/null 2>&1 || mkdir -p ~/.local/share/gnupg
       description: Creating GNUPGHOME if necessary
     -
