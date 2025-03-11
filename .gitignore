@@ -31,6 +31,9 @@
 
 /.config/git/gitk
 
+/.config/neomutt/accounts
+/.config/neomutt/accounts.muttrc
+
 /.local/share/direnv/allow
 
 # Ignore symlink to meta/envrc in repo root (created in installation)
