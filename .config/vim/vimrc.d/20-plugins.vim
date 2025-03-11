@@ -17,6 +17,7 @@ endfor
 if ((has('patch-8.1.1719') || has('nvim')) && executable('node'))
 	let g:coc_global_extensions =
 		\ ['coc-clangd', 'coc-sh', 'coc-pyright', 'coc-vimtex', 'coc-vimlsp', 'coc-json']
+	let g:coc_config_home = $XDG_CONFIG_HOME .. "/vim"
 	packadd coc.nvim
 endif
 
