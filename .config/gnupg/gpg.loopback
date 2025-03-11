@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Taken from:
+# https://github.com/tpope/vim-fugitive/issues/1836#issuecomment-918677504
+#
+# > Put this in /usr/local/bin/gpg or anywhere else that outranks /usr/bin in
+# > PATH. Alternatively, give this script a different name, and configure
+# > gpg.program in Git to point at it.
+
+[ -z "$FUGITIVE" ] || set -- --pinentry-mode loopback "$@"
+
+exec /usr/bin/gpg "$@"
