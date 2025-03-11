@@ -1,4 +1,10 @@
 {
+	"diagnostic.enableHighlightLineNumber": true,
+	"diagnostic.errorSign": "",
+	"diagnostic.hintSign": "",
+	"diagnostic.infoSign": "",
+	"diagnostic.warningSign": "",
+
 	"diagnostic.messageDelay": 25,
 	"inlayHint.enable": false
 }
