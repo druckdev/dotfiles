@@ -1,5 +1,12 @@
 " vim: set foldmethod=marker:
-" Keybindings """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Key Mappings """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" General concepts:
+" - <leader> = <Space>
+" - <leader>g = git mappings
+" - <leader>\ = escape mappings
+
 " Clear search result highlights when pressing Escape in normal mode
 nnoremap <silent> <Esc> :nohlsearch<CR><Esc>
 
@@ -114,6 +121,9 @@ endfunction
 
 vmap * /\V<C-R>=escape(GetVisualSelection(),'/\')<CR><CR>
 vmap # ?\V<C-R>=escape(GetVisualSelection(),'?\')<CR><CR>
+" TODO: If the above mapping breaks, this should fix it (# landing on the
+" current match)
+" vmap # <Esc>`<gv?\V<C-R>=escape(GetVisualSelection(),'?\')<CR><CR>
 
 " Extended `*`. Starts vim search (without jump) and ripgrep
 nmap <leader>* :let @/ = '\<' . expand('<cword>') . '\>' <bar>
@@ -228,7 +238,8 @@ inoremap ( ()<C-G>U<Left>
 " break undo sequence with every space and newline, making insert mode changes
 " revertible in smaller chunks
 inoremap <Space> <C-G>u<Space>
-inoremap <CR> <C-G>u<CR>
+" Done by coc:
+" inoremap <CR> <C-G>u<CR>
 
 " Open the manpage in the WORD under cursor
 nnoremap gm :Man <C-r><C-a><CR>
@@ -376,6 +387,8 @@ cnoremap <expr> <CR> "<CR>" .
 		\ ? (match(&fdo, 'search') > -1 ? 'zv' : '') . "zz"
 		\ : "")
 
+vmap <leader>t :<C-U>let f = escape(GetVisualSelection(), '\')<CR>
+
 " Switch to lower/upper case
 nnoremap <leader><C-U> gUl
 vnoremap <leader><C-U> gU
@@ -390,24 +403,73 @@ vnoremap <leader><C-L> gu
 "  - TODO: ...
 "  - TODO: ...
 "  - TODO: ...
+"  - TODO: ...
 " ```
 "
 " In visual block one can select `TODO: ` on the first line and then call
 " `ExpandVisualSelection(1)` which results in a block selection that spans over
 " all other TODOs as well.
 function! ExpandVisualSelection(direction)
-	let l:sel = escape(GetVisualSelection(), '\')
+	if (!a:direction)
+		" TODO: expand in both directions
+		return
+	endif
+
+	silent let l:sel = escape(GetVisualSelection(), '\')
 	normal gv
 
+if 0
 	" Move the cursor onto the side of the selection that points in the
 	" direction of the expansion.
 	let l:swap_ends = 0
+	if (
+			\ (a:direction < 0 && col("'<") != col('.')) ||
+			\ (a:direction > 0 && col("'>") != col('.'))
+	\)
+		let l:swap_ends = 1
+	endif
+	" TODO: Fix (< is not always top left, but rather the point where it
+	" started?)
+endif
+
+	if (a:direction < 0)
+		let l:pos = getpos("'<")
+		let l:pos[2] = min([col("'<"), col("'>")])
+	else
+		let l:pos = getpos("'>")
+		let l:pos[2] = max([col("'<"), col("'>")])
+	endif
+
+	let l:swap_ends = 0
+	if (l:pos[2] != col('.'))
+		let l:swap_ends = 1
+	endif
+
+	" TODO: Use normal o and normal O as otherwise the block will be destroyed
+	" in some cases
+	call setpos('.', l:pos)
+
+if (0)
 	if (
 			\ (getpos('.') == getpos("'>") && a:direction < 0) ||
 			\ (getpos('.') == getpos("'<") && a:direction > 0)
 	\)
 		normal o
 		let l:swap_ends = 1
+	elseif (
+			\ (line('.') == line("'>") && a:direction < 0) ||
+			\ (line('.') == line("'<") && a:direction > 0)
+	\)
+		normal Oo
+	elseif (
+			\ (line('.') == line("'>") && )
+		  \ )
+	endif
+endif
+
+	if (match(l:sel, '\n') != -1)
+		let l:sel = split(l:sel, '\n')[-(line('.') == line("'>"))]
+		echom l:sel
 	endif
 
 	if (a:direction < 0)
@@ -420,11 +482,9 @@ function! ExpandVisualSelection(direction)
 		\)
 			call cursor(line('.') - 1, col("'<"))
 		endwhile
-	elseif (a:direction > 0)
+	else
 		let l:pat = '\v%#(.*\n.*%' . col("'<") . 'c\V' . l:sel . '\)\*'
 		call search(l:pat, 'e')
-	else
-		" TODO: expand in both directions
 	endif
 
 	" Reset cursor column
@@ -483,6 +543,22 @@ noremap <leader>mac <Cmd>call <sid>macro_type()<CR>i
 augroup macro_type
 	au!
 augroup END
+
+" TODO: operator mapping that jumps uses only [a-zA-Z]
+" omap <leader>w <Cmd>
+
+" TODO: mapping that activates caps_lock (or binds [a-z] -> [A-Z]) and maps ' '
+" to '_' for quickly typing of macro/const names
+" TODO: This could be expanded in latex to place \_ instead of _
+
+
+if get(g:, loaded_vimtex)
+	" TODO
+	call s:map(0, 'x', 'ilc', '<plug>(vimtex-ic)')
+	call s:map(0, 'x', 'alc', '<plug>(vimtex-ac)')
+	call s:map(0, 'o', 'ilc', '<plug>(vimtex-ic)')
+	call s:map(0, 'o', 'alc', '<plug>(vimtex-ac)')
+endif
 
 " Escape underscores (useful when writing LaTeX)
 vmap <leader>\_ <Cmd>s/\v(^<Bar>[^\\])\zs\ze_/\\/g<CR>

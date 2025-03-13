@@ -1,6 +1,9 @@
 " Turn on line-wrapping
 setlocal wrap
 
+" Disable concealing. It is just too much chaos when moving the cursor.
+setlocal conceallevel=0
+
 " Close the quickfix window after a cursor movement
 let g:vimtex_quickfix_autoclose_after_keystrokes = 1
 

@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# Get a list of synonyms for a word.
+#
+# Uses the first argument as word but falls back to stdin so that it can be used
+# from vim.
+
+ENDPOINT='https://api.api-ninjas.com/v1/thesaurus?word='
+
+[ $# -gt 0 ] || set -- "$(cat)"
+
+if [ "${1##* }" != "$1" ]; then
+	printf >&2 "Specify exactly one word.\n"
+	exit 1
+fi
+
+curl -sS "$ENDPOINT$1" \
+| { command -v jq >/dev/null 2>&1 && jq -r '.synonyms[]' || cat; }

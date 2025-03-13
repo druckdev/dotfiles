@@ -46,10 +46,15 @@ endif
 let &spellfile = $XDG_DATA_HOME . '/vim/spell/' . &spelllang . '.utf-8.add'
 augroup xdg_spellfile
 	au!
+	" TODO: Does this behave like I want for multiple spellangs (i.e. en,de)?
 	" TODO: This throws `E523: not allowed here` on `:e` as the modeline is
 	"       reread. Suppress or better check for sandbox/modeline before
 	"       executing
-	au OptionSet spelllang let &spellfile =
+	" TODO: Also throws the error when accepting a completion with:
+	"       `Error detected while processing function
+	"       <lambda>978[1]..coc#pum#close[14]..modelines[72]..OptionSet
+	"       Autocommands for "spelllang":`
+	au OptionSet spelllang silent! let &spellfile =
 				\ $XDG_DATA_HOME . '/vim/spell/' . v:option_new . '.utf-8.add'
 	" NOTE: Changing &spellfile is not allowed from a modeline, so we need to
 	"       update it manually after the modeline was read

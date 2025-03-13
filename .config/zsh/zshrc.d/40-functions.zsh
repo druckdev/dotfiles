@@ -761,3 +761,6 @@ rmdir() {
 		command find "$@"
 	fi
 }
+
+# TODO: ripgrep wrapper that pipes the output through tee and creates kind of a
+# quick fix window that can be openend in fzf for edit in the next command

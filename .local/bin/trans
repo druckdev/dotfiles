@@ -15,6 +15,7 @@
 
 ENDPOINT='https://api-free.deepl.com/v2/translate'
 
+# TODO: Do not pass source_lang (auto detection) if empty arg was passes
 source="${1:-DE}"
 target="${2:-EN-US}"
 

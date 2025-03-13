@@ -13,13 +13,10 @@ export XSECURELOCK_BLANK_TIMEOUT=10
 # the date format to show. Defaults to the locale settings.
 export XSECURELOCK_DATETIME_FORMAT="%F %T  "
 
-# time: shows the current time since the epoch on each keystroke. This may be
-#       the most secure mode, as it gives feedback to keystroke based
-#       exclusively on public information, and does not carry over any state
-#       between keystrokes whatsoever - not even some form of randomness.
+# Choose password prompt mode.
 #
-# time_hex: same as time, but in microseconds and hexadecimal. "Because we can".
-export XSECURELOCK_PASSWORD_PROMPT=time_hex
+# cursor: shows a cursor that jumps around on each key press.
+export XSECURELOCK_PASSWORD_PROMPT=cursor
 
 # whether to show local date and time on the login. Disabled by default.
 export XSECURELOCK_SHOW_DATETIME=1

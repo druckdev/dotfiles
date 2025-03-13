@@ -97,7 +97,7 @@ function! s:_highlight_cword(timer_id)
 		let w:cword_match_id = matchadd(
 			\ 'CursorColumn',
 			\ '\V\<' . escape(l:cword, '/\') . '\>',
-			\ -1)
+			\ -10)
 	endif
 endfunction
 
@@ -163,7 +163,7 @@ function! s:_highlight_selection(timer)
 			\ matchadd(
 				\ 'CursorColumn',
 				\ '\V\%V\@!' . substitute(escape(@", '\'), '\n', '\\n', 'g'),
-				\ -1,
+				\ -10,
 				\ -1,
 				\ {'window': l:win})
 	endfor
@@ -203,6 +203,7 @@ function! s:clear_visual_timer(timer)
 	call s:clear_highlights(s:CLEAR_HIGHS_VISUAL)
 endfunction
 
+" TODO: Performance issues? vim feels sluggish when scrolling. Maybe smth else
 augroup highlight_current
 	au!
 	" TODO: `viw` when on the last character of the word does not trigger
@@ -251,3 +252,16 @@ augroup stdin_not_modified
 	au!
 	au StdinReadPost * set nomodified
 augroup END
+
+" Start in insert mode when opening a new file that does not exist yet
+augroup newfile_insert
+	au!
+	autocmd BufNewFile * startinsert
+augroup END
+
+" Keep terminal at 90 character most
+" TODO: I only want this for every vertical split
+" augroup soft_wrap_always
+" 	au!
+" 	au VimResized * if &columns > 90 | set columns=90 | endif
+" augroup END

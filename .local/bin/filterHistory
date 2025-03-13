@@ -13,7 +13,6 @@
 
 [[ $# -eq 1 ]] || die "Specify a history file."
 [[ -e "$1" ]] || die "File does not exist."
-[[ "$(stat -c '%a' "$1")" = "600" ]] || die "File permissions are off."
 
 # Take a history file per stdin and sort the commands per number of occurrences
 hist-sort() {

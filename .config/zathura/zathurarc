@@ -1,9 +1,12 @@
+# See zathurarc(5)
+
 # Use system clipboard for selection.
 set selection-clipboard "clipboard"
 
 # Dark colors and transparency
 set default-bg "rgba(25, 25, 25, 0.5)"
 set statusbar-bg "rgba(25, 25, 25, 0.5)"
+# set scrollbar-bg "rgba(25, 25, 25, 0.5)"
 set notification-bg "#000000"
 set notification-fg "#FFFFFF"
 
@@ -15,6 +18,10 @@ set index-active-bg "rgba(252, 233, 79, 0.5)"
 
 # Set the foreground to something that can be read on highlight-color
 set highlight-fg "#000000"
+
+# TODO: do not work
+# set scrollbar-bg "rgba(25, 25, 25, 0.5)"
+# set scrollbar-fg "#FCE94F"
 
 # Show statusbar and vertical scrollbar
 set guioptions "sv"
@@ -34,10 +41,13 @@ set recolor-keephue true
 set recolor-reverse-video true
 
 # vim-like fold mappings in index
-map [index] zo navigate-index expand
-map [index] zc navigate-index collapse
-map [index] zR navigate-index expand-all
-map [index] zM navigate-index collapse-all
+# map [index] zo navigate_index expand
+# map [index] zc navigate_index collapse
+# map [index] zR navigate_index expand-all
+# map [index] zM navigate_index collapse-all
+
+# TODO: map crtrl-scrollwheel to zoom
+# TODO: respect bookmarksopenlevel
 
 # Recoloring should also work in presentation mode
 map [presentation] i recolor

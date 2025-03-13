@@ -22,7 +22,7 @@ module-margin-right = 2
 
 modules-left = i3 pulseaudio xbacklight battery-custom
 modules-center = datetime
-modules-right = media vpn wlan powermenu tray
+modules-right = media vpn wlan ethernet powermenu tray
 
 font-0 = MesloLGS NF:style=Regular:size=18;4
 ; used for the dots in module/powermenu
@@ -148,14 +148,21 @@ interval = 5
 
 [module/wlan]
 type = internal/network
-interface = wlan0
+interface = wlp5s0
 interval = 3
 
 format-connected = <label-connected>
-label-connected = %{A1:st -t polybar-wlan -e nmtui connect &:} %essid:0:20:...%:%signal%% %{A}
+label-connected = %{A1:st -t polybar-wlan -e nmtui connect &:}%essid:0:20:...%:%signal%%%{A}
 
 format-disconnected = <label-disconnected>
-label-disconnected = %{A1:st -t polybar-wlan -e nmtui connect &:} %ifname% disconnected %{A}
+label-disconnected = %{A1:st -t polybar-wlan -e nmtui connect &:}no %ifname%%{A}
+
+[module/ethernet]
+type = internal/network
+interface = enp42s0
+interval = 3
+
+label-disconnected = no %ifname%
 
 ;#################################################
 

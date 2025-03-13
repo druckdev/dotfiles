@@ -27,6 +27,7 @@ export HISTFILE="$XDG_DATA_HOME"/bash/history
 export LESSHISTFILE=/dev/null
 export SQLITE_HISTORY="$XDG_DATA_HOME"/sqlite3/sqlite_history
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME"/pass
+export CARGO_HOME="$XDG_DATA_HOME"/cargo
 
 VIMINIT="let \$MYVIMRC=\"$XDG_CONFIG_HOME/vim/xdg.vim\" | source \$MYVIMRC"
 export VIMINIT
@@ -54,8 +55,11 @@ fi
 if [[ $GOPATH && -e $GOPATH && ! $PATH =~ $GOPATH/bin ]]; then
 	export PATH="${PATH:+$PATH:}$GOPATH/bin"
 fi
-if [[ -d /usr/bin/vendor_perl/ && ! $PATH =~ /usr/bin/vendor_perl/ ]]; then
+if [[ ! $PATH =~ /usr/bin/vendor_perl/ ]]; then
 	export PATH="${PATH:+$PATH:}/usr/bin/vendor_perl"
+fi
+if [[ ! $PATH =~ $CARGO_HOME/bin ]]; then
+	export PATH="${PATH:+$PATH:}$CARGO_HOME/bin"
 fi
 
 export ZETTELKASTEN_NOTES="$HOME/docs/notes"
@@ -64,8 +68,8 @@ export ZETTELKASTEN_NOTES="$HOME/docs/notes"
 if [[ -d /opt/cuda/bin && ! $PATH =~ /opt/cuda/bin ]]; then
 	export PATH="${PATH:+$PATH:}/opt/cuda/bin"
 fi
-if [[ -d /opt/cuda/nsight_compute && ! $PATH =~ /opt/cuda/nsight_compute ]]; then
-	export PATH="${PATH:+$PATH:}/opt/cuda/nsight_compute"
+if [[ -d /opt/cuda/nsight_compute/bin && ! $PATH =~ /opt/cuda/nsight_compute/bin ]]; then
+	export PATH="${PATH:+$PATH:}/opt/cuda/nsight_compute/bin"
 fi
 if [[ -d /opt/cuda/nsight_systems/bin && ! $PATH =~ /opt/cuda/nsight_systems/bin ]]; then
 	export PATH="${PATH:+$PATH:}/opt/cuda/nsight_systems/bin"
@@ -128,6 +132,7 @@ export LESS
 (( ! $+commands[nvim] )) || \
 	export MANPAGER="nvim '+Man!'"
 
+# TODO: move this into ~/.config/fzf/config and source it
 # NOTE: This is used in keys.zsh for the ALT_C widget
 FZF_DEFAULT_COMMAND_FALLBACK="find -L . -mindepth 1 \("
 	FZF_DEFAULT_COMMAND_FALLBACK+=" -name '.git' -o"
@@ -205,6 +210,9 @@ if (( $+commands[startx] )) && [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]]; then
 	startx
 	exit $?
 fi
+
+# TODO: print bell character '\a' when longer commands completed (so that i3
+# marks this window/workspace as urgent) (e.g. for long running update command)
 
 # Attach to tmux session if connected over ssh and not already attached
 if (( $+commands[tmux] )) &&

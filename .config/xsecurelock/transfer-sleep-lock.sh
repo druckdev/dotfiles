@@ -22,6 +22,7 @@ pre_lock() {
 	playerctl pause
 	"${XDG_CONFIG_HOME:-$HOME/.config}/compositor/launch.sh" -k
 	amixer -q -D pulse sset Master mute
+	# TODO: lock ssh-agent and gpg keys
 	return
 }
 

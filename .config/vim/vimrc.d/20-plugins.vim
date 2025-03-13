@@ -35,9 +35,16 @@ if (exists("g:loaded_tmux_navigator"))
 	let g:tmux_navigator_disable_when_zoomed = 1
 endif
 
+"if (get(g:, 'loaded_fzf'))
+	" function! s:build_location_list(lines)
+	" 	call setloclist(winnr(), map(copy(a:lines), '{ "filename": v:val }')) lopen endfunction
+
+	" let g:fzf_action = { 'ctrl-l': function('s:build_location_list') }
+"endif
+
 if (get(g:, 'loaded_vimwiki'))
 	" Use vertical box drawing character as table separator
-	call vimwiki#vars#set_syntaxlocal('rxTableSep', '│')
+	call vimwiki#vars#set_syntaxlocal('rxTableSep', '|')
 endif
 
 if exists("g:loaded_nrrw_rgn")

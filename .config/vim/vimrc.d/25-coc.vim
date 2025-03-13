@@ -22,7 +22,7 @@ function! CocPumNext(n)
 	if coc#pum#info()['inserted']
 		return coc#pum#next(a:n)
 	else
-		call timer_start(10, { -> coc#pum#select(0,1,0) })
+		call timer_start(50, { -> coc#pum#select(0,1,0) })
 		return "\<Ignore>"
 	endif
 endfunction
@@ -33,7 +33,7 @@ function! CocPumPrev(n)
 	if l:info['inserted']
 		return coc#pum#prev(a:n)
 	else
-		call timer_start(10, { -> coc#pum#select(l:info['size'] - 1,1,0) })
+		call timer_start(50, { -> coc#pum#select(l:info['size'] - 1,1,0) })
 		return "\<Ignore>"
 	endif
 endfunction
@@ -63,7 +63,7 @@ endif
 
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u starts a new undo break, please make your own choice.
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics

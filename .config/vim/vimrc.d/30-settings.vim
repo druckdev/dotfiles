@@ -104,8 +104,16 @@ set virtualedit+=block
 set lazyredraw
 " Visual selection does not include the line break
 set selection=old
+" More space for messages
+set cmdheight=2
 " Only one global status line
 set laststatus=3
+" Simulate vim's default status line but add file type (i.e. %y).
+" set statusline=%f\ %y%h%w%m%r%=%l,%c%V\ %P
+
+" if &columns > 90
+" 	set columns=90
+" endif
 " Wrap lines at chars in 'breakat' rather than at last character.
 set linebreak
 " Wrapped lines should have the same amount of indentation

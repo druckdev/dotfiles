@@ -67,9 +67,13 @@ bindkey "$terminfo[kbs]" backward-delete-char    # backspace
 bindkey "$terminfo[kdch1]" delete-char           # delete
 bindkey '^[[127;5u' backward-kill-word           # ctrl-backspace
 bindkey '^W' backward-kill-word                  # ctrl-W
+bindkey '^[[127;6u' backward-kill-word           # ctrl-shift-backspace
 bindkey '^[[1;5D' vi-backward-word               # ctrl-left
 bindkey '^[[1;5C' vi-forward-word                # ctrl-right
 bindkey '^[[3;5~' kill-word                      # ctrl-delete
+bindkey '^[[1;6D' vi-backward-blank-word         # ctrl-left
+bindkey '^[[1;6C' vi-forward-blank-word          # ctrl-right
+bindkey '^[[3;5~' vi-kill-word                   # ctrl-delete
 bindkey '^Q' push-input                          # ctrl-Q
 
 # cd-{rotate,backward,forward} and redraw-prompt are partially modified copies
@@ -175,6 +179,8 @@ function rationalize_dots {
 }
 zle -N rationalize_dots
 bindkey . rationalize_dots
+
+# TODO: keybinding that opens the README if any
 
 # Keep the normal dot self-insert on Ctrl-. (e.g. for typing `../.local`)
 function default_dot { LBUFFER+=. }

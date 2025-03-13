@@ -102,6 +102,7 @@ bindsym $mod+Tab exec i3-msg workspace "$( \
 	jq -r '.[] | select(.focused).name')"
 
 # Switch visible workspaces (e.g. multi monitor setup)
+# TODO: switch not focus but the workspaces themself
 bindsym $mod+Shift+Tab exec i3-msg workspace "$( \
 	i3-msg -t get_workspaces | \
 	jq -r '.[] | select(.visible and (.focused | not)).name' | \
@@ -143,7 +144,7 @@ bindsym $mod+Shift+e exec \
 		-b 'Yes' \
 		'i3-msg exit'
 
-# resize window (you can also use the mouse for that)
+# resize windows (you can also use the mouse for that)
 mode "resize" {
 	bindsym h resize grow left
 	bindsym j resize grow down
@@ -155,7 +156,8 @@ mode "resize" {
 	bindsym Shift+k resize shrink down
 	bindsym Shift+l resize shrink left
 
-	# Set window size to predefined values
+	# TODO: creating a split window should leave fullscreen mode
+
 	# firefox anti fingerprinting
 	bindsym p resize set 1920 1080
 	# scratchpad-terminal default size
@@ -165,16 +167,59 @@ mode "resize" {
 	# "reader" - terminal with vim without line numbers fitting 80 characters
 	bindsym r resize set 1170
 
-	# Move window to center
-	bindsym c move position center
-
 	# back to normal: Enter or Escape
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 	bindsym $mod+r mode "default"
 }
 
+# reposition windows
+mode "position" {
+	bindsym h move left
+	bindsym j move down
+	bindsym k move up
+	bindsym l move right
+
+	bindsym 1 move container to workspace $ws1
+	bindsym 2 move container to workspace $ws2
+	bindsym 3 move container to workspace $ws3
+	bindsym 4 move container to workspace $ws4
+	bindsym 5 move container to workspace $ws5
+	bindsym 6 move container to workspace $ws6
+	bindsym 7 move container to workspace $ws7
+	bindsym 8 move container to workspace $ws8
+	bindsym 9 move container to workspace $ws9
+	bindsym 0 move container to workspace $ws0
+
+	# Move window to center
+	bindsym c move position center
+
+	# Move to other workspace
+	bindsym n move container to workspace next
+	bindsym p move container to workspace prev
+
+	# Move to other output
+	bindsym Tab move container to output next
+	bindsym Shift+Tab move workspace to output next
+
+	# back to normal: Enter or Escape
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+p mode "default"
+}
+
+mode "mode_select" {
+	bindsym r mode "resize"
+	bindsym p mode "position"
+
+	# back to normal: Enter or Escape
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
+# TODO: find new mapping for fzf-monitor-setup
 bindsym $mod+r mode "resize"
+bindsym $mod+m mode "mode_select"
 
 # Brightness controls (/etc/X11/xorg.conf necessary)
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5
@@ -238,6 +283,8 @@ bindsym $mod+Shift+b exec \
 	i3-msg '[class="^Bitwarden$"] scratchpad show' \
 	|| bitwarden-desktop
 
+# TODO: put in middle, not hardcoded. write script that can calculate different
+#       percentages through parsing xrandr
 for_window [class="^$TERMINAL-256color$" title="^polybar-datetime-calendar$"] \
 	floating enable,    \
 	border pixel 3,     \
@@ -253,6 +300,7 @@ for_window [class="^$TERMINAL-256color$" title="^polybar-wlan$"] \
 bindsym $mod+c exec ~/.config/polybar/scripts/calendar.sh -t &
 
 # screenshots
+# TODO: Use ~/.config/i3/check-and-exec.sh
 bindsym --release Print exec cd ~/media/pics/screens/ && scrot
 bindsym --release Shift+Print exec cd ~/media/pics/screens/ && scrot -s -f
 
@@ -265,7 +313,7 @@ for_window [class="^$TERMINAL-256color$" title="^fzf-monitor-setup$"] \
 	border pixel 3,     \
 	resize set 378 300, \
 	move position 1 32
-bindsym $mod+m exec \
-	pkill -f fzf-monitor-setup -O 1 \
-	|| $TERMINAL -t fzf-monitor-setup -e \
-		sh -c "~/.local/bin/monitor-setup && ~/.config/polybar/launch.sh"
+# bindsym $mod+m exec \
+# 	pkill -f fzf-monitor-setup -O 1 \
+# 	|| $TERMINAL -t fzf-monitor-setup -e \
+# 		sh -c "~/.local/bin/monitor-setup && ~/.config/polybar/launch.sh"
