@@ -14,7 +14,7 @@ command_prompt() {
 }
 
 mode="$(get_var pane_mode)"
-if [ "$mode" != copy-mode ]; then
+if [ "$mode" != copy-mode ] && [ "$mode" != view-mode ]; then
 	>&2 printf "%s: Not in copy mode\n" "$0"
 	exit 1
 fi
