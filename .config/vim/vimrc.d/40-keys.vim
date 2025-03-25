@@ -125,6 +125,7 @@ vmap <leader>* :<C-U>let @/ = "\\V<C-R>=escape(escape(GetVisualSelection(), '\')
 nmap <leader>g* :let @/ = expand('<cword>') <bar>
              \  set hlsearch <bar>
              \  Rg <C-R>=expand('<cword>')<CR><CR>
+vmap <leader>g* <leader>*
 
 " Search inside visual selection
 noremap <leader>v/ /\%V
