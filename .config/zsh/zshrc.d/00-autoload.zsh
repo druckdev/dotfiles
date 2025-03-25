@@ -9,6 +9,8 @@ autoload -Uz run-help run-help-git zmv
 
 # Load autoloadable functions
 if [[ -d "$ZDOTDIR/autoload" ]]; then
+	local d
+
 	# Include all wrapper scripts if their wrapped command exists
 	for d in "$ZDOTDIR/autoload/"**/wrapper(/N); do
 		fpath=("$d" $fpath)
