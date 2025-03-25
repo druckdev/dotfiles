@@ -107,6 +107,8 @@
 	submodulesummary = true
 [submodule]
 	fetchJobs = 0
+[trailer]
+	where = end
 [user]
 	email = julian@druck.dev
 	name = Julian Prein
