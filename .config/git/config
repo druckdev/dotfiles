@@ -53,9 +53,9 @@
 	verbose = true
 [core]
 	abbrev = 12
-	pager = delta
-	# pager = diff-so-fancy \
-	#         | less --tabs=8 --RAW-CONTROL-CHARS --quit-if-one-screen
+	#pager = delta
+	pager = diff-so-fancy \
+	        | less --tabs=8 --RAW-CONTROL-CHARS --quit-if-one-screen
 [delta]
 	navigate = true
 	commit-decoration-style = bold yellow box
@@ -83,7 +83,7 @@
 [init]
 	defaultBranch = main
 [interactive]
-	diffFilter = delta --color-only
+	#diffFilter = delta --color-only
 	# Might need a `sudo cpan Term::ReadKey`
 	singleKey = true
 [log]
