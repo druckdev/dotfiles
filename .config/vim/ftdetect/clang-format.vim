@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufRead .clang-format set filetype=yaml.clang-format
+autocmd BufNewFile,BufRead *clang-format set filetype=yaml.clang-format
