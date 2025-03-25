@@ -192,8 +192,8 @@ function cmd-on-enter {
 		local idx=$cmd_on_enter_idx
 		idx=$((idx < $#CMDS_ON_ENTER ? idx + 1 : 1))
 		until
-			$REQUIREMENTS_CMDS_ON_ENTER[$idx] &>/dev/null \
-			|| [[ $idx = $cmd_on_enter_idx ]]
+			[[ $idx = $cmd_on_enter_idx ]] \
+			|| $REQUIREMENTS_CMDS_ON_ENTER[$idx] &>/dev/null
 		do
 			idx=$((idx < $#CMDS_ON_ENTER ? idx + 1 : 1))
 		done
