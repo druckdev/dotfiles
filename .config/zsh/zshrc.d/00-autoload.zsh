@@ -10,17 +10,16 @@ autoload -Uz run-help run-help-git zmv
 # Load autoloadable functions
 if [[ -d "$ZDOTDIR/autoload" ]]; then
 	# Include all wrapper scripts if their wrapped command exists
-	d="$ZDOTDIR/autoload/wrapper"
-	if [[ -d "$d" ]]; then
+	for d in "$ZDOTDIR/autoload/"**/wrapper(/N); do
 		fpath=("$d" $fpath)
 		for f in "$d"/[^_.]*(.xN:t); do
 			(( $+commands[$f] )) || continue
 			autoload -Uz -- "$f"
 		done
-	fi
+	done
 
 	# Include all other subdirectories
-	for d in "$ZDOTDIR/autoload/"*(/N); do
+	for d in "$ZDOTDIR/autoload/"**(/N); do
 		# EXTENDED_GLOB is not yet set, so we have to exclude manually
 		[[ ${d:t} != wrapper ]] || continue
 
