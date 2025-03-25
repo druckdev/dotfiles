@@ -1,6 +1,11 @@
 " Primarly taken from:
 " https://github.com/neoclide/coc.nvim/tree/v0.0.82#example-vim-configuration
 
+" Abort if CoC is not loaded
+if !exists('g:did_coc_loaded')
+	finish
+endif
+
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
