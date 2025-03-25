@@ -181,14 +181,14 @@ function default_dot { LBUFFER+=. }
 zle -N default_dot
 bindkey '^[[46;5u' default_dot
 
-CMDS_ON_ENTER=(ll gs)
-REQUIREMENTS_CMDS_ON_ENTER=(true "git rev-parse")
+CMDS_ON_ENTER=(ll) # gs)
+REQUIREMENTS_CMDS_ON_ENTER=(true) # "git rev-parse")
 function cmd-on-enter {
 	if [[ -z "${PREBUFFER}${BUFFER}" ]]; then
-		# Overwrite BUFFER and default to ll
+		# Overwrite BUFFER and default to first option
 		BUFFER=" ${CMDS_ON_ENTER[${cmd_on_enter_idx:=1}]}"
 
-		# Cycle through ll and git status
+		# Cycle through options
 		local idx=$cmd_on_enter_idx
 		idx=$((idx < $#CMDS_ON_ENTER ? idx + 1 : 1))
 		until
