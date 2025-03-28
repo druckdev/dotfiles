@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2020 - 2025 Julian Prein
+
 autoload -U select-word-style && select-word-style bash
 
 autoload edit-command-line; zle -N edit-command-line

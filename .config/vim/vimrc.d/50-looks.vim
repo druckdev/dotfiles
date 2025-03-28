@@ -1,3 +1,6 @@
+" SPDX-License-Identifier: MIT
+" Copyright (c) 2020 - 2024 Julian Prein
+
 " Looks """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Use 24-bit (true-color) mode

@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
-
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2022 - 2025 Julian Prein
+#
 # Create a temporary worktree.
 #
 # Useful for doing quick tasks on other branches without modifying the current

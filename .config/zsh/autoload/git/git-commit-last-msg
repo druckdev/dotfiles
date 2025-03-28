@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
-
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2022 - 2024 Julian Prein
+#
 # Commit, but put the last written commit message into the editor buffer. For
 # this it uses .git/COMMIT_EDITMSG but deletes all commented lines and
 # everything from the cut line on (i.e. `-- >8 --`). All arguments are passed to

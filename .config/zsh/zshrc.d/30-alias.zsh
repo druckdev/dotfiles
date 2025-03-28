@@ -1,5 +1,5 @@
-## Author:  druckdev
-## Created: 2019-01-16
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2019 - 2025 Julian Prein
 
 # Create aliases for coreutils versions of commands under OSX.
 # NOTE: This should come before any other alias definitions of these commands as

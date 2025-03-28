@@ -1,5 +1,5 @@
-## Author:  druckdev
-## Created: 2019-04-17
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2019 - 2025 Julian Prein
 
 # Vim bindings
 bindkey -v

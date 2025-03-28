@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2022 - 2023 Julian Prein
 # Get the current working directories of all running SHELLs.
 
 # The `pgrep` line can be replaced with following code block (resulting in two

@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2020 - 2024 Julian Prein
 
 sysresources=/etc/X11/xinit/.Xresources
 userresources="${XDG_CONFIG_HOME:-$HOME/.config}"/X11/xresources

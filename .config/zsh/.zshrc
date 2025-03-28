@@ -1,5 +1,5 @@
-## Author:  druckdev
-## Created: 2018-11-23
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2018 - 2024 Julian Prein
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top.
 # Initialization code that may require console input (password prompts, [y/n]

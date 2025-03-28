@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2021 - 2022 Julian Prein
 #
 # monitor setup script using xrandr and fzf to manage multiple monitors and/or
 # set resolutions and refresh rates.

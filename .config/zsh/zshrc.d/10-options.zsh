@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2020 - 2024 Julian Prein
+
 # Vim macro that pulls the description from zshoptions(1) for the next option:
 # `/setopt:s/\m \(NO_\)\?\([^ ]*\)/ \2/^wyEu:vert Man zshoptions/\m^ \+"j^y$ho# pddkPgqqj`
 # Load for example into `q` by: `"qyi``

@@ -1,3 +1,6 @@
+" SPDX-License-Identifier: MIT
+" Copyright (c) 2023 - 2024 Julian Prein
+
 " Disable C-indentation as it messes up formatting of paragraphs containing
 " parentheses
 setlocal nocindent

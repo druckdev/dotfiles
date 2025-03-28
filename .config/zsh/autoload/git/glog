@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
-## Author:  druckdev
-## Created: 2020-08-28
-##
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2020 - 2025 Julian Prein
+
 ## A TUI for git-log using fzf.
 ## Displays git-log in fzf and git-show as preview command for each commit.
 

@@ -1,5 +1,5 @@
-## Author:  druckdev
-## Created: 2021-07-21
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2021 - 2024 Julian Prein
 
 # Children of HOME
 # for dir in "$HOME"/[^.]*(/); do

@@ -1,3 +1,6 @@
+" SPDX-License-Identifier: MIT
+" Copyright (c) 2020 - 2025 Julian Prein
+
 " vim: set foldmethod=marker:
 " Keybindings """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Clear search result highlights when pressing Escape in normal mode

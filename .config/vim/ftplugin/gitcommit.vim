@@ -1,3 +1,6 @@
+" SPDX-License-Identifier: MIT
+" Copyright (c) 2020 - 2024 Julian Prein
+
 " Shorter lines. Subject should be max 50 and body max 72
 setlocal colorcolumn+=51
 setlocal textwidth=72

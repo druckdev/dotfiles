@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
-## Author:  druckdev
-## Created: 2019-10-21
-##
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2019 - 2022 Julian Prein
+
 ## An ls wrapper that adds the -A flag (show hidden files except . and ..) when
 ## there are no visible files or the directory matches the pattern (POSIX ERE)
 ## defined in $LS_SHOW_ALL_DIRS.

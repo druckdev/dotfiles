@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2020 - 2022 Julian Prein
+
 HISTSIZE=999999999
 SAVEHIST="$HISTSIZE"
 

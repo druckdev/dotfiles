@@ -1,4 +1,6 @@
 #!/usr/bin/env zsh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2022 Julian Prein
 
 # Create a new zettel in the zettelkasten
 # Expects $ZETTELKASTEN_NOTES to be set to the root of the zettelkasten

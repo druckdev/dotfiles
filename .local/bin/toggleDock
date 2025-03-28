@@ -1,8 +1,7 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2019 Julian Prein
 
-## Author:  druckdev
-## Created: 2019
-##
 ## A small script that toggles the dock in GNOME.
 
 SCHEMA="org.gnome.shell.extensions.dash-to-dock"

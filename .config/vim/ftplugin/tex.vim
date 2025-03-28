@@ -1,3 +1,6 @@
+" SPDX-License-Identifier: MIT
+" Copyright (c) 2020 - 2023 Julian Prein
+
 " Turn on line-wrapping
 setlocal wrap
 " Disable C-indentation as it messes up formatting of paragraphs containing

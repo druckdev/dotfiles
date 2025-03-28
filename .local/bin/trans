@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2022 - 2023 Julian Prein
 
 # Translate given text passed via stdin with the help of DeepL. Expects the API
 # token to be passed through the environment variable $DEEPL_API_TOKEN.

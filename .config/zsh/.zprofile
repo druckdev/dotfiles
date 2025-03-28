@@ -1,4 +1,5 @@
-# vim: ft=zsh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2020 - 2025 Julian Prein
 
 # Less clutter in $HOME by enforcing the XDG Base Directory specification.
 : ${XDG_STATE_HOME:=$HOME/.local/state}
@@ -210,3 +211,5 @@ then
 fi
 # NOTE: nothing should be placed behind this except for stuff that is sure that
 #       `tmux` was not called
+
+# vim: ft=zsh

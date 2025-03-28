@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
-## Author:  druckdev
-## Created: 2021-05-14
-##
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2021 - 2022 Julian Prein
+
 ## A TUI for git-stash using fzf.
 ## Displays git-stash list and git-show as preview command for each stash.
 
