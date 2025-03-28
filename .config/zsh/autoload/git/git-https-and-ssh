@@ -1,5 +1,7 @@
 #!/bin/sh
-
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2022 - 2025 Julian Prein
+#
 # Sets up given remote (or origin) so that it fetches over https but pushes over
 # ssh. This way unlocking the ssh key is only needed when really necessary.
 

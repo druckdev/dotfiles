@@ -1,3 +1,6 @@
+" SPDX-License-Identifier: MIT
+" Copyright (c) 2020 - 2025 Julian Prein
+
 " Primarly taken from:
 " https://github.com/neoclide/coc.nvim/tree/v0.0.82#example-vim-configuration
 

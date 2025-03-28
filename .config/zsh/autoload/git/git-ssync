@@ -1,4 +1,6 @@
 #!/usr/bin/env zsh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2022 - 2025 Julian Prein
 
 emulate -L zsh -o err_return
 

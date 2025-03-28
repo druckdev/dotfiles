@@ -1,3 +1,6 @@
+" SPDX-License-Identifier: MIT
+" Copyright (c) 2020 - 2024 Julian Prein
+
 " Autocommands """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Bitfield for highlight_current augroup

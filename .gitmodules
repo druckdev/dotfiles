@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2020 - 2025 Julian Prein
+
 # vim: foldmethod=expr
 # See the foldexpr in ftplugin/gitconfig.vim as well as vim-sort-folds
 

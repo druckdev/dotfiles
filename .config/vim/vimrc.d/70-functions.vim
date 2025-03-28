@@ -1,3 +1,6 @@
+" SPDX-License-Identifier: MIT
+" Copyright (c) 2020 - 2024 Julian Prein
+
 " Functions """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Check time every second to read file changes.

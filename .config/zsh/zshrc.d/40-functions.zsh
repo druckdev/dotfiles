@@ -1,5 +1,5 @@
-## Author:  druckdev
-## Created: 2019-08-28
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2019 - 2025 Julian Prein
 
 # Compares two pdfs based on the result of pdftotext
 pdfdiff() {

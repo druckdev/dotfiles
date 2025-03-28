@@ -1,4 +1,5 @@
-" vim: set ft=vim.fzf:
+" SPDX-License-Identifier: MIT
+" Copyright (c) 2024 - 2025 Julian Prein
 
 " Do not highlight Unicode chars used by the fzf TUI. For this ignore the:
 "
@@ -20,3 +21,5 @@ let w:ignore_non_ascii_chars =
 
 " Update after changes
 call HighlightNonASCIIChars()
+
+" vim: set ft=vim.fzf:

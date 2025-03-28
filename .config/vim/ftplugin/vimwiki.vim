@@ -1,3 +1,6 @@
+" SPDX-License-Identifier: MIT
+" Copyright (c) 2023 - 2024 Julian Prein
+
 " Don't highlight Unicode table separator (e.g. vertical box drawing character).
 " See vimrc.d/looks.vim for w:ignore_non_ascii_chars
 if vimwiki#vars#get_syntaxlocal('rxTableSep') !~ '[\d0-\d127]'

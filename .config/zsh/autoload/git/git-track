@@ -1,4 +1,6 @@
 #!/usr/bin/env zsh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2022 Julian Prein
 
 git for-each-ref --format='%(upstream),%(refname)' refs/heads refs/remotes \
 	| sort -d \

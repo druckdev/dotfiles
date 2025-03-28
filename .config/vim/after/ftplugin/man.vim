@@ -1,3 +1,6 @@
+" SPDX-License-Identifier: MIT
+" Copyright (c) 2020 - 2025 Julian Prein
+
 " NOTE: The global man ftplugin enables wrapping which I want off (see below),
 "       which is why this needs to be in after/.
 

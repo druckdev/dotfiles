@@ -1,3 +1,6 @@
+" SPDX-License-Identifier: MIT
+" Copyright (c) 2020 - 2023 Julian Prein
+
 " Use 4 spaces for indentation
 setlocal tabstop=4
 setlocal shiftwidth=0

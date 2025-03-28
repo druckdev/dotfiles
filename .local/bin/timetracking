@@ -1,4 +1,6 @@
 #!/bin/bash
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2022 - 2024 Julian Prein
 
 EARLIEST_MOD_WEEK="$(date "+%V" --date="14 days ago")"
 EARLIEST_MOD_WEEK="${EARLIEST_MOD_WEEK#0}"

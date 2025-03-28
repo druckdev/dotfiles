@@ -1,8 +1,7 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2020 - 2022 Julian Prein
 
-## Author:  druckdev
-## Created: 2020-06-05
-##
 ## A script that modifies Zoom links for the use in browsers, opens it then in a
 ## private chromium window and puts the password into the clipboard. If no
 ## argument is given the link is taken out of the clipboard.

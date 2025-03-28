@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
-## Author:  druckdev
-## Created: 2021-05-15
-##
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2021 - 2022 Julian Prein
+
 ## A TUI for displaying branches using fzf.
 ## Displays `git branch -a` in fzf and git-log as preview for each branch.
 

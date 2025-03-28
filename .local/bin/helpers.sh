@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2022 - 2024 Julian Prein
 #
 # A collection of useful shell functions. This file should be sourced, rather
 # than executed.
