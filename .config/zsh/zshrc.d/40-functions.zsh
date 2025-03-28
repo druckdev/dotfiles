@@ -738,8 +738,8 @@ rmdir() {
 	# Make sure that std{out,err} are associated with a tty and that no
 	# arguments were passed that start with a dash
 	if [[ -t 1 && -t 2 ]] && (( ! $# || ! ${@[(I)-*]} )); then
-		# Only print files and empty directories
-		command bfs "$@" -type f -o -type d -empty
+		# Exclude non-empty directories
+		command bfs "$@" -type d -not -empty -o -print
 	else
 		command bfs "$@"
 	fi
@@ -754,9 +754,8 @@ rmdir() {
 	# Make sure that std{out,err} are associated with a tty and that no
 	# arguments were passed that start with a dash
 	if [[ -t 1 && -t 2 ]] && (( ! $# || ! ${@[(I)-*]} )); then
-		# Only print files and empty directories (and mark these with a
-		# trailing slash)
-		command find "$@" -type f -print -o -type d -empty -printf "%p/\n"
+		# Exclude non-empty directories and mark empty ones with a slash
+		command find "$@" -type d \( -not -empty -o -printf "%p/\n" \) -o -print
 	else
 		command find "$@"
 	fi
