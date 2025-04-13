@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2020 - 2022 Julian Prein
+
 # See https://github.com/polybar/polybar-scripts/pull/237
 
 bluetooth_print() {

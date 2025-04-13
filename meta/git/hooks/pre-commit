@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2020 - 2022 Julian Prein
 #
 # A hook script to verify what is about to be committed.
 # Called by "git commit" with no arguments. The hook should exit with non-zero

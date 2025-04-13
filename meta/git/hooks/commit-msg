@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2020 - 2024 Julian Prein
 #
 # A hook script to check the commit log message.
 # Called by "git commit" with one argument, the name of the file that has the

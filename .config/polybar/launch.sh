@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2020 - 2024 Julian Prein
 
 XDG_CONF="${XDG_CONFIG_HOME:-$HOME/.config}"
 BASE_DIR="$XDG_CONF/polybar"
