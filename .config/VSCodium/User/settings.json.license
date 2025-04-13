@@ -1,5 +1,2 @@
-#!/usr/bin/env bash
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2020 - 2021 Julian Prein
-
-echo $(curl -s https://ipinfo.io/ip)

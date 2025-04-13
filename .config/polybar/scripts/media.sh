@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2020 - 2022 Julian Prein
 
 command -v playerctl >/dev/null 2>&1 || exit 1
 

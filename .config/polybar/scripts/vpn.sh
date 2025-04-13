@@ -1,4 +1,6 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2020 - 2023 Julian Prein
 
 connection="$(nmcli con show --active | awk '$3 ~ /^(vpn|tun|wireguard)$/ { print $1 }')"
 if [ -n "$connection" ]; then

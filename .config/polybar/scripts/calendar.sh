@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2020 - 2021 Julian Prein
 
 # The separation and recursion is sadly necessary since reload is apparently
 # executed in a subshell and thus using an environment variable does not work

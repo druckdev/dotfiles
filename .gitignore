@@ -16,9 +16,11 @@
 # Ignore installation backups
 /existing-*.tar.gz
 
-# Ignore all VSCodium files but the settings.json
+# Ignore all VSCodium files but {settings,keybindings}.json and their .license
+# file
 /.config/VSCodium
-!/.config/VSCodium/User/settings.json
+!/.config/VSCodium/User/settings.json*
+!/.config/VSCodium/User/keybindings.json*
 
 # Ignore private git config
 /.config/git/user.config

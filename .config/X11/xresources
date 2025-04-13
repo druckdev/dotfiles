@@ -1,6 +1,9 @@
-! vim: ft=xdefaults
+! SPDX-License-Identifier: MIT
+! Copyright (c) 2020 Julian Prein
 
 Xft.dpi: 150
 rofi.font: MesloLGS NF 24
 *.font: MesloLGS NF:style=Regular:pixelsize=24:antialias=true:autohint=true
 *.alpha: 0.77
+
+! vim: ft=xdefaults

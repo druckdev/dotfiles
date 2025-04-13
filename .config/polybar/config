@@ -1,4 +1,7 @@
-; vi: ft=dosini
+; SPDX-License-Identifier: MIT
+; Copyright (c) 2020 - 2024 Julian Prein
+; TODO: I started off another config (but modified it heavily) - how was that
+;       config licensed?
 
 [colors]
 background = #7F101010
@@ -173,3 +176,5 @@ format = ${env:POLYBAR_POWERMENU}
 
 [module/tray]
 type = internal/tray
+
+; vi: ft=dosini
