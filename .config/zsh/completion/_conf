@@ -3,6 +3,8 @@
 ## Author:  druckdev
 ## Created: 2020-04-19
 
+emulate -L zsh -o EXTENDED_GLOB -o NO_PUSHD_IGNORE_DUPS -o GLOB_DOTS
+
 local _MAX_DEPTH=2
 
 local w1="${words[$#words - 1]}"
@@ -11,6 +13,8 @@ local w3="${words[$#words - 3]}"
 
 if [ -z $w2 ]; then # first word to complete
     # move into config directory
+    # NOTE: requires NO_PUSHD_IGNORE_DUPS in case we're already in the directory
+    #       (should be off by default already)
     pushd -q "${XDG_CONFIG_HOME:-$HOME/.config}/"
     # list all directories
     local paths="$(find -L *(-/) -maxdepth $_MAX_DEPTH -type d 2>/dev/null | xargs)"
@@ -20,6 +24,7 @@ if [ -z $w2 ]; then # first word to complete
     # move into HOME
     pushd -q "$HOME"
 	# list all directories starting with a dot (but remove that dot)
+    # NOTE: requires EXTENDED_GLOB
     paths+="$(find -L .*~.cache(-/) -maxdepth $_MAX_DEPTH -type d 2>/dev/null | sed 's/^\.//' | xargs)"
 	# move back from HOME
     popd -q
@@ -33,10 +38,13 @@ elif [ -z $w3 ]; then # second word to complete
         pushd -q "${XDG_CONFIG_HOME:-$HOME/.config}/$w1"
     elif [ -d "$HOME/.$w1" ]; then
         pushd -q "$HOME/.$w1"
+    else
+        return
     fi
 
     # check if there are any files here
     # eval "local $(echo $functions[conf] | grep CONF_PATTERNS= | sed -E 's/\$(\{?)1(\}?)/\$\1w1\2/g; s/^[ \t]*//')"
+    # NOTE: requires GLOB_DOTS
     local exist=( *(-.) ) 2>/dev/null
 
     # complete (symlinks pointing to) files
