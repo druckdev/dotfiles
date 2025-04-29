@@ -45,7 +45,7 @@ elif [ -z $w3 ]; then # second word to complete
     # check if there are any files here
     # eval "local $(echo $functions[conf] | grep CONF_PATTERNS= | sed -E 's/\$(\{?)1(\}?)/\$\1w1\2/g; s/^[ \t]*//')"
     # NOTE: requires GLOB_DOTS
-    local exist=( *(-.) ) 2>/dev/null
+    local exist=( *(-.N) ) 2>/dev/null
 
     # complete (symlinks pointing to) files
     [ -z "$exist" ] || _values "config:" *(-.)
