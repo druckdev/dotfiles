@@ -41,8 +41,13 @@ if (get(g:, 'loaded_fzf'))
 	" Use a theme for bat in the preview that somewhat resembles onedark
 	let $BAT_THEME='TwoDark'
 
-	" Increase size of fzf window
-	let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.9 } }
+	" Increase size of fzf window and make it span over full window when in
+	" tmux
+	if exists('$TMUX')
+		let g:fzf_layout = { 'tmux': '95%,90%' }
+	else
+		let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.9 }}
+	endif
 endif
 
 " Highlight trailing whitespaces
