@@ -97,7 +97,7 @@ function! s:_highlight_cword(timer_id)
 		let w:cword_match_id = matchadd(
 			\ 'CursorColumn',
 			\ '\V\<' . escape(l:cword, '/\') . '\>',
-			\ -1)
+			\ -10)
 	endif
 endfunction
 
@@ -163,7 +163,7 @@ function! s:_highlight_selection(timer)
 			\ matchadd(
 				\ 'CursorColumn',
 				\ '\V\%V\@!' . substitute(escape(@", '\'), '\n', '\\n', 'g'),
-				\ -1,
+				\ -10,
 				\ -1,
 				\ {'window': l:win})
 	endfor

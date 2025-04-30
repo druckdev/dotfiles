@@ -119,6 +119,7 @@ vmap * /\V<C-R>=escape(GetVisualSelection(),'/\')<CR><CR>
 vmap # ?\V<C-R>=escape(GetVisualSelection(),'?\')<CR><CR>
 
 " Extended `*`. Starts vim search (without jump) and ripgrep
+" TODO: Rg executes `gv`?
 nmap <leader>* :let @/ = '\<' . expand('<cword>') . '\>' <bar>
              \  set hlsearch <bar>
              \  Rg \b<C-R>=expand('<cword>')<CR>\b<CR>
@@ -139,6 +140,9 @@ vmap <leader>/ <Esc><leader>v/
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " Git bindings
+
+" TODO: <leader>gh[ to jump between **all** hunks across all modified files.
+"       (similar to `add -p`)
 
 " Reference the commit that the cursor is currently on with the 'reference'
 " format (Mnemonic: "git reference commit").
@@ -335,6 +339,14 @@ endfunction
 " `noremap ][ ]]`.
 call s:mapcpy("][", "]]", expand("<sflnum>"))
 noremap ]] ][
+
+omap if [[]]
+omap af if
+
+" make a pattern case {,in}sensitive
+" TODO: Use Ctrl-leader
+cnoremap <C-G>U \C
+cnoremap <C-G>u \c
 
 " Strip trailing whitespace
 nnoremap <leader><space> <Cmd>keepp silent! %s/\v\s+$//<CR>

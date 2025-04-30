@@ -126,6 +126,8 @@ local -A binds=(
 	"ctrl-alt-p" "change-preview($fzf_preview[patch])"
 	# Files only
 	"ctrl-alt-f" "change-preview($fzf_preview[files_only])"
+	# Toggle sticky header
+	"ctrl-t" "toggle-header"
 	# For ctrl-space see below
 )
 
@@ -184,7 +186,7 @@ fi
 # terminal.
 if [ -t 1 ]; then
 	git log "$formatshort" "$dateshort" --color=always "$@" \
-	| env LESS="$LESS${LESS:+ }-+F" fzf "${fzf_args[@]}"
+	| env LESS="$LESS${LESS:+ }-+F" fzf "${fzf_args[@]}" --tiebreak=chunk
 else
 	git log "$formatshort" "$dateshort" --color=always "$@"
 fi

@@ -197,7 +197,7 @@ bindsym XF86AudioMute exec --no-startup-id \
 	amixer -q -D pulse sset Master toggle-mute
 
 # Lock
-bindsym $mod+mod1+l exec xset s activate
+bindsym $mod+Control+l exec xset s activate
 # Start powermenu
 bindsym $mod+p exec ~/.config/rofi/powermenu.sh &
 
