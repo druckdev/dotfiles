@@ -8,6 +8,10 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 	source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+[[ ! -e ~/.local/share/zsh/zsh_history.bkp ]] ||
+	! diff ~/.local/share/zsh/zsh_history{.bkp,} | grep -q '^<' ||
+	echo History outdated!
+
 # https://github.com/romkatv/dotfiles-public/blob/7e49fc4fb71d/.zshrc#L35
 comp-conf() {
 	emulate -L zsh
