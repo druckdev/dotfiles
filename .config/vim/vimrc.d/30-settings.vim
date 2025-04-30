@@ -79,7 +79,7 @@ endif
 set list
 " Display tabs and trailing space characters as well an indicator for long lines
 " when not wrapping
-set listchars=tab:>·,trail:·,extends:>
+set listchars=tab:>·,trail:•,extends:>
 " Wrap lines
 set wrap
 " Keep current line away from top/bottom borders of the buffer when scrolling
