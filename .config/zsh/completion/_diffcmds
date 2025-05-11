@@ -1,0 +1,14 @@
+#compdef diffcmds
+
+# Very much simplified version of _sudo
+
+local -a args
+
+# TODO: complete behind `--` whatever would have been completed at the position
+# of `%%`
+args+=(
+	"(-)1: :{ _command_names -e }"
+	"*:: :{ _normal }"
+)
+
+_arguments $args
