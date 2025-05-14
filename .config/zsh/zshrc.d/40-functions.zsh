@@ -90,6 +90,10 @@ conf() {
 		printf "\033[1;31mPlease specify a config.\n\033[0m" >&2
 		return 1
 	fi
+
+	# remove trailing slashes
+	1="${(*)1%%/#}"
+
 	# search for program name in XDG_CONFIG_HOME and $HOME
 	local CONF_DIR="$(_get_config_dir "$1")"
 	if (( $? )); then
