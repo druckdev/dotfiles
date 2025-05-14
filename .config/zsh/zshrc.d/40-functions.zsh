@@ -95,8 +95,8 @@ conf() {
 	1="${(*)1%%/#}"
 
 	# search for program name in XDG_CONFIG_HOME and $HOME
-	local CONF_DIR="$(_get_config_dir "$1")"
-	if (( $? )); then
+	local CONF_DIR
+	if ! CONF_DIR="$(_get_config_dir "$1")"; then
 		printf "\033[1;31mFalling back to $HOME.\n\033[0m" >&2
 		CONF_DIR="$HOME"
 	fi
