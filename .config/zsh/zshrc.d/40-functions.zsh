@@ -123,6 +123,11 @@ conf() {
 
 	# check if config file exists
 	for config in $CONF_PATTERNS; do
+		# when looking in HOME, skip entries of CONF_PATTERNS, if they
+		# do not start with the given program name (i.e. they are
+		# generic)
+		[[ $CONF_DIR != $HOME || ${config#$1} != $config ]] || continue
+
 		if [[ -e "$CONF_DIR/$config" ]]; then
 			$CONF_EDITOR "$CONF_DIR/$config"
 			return 0
@@ -136,6 +141,10 @@ conf() {
 	# (For cases like default vim with ~/.vim/ and ~/.vimrc)
 	if [[ "$CONF_DIR" != "$HOME" ]];then
 		for config in $CONF_PATTERNS; do
+			# skip entries of CONF_PATTERNS, if they do not start
+			# with the given program name (i.e. they are generic)
+			[[ ${config#$1} != $config ]] || continue
+
 			# Only look for hidden files
 			if [[ -e "$HOME/.$config" ]]; then
 				$CONF_EDITOR "$HOME/.$config"
