@@ -11,12 +11,13 @@ floating_modifier $mod
 default_border pixel 1
 hide_edge_borders smart
 
-set $TERMINAL st
-set $TERM_CLASS st-256color
+set $TERMINAL kitty
+set $TERM_CLASS kitty
 set $TERM_DIR_FLAG -d
-set $TERM_TITLE_FLAG -t
-set $TERM_TRANSPARENCY_FLAG -A
-set $TERM_CMD_FLAG -e
+set $TERM_TITLE_FLAG -T
+set $TERM_TRANSPARENCY_FLAG -o background_opacity=
+set $TERM_SCRATCHPAD_TRANS 0.45
+set $TERM_CMD_FLAG
 
 # Focus should not follow mouse
 # focus_follows_mouse no
@@ -217,7 +218,7 @@ for_window [class="^$TERM_CLASS$" title="^scratchpad-terminal$"] \
 bindsym $mod+comma exec \
 	i3-msg '[class="^$TERM_CLASS$" title="^scratchpad-terminal$"] \
 	        scratchpad show' \
-	|| $TERMINAL $TERM_TRANSPARENCY_FLAG 0.45 \
+	|| $TERMINAL $TERM_TRANSPARENCY_FLAG$TERM_SCRATCHPAD_TRANS \
 	             $TERM_DIR_FLAG "$(xcwd)" \
 	             $TERM_TITLE_FLAG scratchpad-terminal
 
