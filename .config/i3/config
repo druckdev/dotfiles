@@ -214,7 +214,6 @@ bindsym $mod+comma exec \
 	        scratchpad show' \
 	|| $TERMINAL -A 0.45 \
 	             -d "$(xcwd)" \
-	             -c $TERMINAL-256color \
 	             -t scratchpad-terminal
 
 for_window [class="^TelegramDesktop$"] \
