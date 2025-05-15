@@ -14,8 +14,8 @@ Specification][5] as close as possible. An exception is `etc/ -> /etc/`, as well
 as `meta/` and some other files in the root of the repository (e.g. this README
 or the LICENSE) which are not in my `$HOME`.
 
-The most interesting files are probably in [.config/zsh][6] and
-[.config/vim][7].
+The most interesting files are probably in [.config/zsh][6], [.config/vim][7]
+and [.config/tmux][10].
 
 ## Installation
 
@@ -41,3 +41,4 @@ $ ./meta/install
 [7]: .config/vim
 [8]: https://github.com/anishathalye/dotbot
 [9]: meta/archive
+[10]: .config/tmux
