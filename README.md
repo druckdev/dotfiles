@@ -20,7 +20,7 @@ The most interesting files are probably in [.config/zsh][6] and
 ## Installation
 
 The repository content can be installed via [dotbot][8]. All existing files
-which would be overridden are first packed into an archive for backup (see
+which would be overwritten are first packed into an archive for backup (see
 [meta/archive][9]) and then dotbot places symlinks in the appropriate places for
 the different files and folders in this repository.
 
