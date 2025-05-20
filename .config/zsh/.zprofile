@@ -122,6 +122,8 @@ LESS+="${LESS:+ }--RAW-CONTROL-CHARS"
 #       With v530 it does not enter alternate mode if the content fits in one
 #       screen.
 LESS+="${LESS:+ }--quit-if-one-screen"
+# Ignore case if the search pattern is only lowercase
+LESS+="${LESS:+ }--ignore-case"
 export LESS
 
 # Use neovim's man plugin as manpager
