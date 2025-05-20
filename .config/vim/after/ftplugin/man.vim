@@ -17,6 +17,9 @@ setlocal scrolloff=999
 " immediately
 normal M
 
+" Don't put `\ ` before wrapped lines
+setlocal showbreak=NONE
+
 " ------------------------------------------------------------------------------
 " From :h :Man:
 "
