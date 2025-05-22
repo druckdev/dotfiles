@@ -11,7 +11,8 @@ floating_modifier $mod
 default_border pixel 1
 hide_edge_borders smart
 
-set $TERMINAL kitty
+# Use --single-instance for faster startup. See the "daemon" exec below
+set $TERMINAL kitty --single-instance
 set $TERM_CLASS kitty
 set $TERM_DIR_FLAG -d
 set $TERM_TITLE_FLAG -T
@@ -28,6 +29,17 @@ set $TERM_CMD_FLAG
 # gaps outer 7
 
 # Execs ########################################################################
+
+# Starting a new kitty process is quite slow. With --single-instance (see
+# $TERMINAL definition above) "new invocations will instead create a new
+# top-level window in the existing kitty instance"[^1] to allow "kitty to share
+# a single sprite cache on the GPU"[^1], so that startup is almost instant.
+#
+# For this to work best, launch one hidden "daemon" instance at startup so that
+# the kitty process is always running, even when no OS windows exists.
+#
+# [^1]: kitty(1)
+exec --no-startup-id $TERMINAL --start-as hidden --detach
 
 # Multi monitor support
 exec_always --no-startup-id ~/.config/i3/monitor-setup.sh &
