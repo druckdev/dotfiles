@@ -6,8 +6,7 @@ tools and environments.
 Although some files support macOS, most of them assume that they are used on a
 GNU/Linux system. The systems I use include an Artix, a Manjaro and an Ubuntu
 installation. All of them running i3wm and the arch-based systems without a DE.
-I use [my fork][1] of [st][2] as terminal, [zsh][3] as shell and [neovim][4] as
-text editor.
+I use [kitty][1] as terminal, [zsh][3] as shell and [neovim][4] as text editor.
 
 The repository mimics my `$HOME`, trying to conform to the [XDG Base Directory
 Specification][5] as close as possible. An exception is `etc/ -> /etc/`, as well
@@ -32,8 +31,7 @@ $ ./meta/install
 
 <!--- Links -->
 
-[1]: https://github.com/druckdev/st
-[2]: https://st.suckless.org/
+[1]: https://sw.kovidgoyal.net/kitty/
 [3]: https://www.zsh.org/
 [4]: https://github.com/neovim/neovim
 [5]: https://wiki.archlinux.org/title/XDG_Base_Directory
