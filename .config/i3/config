@@ -11,7 +11,14 @@ floating_modifier $mod
 default_border pixel 1
 hide_edge_borders smart
 
-set $TERMINAL st
+# Use --single-instance for faster startup. See the "daemon" exec below
+set $TERMINAL kitty --single-instance
+set $TERM_CLASS kitty
+set $TERM_DIR_FLAG -d
+set $TERM_TITLE_FLAG -T
+set $TERM_TRANSPARENCY_FLAG -o background_opacity=
+set $TERM_SCRATCHPAD_TRANS 0.45
+set $TERM_CMD_FLAG
 
 # Focus should not follow mouse
 # focus_follows_mouse no
@@ -23,13 +30,24 @@ set $TERMINAL st
 
 # Execs ########################################################################
 
+# Starting a new kitty process is quite slow. With --single-instance (see
+# $TERMINAL definition above) "new invocations will instead create a new
+# top-level window in the existing kitty instance"[^1] to allow "kitty to share
+# a single sprite cache on the GPU"[^1], so that startup is almost instant.
+#
+# For this to work best, launch one hidden "daemon" instance at startup so that
+# the kitty process is always running, even when no OS windows exists.
+#
+# [^1]: kitty(1)
+exec --no-startup-id $TERMINAL --start-as hidden --detach
+
 # Multi monitor support
 exec_always --no-startup-id ~/.config/i3/monitor-setup.sh &
 
 # Keybindins ###################################################################
 
 # Terminal
-bindsym $mod+Return       exec $TERMINAL -d "$(xcwd)"
+bindsym $mod+Return       exec $TERMINAL $TERM_DIR_FLAG "$(xcwd)"
 bindsym $mod+Shift+Return exec $TERMINAL
 
 # Program launcher
@@ -201,7 +219,7 @@ bindsym $mod+Shift+m move scratchpad
 bindsym $mod+Shift+o scratchpad show
 
 # scratchpad-terminal
-for_window [class="^$TERMINAL-256color$" title="^scratchpad-terminal$"] \
+for_window [class="^$TERM_CLASS$" title="^scratchpad-terminal$"] \
 	move scratchpad,       \
 	scratchpad show,       \
 	sticky enable,         \
@@ -210,12 +228,11 @@ for_window [class="^$TERMINAL-256color$" title="^scratchpad-terminal$"] \
 	move position center
 # Toggle the scratchpad-terminal or create a new one if none exists.
 bindsym $mod+comma exec \
-	i3-msg '[class="^$TERMINAL-256color$" title="^scratchpad-terminal$"] \
+	i3-msg '[class="^$TERM_CLASS$" title="^scratchpad-terminal$"] \
 	        scratchpad show' \
-	|| $TERMINAL -A 0.45 \
-	             -d "$(xcwd)" \
-	             -c $TERMINAL-256color \
-	             -t scratchpad-terminal
+	|| $TERMINAL $TERM_TRANSPARENCY_FLAG$TERM_SCRATCHPAD_TRANS \
+	             $TERM_DIR_FLAG "$(xcwd)" \
+	             $TERM_TITLE_FLAG scratchpad-terminal
 
 for_window [class="^TelegramDesktop$"] \
 	move scratchpad, \
@@ -238,13 +255,13 @@ bindsym $mod+Shift+b exec \
 	i3-msg '[class="^Bitwarden$"] scratchpad show' \
 	|| bitwarden-desktop
 
-for_window [class="^$TERMINAL-256color$" title="^polybar-datetime-calendar$"] \
+for_window [class="^$TERM_CLASS$" title="^polybar-datetime-calendar$"] \
 	floating enable,    \
 	border pixel 3,     \
 	resize set 378 300, \
 	move position 1411 32
 
-for_window [class="^$TERMINAL-256color$" title="^polybar-wlan$"] \
+for_window [class="^$TERM_CLASS$" title="^polybar-wlan$"] \
 	floating enable,    \
 	border pixel 3,     \
 	resize set 1125 750, \
@@ -260,12 +277,12 @@ bindsym --release Shift+Print exec cd ~/media/pics/screens/ && scrot -s -f
 bindsym $mod+z exec ~/.local/bin/zoom-links
 
 # Monitor selection with fzf
-for_window [class="^$TERMINAL-256color$" title="^fzf-monitor-setup$"] \
+for_window [class="^$TERM_CLASS$" title="^fzf-monitor-setup$"] \
 	floating enable,    \
 	border pixel 3,     \
 	resize set 378 300, \
 	move position 1 32
 bindsym $mod+m exec \
 	pkill -f fzf-monitor-setup -O 1 \
-	|| $TERMINAL -t fzf-monitor-setup -e \
+	|| $TERMINAL $TERM_TITLE_FLAG fzf-monitor-setup $TERM_CMD_FLAG \
 		sh -c "~/.local/bin/monitor-setup && ~/.config/polybar/launch.sh"
