@@ -4,42 +4,37 @@
 	addIgnoredFile = off
 	detachedHead = off
 [alias]
-	# Automatically fixup/squash marked commits without opening the
-	# git-rebase-todo
 	autosquash = -c sequence.editor=/bin/true rebase -i --autosquash
 	autofixup= autosquash
-
-	branches = track
 	c = commit
 	changes = flog HEAD...FETCH_HEAD
-	clm = commit-last-msg
-	co = checkout
+	checkout-worktree = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-checkout-worktree\""
 	cow = checkout-worktree
+	co = checkout
+	commit-last-msg = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-commit-last-msg\""
+	clm = commit-last-msg
+	last-msg = commit-last-msg
+	recommit = commit-last-msg --no-edit
 	f = fetch
 	fetch-tags-only = fetch origin "refs/tags/*:refs/tags/*"
-	fixes = log -1 --pretty=fixes
 	ft = fetch-tags-only
+	filter-repo = !git-filter-repo
+	fixes = log -1 --pretty=fixes
+	glog = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/glog\""
+	https-and-ssh  = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-https-and-ssh\""
+	ssh-and-https = https-and-ssh
 	l = log
-	last-msg = commit-last-msg
+	last-changed  = "!cd \"$GIT_PREFIX\"; \"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-last-changed\""
+	make-fork = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-make-fork\""
 	p = push
-	recommit = commit-last-msg --no-edit
+	perm-stash = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-perm-stash\""
 	root = rev-parse --show-toplevel
 	signoff = rebase --signoff
 	ss = stash
-	ssh-and-https = https-and-ssh
-
-	# Implemented as zsh functions or external programs
-	checkout-worktree = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-checkout-worktree\""
-	commit-last-msg = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-commit-last-msg\""
-	filter-repo = !git-filter-repo
-	glog = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/glog\""
-	https-and-ssh  = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-https-and-ssh\""
-	last-changed  = "!cd \"$GIT_PREFIX\"; \"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-last-changed\""
-	make-fork = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-make-fork\""
-	perm-stash = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-perm-stash\""
 	ssync = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-ssync\""
 	submodule-rm = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-submodule-rm\""
 	track = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-track\""
+	branches = track
 [blame]
 	date = short
 [branch]
