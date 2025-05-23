@@ -30,6 +30,7 @@
 	ssh-and-https = https-and-ssh
 	l = log
 	last-changed = "!git-zsh-autoload last-changed"
+	ls = ls-files
 	make-fork = "!git-zsh-autoload make-fork"
 	p = push
 	perm-stash = "!git-zsh-autoload perm-stash"
