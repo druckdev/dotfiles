@@ -114,7 +114,7 @@ local -A binds=(
 	"ctrl-alt-j" "preview-down"
 	"ctrl-alt-k" "preview-up"
 	# Copy commit hash
-	"ctrl-y" "execute@$fzf_copy_command@"
+	"ctrl-y" "execute-silent@$fzf_copy_command@"
 	# Open preview "fullscreen"
 	# NOTE: `-+F` is there to negate a possible --quit-if-one-screen
 	# TODO: This assumes less to be used in core.pager
