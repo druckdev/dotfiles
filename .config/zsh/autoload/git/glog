@@ -49,39 +49,49 @@ local commit_hash='s/^[^a-f0-9]*([a-f0-9]*).*$/\1/'
 local dateshort='--date=format:%F' # year
 local date="$dateshort %T %z" # year time timezone
 
-local -A fzf_preview
-read -r -d '' <<EOT
+# Use git's pager in the preview window (and with it any special highlighting
+# tool, such as diff-so-fancy)
+local pager
+pager="$(git config --get --default="" core.pager)"
+into_pager="${pager:+|} $pager"
+
+# NOTE: use read for a bit better readability of the code since less needs
+# quoting and formatting is easier
+read -r -d '' get_hash_cmd <<EOT
 	hash="\$(echo -E {} | sed -E "$commit_hash")"; [[ -z "\$hash" ]] ||
 EOT
-fzf_preview[construct]="$REPLY"
-
-read -r -d '' <<EOT
+read -r -d '' show_cmd <<EOT
 	git show "$format" "$date" --color=always --patch-with-stat "\$hash"
 EOT
-fzf_preview[patch]="$fzf_preview[construct] { $REPLY"
-# Get file arguments after (and including) `--` and wrap each in quotes
+show_stat_cmd="${show_cmd/patch-with-}"
+
+local -A fzf_preview
+fzf_preview[patch]="$get_hash_cmd $show_cmd $into_pager"
+fzf_preview[stat]="$get_hash_cmd $show_stat_cmd $into_pager"
+
 # TODO: Display `...` behind patch-stat if the patch touched more files
 # TODO: Use `-O <file>` for 'patch' command with `-- <file>` argument, so that
 #       the passed file is ontop although the full patch is shown
 # TODO: Support -L flag as well (add `-s` for list and `-- <file>` & maybe `-W`
 #       for preview)
-fzf_preview[files_only]="$fzf_preview[patch] ${(@)${@:${@[(ei)--]}}/(#m)*/'$MATCH'}"
-
-# Use git's pager in the preview window (and with it any special highlighting
-# tool, such as diff-so-fancy)
-local pager
-pager="$(git config --get --default="" core.pager)"
-fzf_preview[patch]+="${pager:+ | }$pager; }"
-fzf_preview[files_only]+="${pager:+ | }$pager; }"
-
-read -r -d '' <<EOT
-	git show "$format" "$date" --color=always --stat "\$hash"
+# Get file arguments after (and including) `--` and wrap each in quotes
+read -r -d '' 'fzf_preview[files_only]' <<EOT
+	$get_hash_cmd {
+		{
+			out="\$($show_cmd ${(@)${@:${@[(ei)--]}}/(#m)*/'$MATCH'})"
+			if [[ \$out ]]; then
+				printf '%s' "\$out"
+			else
+				echo "warning: files were renamed. showing full diff"
+				$show_cmd
+			fi
+		} $into_pager
+	}
 EOT
-fzf_preview[stat]="$fzf_preview[construct] { $REPLY; }"
 
 # Put the commit hash into the clipboard
 # (If no known clipboard tool is available, just print it)
-local fzf_copy_command="$fzf_preview[construct] echo -n \"\$hash\""
+local fzf_copy_command="$get_hash_cmd echo -n \"\$hash\""
 if [[ $OSTYPE =~ darwin ]] && (( $+commands[pbcopy] )); then
 	fzf_copy_command+=" | pbcopy"
 elif (( $+commands[xclip] )); then
