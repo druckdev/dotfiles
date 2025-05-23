@@ -16,7 +16,9 @@
 	co = checkout
 	cow = checkout-worktree
 	f = fetch
+	fetch-tags-only = fetch origin "refs/tags/*:refs/tags/*"
 	fixes = log -1 --pretty=fixes
+	ft = fetch-tags-only
 	l = log
 	last-msg = commit-last-msg
 	p = push
