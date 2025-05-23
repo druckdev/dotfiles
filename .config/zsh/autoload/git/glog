@@ -51,19 +51,19 @@ local date="$dateshort %T %z" # year time timezone
 
 # Use git's pager in the preview window (and with it any special highlighting
 # tool, such as diff-so-fancy)
-local pager
-pager="$(git config --get --default="" core.pager)"
-into_pager="${pager:+|} $pager"
+local pager="$(git config --get --default="" core.pager)"
+local into_pager="${pager:+|} $pager"
 
 # NOTE: use read for a bit better readability of the code since less needs
 # quoting and formatting is easier
+local get_hash_cmd show_cmd
 read -r -d '' get_hash_cmd <<EOT
 	hash="\$(echo -E {} | sed -E "$commit_hash")"; [[ -z "\$hash" ]] ||
 EOT
 read -r -d '' show_cmd <<EOT
 	git show "$format" "$date" --color=always --patch-with-stat "\$hash"
 EOT
-show_stat_cmd="${show_cmd/patch-with-}"
+local show_stat_cmd="${show_cmd/patch-with-}"
 
 local -A fzf_preview
 fzf_preview[patch]="$get_hash_cmd $show_cmd $into_pager"
