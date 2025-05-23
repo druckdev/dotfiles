@@ -59,13 +59,13 @@ read -r -d '' <<EOT
 	git show "$format" "$date" --color=always --patch-with-stat "\$out"
 EOT
 fzf_preview[patch]="$fzf_preview[construct] { $REPLY"
-# Get file arguments after (and including) `--` and wrap each in double quotes
+# Get file arguments after (and including) `--` and wrap each in quotes
 # TODO: Display `...` behind patch-stat if the patch touched more files
 # TODO: Use `-O <file>` for 'patch' command with `-- <file>` argument, so that
 #       the passed file is ontop although the full patch is shown
 # TODO: Support -L flag as well (add `-s` for list and `-- <file>` & maybe `-W`
 #       for preview)
-fzf_preview[files_only]="$fzf_preview[patch] ${(@)${@:${@[(ei)--]}}/(#m)*/\"$MATCH\"}"
+fzf_preview[files_only]="$fzf_preview[patch] ${(@)${@:${@[(ei)--]}}/(#m)*/'$MATCH'}"
 
 # Use git's pager in the preview window (and with it any special highlighting
 # tool, such as diff-so-fancy)
