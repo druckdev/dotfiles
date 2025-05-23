@@ -51,12 +51,12 @@ local date="$dateshort %T %z" # year time timezone
 
 local -A fzf_preview
 read -r -d '' <<EOT
-	out="\$(echo -E {} | sed -E "$commit_hash")"; [[ -z "\$out" ]] ||
+	hash="\$(echo -E {} | sed -E "$commit_hash")"; [[ -z "\$hash" ]] ||
 EOT
 fzf_preview[construct]="$REPLY"
 
 read -r -d '' <<EOT
-	git show "$format" "$date" --color=always --patch-with-stat "\$out"
+	git show "$format" "$date" --color=always --patch-with-stat "\$hash"
 EOT
 fzf_preview[patch]="$fzf_preview[construct] { $REPLY"
 # Get file arguments after (and including) `--` and wrap each in quotes
@@ -75,13 +75,13 @@ fzf_preview[patch]+="${pager:+ | }$pager; }"
 fzf_preview[files_only]+="${pager:+ | }$pager; }"
 
 read -r -d '' <<EOT
-	git show "$format" "$date" --color=always --stat "\$out"
+	git show "$format" "$date" --color=always --stat "\$hash"
 EOT
 fzf_preview[stat]="$fzf_preview[construct] { $REPLY; }"
 
 # Put the commit hash into the clipboard
 # (If no known clipboard tool is available, just print it)
-local fzf_copy_command="$fzf_preview[construct] echo -n \"\$out\""
+local fzf_copy_command="$fzf_preview[construct] echo -n \"\$hash\""
 if [[ $OSTYPE =~ darwin ]] && (( $+commands[pbcopy] )); then
 	fzf_copy_command+=" | pbcopy"
 elif (( $+commands[xclip] )); then
