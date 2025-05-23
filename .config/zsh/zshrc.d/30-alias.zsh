@@ -42,7 +42,7 @@ fi
 	alias gf='git fetch'
 	alias gha='git add -p'
 	alias gl='glog --no-merges'
-	alias gla='glog --branches --remotes --tags'
+	alias gla='glog --branches --remotes --tags HEAD'
 	alias {gll,glg}='glog --graph'
 	alias {glll,glla,glga,glag,glogg}='gla --graph'
 	alias gp='git push'
