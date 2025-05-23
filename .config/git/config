@@ -4,14 +4,19 @@
 	addIgnoredFile = off
 	detachedHead = off
 [alias]
+	# NOTE: git-zsh-autoload (./zsh-autoload.sh) is a small wrapper that
+	# launches autoloadable zsh functions (.config/zsh/autoload/git/*) in
+	# the right directory, as shell commands in git aliases are executed
+	# from the top-level directory of the repository.
+
 	autosquash = -c sequence.editor=/bin/true rebase -i --autosquash
 	autofixup= autosquash
 	c = commit
 	changes = flog HEAD...FETCH_HEAD
-	checkout-worktree = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-checkout-worktree\""
+	checkout-worktree = "!git-zsh-autoload checkout-worktree"
 	cow = checkout-worktree
 	co = checkout
-	commit-last-msg = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-commit-last-msg\""
+	commit-last-msg = "!git-zsh-autoload commit-last-msg"
 	clm = commit-last-msg
 	last-msg = commit-last-msg
 	recommit = commit-last-msg --no-edit
@@ -20,20 +25,20 @@
 	ft = fetch-tags-only
 	filter-repo = !git-filter-repo
 	fixes = log -1 --pretty=fixes
-	glog = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/glog\""
-	https-and-ssh  = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-https-and-ssh\""
+	glog = "!git-zsh-autoload glog"
+	https-and-ssh = "!git-zsh-autoload https-and-ssh"
 	ssh-and-https = https-and-ssh
 	l = log
-	last-changed  = "!cd \"$GIT_PREFIX\"; \"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-last-changed\""
-	make-fork = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-make-fork\""
+	last-changed = "!git-zsh-autoload last-changed"
+	make-fork = "!git-zsh-autoload make-fork"
 	p = push
-	perm-stash = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-perm-stash\""
+	perm-stash = "!git-zsh-autoload perm-stash"
 	root = rev-parse --show-toplevel
 	signoff = rebase --signoff
 	ss = stash
-	ssync = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-ssync\""
-	submodule-rm = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-submodule-rm\""
-	track = "!\"${XDG_CONFIG_HOME:-$HOME/.config}/zsh/autoload/git/git-track\""
+	ssync = "!git-zsh-autoload ssync"
+	submodule-rm = "!git-zsh-autoload submodule-rm"
+	track = "!git-zsh-autoload track"
 	branches = track
 [blame]
 	date = short
