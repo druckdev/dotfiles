@@ -38,8 +38,14 @@ set $TERM_CMD_FLAG
 # For this to work best, launch one hidden "daemon" instance at startup so that
 # the kitty process is always running, even when no OS windows exists.
 #
+# Additionally allow remote_control over a socket, so that kitty-cwd works.
+#
 # [^1]: kitty(1)
-exec --no-startup-id $TERMINAL --start-as hidden --detach
+exec --no-startup-id $TERMINAL \
+	--start-as hidden \
+	--detach \
+	-o allow_remote_control=socket-only \
+	--listen-on unix:/tmp/mykitty
 
 # Multi monitor support
 exec_always --no-startup-id ~/.config/i3/monitor-setup.sh &
@@ -47,7 +53,7 @@ exec_always --no-startup-id ~/.config/i3/monitor-setup.sh &
 # Keybindins ###################################################################
 
 # Terminal
-bindsym $mod+Return       exec $TERMINAL $TERM_DIR_FLAG "$(xcwd)"
+bindsym $mod+Return       exec $TERMINAL $TERM_DIR_FLAG "$(kitty-cwd)"
 bindsym $mod+Shift+Return exec $TERMINAL
 
 # Program launcher
@@ -231,7 +237,7 @@ bindsym $mod+comma exec \
 	i3-msg '[class="^$TERM_CLASS$" title="^scratchpad-terminal$"] \
 	        scratchpad show' \
 	|| $TERMINAL $TERM_TRANSPARENCY_FLAG$TERM_SCRATCHPAD_TRANS \
-	             $TERM_DIR_FLAG "$(xcwd)" \
+	             $TERM_DIR_FLAG "$(kitty-cwd)" \
 	             $TERM_TITLE_FLAG scratchpad-terminal
 
 for_window [class="^TelegramDesktop$"] \
