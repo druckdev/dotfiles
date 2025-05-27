@@ -14,13 +14,8 @@ if [[ "$1" == "--new" ]]; then
 	grep path .gitmodules \
 	| cut -d= -f2 \
 	| sed 's/^\s*//' \
-	| while read -r line; do
-		# keep only empty ones
-		find "$line" -maxdepth 0 -empty
-	done \
-	| while read -r line; do
-		git submodule update --init --recursive -- "$line"
-	done
+	| xargs -I'{}' find '{}' -maxdepth 0 -empty \
+	| xargs -L1 git submodule update --init --recursive --
 else
 	git submodule update --init --recursive
 fi

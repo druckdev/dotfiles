@@ -7,15 +7,11 @@
 #
 #     pgrep --full "^($TERMINAL|tmux)( |$)" \
 #     	| cut -d' ' -f1 \
-#     	| while read -r line; do
-#     		pgrep -P "$line"
-#     	done \
+#     	| xargs -n1 pgrep -P \
 
 # NOTE: when using the full path not all shell instances are matched
 pgrep "$(basename $SHELL)" \
 	| cut -d' ' -f1 \
-	| while read -r line; do
-		pwdx "$line" 2>/dev/null
-	done \
+	| xargs pwdx 2>/dev/null \
 	| cut -d' ' -f2- \
 	| sort -ur
