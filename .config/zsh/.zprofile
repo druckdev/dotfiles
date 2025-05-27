@@ -87,8 +87,8 @@ if (( $+commands[ssh-agent] )) && [[ ! $SSH_AGENT_PID ]]; then
 fi
 
 # Terminal
-if (( $+commands[st] )); then
-	export TERMINAL=st
+if (( $+commands[kitty] )); then
+	export TERMINAL=kitty
 fi
 
 # Editor

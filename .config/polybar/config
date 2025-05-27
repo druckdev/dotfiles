@@ -151,11 +151,12 @@ type = internal/network
 interface = wlan0
 interval = 3
 
+; TODO: use $TERMINAL
 format-connected = <label-connected>
-label-connected = %{A1:st -t polybar-wlan -e nmtui connect &:} %essid:0:20:...%:%signal%% %{A}
+label-connected = %{A1:kitty --single-instance -T polybar-wlan -e nmtui connect &:} %essid:0:20:...%:%signal%% %{A}
 
 format-disconnected = <label-disconnected>
-label-disconnected = %{A1:st -t polybar-wlan -e nmtui connect &:} %ifname% disconnected %{A}
+label-disconnected = %{A1:kitty --single-instance -T polybar-wlan -e nmtui connect &:} %ifname% disconnected %{A}
 
 ;#################################################
 

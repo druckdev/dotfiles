@@ -31,7 +31,8 @@ elif [[ $1 = "-t" ]]; then
 	# Kill and exit if already running to achieve a toggle.
 	! pkill -f "$TITLE" || exit 0
 
-	exec st -A 0.45 -t "$TITLE" "$0"
+	# TODO: Use $TERMINAL
+	exec kitty --single-instance -T "$TITLE" "$0"
 else
 	# Backend
 
