@@ -64,6 +64,9 @@ qr() {
 
 # Edit config file
 conf() {
+	# EXTENDED_GLOB needed for /#
+	emulate -L zsh -o extendedglob
+
 	local CONF_EDITOR
 	if [[ -n "$EDITOR" ]]; then
 		CONF_EDITOR="$EDITOR"
@@ -91,8 +94,8 @@ conf() {
 		return 1
 	fi
 
-	# remove trailing slashes
-	1="${(*)1%%/#}"
+	# remove trailing slashes. needs extendedglob
+	1="${1%%/#}"
 
 	# search for program name in XDG_CONFIG_HOME and $HOME
 	local CONF_DIR
