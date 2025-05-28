@@ -53,6 +53,11 @@
 	ui = auto,column,dense
 [commit]
 	gpgsign = true
+
+	# Add an additional newline, so that I can format the body more easily
+	# TODO: is there a way to use XDG_CONFIG_HOME?
+	template = ~/.config/git/message.template
+
 	verbose = true
 [core]
 	abbrev = 12
