@@ -21,6 +21,9 @@ nnoremap <C-w>f <C-w>gf
 nnoremap <C-w><C-f> <C-w>gf
 nnoremap <C-w>F <C-w>gF
 
+" Analogous mapping to tmux's <prefix>! to move the current window to a new tab
+nnoremap <C-w>! <C-w>T
+
 " Substitute command
 if (exists('+inccommand') && &inccommand != '')
 	nnoremap S :%s/
