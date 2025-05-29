@@ -45,12 +45,12 @@ fi
 # Check that added symlinks are not broken
 git diff --staged --name-only --diff-filter=AR $against \
 | {
-       broken=0
-       while read -r line; do
-               if [ -h "$line" ] && [ ! -e "$line" ]; then
-                       broken=1
-                       printf "%s\n" "$line: Broken symlink" >&2
-               fi
-       done
-       (( ! broken )) || die
+	broken=0
+	while read -r line; do
+		if [ -h "$line" ] && [ ! -e "$line" ]; then
+			broken=1
+			printf "%s\n" "$line: Broken symlink" >&2
+		fi
+	done
+	(( ! broken )) || die
 }
