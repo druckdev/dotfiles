@@ -46,7 +46,7 @@ while read local_ref local_oid remote_ref remote_oid; do
 	# Check for WIP or auto{squash,fixup} commit
 	pattern='^(WIP|(fixup|squash)!)'
 
-	commits="$(git rev-list -E --oneline --grep "$pattern" "$range")"
+	commits="$(git rev-list --oneline -E --grep "$pattern" "$range")"
 	if [ -n "$commits" ] && [ "$is_wip_branch" -eq 0 ]; then
 		printf >&2 "%s: Commits in progress:\n" "$local_ref"
 		printf >&2 "%s\n" "$commits"
