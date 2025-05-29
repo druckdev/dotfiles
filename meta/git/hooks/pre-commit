@@ -43,7 +43,7 @@ if ! git diff-index --check --cached $against --; then
 fi
 
 # Check that added symlinks are neither absolute nor broken
-git diff --staged --name-only --diff-filter=AR $against \
+git diff --staged --name-only --diff-filter=AT $against \
 | {
 	abort=0
 	while read -r line; do
