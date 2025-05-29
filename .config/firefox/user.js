@@ -4,6 +4,7 @@ user_pref("browser.aboutConfig.showWarning", false);
 user_pref("browser.contentblocking.category", "strict");
 user_pref("browser.ctrlTab.sortByRecentlyUsed", true);
 user_pref("browser.download.useDownloadDir", false);
+user_pref("browser.fixup.domainsuffixwhitelist.nas", true")
 user_pref("browser.fullscreen.autohide", false);
 user_pref("browser.in-content.dark-mode", true);
 user_pref("browser.newtabpage.activity-stream.feeds.section.highlights", false);
