@@ -38,6 +38,8 @@ set $TERM_CMD_FLAG
 # For this to work best, launch one hidden "daemon" instance at startup so that
 # the kitty process is always running, even when no OS windows exists.
 #
+# NOTE: `--start-as hidden` needs kitty 0.42.0 or later.
+#
 # Additionally allow remote_control over a socket, so that kitty-cwd works.
 #
 # [^1]: kitty(1)
