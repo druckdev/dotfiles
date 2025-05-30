@@ -227,13 +227,9 @@ inoremap <expr> <Home> col('.') == match(getline('.'), '\S') + 1 ?
 	\     repeat('<C-G>U<Right>', match(getline('.'), '\S') + 0) :
 	\     repeat('<C-G>U<Left>', col('.') - 1 - match(getline('.'), '\S')))
 inoremap <expr> <End> repeat('<C-G>U<Right>', col('$') - col('.'))
-" Make insert-mode texts repeatable by `.` with the closing parentheses at the
-" right position
-inoremap ( ()<C-G>U<Left>
 " break undo sequence with every space and newline, making insert mode changes
 " revertible in smaller chunks
 inoremap <Space> <C-G>u<Space>
-inoremap <CR> <C-G>u<CR>
 
 " Open the manpage in the WORD under cursor
 nnoremap gm :Man <C-r><C-a><CR>
