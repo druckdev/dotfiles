@@ -275,7 +275,7 @@ augroup END
 " Convert Unix timestamp to human readable
 " Mnemonic: "Unix timestamp convert" with pun to UTC
 nnoremap <leader>utc ciw<C-r>=strftime("%F %T", @")<CR><Esc>
-vnoremap <leader>utc <Cmd>s/\v(^\|[^0-9])\zs[0-9]{10}\ze([^0-9]\|$)/\=strftime("%F %T",submatch(0))/g<CR>
+vnoremap <leader>utc <Cmd>'<,'>s/\v(^\|[^0-9])\zs[0-9]{10}\ze([^0-9]\|$)/\=strftime("%F %T",submatch(0))/g<CR>
 
 " TODO: <leader>sec that uses the `duration` alias from zsh
 
@@ -489,7 +489,7 @@ augroup macro_type
 augroup END
 
 " Escape underscores (useful when writing LaTeX)
-vmap <leader>\_ <Cmd>s/\v(^<Bar>[^\\])\zs\ze_/\\/g<CR>
+vmap <leader>\_ <Cmd>'<,'>s/\v(^<Bar>[^\\])\zs\ze_/\\/g<CR>
 
 " TODO: make `gf` open absolute paths relative to PWD if possible
 "
