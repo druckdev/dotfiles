@@ -275,7 +275,7 @@ augroup END
 " Convert Unix timestamp to human readable
 " Mnemonic: "Unix timestamp convert" with pun to UTC
 nnoremap <leader>utc ciw<C-r>=strftime("%F %T", @")<CR><Esc>
-vnoremap <leader>utc <Cmd>'<,'>s/\v(^\|[^0-9])\zs[0-9]{10}\ze([^0-9]\|$)/\=strftime("%F %T",submatch(0))/g<CR>
+vnoremap <leader>utc <Cmd>keepp '<,'>s/\v(^\|[^0-9])\zs[0-9]{10}\ze([^0-9]\|$)/\=strftime("%F %T",submatch(0))/g<CR>
 
 " TODO: <leader>sec that uses the `duration` alias from zsh
 
@@ -296,13 +296,13 @@ noremap ]] ][
 " nmap ][ ]]
 
 " Strip trailing whitespace
-nnoremap <leader><space> <Cmd>silent! %s/\v\s+$//<CR>
-vnoremap <leader><space> <Cmd>silent! '<,'>s/\v\s+$//<CR>
+nnoremap <leader><space> <Cmd>keepp silent! %s/\v\s+$//<CR>
+vnoremap <leader><space> <Cmd>keepp silent! '<,'>s/\v\s+$//<CR>
 
 " Convert double quotes to single. Convert only pairs to lower the false
 " positive rate.
-nnoremap <leader>" <Cmd>silent! %s/\v"([^"]*)"/'\1'/g<CR>
-vnoremap <leader>" <Cmd>silent! '<,'>s/\v"([^"]*)"/'\1'/g<CR>
+nnoremap <leader>" <Cmd>keepp silent! %s/\v"([^"]*)"/'\1'/g<CR>
+vnoremap <leader>" <Cmd>keepp silent! '<,'>s/\v"([^"]*)"/'\1'/g<CR>
 
 " Better™ >> and <<. When using tabs for indentation and spaces for alignment,
 " vim's behaviour is pretty disappointing since it will convert the indentation
@@ -489,7 +489,7 @@ augroup macro_type
 augroup END
 
 " Escape underscores (useful when writing LaTeX)
-vmap <leader>\_ <Cmd>'<,'>s/\v(^<Bar>[^\\])\zs\ze_/\\/g<CR>
+vmap <leader>\_ <Cmd>keepp '<,'>s/\v(^<Bar>[^\\])\zs\ze_/\\/g<CR>
 
 " TODO: make `gf` open absolute paths relative to PWD if possible
 "
