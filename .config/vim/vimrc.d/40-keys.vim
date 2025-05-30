@@ -210,6 +210,7 @@ nnoremap Y y$
 
 " Clear line (`cc` but stay in normal mode)
 nmap <leader>dd 0D
+vmap <leader>d <Cmd>keepp '<,'>s/^.*$//<CR>
 
 " Fix & command to also use last flags
 nnoremap & <Cmd>&&<CR>
