@@ -20,7 +20,6 @@ export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
 export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME"/jupyter
 export PYLINTHOME="${XDG_CACHE_HOME}"/pylint
 export PYTHONSTARTUP="${XDG_CONFIG_HOME}"/python/pythonrc
-export MBSYNCRC="$XDG_CONFIG_HOME"/isync/mbsyncrc
 export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME"/ripgrep/config
 
 export HISTFILE="$XDG_DATA_HOME"/bash/history
