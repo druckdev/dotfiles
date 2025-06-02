@@ -152,6 +152,12 @@ bindkey -M vicmd " f" edit-fuzzy-file
 # Modified version (end with a trailing slash) of:
 # https://github.com/majutsushi/etc/blob/1d8a5aa28/zsh/zsh/func/rationalize-dots
 function rationalize_dots {
+	if [[ $ZLE_STATE == *overwrite* ]]; then
+		# Don't do anything in overwrite-mode (i.e. vim's Replace-mode)
+		zle self-insert
+		return
+	fi
+
 	# Rationalize dots at BOL or after a space or slash.
 	if [[ "$LBUFFER" =~ "(^|[ /])\.\./$" ]]; then
 		# ../ + . -> ../../
