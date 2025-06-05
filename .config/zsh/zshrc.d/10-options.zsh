@@ -233,6 +233,11 @@
 	# input irrespective of the setting of C_BASES.
 	setopt C_BASES
 
+	# This alters the precedence of arithmetic operators to be more like C
+	# and other  programming  languages;  the section ARITHMETIC EVALUATION
+	# in zshmisc(1) has an explicit list.
+	setopt C_PRECEDENCES
+
 # Shell Emulation ##############################################################
 	# Causes field splitting to be performed on unquoted parameter expansions.
 	# Note that this option has nothing to do with word splitting.
