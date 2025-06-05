@@ -137,6 +137,9 @@ fi
 	#
 	# TODO: do not print values if they are zero
 	alias duration="dc -e '?60~r60~r24~rn[d ]nn[h ]nn[m ]nn[s]p'"
+	alias udsk='udisksctl'
+	# calculator with output in hex (goes well together with option C_BASES)
+	alias hex='() { printf "%s\n" "$(([#16] $*))" }'
 
 # Precommand modifiers
 	alias mkdir='nocorrect mkdir'
@@ -162,7 +165,6 @@ fi
 	(( ! $+commands[trash] )) ||
 		alias rm='trash'
 	if (( $+commands[xxd] )); then
-		alias hex='xxd'
 		alias bin='xxd -b -c4 | cut -d" " -f2-5'
 	fi
 	if (( $+commands[nvim] )); then
