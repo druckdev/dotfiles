@@ -50,5 +50,7 @@ if [ -z "$switch" ] && [ -z "$move" ]; then
 	exit 0
 fi
 
-[ -z "$move" ] || i3-msg move container to workspace "$workspace"
-[ -z "$switch" ] || i3-msg workspace "$workspace"
+cmd=
+[ -z "$move" ] || cmd="move container to workspace $workspace"
+[ -z "$switch" ] || cmd="$cmd${cmd:+; }workspace $workspace"
+i3-msg "$cmd"
