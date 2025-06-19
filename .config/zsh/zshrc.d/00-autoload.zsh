@@ -14,7 +14,7 @@ if [[ -d "$ZDOTDIR/autoload" ]]; then
 	# Include all wrapper scripts if their wrapped command exists
 	for d in "$ZDOTDIR/autoload/"**/wrapper(/N); do
 		fpath=("$d" $fpath)
-		for f in "$d"/[^_.]*(.xN:t); do
+		for f in "$d"/[^_.]*(xN^/:t); do
 			(( $+commands[$f] )) || continue
 			autoload -Uz -- "$f"
 		done
@@ -26,9 +26,9 @@ if [[ -d "$ZDOTDIR/autoload" ]]; then
 		[[ ${d:t} != wrapper ]] || continue
 
 		fpath=("$d" $fpath)
-		autoload -Uz -- "" "$d"/[^_.]*(.xN:t)
+		autoload -Uz -- "" "$d"/[^_.]*(xN^/:t)
 	done
 
 	fpath=("$ZDOTDIR/autoload" $fpath)
-	autoload -Uz -- "" "${fpath[1]}"/[^_.]*(.xN:t)
+	autoload -Uz -- "" "${fpath[1]}"/[^_.]*(xN^/:t)
 fi
