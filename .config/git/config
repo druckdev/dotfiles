@@ -9,6 +9,7 @@
 	# the right directory, as shell commands in git aliases are executed
 	# from the top-level directory of the repository.
 
+	abort = "!git-zsh-autoload abort"
 	autosquash = -c sequence.editor=/bin/true rebase -i --autosquash
 	autofixup= autosquash
 	c = commit
@@ -17,6 +18,7 @@
 	cow = checkout-worktree
 	co = checkout
 	commit-last-msg = "!git-zsh-autoload commit-last-msg"
+	continue = "!git-zsh-autoload continue"
 	clm = commit-last-msg
 	last-msg = commit-last-msg
 	recommit = commit-last-msg --no-edit

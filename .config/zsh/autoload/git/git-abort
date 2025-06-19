@@ -1,0 +1,31 @@
+#!/usr/bin/env zsh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 Julian Prein
+#
+# Abort or continue the current rebase/merge/cherry-pick/revert/am (execute as
+# git-abort or git-continue).
+
+emulate -L zsh -o err_return -o no_unset
+
+local gitdir
+gitdir="$(git rev-parse --git-dir)" || return
+
+local flag="${${0:t}#git-}"
+
+local cmd
+if [[ -e $gitdir/REBASE_HEAD ]]; then
+	cmd=rebase
+elif [[ -e $gitdir/MERGE_HEAD ]]; then
+	cmd=merge
+elif [[ -e $gitdir/CHERRY_PICK_HEAD ]]; then
+	cmd=cherry-pick
+elif [[ -e $gitdir/REVERT_HEAD ]]; then
+	cmd=revert
+elif [[ -e $gitdir/rebase-apply/applying ]]; then
+	cmd=am
+else
+	printf "Nothing to %s at the moment\n" "$flag"
+	return 1
+fi
+
+git "$cmd" "--$flag"
