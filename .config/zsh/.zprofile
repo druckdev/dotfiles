@@ -111,20 +111,6 @@ export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
 
-unset LESS
-# Enable mouse wheel support
-LESS+="${LESS:+ }--mouse --wheel-lines=3"
-# Display ANSI color escape sequences
-LESS+="${LESS:+ }--RAW-CONTROL-CHARS"
-# Exit if entire file fits on screen
-# NOTE: Before v530 `less` would need the -X flag as well for -F to be useful.
-#       With v530 it does not enter alternate mode if the content fits in one
-#       screen.
-LESS+="${LESS:+ }--quit-if-one-screen"
-# Ignore case if the search pattern is only lowercase
-LESS+="${LESS:+ }--ignore-case"
-export LESS
-
 # Use neovim's man plugin as manpager
 (( ! $+commands[nvim] )) || \
 	export MANPAGER="nvim '+Man!'"
