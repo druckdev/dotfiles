@@ -700,10 +700,10 @@ diffcmds() {
 
 	# Quote special characters and split into arrays
 	set -- "${(q@)@}"
-	template=("${@:1:$((i-1))}")
+	template=( "${@:1:$((i-1))}" )
 	args=("${@:$((i+1))}")
 	# Unquote standalone pipes
-	template=("${(@)template/#%\\|/|}")
+	template=( "${(@)template/#%\\|/|}" )
 
 	# Place arguments at the back if no position was supplied with `%%`
 	[[ "$template[@]" =~ '%%' ]] || template+='%%'
@@ -727,16 +727,12 @@ diffcmds() {
 	fi
 
 	# NOTE: `=()` is necessary since vimdiff is seeking the file. See zshexpn(1)
-	[[ $diff_cmd = vimdiff ]] && ps_sub='=(' || ps_sub='<('
+	[[ $diff_cmd = vimdiff ]] && ps_sub='=' || ps_sub='<'
 
 	final_cmd=("$diff_cmd")
 	for arg in "$args[@]"; do
 		# Substitute placeholder and wrap in process substitution
-		final_cmd+=(
-			"$ps_sub"
-			"${(@)template//\%\%/$arg}"
-			")"
-		)
+		final_cmd+=( "$ps_sub(${(@)template//\%\%/$arg})" )
 	done
 	eval "$final_cmd[@]"
 }
