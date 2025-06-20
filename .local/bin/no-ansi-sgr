@@ -1,0 +1,8 @@
+#!/bin/sed -f
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 Julian Prein
+#
+# Remove ANSI SGR (Select Graphic Rendition) escape sequences, e.g. setting
+# color or bold font.
+
+s/\[[^m]*m//g
