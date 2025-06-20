@@ -651,16 +651,24 @@ psofof() {
 	lsof "$@" | tail -n +2 | awk '{ print $2 }' | sort -u
 }
 
-# diff the output of multiple commands following the same pattern.
-# Uses vimdiff if it is installed and EDITOR or VISUAL are matching `vi`.
-# Pipelines can be executed by quoting the pipes.
+# diff the output of multiple commands following the same pattern. For each
+# argument behind `--`, the template-command will be executed after replacing
+# the placeholder `%%` with the argument. If no placeholder is given, the
+# argument will be placed at the end. Pipelines can be executed by
+# quoting/escaping the pipes.
+#
+# Uses vimdiff if it is installed and EDITOR or VISUAL are matching `vi` or if
+# more than 2 arguments were passed.
 #
 # Example:
-# diffcmds cat -n %% '|' head -- file1 file2
+#     diffcmds cat -n %% '|' head -5 -- file1 file2
+# would run:
+#     vimdiff =(cat -n file1 | head -5) =(cat -n file2 | head -5)
 #
-# would be equivalent to:
-# vimdiff =(cat -n file1 | head) =(cat -n file2 | head)
-#
+# or simply:
+#     diffcmds xxd -- file1 file2
+# for:
+#     vimdiff =(xxd file1) =(xxd file2)
 diffcmds() {
 	# TODO: Support own arguments for example to switch the placeholder or the
 	#       diffcmd
