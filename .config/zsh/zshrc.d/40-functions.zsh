@@ -726,7 +726,7 @@ diffcmds() {
 		fi
 	fi
 
-	# NOTE: `=()` is necessary since vimdiff is seeking the file. See zshexpn(1)
+	# NOTE: `=()` is necessary since vim might seek the file. See zshexpn(1)
 	[[ $diff_cmd = vimdiff ]] && ps_sub='=' || ps_sub='<'
 
 	final_cmd=("$diff_cmd")
