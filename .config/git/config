@@ -19,6 +19,7 @@
 	co = checkout
 	commit-last-msg = "!git-zsh-autoload commit-last-msg"
 	continue = "!git-zsh-autoload continue"
+	cont = continue
 	clm = commit-last-msg
 	last-msg = commit-last-msg
 	recommit = commit-last-msg --no-edit
