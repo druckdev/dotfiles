@@ -140,6 +140,8 @@ fi
 	alias udsk='udisksctl'
 	# calculator with output in hex (goes well together with option C_BASES)
 	alias hex='() { printf "%s\n" "$(([#16] $*))" }'
+	# https://unix.stackexchange.com/a/309781
+	alias bytestr='hexdump -v -e '\''"\\" "x" 1/1 "%02X"'\'
 
 # Precommand modifiers
 	alias mkdir='nocorrect mkdir'
