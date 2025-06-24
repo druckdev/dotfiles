@@ -71,6 +71,9 @@
 [submodule "quick-scope"]
 	path = .local/share/vim/pack/plugins/opt/quick-scope
 	url = https://github.com/unblevable/quick-scope
+[submodule "quickfixdd"]
+	path = .local/share/vim/pack/plugins/opt/quickfixdd
+	url = https://github.com/TamaMcGlinn/quickfixdd
 [submodule "tabular"]
 	path = .local/share/vim/pack/plugins/opt/tabular
 	url = https://github.com/godlygeek/tabular
