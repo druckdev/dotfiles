@@ -235,7 +235,7 @@ for_window [class="^TelegramDesktop$"] \
 	scratchpad show
 bindsym $mod+Shift+t exec \
 	i3-msg '[class="^TelegramDesktop$"] scratchpad show' \
-	|| telegram-desktop
+	|| Telegram
 
 for_window [class="^Signal$"] \
 	move scratchpad, \
