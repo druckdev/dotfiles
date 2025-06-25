@@ -673,10 +673,13 @@ diffcmds() {
 	# TODO: Support own arguments for example to switch the placeholder or the
 	#       diffcmd
 	# TODO: Find better way to dequote pipes. (e.g. `%|` to use a pipe?)
-	local diff_cmd i arg ps_sub
+	local i arg ps_sub
 	local -a template args final_cmd
 
-	if (( $+commands[vimdiff] && ! $+commands[diff] )); then
+	local diff_cmd="$diff_cmd"
+	if [[ -n $diff_cmd ]]; then
+		# already set by caller
+	elif (( $+commands[vimdiff] && ! $+commands[diff] )); then
 		diff_cmd=vimdiff
 	elif (( $+commands[diff] && ! $+commands[vimdiff] )); then
 		diff_cmd=diff
