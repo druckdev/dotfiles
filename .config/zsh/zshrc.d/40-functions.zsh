@@ -677,9 +677,9 @@ diffcmds() {
 	local -a template args final_cmd
 
 	if (( $+commands[vimdiff] && ! $+commands[diff] )); then
-		cmd=vimdiff
+		diff_cmd=vimdiff
 	elif (( $+commands[diff] && ! $+commands[vimdiff] )); then
-		cmd=diff
+		diff_cmd=diff
 	elif (( $+commands[diff] && $+commands[vimdiff] )); then
 		if [[ $EDITOR =~ vi || $VISUAL =~ vi ]]; then
 			diff_cmd=vimdiff
