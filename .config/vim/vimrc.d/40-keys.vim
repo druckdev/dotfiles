@@ -27,13 +27,13 @@ nnoremap <C-w>! <C-w>T
 " Substitute command
 if (exists('+inccommand') && &inccommand != '')
 	nnoremap S :%s/
-	vnoremap S :s/
+	vnoremap S :s/\%V
 else
 	" This does not work with live previewing commands (inccommand) since the
 	" replace pattern is already defined and thus everything matching the search
 	" pattern is just deleted.
 	nnoremap S :%s//gc<Left><Left><Left>
-	vnoremap S :s//gc<Left><Left><Left>
+	vnoremap S :s/\%V/gc<Left><Left><Left>
 endif
 
 " Interact with the system clipboard
