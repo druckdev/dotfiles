@@ -288,14 +288,53 @@ vnoremap <leader>hex <Cmd>keepp '<,'>s/\v<\d+>/\=printf("0x%X", submatch(0))/g<C
 " TODO: sections? (see :h [[ and :h section)
 " TODO: exclusive and exclusive-linewise?
 noremap <silent> [[ <Cmd>call search('\v^(\S.*)?\{', 'besW')<CR>
-" TODO: map ]] here and remap ][ down below for better modularization
-noremap <silent> ][ <Cmd>call search('\v^(\S.*)?\{', 'esW')<CR>
+noremap <silent> ]] <Cmd>call search('\v^(\S.*)?\{', 'esW')<CR>
 
-" Match the behaviour of [[ and []. ]] forward to next '}' in the first column
-" and ][ fw to next '[', instead of the other way around.
+" Make `dest` do the same thing as `src` currently does. `src` can be remapped
+" afterwards without `dest`'s behaviour changing. Call with `expand("<sflnum>")`
+" as `lnum`.
+function! s:mapcpy(to, from, lnum, mode = "")
+	let l:curr_map = maparg(a:from, a:mode, 0, 1)
+
+	if empty(l:curr_map)
+		" Simply do a `*noremap <to> <from>` (but with correct lnum)
+		let l:curr_map = {
+			\ "rhs": a:from, "noremap": 1, "mode": a:mode,
+			\ "sid": expand("<SID>"),
+			\ "script": 0, "expr": 0, "buffer": 0, "silent": 0,
+			\ "nowait": 0, "abbr": 0, "scriptversion": 1,
+		\ }
+	endif
+
+	" Overwrite lhs of current mapping. Also change lnum to calling line.
+	let l:curr_map["lnum"] = a:lnum
+	let l:curr_map["lhs"] = a:to
+	if has("nvim")
+		" TODO: is `1, 1, 1` correct?
+		let l:curr_map["lhsraw"] = nvim_replace_termcodes(a:to, 1, 1, 1)
+	else
+		" TODO: convert to bytes (find inverse of keytrans())
+		let l:curr_map["lhsraw"] = a:to
+	endif
+	if has_key(l:curr_map, "lhsrawalt")
+		call remove(l:curr_map, "lhsrawalt")
+	endif
+
+	call mapset(l:curr_map)
+endfunction
+
+" Swap ]] and ][, so that ]] jumps forward to the next '}' and ][ to '{'. I find
+" this more intuitive, as now the first bracket indicates the jump direction
+" (i.e. ] -> forward, [ -> backward) and the second bracket the orientation of
+" the target brace (i.e. [ -> {, ] -> }) .
+"
+" While doing this, keep the functionality from above that the opening brace
+" does not need to be in the first column. I could have simply mapped ][ above
+" instead of ]], but prefer to have it modular. In the case that ]] is not
+" mapped yet (e.g. because I disabled the mapping above), this simply does a
+" `noremap ][ ]]`.
+call s:mapcpy("][", "]]", expand("<sflnum>"))
 noremap ]] ][
-" TODO: fix this with the relaxed mappings by evaluating the current rhs of ]]
-" nmap ][ ]]
 
 " Strip trailing whitespace
 nnoremap <leader><space> <Cmd>keepp silent! %s/\v\s+$//<CR>
