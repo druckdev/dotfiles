@@ -533,5 +533,11 @@ augroup END
 " Escape underscores (useful when writing LaTeX)
 vmap <leader>\_ <Cmd>keepp '<,'>s/\v(^<Bar>[^\\])\zs\ze_/\\/g<CR>
 
+" Center line when opening line from quickfix window
+augroup qf_centered_enter
+	au!
+	au FileType qf noremap <buffer> <CR> <CR>zz
+augroup END
+
 " TODO: make `gf` open absolute paths relative to PWD if possible
 "
