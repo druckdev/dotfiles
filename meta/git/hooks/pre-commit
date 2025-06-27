@@ -52,7 +52,7 @@ git diff --staged --name-only --diff-filter=AT $against \
 		[ -h "$line" ] || continue
 
 		target="$(readlink "$line")"
-		if [ "${target:0:1}" = "/" ]; then
+		if [ -z "${target##/*}" ]; then
 			abort=1
 			printf "%s\n" "$line: Absolute symlink" >&2
 		fi
@@ -61,5 +61,5 @@ git diff --staged --name-only --diff-filter=AT $against \
 			printf "%s\n" "$line: Broken symlink" >&2
 		fi
 	done
-	(( ! abort )) || die
+	[ "$abort" -eq 0 ] || die
 }
