@@ -526,6 +526,7 @@ endfunction
 " Type everything uppercase and underscores instead of spaces
 noremap <leader>mac <Cmd>call <sid>macro_type()<CR>i
 augroup macro_type
+	" NOTE: group used in macro_type()
 	au!
 augroup END
 
