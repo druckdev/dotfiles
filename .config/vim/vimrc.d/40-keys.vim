@@ -274,6 +274,11 @@ augroup END
 nnoremap <leader>utc ciw<C-r>=strftime("%F %T", @")<CR><Esc>
 vnoremap <leader>utc <Cmd>keepp '<,'>s/\v(^\|[^0-9])\zs[0-9]{10}\ze([^0-9]\|$)/\=strftime("%F %T",submatch(0))/g<CR>
 
+" Convert decimal numbers to hex
+" https://stackoverflow.com/a/1118642
+nnoremap <leader>hex ciw<C-r>=printf("0x%X", @")<CR><Esc>
+vnoremap <leader>hex <Cmd>keepp '<,'>s/\v<\d+>/\=printf("0x%X", submatch(0))/g<CR>
+
 " TODO: <leader>sec that uses the `duration` alias from zsh
 
 " Relax mappings that jump to opening braces on first column: Just make sure
