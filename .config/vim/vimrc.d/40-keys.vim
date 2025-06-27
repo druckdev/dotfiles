@@ -540,4 +540,6 @@ augroup qf_centered_enter
 augroup END
 
 " TODO: make `gf` open absolute paths relative to PWD if possible
+" TODO: operator pending mode: [ia]$ in shell scripts to select the current
+"       parameter expansion or command substitution
 "
