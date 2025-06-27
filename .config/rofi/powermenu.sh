@@ -17,7 +17,7 @@ entries=(
 	[reboot]="$controller reboot"
 	[shutdown]="$controller poweroff"
 	[suspend]="$controller suspend"
-	[suspend (scheduled)]="scheduled_suspend"
+	["suspend (scheduled)"]="scheduled_suspend"
 )
 
 declare -a rofi_args

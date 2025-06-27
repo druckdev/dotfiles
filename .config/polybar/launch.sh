@@ -15,17 +15,17 @@ module_flags=(
 	[vpn_click_left]="$BASE_DIR/scripts/pub_ipv4.sh &"
 )
 for module in "${!module_flags[@]}"; do
-	export POLYBAR_${module^^}="${module_flags[$module]}"
+	export POLYBAR_"${module^^}=${module_flags[$module]}"
 done
 
 # if there is no running instance
 if ! pgrep -ax polybar >/dev/null 2>&1; then
 	# launch Polybar on every monitor
 	# https://github.com/polybar/polybar/issues/763
-	while read m; do
+	while read -r m; do
 		export MONITOR="${m%%:*}"
 		polybar --reload -c "$BASE_DIR/config" main &
-	done <<<$(polybar --list-monitors)
+	done <<<"$(polybar --list-monitors)"
 
 	echo "Polybar launched..."
 else

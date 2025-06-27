@@ -9,7 +9,6 @@ low=20
 
 red='%{F#f00}'
 green='%{F#0f0}'
-end='%{F-}'
 
 bat="$(cat /sys/class/power_supply/BAT0/capacity 2>/dev/null)" || exit
 ac="$(cat /sys/class/power_supply/AC/online 2>/dev/null)"
@@ -21,8 +20,8 @@ ramp=(          )
 # display in green when over $full and a charger is connected
 [[ "$bat" -lt "$full" || "$ac" -eq 0 ]] || color="$green"
 
-let "icon_index = $bat / (${#ramp[@]} - 1)"
-[[ $icon_index -lt ${#ramp[@]} ]] || icond_index=10
+icon_index="$((bat / (${#ramp[@]} - 1)))"
+[[ $icon_index -lt ${#ramp[@]} ]] || icon_index=10
 icon="${ramp[$icon_index]}"
 [[ "$ac" -eq 0 ]] || charge=""
 
