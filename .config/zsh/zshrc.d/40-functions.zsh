@@ -584,6 +584,20 @@ finddup() {
 	| cut -d' ' -f3-
 }
 
+# Find in parent directories
+findup() {
+	(( $# )) || return 1
+
+	# TODO: support passing different entry point
+	dir="$PWD:A"
+
+	while true; do
+		find "$dir" -maxdepth 1 \( "$@" \)
+		[[ $dir != / ]] || break
+		dir="$dir:h"
+	done
+}
+
 # Wrapper around tmsu that searches for .tmsu/db in all parent directories and
 # fallbacks to XDG_DATA_HOME if not found.
 tag() {
