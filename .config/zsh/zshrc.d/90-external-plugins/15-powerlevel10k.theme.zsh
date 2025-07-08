@@ -88,6 +88,7 @@
     lf                      # lf shell (https://github.com/gokcehan/lf)
     xplr                    # xplr shell (https://github.com/sayanarijit/xplr)
     vim_shell               # vim shell indicator (:sh)
+    my_vim_session          # vim session file (Session.vim)
     midnight_commander      # midnight commander shell (https://midnight-commander.org/)
     nix_shell               # nix shell (https://nixos.org/nixos/nix-pills/developing-with-nix-shell.html)
     chezmoi_shell           # chezmoi shell (https://www.chezmoi.io/)
@@ -1669,6 +1670,29 @@
     # and regular prompts.
     prompt_example
   }
+
+  #########################[ my_vim_session: existence of Session.vim ]#########################
+  function prompt_my_vim_session() {
+    if [[ -e Session.vim ]]; then
+      p10k segment -s CURRENT -t "Session.vim"
+      return
+    fi
+
+    # TODO: do we actually want :A?
+    local dir="${${PWD:A}:h}"
+    while [[ $dir != / ]]; do
+      if [[ -e "$dir/Session.vim" ]]; then
+        p10k segment -s PARENT -t "Session.vim"
+        return
+      fi
+
+      dir="${dir:h}"
+    done
+  }
+  # Color when Session.vim exists in current directory
+  typeset -g POWERLEVEL9K_MY_VIM_SESSION_CURRENT_FOREGROUND=3
+  # Color when Session.vim exists in parent directory
+  typeset -g POWERLEVEL9K_MY_VIM_SESSION_PARENT_FOREGROUND=239
 
   # User-defined prompt segments can be customized the same way as built-in segments.
   # typeset -g POWERLEVEL9K_EXAMPLE_FOREGROUND=208
