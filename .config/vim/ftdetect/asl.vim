@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufRead *.asl set filetype=c.asl
+autocmd BufNewFile,BufRead *.asl,*.ASL set filetype=c.asl
