@@ -34,10 +34,10 @@ set recolor-keephue true
 set recolor-reverse-video true
 
 # vim-like fold mappings in index
-map [index] zo navigate-index expand
-map [index] zc navigate-index collapse
-map [index] zR navigate-index expand-all
-map [index] zM navigate-index collapse-all
+map [index] zo navigate_index expand
+map [index] zc navigate_index collapse
+map [index] zR navigate_index expand-all
+map [index] zM navigate_index collapse-all
 
 # Recoloring should also work in presentation mode
 map [presentation] i recolor
