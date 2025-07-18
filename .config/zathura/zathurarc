@@ -1,3 +1,6 @@
+# Use sqlite backend - plain is deprecated
+set database sqlite
+
 # Use system clipboard for selection.
 set selection-clipboard "clipboard"
 
