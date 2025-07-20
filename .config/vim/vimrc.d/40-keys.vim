@@ -140,12 +140,14 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " Git bindings
 
-" Insert a commit's subject behind the SHA1 that the cursor is currently on.
-" Mnemonic: "git reference commit"
+" Reference the commit that the cursor is currently on with the 'reference'
+" format (Mnemonic: "git reference commit").
+" NOTE: I can't use --pretty=reference since it would insert the abbreviated
+"       hash additionally to the existing hash.
 " NOTE: This uses `system` and not `:r!` to insert the text directly at the
-"       cursor. `subject[:-2]` cuts off the trailing newline.
+"       cursor. `subject[:-1]` cuts off the trailing newline.
 " TODO: print error message but insert nothing on git error
-nmap <leader>grc :let subject=system('git show -s --format="(\"%s\")" <C-R><C-W>')<CR>viw<Esc>a <C-R>=subject[:-2]<CR><Esc>
+nmap <leader>grc :let subject=system('git show -s --date=short --pretty="format:(%s, %ad)" <C-R><C-W>')<CR>viw<Esc>a <C-R>=subject[:-1]<CR><Esc>
 
 " Insert a Signed-off-by trailer
 nmap <leader>gso :r!git config --get user.name<CR>:r!git config --get user.email<CR>I<<ESC>A><ESC>kJISigned-off-by: <ESC>
