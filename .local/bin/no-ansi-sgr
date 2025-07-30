@@ -5,4 +5,5 @@
 # Remove ANSI SGR (Select Graphic Rendition) escape sequences, e.g. setting
 # color or bold font.
 
-s/\[[^m]*m//g
+# TODO: Why is the range `[0-?]` invalid?
+s/\[[0-9:-?]*[ -/]*m//g
