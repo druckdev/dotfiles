@@ -1,0 +1,7 @@
+#!/bin/sh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 Julian Prein
+#
+# Remove ANSI escape sequences.
+
+env LC_ALL=C sed 's/\[[0-?]*[ -/]*[@-z]//g'
