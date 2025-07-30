@@ -1,9 +1,8 @@
-#!/bin/sed -f
+#!/bin/sh
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2025 Julian Prein
 #
 # Remove ANSI SGR (Select Graphic Rendition) escape sequences, e.g. setting
 # color or bold font.
 
-# TODO: Why is the range `[0-?]` invalid?
-s/\[[0-9:-?]*[ -/]*m//g
+env LC_ALL=C sed 's/\[[0-?]*[ -/]*m//g'
