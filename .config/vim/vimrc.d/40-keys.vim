@@ -153,9 +153,10 @@ nmap <leader>grc :let subject=system('git show -s --date=short --pretty="format:
 nmap <leader>gso :r!git config --get user.name<CR>:r!git config --get user.email<CR>I<<ESC>A><ESC>kJISigned-off-by: <ESC>
 
 " Add, stash or checkout the current file
-nmap <leader>ga <Cmd>!git add -- %<CR>
-nmap <leader>gs <Cmd>!git stash -- %<CR>
-nmap <leader>gu <Cmd>!git checkout -- %<CR>
+" TODO: Conflict with <leader>gf
+"nmap <leader>gfa <Cmd>!git add -- %<CR>
+"nmap <leader>gfs <Cmd>!git stash -- %<CR>
+"nmap <leader>gfu <Cmd>!git checkout -- %<CR>
 
 if exists('g:loaded_fugitive')
 	" Interactive `git status`
@@ -176,15 +177,12 @@ else
 endif
 
 if exists('g:loaded_gitgutter')
-	" Add `g` prefix to hunk bindings
-	" Mnemonic: "git hunk <add|undo|preview>"
-	nmap <leader>gha <Plug>(GitGutterStageHunk)
-	" TODO: nmap <leader>ghs <Plug>(GitGutterStashHunk)
-	nmap <leader>ghu <Plug>(GitGutterUndoHunk)
-	nmap <leader>ghp <Plug>(GitGutterPreviewHunk)
-
-	" StageHunk can be used for single lines. Mnemonic w/o `h`unk
+	" Mnemonic: "git <add|undo|preview>"
+	nmap <leader>ga <Plug>(GitGutterStageHunk)
 	xmap <leader>ga <Plug>(GitGutterStageHunk)
+	" TODO: nmap <leader>gs <Plug>(GitGutterStashHunk)
+	nmap <leader>gu <Plug>(GitGutterUndoHunk)
+	nmap <leader>gp <Plug>(GitGutterPreviewHunk)
 
 	" Add hunk/h version to textobject bindings that use `c` (for `change I
 	" presume?) (e.g. ic -> ih)
