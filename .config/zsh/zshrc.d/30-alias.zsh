@@ -192,7 +192,7 @@ fi
 	(( ${${aliases[rm]}[(ei)rm]} > ${#${aliases[rm]}} )) ||
 		add_flags rm -I
 	add_flags mkdir -p
-	add_flags lsblk -o NAME,LABEL,TYPE,FSTYPE,SIZE,FSAVAIL,MOUNTPOINT
+	add_flags lsblk -o NAME,LABEL,TYPE,FSTYPE,SIZE,FSAVAIL,MOUNTPOINTS
 	add_flags feh --start-at
 	# Use multiple jobs when making
 	add_flags make -j
