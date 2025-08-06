@@ -1,2 +1,7 @@
 This also reverts commit 0ca1baec8c3ad58de8b88851cc8f981a28db3f5c
 (vim:ftplugin:c: Exclude `-` from 'iskeyword', 2023-05-21).
+
+The reason behind adding the dash to `&iskeyword` was probably that it
+can be part of command names in shell scripts. The future commit
+688f8e18aabb (vim:ftplug:shell*: Add `-` to `&iskeyword`, 2025-08-06)
+brings this change back, but only in the shell* ftplugins.
