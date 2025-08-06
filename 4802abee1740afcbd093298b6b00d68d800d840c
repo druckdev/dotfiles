@@ -1,1 +1,2 @@
-This also reverts commit 0ca1baec8c3ad58de8b88851cc8f981a28db3f5c.
+This also reverts commit 0ca1baec8c3ad58de8b88851cc8f981a28db3f5c
+(vim:ftplugin:c: Exclude `-` from 'iskeyword', 2023-05-21).
