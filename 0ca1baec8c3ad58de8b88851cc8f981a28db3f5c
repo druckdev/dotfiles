@@ -1,2 +1,2 @@
 Reverted-by: 4802abee1740 (vim:setts: Revert "Include `-` in
-	`&iskeyword`", 2025-07-20).
+             `&iskeyword`", 2025-07-20).
