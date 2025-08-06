@@ -1,1 +1,1 @@
-`MANPAGER=999` should have been `MANWIDTH=999`
+`MANPAGER=999` should have been `MANWIDTH=999`.
