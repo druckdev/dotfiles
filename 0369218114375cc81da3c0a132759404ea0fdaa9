@@ -1,2 +1,2 @@
-Reverted by commit 4802abee1740 (vim:setts: Revert "Include `-` in
-`&iskeyword`", 2025-07-20).
+Reverted-by: 4802abee1740 (vim:setts: Revert "Include `-` in
+	`&iskeyword`", 2025-07-20).
