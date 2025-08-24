@@ -105,6 +105,7 @@ local -A binds=(
 	"end"    "last"
 	"ctrl-d" "half-page-down"
 	"ctrl-u" "half-page-up"
+	"ctrl-s" "toggle-sort"
 	"ctrl-t" "toggle-track"
 	# Keep the current line selected while deleting the query
 	"bspace"       "track-current+backward-delete-char"
