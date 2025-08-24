@@ -120,11 +120,11 @@ local -A binds=(
 	# TODO: This assumes less to be used in core.pager
 	"enter" "execute@$fzf_preview[patch] | $pager -+F@"
 	# Preview stats
-	"ctrl-s" "change-preview($fzf_preview[stat])"
+	"ctrl-alt-s" "change-preview($fzf_preview[stat])"
 	# Preview patch
-	"ctrl-p" "change-preview($fzf_preview[patch])"
+	"ctrl-alt-p" "change-preview($fzf_preview[patch])"
 	# Files only
-	"ctrl-f" "change-preview($fzf_preview[files_only])"
+	"ctrl-alt-f" "change-preview($fzf_preview[files_only])"
 	# For ctrl-space see below
 )
 
@@ -138,7 +138,7 @@ local header=""
 header+="${color_brown}Enter${color_grey}: fullscreen, "
 header+="${color_brown}C-y${color_grey}: yank hash, "
 header+="${color_brown}C-Space${color_grey}: cycle preview, "
-header+="${color_brown}C-[spf]${color_grey}: preview stats/patch/files"
+header+="${color_brown}C-A-[spf]${color_grey}: preview stats/patch/files"
 
 local -a fzf_args=(
 	# Understand ansi color escape sequences.
