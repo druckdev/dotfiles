@@ -1,6 +1,20 @@
 #!/usr/bin/env zsh
 
-git for-each-ref --format='%(upstream),%(refname)' refs/heads refs/remotes \
+local idx="${@[(ei)--help]}"
+local flags_end="${@[(ei)--]}"
+if (( idx < flags_end )); then
+	printf "Usage: $0 [--all] [REMOTE]..."
+	return 0
+fi
+
+idx="${@[(ei)--all]}"
+if (( idx < flags_end )); then
+	# Replace --all flag with empty string. Will be replaced with
+	# refs/remotes/ later so that all remotes are listed
+	set -- "${@[1,$((idx-1))]}" "" "${@[$((idx+1)),-1]}"
+fi
+
+git for-each-ref --format='%(upstream),%(refname)' refs/heads "${@/#/refs/remotes/}" \
 	| sort -d \
 	| sed -Ez '
 		s:(^|\n|,)refs/(heads|remotes/):\1:g
