@@ -36,18 +36,11 @@ set $TERM_CMD_FLAG
 # a single sprite cache on the GPU"[^1], so that startup is almost instant.
 #
 # For this to work best, launch one hidden "daemon" instance at startup so that
-# the kitty process is always running, even when no OS windows exists.
-#
-# NOTE: `--start-as hidden` needs kitty 0.42.0 or later.
-#
-# Additionally allow remote_control over a socket, so that kitty-cwd works.
+# the kitty process is always running, even when no OS windows exists. See the
+# daemon.sh script in .config/kitty.
 #
 # [^1]: kitty(1)
-exec --no-startup-id $TERMINAL \
-	--start-as hidden \
-	--detach \
-	-o allow_remote_control=socket-only \
-	--listen-on unix:/tmp/mykitty
+exec --no-startup-id kitty-daemon
 
 # Multi monitor support
 exec_always --no-startup-id ~/.config/i3/monitor-setup.sh &
