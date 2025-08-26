@@ -13,9 +13,12 @@
 #
 # NOTE: `--start-as hidden` needs kitty 0.42.0 or later.
 
+TMP_DIR="${TMPDIR:-/tmp}/kitty.$USER"
+mkdir -p "$TMP_DIR"
+
 kitty \
 	--single-instance \
 	--start-as hidden \
 	--detach \
 	-o allow_remote_control=socket-only \
-	--listen-on unix:/tmp/mykitty
+	--listen-on unix:"$TMP_DIR/kitty.sock"
