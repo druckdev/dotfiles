@@ -2,10 +2,12 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2025 Julian Prein
 #
+# Usage: kitty-cwd [GROUP_NAME]
+#
 # Print the current working directory of the focused kitty window. Returns 4 if
 # none exist or is focused.
 
-socket_path="${TMPDIR:-/tmp}/kitty.$USER/kitty.sock"
+socket_path="${TMPDIR:-/tmp}/kitty.$USER/kitty${1:+-$1}.sock"
 
 # NOTE: the backticks are used for hacky line-continuation, taken from
 #       https://stackoverflow.com/a/7729087/2092762c9
