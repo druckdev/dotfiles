@@ -22,10 +22,13 @@
 TMP_DIR="${TMPDIR:-/tmp}/kitty.$USER"
 mkdir -p "$TMP_DIR"
 
+name="kitty${1:+-$1}"
+
 kitty \
 	--single-instance \
 	${1:+--instance-group "$1"} \
 	--start-as hidden \
 	--detach \
+	--detached-log "$(mktemp -p "$TMP_DIR" "$name.XXXXXX.log")" \
 	-o allow_remote_control=socket-only \
-	--listen-on unix:"$TMP_DIR/kitty${1:+-$1}.sock"
+	--listen-on unix:"$TMP_DIR/$name.sock"
