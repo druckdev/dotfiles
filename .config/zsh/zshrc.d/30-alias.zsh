@@ -183,7 +183,7 @@ fi
 # Default flags
 	add_flags ls --color=auto --group-directories-first -p -v
 	add_flags grep --color=auto --exclude-dir=.git --exclude=tags
-	add_flags cp -i
+	add_flags cp -ia
 	add_flags mv -i
 	# Only add flags if rm is not aliased to a different command (e.g. trash).
 	# NOTE: This also works if rm is not yet aliased.
