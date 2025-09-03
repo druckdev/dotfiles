@@ -42,8 +42,6 @@ if (has('clipboard'))
 	map <leader>Y "+Y
 	map <leader>p "+p
 	map <leader>P "+P
-	map <leader>gp "+gp
-	map <leader>gP "+gP
 endif
 
 " Do not move the cursor to the start of the selection after a yank
