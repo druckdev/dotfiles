@@ -196,6 +196,8 @@ if exists('g:loaded_gitgutter')
 	xmap ih <Plug>(GitGutterTextObjectInnerVisual)
 	xmap ah <Plug>(GitGutterTextObjectOuterVisual)
 	" Same for hunk navigation bindings + center line
+	" TODO: <leader>[h to jump between **all** hunks across all modified
+	"       files. (similar to `add -p`)
 	nmap [h <Plug>(GitGutterPrevHunk)zz
 	nmap ]h <Plug>(GitGutterNextHunk)zz
 endif
