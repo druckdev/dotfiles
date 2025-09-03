@@ -49,6 +49,8 @@
 [branch]
 	autosetuprebase = always
 	sort = -committerdate
+[clone]
+	filterSubmodules = yes
 [color "status"]
 	added = 076
 	untracked = 014
