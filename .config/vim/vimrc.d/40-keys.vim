@@ -91,24 +91,19 @@ elseif (has('terminal'))
 	nmap <leader><CR> <Cmd>terminal<CR>
 endif
 
-" Plugin specific bindings
 if (get(g:, 'loaded_fzf'))
-	nmap <leader>f <Cmd>Files<CR>
-	nmap <leader>j <Cmd>Lines<CR>
-	nmap <leader>/ <Cmd>Lines<CR>
-	nmap <leader>h <Cmd>Helptags<CR>
-	" TODO: fix this?
-	if (get(g:, 'loaded_gutentags') || 1)
-		nmap <leader>t <Cmd>Tags<CR>
-		nmap <leader>bt <Cmd>BTags<CR>
-	endif
-
+	nmap <leader>ff <Cmd>Files<CR>
+	nmap <leader>fj <Cmd>Lines<CR>
+	nmap <leader>f/ <Cmd>Lines<CR>
+	nmap <leader>fh <Cmd>Helptags<CR>
+	nmap <leader>ft <Cmd>Tags<CR>
+	nmap <leader>fbt <Cmd>BTags<CR>
 	" git files that `git status` lists
-	nmap <leader>gf <Cmd>GFiles?<CR>
+	nmap <leader>fgf <Cmd>GFiles?<CR>
 	" 'git log (log?)' and 'git log buffer '
-	map <leader>gll <Cmd>Commits<CR>
-	map <leader>glb <Cmd>BCommits<CR>
-	" TODO: <leader>glb should restrict the log to all staged files when called
+	map <leader>fgll <Cmd>Commits<CR>
+	map <leader>fglb <Cmd>BCommits<CR>
+	" TODO: <leader>fglb should restrict the log to all staged files when called
 	" in .git/COMMIT_EDITMSG, maybe with an ftplugin?
 endif
 
@@ -161,10 +156,9 @@ nmap <leader>grc :let subject=system('git show -s --date=short --pretty="format:
 nmap <leader>gso :r!git config --get user.name<CR>:r!git config --get user.email<CR>I<<ESC>A><ESC>kJISigned-off-by: <ESC>
 
 " Add, stash or checkout the current file
-" TODO: Conflict with <leader>gf
-"nmap <leader>gfa <Cmd>!git add -- %<CR>
-"nmap <leader>gfs <Cmd>!git stash -- %<CR>
-"nmap <leader>gfu <Cmd>!git checkout -- %<CR>
+nmap <leader>gfa <Cmd>!git add -- %<CR>
+nmap <leader>gfs <Cmd>!git stash -- %<CR>
+nmap <leader>gfu <Cmd>!git checkout -- %<CR>
 
 if exists('g:loaded_fugitive')
 	" Interactive `git status`
