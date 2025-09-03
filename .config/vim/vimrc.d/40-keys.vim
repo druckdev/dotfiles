@@ -102,6 +102,14 @@ if (get(g:, 'loaded_fzf'))
 		nmap <leader>t <Cmd>Tags<CR>
 		nmap <leader>bt <Cmd>BTags<CR>
 	endif
+
+	" git files that `git status` lists
+	nmap <leader>gf <Cmd>GFiles?<CR>
+	" 'git log (log?)' and 'git log buffer '
+	map <leader>gll <Cmd>Commits<CR>
+	map <leader>glb <Cmd>BCommits<CR>
+	" TODO: <leader>glb should restrict the log to all staged files when called
+	" in .git/COMMIT_EDITMSG, maybe with an ftplugin?
 endif
 
 " Search for selected text.
@@ -195,15 +203,6 @@ if exists('g:loaded_gitgutter')
 	nmap ]h <Plug>(GitGutterNextHunk)zz
 endif
 
-if (get(g:, 'loaded_fzf'))
-	" git files that `git status` lists
-	nmap <leader>gf <Cmd>GFiles?<CR>
-	" 'git log (log?)' and 'git log buffer '
-	map <leader>gll <Cmd>Commits<CR>
-	map <leader>glb <Cmd>BCommits<CR>
-	" TODO: <leader>glb should restrict the log to all staged files when called
-	" in .git/COMMIT_EDITMSG, maybe with an ftplugin?
-endif
 
 " Y should behave like D & C does
 nnoremap Y y$
