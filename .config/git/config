@@ -114,7 +114,7 @@
 [rebase]
 	autostash = true
 [rerere]
-	enabled = true
+	enabled = false
 [status]
 	submodulesummary = true
 [submodule]
