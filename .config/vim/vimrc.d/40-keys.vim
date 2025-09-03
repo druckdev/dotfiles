@@ -139,7 +139,8 @@ vmap <leader>/ <Esc><leader>v/
 
 " Select last pasted text in same visual mode as it was selected (v, V, or ^V)
 " Taken from: https://vim.fandom.com/wiki/Selecting_your_pasted_text
-nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+" TODO: I want the gp default back - find new mapping
+" nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " Git bindings
 
