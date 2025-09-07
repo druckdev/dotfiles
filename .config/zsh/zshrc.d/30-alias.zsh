@@ -128,7 +128,7 @@ fi
 	# Use a reasonable time format
 	alias date='env LC_TIME=tk_TM date'
 	# List human readable sizes in order
-	alias sizes='du -sch * | sort -h'
+	alias sizes='() { du -sch ${1:-*} "${@[2,-1]}" | sort -h }'
 	# Count number of occurrences for every line in stdin
 	alias count='sort | uniq -c | sort -n'
 	# Inspired by https://stackoverflow.com/a/54541337
