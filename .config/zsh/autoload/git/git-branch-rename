@@ -1,0 +1,26 @@
+#!/usr/bin/env zsh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 Julian Prein
+#
+# Rename a branch locally and on a given remote.
+
+emulate -L zsh -o err_return -o no_unset
+
+if (( # < 2 || # > 3 )); then
+	printf >&2 "Usage: %s OLD NEW [REMOTE]\n" "${0:t}"
+	return 1
+fi
+
+local old new remote
+old="$1"
+new="$2"
+remote="${3:-origin}"
+
+if ! git remote -v | awk '{ print $1 }' | uniq | grep -q "$remote"; then
+	printf >&2 "Remote '%s' does not exist\n" "$remote"
+	return 1
+fi
+
+git checkout-worktree "$old" <<EOF
+git branch -m "$new" && git push -u && git push -d "$remote" "$old"
+EOF

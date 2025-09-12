@@ -12,6 +12,7 @@
 	abort = "!git-zsh-autoload abort"
 	autosquash = -c sequence.editor=/bin/true rebase -i --autosquash
 	autofixup= autosquash
+	branch-rename = "!git-zsh-autoload branch-rename"
 	c = commit
 	changes = flog HEAD...FETCH_HEAD
 	checkout-worktree = "!git-zsh-autoload checkout-worktree"
