@@ -156,7 +156,7 @@
 [rerere]
 	enabled = false
 [status]
-	submodulesummary = true
+	submoduleSummary = true
 [submodule]
 	fetchJobs = 0
 [trailer]
