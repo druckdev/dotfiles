@@ -52,6 +52,38 @@
 	sort = -committerdate
 [clone]
 	filterSubmodules = yes
+[color "diff"]
+	# Make all bold colors also bright. See diff_colors in git's diff.c
+	oldMoved = bold brightmagenta
+	oldMovedAlternative = bold brightblue
+	newMoved = bold brightcyan
+	newMovedAlternative = bold brightyellow
+	oldBold = bold brightred
+	newBold = bold brightgreen
+[color "decorate"]
+	# Make all bold colors also bright. See decoration_colors in git's
+	# log-tree.c
+	branch = bold brightgreen
+	remoteBranch = bold brightred
+	tag = bold brightyellow
+	stash = bold brightmagenta
+	HEAD = bold brightcyan
+	grafted = bold brightblue
+[color "grep"]
+	# Make all bold colors also bright. See GREP_OPT_INIT in git's grep.h
+	matchContext = bold brightred
+	matchSelected = bold brightred
+[color "interactive"]
+	# Make all bold colors also bright. See init_add_i_state in git's
+	# add-interactive.c
+	help = bold brightred
+	prompt = bold brightblue
+	error = bold brightred
+[color "remote"]
+	# Make all bold colors also bright. See keywords in git's sideband.c
+	warning = bold brightyellow
+	success = bold brightgreen
+	error = bold brightred
 [color "status"]
 	added = 076
 	untracked = 014
@@ -102,6 +134,9 @@
 	singleKey = true
 [log]
 	follow = true
+	# Use bright instead of bold colors. See column_colors_ansi in git's
+	# color.c used by graph.c
+	graphColors = red,green,yellow,blue,magenta,cyan,brightred,brightgreen,brightyellow,brightblue,brightmagenta,brightcyan
 [merge]
 	conflictstyle = diff3
 	log = true
