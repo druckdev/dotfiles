@@ -4,22 +4,22 @@
 	addIgnoredFile = off
 	detachedHead = off
 [alias]
-	# NOTE: git-zsh-autoload (./zsh-autoload.sh) is a small wrapper that
-	# launches autoloadable zsh functions (.config/zsh/autoload/git/*) in
-	# the right directory, as shell commands in git aliases are executed
-	# from the top-level directory of the repository.
+	# NOTE: git-external-script (./external-script.sh) is a small wrapper
+	#  that launches external scripts from the ./scripts/ collection in the
+	#  right directory, as shell commands in git aliases are executed from
+	#  the top-level directory of the repository.
 
-	abort = "!git-zsh-autoload abort"
+	abort = "!git-external-script abort"
 	autosquash = -c sequence.editor=/bin/true rebase -i --autosquash
 	autofixup= autosquash
-	branch-rename = "!git-zsh-autoload branch-rename"
+	branch-rename = "!git-external-script branch-rename"
 	c = commit
 	changes = flog HEAD...FETCH_HEAD
-	checkout-worktree = "!git-zsh-autoload checkout-worktree"
+	checkout-worktree = "!git-external-script checkout-worktree"
 	cow = checkout-worktree
 	co = checkout
-	commit-last-msg = "!git-zsh-autoload commit-last-msg"
-	continue = "!git-zsh-autoload continue"
+	commit-last-msg = "!git-external-script commit-last-msg"
+	continue = "!git-external-script continue"
 	cont = continue
 	clm = commit-last-msg
 	last-msg = commit-last-msg
@@ -29,21 +29,21 @@
 	ft = fetch-tags-only
 	filter-repo = !git-filter-repo
 	fixes = log -1 --pretty=fixes
-	glog = "!git-zsh-autoload glog"
-	https-and-ssh = "!git-zsh-autoload https-and-ssh"
+	glog = "!git-external-script glog"
+	https-and-ssh = "!git-external-script https-and-ssh"
 	ssh-and-https = https-and-ssh
 	l = log
-	last-changed = "!git-zsh-autoload last-changed"
+	last-changed = "!git-external-script last-changed"
 	ls = ls-files
-	make-fork = "!git-zsh-autoload make-fork"
+	make-fork = "!git-external-script make-fork"
 	p = push
-	perm-stash = "!git-zsh-autoload perm-stash"
+	perm-stash = "!git-external-script perm-stash"
 	root = rev-parse --show-toplevel
 	signoff = rebase --signoff
 	ss = stash
-	ssync = "!git-zsh-autoload ssync"
-	submodule-rm = "!git-zsh-autoload submodule-rm"
-	track = "!git-zsh-autoload track"
+	ssync = "!git-external-script ssync"
+	submodule-rm = "!git-external-script submodule-rm"
+	track = "!git-external-script track"
 	branches = track
 [blame]
 	date = short
