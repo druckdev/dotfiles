@@ -138,6 +138,8 @@
 	# previously bold-only colors. See column_colors_ansi in git's color.c
 	# used by graph.c
 	graphColors = bold red,bold green,bold yellow,bold blue,bold magenta,bold cyan,bold brightred,bold brightgreen,bold brightyellow,bold brightblue,bold brightmagenta,bold brightcyan
+	# Show all refs as decoration (e.g. also notes)
+	initialDecorationSet = all
 [merge]
 	conflictstyle = diff3
 	log = true
