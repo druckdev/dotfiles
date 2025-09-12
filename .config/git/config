@@ -101,7 +101,7 @@
 	abbrev = 12
 	#pager = delta
 	pager = diff-so-fancy | less --tabs=8 --RAW-CONTROL-CHARS
-	whitespace = trailing-spaces,space-before-tab,indent-with-non-tab
+	whitespace = trailing-spaces,space-before-tab,indent-with-non-tab,tabwidth=8
 [delta]
 	navigate = true
 	commit-decoration-style = bold yellow box
