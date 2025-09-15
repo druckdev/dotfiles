@@ -37,7 +37,7 @@ local git_dir REPO_NAME WORKTREE_PATH
 git_dir="${$(git rev-parse --git-dir):A}"
 [[ $git_dir == */.git/modules/* ]] || git_dir="${git_dir%%/.git*}"
 REPO_NAME="${git_dir:t}"
-WORKTREE_PATH="$(mktemp -d -p "" "worktree.XXX.$REPO_NAME.${1//\//_}")"
+WORKTREE_PATH="$(mktemp -d -p "" "wtree.$REPO_NAME.${1//\//_}.XXX")"
 
 local errc ret=0
 git worktree add "$WORKTREE_PATH" "$@" || ret=$?
