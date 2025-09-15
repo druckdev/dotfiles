@@ -31,10 +31,12 @@
 
 emulate -L zsh -o err_return -o no_unset
 
-local REPO_NAME WORKTREE_PATH
+local git_dir REPO_NAME WORKTREE_PATH
 # Use the folder name of the main working tree to make calls from another
 # temporary working tree possible
-REPO_NAME="${${${$(git rev-parse --git-dir):A}%%/.git*}:t}"
+git_dir="${$(git rev-parse --git-dir):A}"
+[[ $git_dir == */.git/modules/* ]] || git_dir="${git_dir%%/.git*}"
+REPO_NAME="${git_dir:t}"
 WORKTREE_PATH="$(mktemp -d -p "" "worktree.XXX.$REPO_NAME.${1//\//_}")"
 
 local errc ret=0
