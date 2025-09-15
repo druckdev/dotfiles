@@ -62,4 +62,4 @@ git diff --staged --name-only --diff-filter=AT $against \
 		fi
 	done
 	[ "$abort" -eq 0 ] || die
-}
+} || exit
