@@ -31,7 +31,7 @@
 
 emulate -L zsh -o err_return -o no_unset
 
-local git_dir REPO_NAME WORKTREE_PATH
+local git_dir cwd_offset REPO_NAME WORKTREE_PATH
 # Use the folder name of the main working tree to make calls from another
 # temporary working tree possible
 git_dir="${$(git rev-parse --git-dir):A}"
@@ -53,7 +53,9 @@ trap '
 	return $errc
 ' INT QUIT TERM EXIT
 
+cwd_offset="${${PWD#$(git rev-parse --show-toplevel)}#/}"
 pushd -q "$WORKTREE_PATH"
+[[ ! -d $cwd_offset ]] || cd "$cwd_offset"
 
 "$SHELL" && errc=$? || errc=$?
 (( !errc )) || echo "shell exited with $errc"
