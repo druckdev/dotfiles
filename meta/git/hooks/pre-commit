@@ -63,3 +63,118 @@ git diff --staged --name-only --diff-filter=AT $against \
 	done
 	[ "$abort" -eq 0 ] || die
 } || exit
+
+# Make sure that a deletion does not break any symlinks (including renaming a
+# file)
+# TODO: switch all these to null-terminated lines
+deleted_files="$(git diff-index --cached --name-only --diff-filter=D $against)"
+if [ -n "$deleted_files" ]; then
+	# First, check for broken symlinks in the tree
+	all_broken_links="$(find . -xtype l -exec stat -c '%N' '{}' '+')"
+
+	# NOTE: The cat could be replaced by instead adding the heredoc to the
+	#  `done` of the loop, but would make the code much less readable
+	cat <<EOF \
+	| while read -r deletion
+$deleted_files
+EOF
+	do
+		# As a first heuristic, check if there is a broken symlink with
+		# a target with the same basename as the deleted file
+		#
+		# TODO: stat escapes quotes sometimes. Does everything work
+		#  then?
+		possible_links="$(
+			grep "[\"'/]$(
+				basename "$deletion" \
+				| sed 's/[.[^$*\\]/\\&/g'
+			)[\"']\$" <<EOF
+$all_broken_links
+EOF
+		)"
+		[ -n "$possible_links" ] || continue
+
+		cat << EOF \
+		| while read -r link
+$possible_links
+EOF
+		do
+			# TODO: this is probably quite brittle, depending on how
+			#  `stat` quotes source and target
+			target="${link##* -> [\"\']}"
+			target="${target%[\"\']}"
+			source="${link%%[\"\'] -> *}"
+			source="${source#[\"\']}"
+
+			if [ -z "${target##/*}" ]; then
+				# absolute link
+				if [ "$target" = "$PWD/$deletion" ]; then
+					die "You broke the symlink $link"
+				fi
+			else
+				# relative link
+				target="$(realpath -m "$source/../$target")"
+				if [ "$target" = "$PWD/$deletion" ]; then
+					die "You broke the symlink $link"
+				fi
+			fi
+		done || exit
+	done || exit
+
+	# Second, check all symlinks in the index if they still point to the
+	# deleted file
+	all_links_in_index="$(
+		git ls-files --format="%(objectmode) %(objectname) %(path)" \
+		| grep '^120000'
+	)"
+
+	cat <<EOF \
+	| while read -r deletion
+$deleted_files
+EOF
+	do
+		# As a first heuristic, get all links in the tree with a target
+		# with the same basename as the deleted file
+		possible_links="$(
+			cut -d' ' -f2 <<EOF \
+			| git cat-file --batch \
+			| grep -B1 "\(^\|/\)$(
+				basename "$deletion" \
+				| sed 's/[.[^$*\\]/\\&/g'
+			)\$" \
+			| paste - -
+$all_links_in_index
+EOF
+		)"
+		[ -n "$possible_links" ] || continue
+
+		cat << EOF \
+		| while read -r link
+$possible_links
+EOF
+		do
+			target="${link#*	}"
+			source="$(
+				grep -F "${link%% *}" <<EOF \
+				| cut -d' ' -f3-
+$all_links_in_index
+EOF
+			)"
+
+			if [ -z "${target##/*}" ]; then
+				# absolute link
+				if [ "$target" = "$PWD/$deletion" ]; then
+					die "You broke the symlink \"$source\" -> \"$target\""
+				fi
+			else
+				# relative link
+				target="$(realpath -m "$source/../$target")"
+				if [ "$target" = "$PWD/$deletion" ]; then
+					die "You broke the symlink \"$source\" -> \"$target\""
+				fi
+			fi
+		done || exit
+	done || exit
+
+	# TODO: also check potential symlinks pointing to now empty directories
+fi
