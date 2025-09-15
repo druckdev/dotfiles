@@ -55,7 +55,10 @@ trap '
 
 cwd_offset="${${PWD#$(git rev-parse --show-toplevel)}#/}"
 pushd -q "$WORKTREE_PATH"
-[[ ! -d $cwd_offset ]] || cd "$cwd_offset"
+until [[ -d $cwd_offset || -z $cwd_offset ]]; do
+	cwd_offset="${cwd_offset:h}"
+done
+[[ -z $cwd_offset ]] || cd "$cwd_offset"
 
 "$SHELL" && errc=$? || errc=$?
 (( !errc )) || echo "shell exited with $errc"
