@@ -60,6 +60,17 @@ until [[ -d $cwd_offset || -z $cwd_offset ]]; do
 done
 [[ -z $cwd_offset ]] || cd "$cwd_offset"
 
+# Discard some environment variables that were set by git when calling this
+# script through an alias.
+#
+# Is set for submodules and will confuse git in the subshell
+unset GIT_DIR
+# Not sure if this can bring any issues, but better be safe
+unset GIT_PREFIX
+# TODO: Do we want to unset this too? Could have been set on purpose by the user
+#  and not git. Maybe only for the subshell via `env`?
+#unset GIT_EXEC_PATH
+
 "$SHELL" && errc=$? || errc=$?
 (( !errc )) || echo "shell exited with $errc"
 
