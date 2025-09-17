@@ -168,6 +168,8 @@ if exists('g:loaded_fugitive')
 	nmap <leader>gcc <Cmd>G commit<CR>
 	" Amend the current commit and open the message in a split
 	nmap <leader>gca <Cmd>G commit --amend<CR>
+	" Commit with the last commit message as template
+	nmap <leader>gclm <Cmd>G commit-last-msg<CR>
 	" Move to root of directory
 	nmap <leader>gcd <Cmd>Gcd<CR>
 	" git blame in scroll bound vertical split (only the commit hashes, see
