@@ -38,6 +38,12 @@ if (exists("g:loaded_tmux_navigator"))
 	let g:tmux_navigator_disable_when_zoomed = 1
 endif
 
+if (get(g:, 'loaded_fzf_vim'))
+	let g:fzf_vim = {}
+	" Use location list instead of quickfix list
+	let g:fzf_vim.listproc = { list -> fzf#vim#listproc#location(list) }
+endif
+
 if (get(g:, 'loaded_vimwiki'))
 	" Use vertical box drawing character as table separator
 	call vimwiki#vars#set_syntaxlocal('rxTableSep', '│')
