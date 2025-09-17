@@ -124,8 +124,12 @@ function! GetVisualSelection(escape = "", byteescape = 'n')
 	return l:sel
 endfunction
 
-vmap * /\V<C-R>=GetVisualSelection('/\')<CR><CR>
-vmap # ?\V<C-R>=GetVisualSelection('?\')<CR><CR>
+" In case these do not exist already (At the time of writing only Neovim adds
+" mappings for these)
+if maparg('*', 'v', 0, 1) == {}
+	vmap * /\V<C-R>=GetVisualSelection('/\')<CR><CR>
+	vmap # ?\V<C-R>=GetVisualSelection('?\')<CR><CR>
+endif
 
 " Extended `*`. Starts vim search (without jump) and ripgrep
 nmap <leader>* :let @/ = '\<' . expand('<cword>') . '\>' <bar>
