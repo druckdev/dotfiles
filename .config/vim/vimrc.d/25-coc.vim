@@ -64,7 +64,7 @@ endif
 
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u starts a new undo break, please make your own choice.
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
