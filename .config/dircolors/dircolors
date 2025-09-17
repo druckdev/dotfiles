@@ -185,3 +185,6 @@ EXEC    01;92
 *.opus  00;36
 *.spx   00;36
 *.xspf  00;36
+
+## Others
+*.pdf   01;95
