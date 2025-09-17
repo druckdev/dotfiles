@@ -108,13 +108,14 @@ if (get(g:, 'loaded_fzf'))
 endif
 
 " Search for selected text.
-" Modified from https://vim.fandom.com/wiki/Search_for_visually_selected_text
+" Modified version of:
+" https://vim.fandom.com/wiki/Search_for_visually_selected_text
+" and https://github.com/neovim/neovim/blob/08847a9ea15a/runtime/lua/vim/_defaults.lua#L73-L79
 function! GetVisualSelection(escape = "", byteescape = 'n')
-	let l:old_reg = getreg('"')
-	let l:old_regtype = getregtype('"')
+	let l:save_reg = getreginfo('"')
 	norm gvy
 	let l:sel = getreg('"')
-	call setreg('"', l:old_reg, l:old_regtype)
+	call setreg('"', l:save_reg)
 
 	let l:sel = l:sel->escape(a:escape)
 	for l:char in a:byteescape
