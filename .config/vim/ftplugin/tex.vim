@@ -1,5 +1,8 @@
 " Turn on line-wrapping
 setlocal wrap
+" Disable C-indentation as it messes up formatting of paragraphs containing
+" parentheses
+setlocal nocindent
 
 " Close the quickfix window after a cursor movement
 let g:vimtex_quickfix_autoclose_after_keystrokes = 1

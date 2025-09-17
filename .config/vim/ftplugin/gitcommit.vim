@@ -3,6 +3,9 @@ setlocal colorcolumn+=51
 setlocal textwidth=72
 " Spell checking always enabled
 setlocal spell spelllang=en
+" Disable C-indentation as it messes up formatting of paragraphs containing
+" parentheses
+setlocal nocindent
 
 " Disable gutentags as it seems to regenerate the entire tags file when editing
 " git-commits...

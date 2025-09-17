@@ -1,5 +1,8 @@
 " Turn on line-wrapping
 setlocal wrap
+" Disable C-indentation as it messes up formatting of paragraphs containing
+" parentheses
+setlocal nocindent
 
 " Fold by sections
 function! MdSectionFold()

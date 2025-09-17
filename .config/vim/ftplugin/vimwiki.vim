@@ -1,3 +1,7 @@
+" Disable C-indentation as it messes up formatting of paragraphs containing
+" parentheses
+setlocal nocindent
+
 " Don't highlight Unicode table separator (e.g. vertical box drawing character).
 " See vimrc.d/looks.vim for w:ignore_non_ascii_chars
 if vimwiki#vars#get_syntaxlocal('rxTableSep') !~ '[\d0-\d127]'
