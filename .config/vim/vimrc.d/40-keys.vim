@@ -109,25 +109,33 @@ endif
 
 " Search for selected text.
 " Modified from https://vim.fandom.com/wiki/Search_for_visually_selected_text
-function! GetVisualSelection()
+function! GetVisualSelection(escape = "", byteescape = 'n')
 	let l:old_reg = getreg('"')
 	let l:old_regtype = getregtype('"')
 	norm gvy
 	let l:sel = getreg('"')
 	call setreg('"', l:old_reg, l:old_regtype)
+
+	let l:sel = l:sel->escape(a:escape)
+	for l:char in a:byteescape
+		let l:sel = l:sel->substitute('\'..l:char, '\\'..l:char, 'g')
+	endfor
+
 	return l:sel
 endfunction
 
-vmap * /\V<C-R>=escape(GetVisualSelection(),'/\')<CR><CR>
-vmap # ?\V<C-R>=escape(GetVisualSelection(),'?\')<CR><CR>
+vmap * /\V<C-R>=GetVisualSelection('/\')<CR><CR>
+vmap # ?\V<C-R>=GetVisualSelection('?\')<CR><CR>
 
 " Extended `*`. Starts vim search (without jump) and ripgrep
 nmap <leader>* :let @/ = '\<' . expand('<cword>') . '\>' <bar>
              \  set hlsearch <bar>
              \  Rg \b<C-R>=expand('<cword>')<CR>\b<CR>
-vmap <leader>* :<C-U>let @/ = "\\V<C-R>=escape(escape(GetVisualSelection(), '\'), '"\')<CR>" <bar>
+" TODO: pass --multiline to rg when multiple lines selected
+" TODO: Use ^ and $ anchors in visual-line mode
+vmap <leader>* :<C-U>let @/ = "\\V<C-R>=escape(GetVisualSelection('\'), '"\')<CR>" <bar>
              \  set hlsearch <bar>
-             \  Rg <C-R>=escape(GetVisualSelection(), '.\[]<bar>*+?{}^$()')<CR><CR>
+             \  Rg <C-R>=GetVisualSelection('.\[]<bar>*+?{}^$()', 'nt')<CR><CR>
 nmap <leader>g* :let @/ = expand('<cword>') <bar>
              \  set hlsearch <bar>
              \  Rg <C-R>=expand('<cword>')<CR><CR>
@@ -439,7 +447,7 @@ vnoremap <leader><C-L> gu
 " `ExpandVisualSelection(1)` which results in a block selection that spans over
 " all other TODOs as well.
 function! ExpandVisualSelection(direction)
-	let l:sel = escape(GetVisualSelection(), '\')
+	let l:sel = GetVisualSelection('\')
 	normal gv
 
 	" Move the cursor onto the side of the selection that points in the
