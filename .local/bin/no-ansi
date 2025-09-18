@@ -3,5 +3,21 @@
 # Copyright (c) 2025 Julian Prein
 #
 # Remove ANSI escape sequences.
+#
+# Additionally to the general form `\e[ -/]*[0-~]` this also tries to cover
+# sequences that are followed by additional bytes (e.g. CSI, OSC). This script
+# covers no C1 sequences.
+#
+# See:
+# - https://en.wikipedia.org/wiki/ANSI_escape_code
+# - https://www.ecma-international.org/wp-content/uploads/ECMA-35_6th_edition_december_1994.pdf
+#
+# TODO: which bytes do DCS, OSC, SOS, PM & APC (second pattern) actually allow?
+#   Find some documentation, since `[ -~]` is guessed.
 
-env LC_ALL=C sed "$(printf 's/\033\\[[0-?]*[ -/]*[@-~]//g')"
+env LC_ALL=C sed -E "$(printf "%b" \
+	's/' \
+	'\033\\[[0-?]*[ -/]*[@-~]' '|' \
+	'\033[]PX^_][ -~]*\033\\\\' '|' \
+	'\033[ -/]*[0-~]' \
+	'//g')"
