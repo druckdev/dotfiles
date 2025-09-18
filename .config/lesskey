@@ -13,6 +13,9 @@ e noaction g|$no-ansi | nvim -\n''
 # edit in vim while keeping them
 E noaction g|$nvim -\n''
 
+# copy whole file
+^Y noaction g|$xclip -selection clipboard\n''
+
 #env
 # NOTE: Lines need a trailing space when concatenating
 
