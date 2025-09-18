@@ -5,4 +5,4 @@
 # Remove ANSI SGR (Select Graphic Rendition) escape sequences, e.g. setting
 # color or bold font.
 
-env LC_ALL=C sed 's/\[[0-?]*[ -/]*m//g'
+env LC_ALL=C sed "$(printf 's/\033\\[[0-?]*[ -/]*m//g')"

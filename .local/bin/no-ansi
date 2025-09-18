@@ -4,4 +4,4 @@
 #
 # Remove ANSI escape sequences.
 
-env LC_ALL=C sed 's/\[[0-?]*[ -/]*[@-~]//g'
+env LC_ALL=C sed "$(printf 's/\033\\[[0-?]*[ -/]*[@-~]//g')"
