@@ -12,6 +12,8 @@
 e noaction g|$no-ansi | nvim -\n''
 # edit in vim while keeping them
 E noaction g|$nvim -\n''
+# edit current screen in vim
+^E noaction |.no-ansi | nvim -\n
 
 # copy whole file
 ^Y noaction g|$xclip -selection clipboard\n''
