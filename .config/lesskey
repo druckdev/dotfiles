@@ -8,8 +8,8 @@
 # NOTE: ^P omits the "done" message
 # NOTE: '' jumps back to the previous position
 #
-# edit in vim without any ANSI SGR sequences (e.g. color)
-e noaction g|$no-ansi-sgr | nvim -\n''
+# edit in vim without any ANSI escape sequences (e.g. color)
+e noaction g|$no-ansi | nvim -\n''
 # edit in vim while keeping them
 E noaction g|$nvim -\n''
 
