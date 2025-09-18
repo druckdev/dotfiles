@@ -11,13 +11,12 @@
 # See:
 # - https://en.wikipedia.org/wiki/ANSI_escape_code
 # - https://www.ecma-international.org/wp-content/uploads/ECMA-35_6th_edition_december_1994.pdf
-#
-# TODO: which bytes do DCS, OSC, SOS, PM & APC (second pattern) actually allow?
-#   Find some documentation, since `[ -~]` is guessed.
+# - https://www.ecma-international.org/wp-content/uploads/ECMA-48_5th_edition_june_1991.pdf
 
 env LC_ALL=C sed -E "$(printf "%b" \
 	's/' \
 	'\033\\[[0-?]*[ -/]*[@-~]' '|' \
-	'\033[]PX^_][ -~]*\033\\\\' '|' \
+	'\033[]P^_][\010-\015 -~]*\033\\\\' '|' \
+	'\033X([^\033]|\033+[^\033X\\])*\033+\\\\' '|' \
 	'\033[ -/]*[0-~]' \
 	'//g')"
