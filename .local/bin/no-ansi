@@ -8,6 +8,12 @@
 # sequences that are followed by additional bytes (e.g. CSI, OSC). This script
 # covers no C1 sequences.
 #
+# The patterns cover the following escape sequences (from top to bottom):
+# - CSI
+# - OSC, DCS, PM & APC
+# - SOS
+# - All remaining sequences
+#
 # See:
 # - https://en.wikipedia.org/wiki/ANSI_escape_code
 # - https://www.ecma-international.org/wp-content/uploads/ECMA-35_6th_edition_december_1994.pdf
