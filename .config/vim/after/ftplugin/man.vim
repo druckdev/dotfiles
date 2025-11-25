@@ -42,12 +42,24 @@ if exists('##WinResized')
 augroup man_resized
 	" The reload has to be delayed slightly, since with an `edit` directly in
 	" the autocmd, the buffer will just be cleared? (TODO)
-	" NOTE: One could add a wrapper function that checks for the existence of
-	"       already running timers similar to how it's done in the
-	"       highlight_current group (see autocommands.vim), but this feels
-	"       overkill here.
-	au! WinResized <buffer> call timer_start(10, function("s:redraw_delayed"))
+	au! WinResized <buffer> call s:redraw_man(v:event)
 augroup END
+
+function s:redraw_man(event)
+	if exists('w:disable_man_resizing')
+		return
+	endif
+
+	if exists('w:man_resizing_timer_id')
+		call timer_stop(w:man_resizing_timer_id)
+	endif
+
+	echo a:event
+
+	" TODO: make sure that a:event contains window number and that the width
+	"       actually changed with getwininfo()
+	let w:man_resizing_timer_id = timer_start(10, function("s:redraw_delayed"))
+endfunction
 
 " The function can't be redefined during the reload of the ftplugin (i.e.
 " triggered by `edit`), since it is currently executing (i.e. `edit`):
@@ -56,6 +68,8 @@ augroup END
 "
 if !exists("*s:redraw_delayed")
 	function s:redraw_delayed(timer_id)
+		unlet w:man_resizing_timer_id
+
 		" Try to keep the position as close as possible, since edit will move to
 		" the start of the file
 		" TODO: this should be more accurate
