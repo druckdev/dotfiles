@@ -54,10 +54,10 @@ endif
 if match(&listchars, 'trail: \@!') > -1 && match(&listchars, '\vtab:( +)@!') > -1
 	" Use foreground for coloring if tabs and trailing spaces are displayed
 	" as non-space characters
-	highlight TrailingWhitespace ctermfg=red guifg=red
+	highlight TrailingWhitespace ctermfg=204 guifg=#e06c75
 else
 	" Background otherwise
-	highlight TrailingWhitespace ctermbg=red guibg=red
+	highlight TrailingWhitespace ctermbg=204 guibg=#e06c75
 endif
 augroup HighlightTrailingWhitespace
 	au!
