@@ -119,6 +119,15 @@ if (exists('g:loaded_gitgutter'))
 	" lines have been changed.
 	set foldtext=gitgutter#fold#foldtext()
 endif
+" Use the number column for the signcolumn (e.g. gitgutter, lsp diagnostics),
+" but don't fallback to 'auto' when &number is off
+" TODO: install autocommand to set signcolumn to yes when number is turned off
+"   (and back to number when turned back on)
+if &number
+	set signcolumn=number
+else
+	set signcolumn=yes
+endif
 
 " Netrw
 " Use tree style listing
