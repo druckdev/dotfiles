@@ -50,14 +50,24 @@ if (get(g:, 'loaded_fzf'))
 	endif
 endif
 
+" Get red from my colorscheme
+let s:red = {}
+if exists("*onedark#GetColors")
+	let s:red = onedark#GetColors()->get("red", {})
+endif
+let s:red_cterm = s:red->get("cterm", "red")
+let s:red_gui = s:red->get("gui", "red")
+
 " Highlight trailing whitespaces
 if match(&listchars, 'trail: \@!') > -1 && match(&listchars, '\vtab:( +)@!') > -1
 	" Use foreground for coloring if tabs and trailing spaces are displayed
 	" as non-space characters
-	highlight TrailingWhitespace ctermfg=204 guifg=#e06c75
+	execute "highlight TrailingWhitespace ctermfg=" .. s:red_cterm
+	                                 \ .. " guifg=" .. s:red_gui
 else
 	" Background otherwise
-	highlight TrailingWhitespace ctermbg=204 guibg=#e06c75
+	execute "highlight TrailingWhitespace ctermbg=" .. s:red_cterm
+	                                 \ .. " guibg=" .. s:red_gui
 endif
 augroup HighlightTrailingWhitespace
 	au!
@@ -74,8 +84,10 @@ let g:spl_special_chars = {
 	\ 'fr': 'àâæçèéêëîïôœùûüÿÀÂÆÇÈÉÊËÎÏÔŒÙÛÜŸ',
 \ }
 
-" Highlight non-ASCII characters in the red used by my color scheme "OneDark"
-highlight NonASCIIChars ctermfg=white guifg=white ctermbg=204 guibg=#e06c75
+" Highlight non-ASCII characters in red
+execute "highlight NonASCIIChars ctermfg=white guifg=white "
+	\ .. "ctermbg=" .. s:red_cterm .. " guibg=" .. s:red_gui
+
 " Do not highlight special characters that are valid in the respective spelllang
 function! HighlightNonASCIIChars()
 	if exists('w:non_ascii_match_id')
