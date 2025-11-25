@@ -56,4 +56,6 @@ if exists("g:loaded_nrrw_rgn")
 	" Open narrow window above or to the left of the current window (default
 	" is topleft). See :h aboveleft etc.
 	let g:nrrw_topbot_leftright = 'aboveleft'
+	" Leave one more line of padding when the window is small
+	let g:nrrw_rgn_pad = 1
 endif
