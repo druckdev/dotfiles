@@ -26,10 +26,13 @@ endif
 " ctags
 if (executable('ctags'))
 	packadd vim-gutentags
+	" Don't index these folders
 	let g:gutentags_ctags_exclude = [
 		\ 'node_modules/*',
 		\ '.git/*',
-		\ 'build/*'
+		\ 'build/*',
+		\ 'venv/*',
+		\ '__pycache__/*'
 	\]
 endif
 
