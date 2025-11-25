@@ -20,3 +20,27 @@ let g:gutentags_enabled = 0
 " When aborting a commit I usually use :cq which I can't when committing through
 " fugitive. Abbreviate it to something that works.
 cabbrev <buffer> cq %d <Bar> x
+
+" Fold file listings (staged, unstaged, untracked, ...) and diff
+setlocal foldmethod=syntax
+
+" Unfold staged files and diff. inspired by:
+" https://vi.stackexchange.com/questions/4050/how-to-search-for-pattern-in-certain-syntax-regions/27008#27008
+if has("patch-8.2.0915") || has("nvim-0.7.0")
+
+function s:open_fold(group, content)
+	" Find line containing `content` that is highlighted with `group`
+	let l:line_nr = search(a:content, "n", 0, 0, { ->
+		\ synstack('.', col('.'))
+		\ ->map('synIDattr(v:val, "name")')
+		\ ->match(a:group) < 0 })
+	if l:line_nr <= 0
+		return
+	endif
+	execute l:line_nr->string() .. "foldopen"
+endfunction
+
+call s:open_fold("gitcommitSelected", "Changes to be committed:")
+call s:open_fold("gitcommitDiff", "diff --")
+
+endif " has("patch-8.2.0915") || has("nvim-0.7.0")
