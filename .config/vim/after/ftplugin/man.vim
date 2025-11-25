@@ -37,7 +37,7 @@ setlocal showbreak=NONE
 " This is very hacky.
 
 " Only if WinResized is supported
-if has('##WinResized')
+if exists('##WinResized')
 
 augroup man_resized
 	" The reload has to be delayed slightly, since with an `edit` directly in
@@ -72,5 +72,5 @@ endif
 " lines, messing up the whole buffer. Since this is distracting, turn it off.
 setlocal nowrap
 
-endif " has('##WinResized')
+endif " exists('##WinResized')
 " ------------------------------------------------------------------------------
