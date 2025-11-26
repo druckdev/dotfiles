@@ -11,7 +11,7 @@ read -r -d '' preview_cmd <<EOT
 	[[ -d \$realpath ]] && $dir_prev_cmd \$realpath || $file_prev_cmd \$realpath
 EOT
 # Programs for which file and folder preview should be activated
-file_commands=(ls-show-hidden cd ln cp mv nvim rsync git-add '*--')
+file_commands=(ls-show-hidden cd ln cp mv rm cat nvim rsync git-add '*--')
 zstyle ":fzf-tab:complete:(${(j:|:)file_commands}):*" fzf-preview "$preview_cmd"
 # Disable preview for options again (completion that starts with '-')
 zstyle ":fzf-tab:complete:(${(j:|:)file_commands}):options" fzf-preview

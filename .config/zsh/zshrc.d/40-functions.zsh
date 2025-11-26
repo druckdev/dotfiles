@@ -26,6 +26,7 @@ mkcd () {
 	command mkdir "$@" || return
 
 	# Remove flags and their arguments
+	# TODO: this probably works without loop
 	nargs="$#"
 	for ((i = 0; i < nargs; i++)); do
 		if [[ ${1[1]} != '-' || $1 = '-' ]]; then
@@ -543,17 +544,20 @@ suffix() {
 		return 1
 	fi
 
-	local i=${@[(ei)--]}
-	# NOTE: if "--" is not included in $@, i will be greater than $#, and no
-	# starting point is passed to `find`, which then defaults to `.`.
-
 	local -a names
+
 	# Take everything before "--" and quote special characters
+	# NOTE: if "--" is not included in $@, it will be greater than $#, and
+	#   no starting point is passed to `find`, which then defaults to `.`.
+	local i=${@[(ei)--]}
 	names=( "${(@q)@:1:$((i-1))}" )
+
 	# Prepend an `*` to every element
 	names=( "${(@)names//#/*}" )
+
 	# Join with " -o -name " and then split again using shell parsing
 	names=( "${(@zj: -o -name :)names}" )
+
 	# Pass starting points and the name arguments
 	"$cmd" "${@:$((i+1))}" -name "${(@)names}"
 }
@@ -693,16 +697,16 @@ diffcmds() {
 	local diff_cmd="$diff_cmd"
 	if [[ -n $diff_cmd ]]; then
 		# already set by caller
-	elif (( $+commands[vimdiff] && ! $+commands[diff] )); then
+	elif (( $+commands[vimdiff] )) && {
+		(( ! $+commands[diff] )) || {
+			[[ -t 1 && ($EDITOR =~ vi || $VISUAL =~ vi) ]]
+		}
+	}; then
+		# Uses vimdiff if diff is not installed or when stdout is a tty
+		# and the editor is set to vi*
 		diff_cmd=vimdiff
-	elif (( $+commands[diff] && ! $+commands[vimdiff] )); then
+	elif (( $+commands[diff] )); then
 		diff_cmd=diff
-	elif (( $+commands[diff] && $+commands[vimdiff] )); then
-		if [[ $EDITOR =~ vi || $VISUAL =~ vi ]]; then
-			diff_cmd=vimdiff
-		else
-			diff_cmd=diff
-		fi
 	else
 		printf >&2 "Neither diff nor vimdiff installed\n"
 		return 1
@@ -722,15 +726,6 @@ diffcmds() {
 	# Unquote standalone pipes
 	template=( "${(@)template/#%\\|/|}" )
 
-	# Place arguments at the back if no position was supplied with `%%`
-	[[ "$template[@]" =~ '%%' ]] || template+='%%'
-
-	# Just execute the command without *diff if there is only one argument
-	if (( i + 1 == # )); then
-		eval "${(@)template//\%\%/$args[-1]}"
-		return
-	fi
-
 	# Fallback or abort if more than 2 arguments were supplied to `diff`
 	if [[ $diff_cmd = diff ]] && (( $#args > 2 )); then
 		printf >&2 "Too many arguments for diff."
@@ -741,6 +736,15 @@ diffcmds() {
 			printf >&2 "\n"
 			return 1
 		fi
+	fi
+
+	# Place arguments at the back if no position was supplied with `%%`
+	[[ "$template[@]" =~ '%%' ]] || template+='%%'
+
+	# Just execute the command without *diff if there is only one argument
+	if (( i + 1 == # )); then
+		eval "${(@)template//\%\%/$args[-1]}"
+		return
 	fi
 
 	# NOTE: `=()` is necessary since vim might seek the file. See zshexpn(1)
@@ -776,7 +780,16 @@ rmdir() {
 	# arguments were passed that start with a dash
 	if [[ -t 1 && -t 2 ]] && (( ! $# || ! ${@[(I)-*]} )); then
 		# Exclude non-empty directories
-		command bfs "$@" -type d -not -empty -o -print
+		command bfs "$@" \( \
+				-name '.git' \
+				-o -name '__pycache__' \
+				-o -name 'venv' \
+				-o -name 'build' \
+				-o -name 'tex_build' \
+				-o -name 'node_modules' \
+			\) -prune \
+			-o -type d -not -empty \
+			-o -print
 	else
 		command bfs "$@"
 	fi
@@ -792,8 +805,31 @@ rmdir() {
 	# arguments were passed that start with a dash
 	if [[ -t 1 && -t 2 ]] && (( ! $# || ! ${@[(I)-*]} )); then
 		# Exclude non-empty directories and mark empty ones with a slash
-		command find "$@" -type d \( -not -empty -o -printf "%p/\n" \) -o -print
+		command find "$@" \( \
+				-name '.git' \
+				-o -name '__pycache__' \
+				-o -name 'venv' \
+				-o -name 'build' \
+				-o -name 'tex_build' \
+				-o -name 'node_modules' \
+			\) -prune \
+			-o -type d \( -not -empty -o -printf "%p/\n" \) \
+			-o -print
 	else
 		command find "$@"
 	fi
+}
+
+cut-ansi() {
+	#LC_ALL=C sed -E $'s/\t/\t       /g; s/^(((\e\[[0-?]*[ -/]*[@-~]|[^\t -~])*[\t -~]){36})[^\e]*(\e\\[0?m)?.*$/\\1\\4/g; s/\t( {1,6}([^ ]|$))/ \\1/g; s/\t       /\t/g'
+
+	# TODO: converts tabs to spaces. one could write a custom awk
+	#   implementation of expand, that adds spaces behind tabs, so that the
+	#   line length calculation works, but the information where a tab was
+	#   is not lost. see naive approach above, that simply replaces instead
+	#   of looking at the boundaries
+	# TODO: there are other multi-byte ansi escape sequences (notably \u]) -
+	#   support these
+	# TODO: see no-ansi
+	expand | LC_ALL=C sed -E $'s/^(((\e(\\[[0-?]*[ -/]*[@-~]|][ -~]*(\234|\e\\\\))|[^ -~])*[ -~]){36})[^\e]*(\e\\[0?m)?.*$/\\1\\4/g'
 }

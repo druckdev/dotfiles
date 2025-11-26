@@ -22,13 +22,13 @@ E noaction g|$nvim -\n''
 # NOTE: Lines need a trailing space when concatenating
 
 # Enable mouse wheel support
-LESS = --mouse --wheel-lines=3 
+#LESS = --mouse --wheel-lines=3 --RAW-CONTROL-CHARS --quit-if-one-screen --ignore-case
 # Display ANSI color escape sequences
-LESS += --RAW-CONTROL-CHARS 
+#LESS += --RAW-CONTROL-CHARS 
 # Exit if entire file fits on screen
 # NOTE: Before v530 `less` would need the -X flag as well for -F to be useful.
 #       With v530 it does not enter alternate mode if the content fits in one
 #       screen.
-LESS += --quit-if-one-screen 
+#LESS += --quit-if-one-screen 
 # Ignore case if the search pattern is only lowercase
-LESS += --ignore-case
+#LESS += --ignore-case

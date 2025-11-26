@@ -28,6 +28,7 @@
 # TODO: The git alias version seems to break with the same arguments that the
 #       zsh native one works with.
 # TODO: Supplying a flag like --no-checkout breaks the naming of the worktree
+# TODO: `g cow <branch> <<<"rg something" does not work
 
 emulate -L zsh -o err_return -o no_unset
 

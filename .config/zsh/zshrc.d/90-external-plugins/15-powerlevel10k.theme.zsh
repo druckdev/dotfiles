@@ -18,6 +18,10 @@
 [[ ! -o 'no_brace_expand' ]] || p10k_config_opts+=('no_brace_expand')
 'builtin' 'setopt' 'no_aliases' 'no_sh_glob' 'brace_expand'
 
+# TODO: show if in nested shell. this would be useful for git-checkout-worktree. ideas for this:
+# - $SHLLVL
+# - pstree -as $$ | grep $SHELL
+
 () {
   emulate -L zsh -o extended_glob
 
@@ -262,6 +266,7 @@
   # This moves the truncation point to the right (positive offset) or to the left (negative offset)
   # relative to the marker. Plain "first" and "last" are equivalent to "first:0" and "last:0"
   # respectively.
+  # typeset -g POWERLEVEL9K_DIR_TRUNCATE_BEFORE_MARKER=last
   typeset -g POWERLEVEL9K_DIR_TRUNCATE_BEFORE_MARKER=false
   # Don't shorten this many last directory segments. They are anchors.
   typeset -g POWERLEVEL9K_SHORTEN_DIR_LENGTH=1

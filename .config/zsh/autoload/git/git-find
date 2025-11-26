@@ -1,0 +1,25 @@
+#!/usr/bin/env zsh
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 Julian Prein
+
+set -- "${@/#./$GIT_PREFIX}"
+find "$@"
+return
+
+local -a ls_args grep_args
+local arg
+
+for arg; do
+	if [[ $arg == '--' ]]; then
+		shift
+		grep_args+=("$@")
+		break
+	elif [[ $arg[1] == '-' && $#arg -gt 1 ]]; then
+		ls_args+="$arg"
+	else
+		grep_args+="$arg"
+	fi
+	shift
+done
+
+git ls-files "$ls_args[@]" | grep "$grep_args[@]"

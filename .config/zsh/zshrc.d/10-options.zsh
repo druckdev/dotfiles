@@ -233,6 +233,15 @@
 	setopt C_PRECEDENCES
 
 # Shell Emulation ##############################################################
+	# TODO: wait for SPDX header before adding
+	# This option only applies when NO_CLOBBER (-C) is in effect.
+	#
+	# If this option is not set, the shell will report an error when a
+	# append redirection (>>) is used on a file that does not already exists
+	# (the traditional zsh behaviour of NO_CLOBBER).  If the option is set,
+	# no error is reported (POSIX behaviour).
+	setopt APPEND_CREATE
+
 	# Causes field splitting to be performed on unquoted parameter expansions.
 	# Note that this option has nothing to do with word splitting.
 	# (See zshexpn(1).)

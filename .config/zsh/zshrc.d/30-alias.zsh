@@ -39,6 +39,8 @@ fi
 	alias gcow='git checkout-worktree'
 	alias gd='git diff'
 	alias gds='git diff --staged'
+	# https://serverfault.com/questions/989742/tee-and-assigning-to-variable
+	# { revs="$(cat git-fetch | tee /dev/fd/3 | grep "shared/topic/jz123920.*(forced update)$" | grep -Eo '[a-f0-9]+\.\.\.[a-f0-9]+')"; } 3>&1
 	alias gf='git fetch'
 	alias gha='git add -p'
 	alias gl='glog --no-merges'
@@ -72,6 +74,9 @@ fi
 	if [[ $OSTYPE =~ darwin ]]; then
 		(( ! $+commands[pbpaste] )) || alias getclip="pbpaste"
 		(( ! $+commands[pbcopy] ))  || alias setclip="${SETCLIP_PREFIX}pbcopy"
+	elif [[ $WAYLAND_DISPLAY ]]; then
+		(( ! $+commands[wl-paste])) || alias getclip="wl-paste"
+		(( ! $+commands[wl-copy])) || alias setclip="wl-copy"
 	elif (( $+commands[xclip] )); then
 		alias getclip="xclip -selection c -o"
 		alias setclip="${SETCLIP_PREFIX}xclip -selection c"
@@ -135,7 +140,31 @@ fi
 	#     > echo 1747502 | duration
 	#     20d 5h 25m 2s
 	#
-	# TODO: do not print values if they are zero
+	# TODO:
+	# dc <<END
+	# # prepare macros
+	# [n[d ]n0]sd # macro to print the top of the stack plus 'd ' (days
+	#             # suffix). Pushes 0 afterwards, so that the top can be
+	#             # discarded no matter if the macro was executed or not.
+	# [n[h ]n0]sh # same for hours with suffix 'h '
+	# [n[m ]n0]sm # same for minutes with suffix 'm '
+	# [n[s ]n0]ss # same for seconds with suffix 's '
+	#
+	# # calculate components
+	# ?           # read the number to convert from stdin
+	# 60~r        # integer-divide by 60 + swap so that remainder is on top.
+	#             # this means that the stack now contains minutes, seconds
+	# 60~r        # same. after: hours, minutes, seconds
+	# 24~r        # days, hours, minutes, seconds
+	#
+	# # print them
+	# d0!=ds_     # if the value is non-null, use print macro. discard top
+	# d0!=hs_
+	# d0!=ms_
+	# d0!=s
+	# END
+	# dc -e '[n[d ]n0]sd[n[h ]n0]sh[n[m ]n0]sm[n[s ]n0]ss?60~r60~r24~rd0!=ds_d0!=hs_d0!=ms_d0!=s' | sed 's/ $//'
+	# does not print values if they are zero
 	alias duration="dc -e '?60~r60~r24~rn[d ]nn[h ]nn[m ]nn[s]p'"
 	alias udsk='udisksctl'
 	# calculator with output in hex (goes well together with option C_BASES)
@@ -171,7 +200,7 @@ fi
 	fi
 	if (( $+commands[nvim] )); then
 		# TODO: keep exit code of fg, Add files (if args exist) to running vim
-		#       session in a new tab or split
+		# session in a new tab or split
 		alias vim='jobs | grep -q nvim && {fg;:;} || nvim'
 		alias vimdiff='nvim -d'
 	fi

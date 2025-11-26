@@ -50,6 +50,8 @@ augroup xdg_spellfile
 	"       rereading the modeline
 	" TODO: Check if executed from sandbox/modeline before executing instead
 	"       of suppressing the error
+	" TODO: Escaping the comma is not allowed in some vim versions? was
+	"       fixed between v0.10.4 and v0.11.2 -> bisect
 	au OptionSet spelllang silent! let &spellfile =
 		\ $XDG_DATA_HOME . '/vim/spell/' . escape(v:option_new, ',') . '.utf-8.add'
 	" NOTE: Changing &spellfile is not allowed from a modeline, so we need to

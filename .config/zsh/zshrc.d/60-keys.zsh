@@ -131,8 +131,13 @@ zle -N cd-up
 bindkey '^O' cd-backward
 bindkey '^[[105;5u' cd-forward # ^I
 
+# M-{Left,Right}Arrow
+bindkey '^[[1;3D' cd-backward
+bindkey '^[[1;3C' cd-forward
+
 # move one directory up with ^U (mnemonic: 'Up')
 bindkey '^U' cd-up
+bindkey '^[[1;3A' cd-up
 
 # Open file in EDITOR selected with fzf
 function edit-fuzzy-file {
@@ -180,7 +185,8 @@ function rationalize_dots {
 	zle -M "${(D)${(Az)LBUFFER}[-1]:a}"
 }
 zle -N rationalize_dots
-bindkey . rationalize_dots
+# TODO: I can't insert a dot when searching (<Esc>?)
+bindkey -M viins . rationalize_dots
 
 # Keep the normal dot self-insert on Ctrl-. (e.g. for typing `../.local`)
 function default_dot { LBUFFER+=. }
@@ -245,6 +251,7 @@ bindkey '^[[71;6u' insert-shcwd
 # Ctrl-Up
 bindkey '^[[1;5A' fzf-history-widget
 # Ctrl-K in normal mode
+# TODO: this does not work in tmux
 bindkey -M vicmd '^K' fzf-history-widget
 
 # Fuzzy finder bindings:

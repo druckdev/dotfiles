@@ -97,7 +97,7 @@ function! s:_highlight_cword(timer_id)
 		let w:cword_match_id = matchadd(
 			\ 'CursorColumn',
 			\ '\V\<' . escape(l:cword, '/\') . '\>',
-			\ -1)
+			\ -10)
 	endif
 endfunction
 
@@ -163,7 +163,7 @@ function! s:_highlight_selection(timer)
 			\ matchadd(
 				\ 'CursorColumn',
 				\ '\V\%V\@!' . substitute(escape(@", '\'), '\n', '\\n', 'g'),
-				\ -1,
+				\ -10,
 				\ -1,
 				\ {'window': l:win})
 	endfor
@@ -219,8 +219,9 @@ augroup highlight_current
 	"       mode as I rarely need one-character highlighting and I can work
 	"       around by moving back and forth once.
 	" TODO: Fix for other ways of entering with a longer selection
-	au ModeChanged *:[v\x16]* call s:clear_highlights(s:CLEAR_HIGHS_CWORD)
-	au ModeChanged *:V call s:clear_highlights(s:CLEAR_HIGHS_CWORD) | call s:highlight_selection()
+	" TODO: because of this `gv` does not immediately highlight
+	" au ModeChanged *:[v\x16]* call s:clear_highlights(s:CLEAR_HIGHS_CWORD)
+	au ModeChanged *:[Vv\x16] call s:clear_highlights(s:CLEAR_HIGHS_CWORD) | call s:highlight_selection()
 augroup END
 
 " When switching focus to another window, keep the cursor location underlined.

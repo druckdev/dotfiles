@@ -112,6 +112,9 @@ set breakindent
 let &showbreak = '\ '
 " Replace concealable characters
 set conceallevel=1
+" Fix gf for <....h> style includes inside of project's include directory
+" # asdasd
+set path+=include
 " Do not automatically open folds when searching
 set foldopen-=search
 if (exists('g:loaded_gitgutter'))

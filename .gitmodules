@@ -133,3 +133,6 @@
 [submodule "zsh-syntax-highlighting"]
 	path = .local/share/zsh/plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
+[submodule ".local/share/vim/pack/plugins/opt/diffchar.vim"]
+	path = .local/share/vim/pack/plugins/opt/diffchar.vim
+	url = https://github.com/rickhowe/diffchar.vim

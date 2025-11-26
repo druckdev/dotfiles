@@ -12,6 +12,10 @@ if (has('termguicolors'))
 endif
 " use onedark as theme for syntax highlighting
 syntax on
+" TODO: The highlighting somehow clashes with diffchar.vim. When reactivating
+" onedark and setting guibg=NONE (see below) everything looks fine though.
+" Apparently diffchar sets guibg additionally to the normal highlighting groups
+" Use `:put =execute('hi') to get :hi into buffer
 colorscheme onedark
 
 " get transparent background of the terminal back

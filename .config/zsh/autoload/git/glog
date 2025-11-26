@@ -38,6 +38,7 @@ local -a format=(
 	'%C(reset)%C(bold)' '    %s%C(reset)'      '%n' # subject
 	                                           '%n'
 	'%-b'                                           # body
+	'%+N'                                           # notes
 	                                           '%n'
 )
 format="${(j::)format}"
@@ -121,11 +122,13 @@ local -A binds=(
 	# TODO: This assumes less to be used in core.pager
 	"enter" "execute@$fzf_preview[patch] | $pager -+F@"
 	# Preview stats
-	"ctrl-alt-s" "change-preview($fzf_preview[stat])"
+	"ctrl-alt-s" "change-preview($fzf_preview[stat])+change-preview-label(stats)"
 	# Preview patch
-	"ctrl-alt-p" "change-preview($fzf_preview[patch])"
-	# Files only
-	"ctrl-alt-f" "change-preview($fzf_preview[files_only])"
+	"ctrl-alt-p" "change-preview($fzf_preview[patch])+change-preview-label(full patch)"
+	# NOTE: ctrl-f is bound to files-only preview if files were passed, see
+	#       below
+	# Toggle sticky header
+	"ctrl-t" "toggle-header"
 	# For ctrl-space see below
 )
 
@@ -144,8 +147,6 @@ header+="${color_brown}C-A-[spf]${color_grey}: preview stats/patch/files"
 local -a fzf_args=(
 	# Understand ansi color escape sequences.
 	"--ansi"
-	# Expand the binds array in the format "key1:value1,key2:value2".
-	"--bind" "${(@kj:,:)binds/(#m)*/$MATCH:$binds[$MATCH]}"
 	# Display key-bindings in a sticky header
 	"--header" "$header"
 	# Keep header above prompt line
@@ -158,7 +159,33 @@ local -a fzf_args=(
 	"--no-sort"
 	# Highlight the whole current line similar to vim's 'cursorline
 	"--highlight-line"
+	# TODO
+	"--color" "preview-label:59"
 )
+
+# TODO: place preview-labels in (associative array) since we use it in multiple
+#       places
+if (( ${@[(eI)--]} )); then
+	fzf_args+=(
+		"--preview" "$fzf_preview[files_only]"
+		"--preview-label" "files-only"
+	)
+
+	# Files only
+	binds+=(
+		"ctrl-alt-f" "change-preview($fzf_preview[files_only])+change-preview-label(files-only)"
+	)
+else
+	# TODO: Remove ctrl-f from header
+	fzf_args+=(
+		"--preview" "$fzf_preview[patch]"
+		"--preview-label" "full patch"
+	)
+fi
+
+# Expand the binds array in the format "key1:value1,key2:value2".
+fzf_args+=("--bind" "${(@kj:,:)binds/(#m)*/$MATCH:$binds[$MATCH]}")
+
 
 # The preview-window should be placed differently depending on the dimensions of
 # the terminal. It should have at least 152 columns to fit a preview window on
@@ -184,7 +211,7 @@ fi
 # terminal.
 if [ -t 1 ]; then
 	git log "$formatshort" "$dateshort" --color=always "$@" \
-	| env LESS="$LESS${LESS:+ }-+F" fzf "${fzf_args[@]}"
+	| env LESS="$LESS${LESS:+ }-+F" fzf "${fzf_args[@]}" --tiebreak=chunk
 else
 	git log "$formatshort" "$dateshort" --color=always "$@"
 fi

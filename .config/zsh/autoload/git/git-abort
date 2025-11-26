@@ -13,7 +13,9 @@ gitdir="$(git rev-parse --git-dir)" || return
 local flag="${${0:t}#git-}"
 
 local cmd
-if [[ -e $gitdir/REBASE_HEAD ]]; then
+if [[ -e $gitdir/REBASE_HEAD || -d $gitdir/rebase-merge ]]; then
+	# TODO: REBASE_HEAD didn't exist when I set the first commit to squash,
+	# i.e. error
 	cmd=rebase
 elif [[ -e $gitdir/MERGE_HEAD ]]; then
 	cmd=merge

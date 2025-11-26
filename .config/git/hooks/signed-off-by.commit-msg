@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2025 Julian Prein
+#
+# A hook script to check the commit log message for a 'Signed-off-by' the user.
+
+# source die()
+. "$HOME"/.local/bin/helpers.sh
+
+name="$(git config --get user.name)" || die "git: No name" 2
+mail="$(git config --get user.email)" || die "git: No email" 2
+
+<"$1" git interpret-tailers --parse | grep -q "^Signed-off-by: $name <$mail>$" \
+	|| die "Not signed-off"
