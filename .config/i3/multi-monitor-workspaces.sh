@@ -25,25 +25,12 @@ done
 shift $((OPTIND - 1))
 [ $# -gt 0 ] || usage
 
-outputs="$(i3-msg -t get_outputs | jq -r '.[] | select(.active).name')"
-num_outs="$(printf "%s\n" "$outputs" | wc -l)"
+name="$(i3-msg -t get_tree \
+	| jq -r '.. | objects | select(.focused).output')"
 
-if [ "$num_outs" -lt 2 ]; then
-	# only one monitor
-	workspace="$1"
-else
-	name="$(i3-msg -t get_tree \
-		| jq -r '.. | objects | select(.focused).output')"
-	num="$(printf "%s\n" "$outputs" \
-		| grep -Fxn "$name" \
-		| cut -d: -f1)"
-	num="$((num - 1))"
-
-	# Omit the number on the first monitor
-	[ "$num" -gt 0 ] || num=
-
-	workspace="$num$1"
-fi
+# NOTE: See `strip-wsnames` in polybar config. With it every monitor has its own
+#       1-10 workspaces
+workspace="$1: $name"
 
 if [ -z "$switch" ] && [ -z "$move" ]; then
 	printf "%s\n" "$workspace"

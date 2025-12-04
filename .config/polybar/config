@@ -40,6 +40,7 @@ enable-ipc = true
 type = internal/i3
 pin-workspaces = true
 format = <label-state> <label-mode>
+strip-wsnames = true
 index-sort = true
 wrapping-scroll = false
 
