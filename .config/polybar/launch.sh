@@ -22,10 +22,11 @@ done
 if ! pgrep -ax polybar >/dev/null 2>&1; then
 	# launch Polybar on every monitor
 	# https://github.com/polybar/polybar/issues/763
-	while read -r m; do
-		export MONITOR="${m%%:*}"
-		polybar --reload -c "$BASE_DIR/config" main &
-	done <<<"$(polybar --list-monitors)"
+	polybar --list-monitors \
+	| cut -d: -f1 \
+	| xargs -I'{}' -P0 \
+		env MONITOR='{}' \
+			polybar --reload -c "$BASE_DIR/config" main &
 
 	echo "Polybar launched..."
 else
