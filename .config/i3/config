@@ -102,7 +102,7 @@ bindsym $mod+6 exec ~/.config/i3/multi-monitor-workspaces.sh -s 6
 bindsym $mod+7 exec ~/.config/i3/multi-monitor-workspaces.sh -s 7
 bindsym $mod+8 exec ~/.config/i3/multi-monitor-workspaces.sh -s 8
 bindsym $mod+9 exec ~/.config/i3/multi-monitor-workspaces.sh -s 9
-bindsym $mod+0 exec ~/.config/i3/multi-monitor-workspaces.sh -s 0
+bindsym $mod+0 exec ~/.config/i3/multi-monitor-workspaces.sh -s 10
 
 # switch back to the previous workspace
 workspace_auto_back_and_forth yes
@@ -124,7 +124,7 @@ bindsym $mod+Shift+6 exec ~/.config/i3/multi-monitor-workspaces.sh -m 6
 bindsym $mod+Shift+7 exec ~/.config/i3/multi-monitor-workspaces.sh -m 7
 bindsym $mod+Shift+8 exec ~/.config/i3/multi-monitor-workspaces.sh -m 8
 bindsym $mod+Shift+9 exec ~/.config/i3/multi-monitor-workspaces.sh -m 9
-bindsym $mod+Shift+0 exec ~/.config/i3/multi-monitor-workspaces.sh -m 0
+bindsym $mod+Shift+0 exec ~/.config/i3/multi-monitor-workspaces.sh -m 10
 
 # move focused container and switch to workspace
 bindsym Mod1+Shift+1 exec ~/.config/i3/multi-monitor-workspaces.sh -ms 1
@@ -136,7 +136,7 @@ bindsym Mod1+Shift+6 exec ~/.config/i3/multi-monitor-workspaces.sh -ms 6
 bindsym Mod1+Shift+7 exec ~/.config/i3/multi-monitor-workspaces.sh -ms 7
 bindsym Mod1+Shift+8 exec ~/.config/i3/multi-monitor-workspaces.sh -ms 8
 bindsym Mod1+Shift+9 exec ~/.config/i3/multi-monitor-workspaces.sh -ms 9
-bindsym Mod1+Shift+0 exec ~/.config/i3/multi-monitor-workspaces.sh -ms 0
+bindsym Mod1+Shift+0 exec ~/.config/i3/multi-monitor-workspaces.sh -ms 10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
