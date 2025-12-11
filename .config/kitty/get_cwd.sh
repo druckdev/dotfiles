@@ -7,7 +7,12 @@
 # Print the current working directory of the focused kitty window. Returns 4 if
 # none exist or is focused.
 
-socket_path="${TMPDIR:-/tmp}/kitty.$USER/kitty${1:+-$1}.sock"
+if [ -n "$KITTY_LISTEN_ON" ]; then
+	socket_path="${KITTY_LISTEN_ON#unix:}"
+else
+	socket_path="${TMPDIR:-/tmp}/kitty.$USER/kitty${1:+-$1}.sock"
+fi
+[ -e "$socket_path" ] || exit 1
 
 # NOTE: Unfortunately kitten-@-ls(1) is slow, so communicate with the socket
 #       directly.
