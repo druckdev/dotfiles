@@ -55,13 +55,17 @@ primary="$(<<<"$formatted" \
 )"
 [[ $primary ]] || exit 1
 
-# Build the `xrandr` command
-xrandr_cmd=(xrandr)
-
 # Keep track of width to place the outputs side-by-side
 width=0
 
+# NOTE: I previously built one big xrandr that configured all outputs at once,
+#   but had problems that xrandr would sometimes return an error when turning on
+#   multiple outputs at once. The solution was to split the command so that
+#   every output is enabled individually
 for out in "${selected[@]}"; do
+	# Build the `xrandr` command
+	xrandr_cmd=(xrandr)
+
 	xrandr_cmd+=(--output "$out" --rotate normal)
 	[[ $out != $primary ]] || xrandr_cmd+=(--primary)
 
@@ -103,12 +107,16 @@ for out in "${selected[@]}"; do
 
 	xrandr_cmd+=(--pos "${width}x0")
 	: "$((width+=${res%%x*}))"
+
+	# Print for debugging purposes and finally execute it
+	printf "%s\n" "${xrandr_cmd[*]}"
+	"${xrandr_cmd[@]}"
 done
 
 for out in "${non_selected[@]}"; do
-	xrandr_cmd+=(--output "$out" --off)
-done
+	xrandr_cmd=(xrandr --output "$out" --off)
 
-# Print for debugging purposes and finally execute it
-printf "%s\n" "${xrandr_cmd[*]}"
-"${xrandr_cmd[@]}"
+	# Print for debugging purposes and finally execute it
+	printf "%s\n" "${xrandr_cmd[*]}"
+	"${xrandr_cmd[@]}"
+done
