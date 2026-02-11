@@ -8,7 +8,13 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 (( $+commands[bat] )) && file_prev_cmd="bat --color=always" || file_prev_cmd=cat
 (( $+commands[tree] )) && dir_prev_cmd="tree -C -L 3" || dir_prev_cmd=ls
 read -r -d '' preview_cmd <<EOT
-	[[ -d \$realpath ]] && $dir_prev_cmd \$realpath || $file_prev_cmd \$realpath
+	if [[ -d \$realpath ]]; then
+		$dir_prev_cmd \$realpath
+	elif file -Li \$realpath | grep -q '=binary\$'; then
+		xxd -a -R always \$realpath | head -200
+	else
+		$file_prev_cmd \$realpath
+	fi
 EOT
 # Programs for which file and folder preview should be activated
 file_commands=(ls-show-hidden cd ln cp mv nvim rsync git-add '*--')
