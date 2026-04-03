@@ -22,7 +22,7 @@ E noaction g|$nvim -\n''
 # NOTE: Lines need a trailing space when concatenating
 
 # Enable mouse wheel support
-LESS = --mouse --wheel-lines=3 
+LESS = --mouse 
 # Display ANSI color escape sequences
 LESS += --RAW-CONTROL-CHARS 
 # Exit if entire file fits on screen

@@ -86,6 +86,8 @@ set wrap
 set scrolloff=5
 " Enable mouse
 set mouse=a
+" Scroll only one line at a time with the scroll wheel (default is 3)
+set mousescroll=ver:1,hor:6
 " Disable pesky swap file warnings
 set shortmess+=A
 " Automatically update file that was modified outside of vim.
