@@ -28,6 +28,12 @@ __pycache__/
 .ipynb_checkpoints/
 
 # Ignore python virtual environment
+# NOTE: beginning from python 3.13, venv creates its own .gitignore that ignores
+#   everything in venv/. This has the side effect that ripgrep stops working
+#   when called inside the venv/ which differs from venv/ being excluded when
+#   called in a directory above it (Use-case: inspecting the code of an
+#   installed module). To prevent the creation the venv should be created with
+#   `--without-scm-ignore-files`.
 venv/
 
 # Ignore build directories
