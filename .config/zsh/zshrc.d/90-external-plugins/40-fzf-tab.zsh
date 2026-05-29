@@ -1,1 +1,1 @@
-../../plugins/fzf-tab/fzf-tab.plugin.zsh
+../../plugins/fzf-tab/fzf-tab.zsh
