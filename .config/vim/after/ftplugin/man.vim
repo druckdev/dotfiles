@@ -77,6 +77,8 @@ if !exists("*s:redraw_delayed")
 		"       depending on the wrapping, the same location will be at
 		"       different percentages
 		let l:curr_percent = 100 * line('.') / line('$')
+		" TODO: when a local page is open, this will switch to the
+		"       version in MANPATH if it exists
 		edit
 		exe  'normal ' .. l:curr_percent .. '%'
 	endfunction
