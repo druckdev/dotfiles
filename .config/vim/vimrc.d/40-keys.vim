@@ -298,6 +298,8 @@ vnoremap <leader>hex <Cmd>keepp '<,'>s/\v<\d+>/\=printf("0x%X", submatch(0))/g<C
 " TODO: support [count]
 " TODO: sections? (see :h [[ and :h section)
 " TODO: exclusive and exclusive-linewise?
+" TODO: also move to functions where the argument list was split due to line
+"       length constrains
 noremap <silent> [[ <Cmd>call search('\v^(\S.*)?\{', 'besW')<CR>
 noremap <silent> ]] <Cmd>call search('\v^(\S.*)?\{', 'esW')<CR>
 
