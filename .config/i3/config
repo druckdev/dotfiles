@@ -246,7 +246,7 @@ for_window [class="^bitwarden$"] \
 	scratchpad show
 bindsym $mod+Shift+b exec \
 	i3-msg '[class="^bitwarden$"] scratchpad show' \
-	|| bitwarden-desktop
+	|| zsh -c '~/opt/bitwarden/Bitwarden-*.AppImage(xOnn[1])'
 
 for_window [class="^$TERM_CLASS$" title="^polybar-datetime-calendar$"] \
 	floating enable,    \
