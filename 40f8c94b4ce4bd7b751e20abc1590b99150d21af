@@ -1,0 +1,2 @@
+Fixed-by: 2e921161cc75 (zsh:alias: Fix quotation of fallback glob,
+          2026-08-13)
