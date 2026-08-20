@@ -1,3 +1,4 @@
+" vim: set ft=vim.fzf:
 " SPDX-License-Identifier: MIT
 " Copyright (c) 2024 - 2025 Julian Prein
 
@@ -21,5 +22,3 @@ let w:ignore_non_ascii_chars =
 
 " Update after changes
 call HighlightNonASCIIChars()
-
-" vim: set ft=vim.fzf:
