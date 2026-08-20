@@ -1,0 +1,3 @@
+- figure out what I want to do with shebangs and modelines (move to the EOF,
+  have it after the license header or before)
+- only specify the original copyright year
